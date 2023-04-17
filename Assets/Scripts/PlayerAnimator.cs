@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -27,5 +25,8 @@ public class PlayerAnimator : MonoBehaviour
 
         else
             animator.SetBool("isWalking", false);
+    }
+    public void PlayAttackAnimation(){
+        animator.SetTrigger("Attacking");
     }
 }
