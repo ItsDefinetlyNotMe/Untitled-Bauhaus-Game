@@ -6,18 +6,35 @@ public class EnemyScript : MonoBehaviour
 {
     int maxHealth = 100;
     int currentHealth;
+    float size = 1f; 
+    Rigidbody2D rb;
 
-    void Awake()
+    void Start()
     {
         currentHealth = maxHealth;
+        rb = GetComponent<Rigidbody2D>();
     }
 
-    public void TakeDamage(int dmg)
+    public void TakeDamage(int dmg,Vector2 knockback)
     {
+        //knockback enemy
+        float sizeAmplifier = 1 / size;//TODO find a fitting konstant for knockback
+        rb.velocity = knockback * sizeAmplifier;
+        
+        //TODO visual feedback
+
+
+        //apply damage
         currentHealth -= dmg;
         if(currentHealth < 0)
         {
-            Debug.Log("Dead");
+            Death();
         }
+    }
+    private void Death(){
+        //TODO play death animation
+
+        //disable enemy
+        gameObject.SetActive(false);
     }
 }
