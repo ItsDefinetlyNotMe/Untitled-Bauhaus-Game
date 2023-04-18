@@ -3,10 +3,10 @@ using UnityEngine;
 
 public class PlayerAttack : MonoBehaviour
 {    
-    Sword weaponScript;
+    WeaponScript weaponScript;
     private void Start()   
     {
-        weaponScript = GetComponentInChildren<Sword>();
+        weaponScript = GetComponentInChildren<WeaponScript>();
         Debug.Log(weaponScript.transform.name);
     }
     public void OnAttack(InputValue input){

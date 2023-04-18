@@ -1,6 +1,5 @@
-using UnityEngine.InputSystem;
+using System.Collections.Generic;
 using UnityEngine;
-
 
 public abstract class WeaponScript : MonoBehaviour
 {
@@ -14,11 +13,13 @@ public abstract class WeaponScript : MonoBehaviour
     PlayerMovement movementScript;
     PlayerAnimator playerAnimator;
 
+    Collider2D weaponHitBox;
+
     private void Start()
     {
         movementScript = GetComponentInParent<PlayerMovement>();
         playerAnimator = GetComponentInParent<PlayerAnimator>();
-        Debug.Log(playerAnimator);
+        weaponHitBox = GetComponent<Collider2D>();
         transform.localPosition = weaponOffset * playerDirection;
     }
 
@@ -28,15 +29,19 @@ public abstract class WeaponScript : MonoBehaviour
         if(Time.time >= nextAttack){
             //call animation
             playerAnimator.PlayAttackAnimation();
+
             //Cooldown
             nextAttack = Time.time + 1f/attackSpeed;
+
             //locating enemies
             transform.localPosition = weaponOffset * playerDirection;
-            Collider2D[] enemiesHit = Physics2D.OverlapCircleAll(transform.position,attackRange,enemyLayers);
+            List<Collider2D> enemiesHit = new List<Collider2D>();
+            ContactFilter2D enemyFilter = new ContactFilter2D();
+            enemyFilter.SetLayerMask(enemyLayers);
+            weaponHitBox.OverlapCollider(enemyFilter, enemiesHit);
+
             foreach (Collider2D enemy in enemiesHit)
-            {
-               enemy.GetComponent<EnemyScript>().TakeDamage(attackDamage);   
-            }
+                enemy.GetComponent<EnemyScript>().TakeDamage(attackDamage);
         }
     }
 
@@ -53,7 +58,7 @@ public abstract class WeaponScript : MonoBehaviour
     }
     
     void OnDrawGizmosSelected(){
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position,attackRange);
+        //Gizmos.color = Color.red;
+        //Gizmos.DrawCube(transform.position, 1);
     }
 }
