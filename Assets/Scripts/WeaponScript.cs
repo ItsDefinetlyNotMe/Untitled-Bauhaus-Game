@@ -14,12 +14,15 @@ public abstract class WeaponScript : MonoBehaviour
     PlayerMovement movementScript;
     PlayerAnimator playerAnimator;
 
+    Animator animator;
+
     Collider2D weaponHitBox;
 
     private void Start()
     {
         movementScript = GetComponentInParent<PlayerMovement>();
         playerAnimator = GetComponentInParent<PlayerAnimator>();
+        animator = GetComponentInParent<Animator>();
         weaponHitBox = GetComponent<Collider2D>();
         transform.localPosition = weaponOffset * playerDirection;
     }
@@ -56,9 +59,12 @@ public abstract class WeaponScript : MonoBehaviour
             playerDirection = movementScript.movementDirection;
             playerDirection.Normalize();
         }
+
+        Debug.Log(animator.GetCurrentAnimatorClipInfo(0)[0].clip);
     }
     
-    void OnDrawGizmosSelected(){
+    void OnDrawGizmosSelected()
+    {
         //Gizmos.color = Color.red;
         //Gizmos.DrawCube(transform.position, 1);
     }
