@@ -5,17 +5,11 @@ using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
 {
-    [SerializeField]
-    private float defaultMoveSpeed = 11f;
+    [SerializeField] private float defaultMoveSpeed = 11f;
 
-    private Vector2 movementDirection;
+    public Vector2 movementDirection { get; private set; }
     private Rigidbody2D rb;
 
-
-    public Vector2 GetMovementDirection()
-    {
-        return movementDirection;
-    }
 
     private void Awake()
     {

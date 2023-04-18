@@ -21,7 +21,9 @@ public abstract class WeaponScript : MonoBehaviour
         Debug.Log(playerAnimator);
         transform.localPosition = weaponOffset * playerDirection;
     }
-    public void Attack(){
+
+    public void Attack()
+    {
         //tracking the attacktimer and detecting enemys in attackradius if possible to attack
         if(Time.time >= nextAttack){
             //call animation
@@ -40,12 +42,12 @@ public abstract class WeaponScript : MonoBehaviour
 
     public abstract void LeftTriggerAttack();//special Attack based on weapon
 
-    private void Update()//TODO dont use the getter try using the actionmap
+    private void Update()
     {
         //getting the last direction player looked in
-        if(movementScript.GetMovementDirection().magnitude > 0)
+        if(movementScript.movementDirection.magnitude > 0)
         {
-            playerDirection = movementScript.GetMovementDirection();
+            playerDirection = movementScript.movementDirection;
             playerDirection.Normalize();
         }
     }
