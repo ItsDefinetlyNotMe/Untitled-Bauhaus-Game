@@ -18,7 +18,9 @@ public class PlayerMovement : MonoBehaviour
     private float dashingTime = 0.25f;
     private float dashingCooldown = 0f;
     private bool canDash = true;
-
+    //for iframes/itime
+    private bool isInvulnerable = false;
+    private float invulnerabilityTime = 0.15f;
 
     private void Awake()
     {
@@ -48,11 +50,19 @@ public class PlayerMovement : MonoBehaviour
     }
     private IEnumerator TrackDash()
     {
+        StartCoroutine(MakeInvulnerable());
         yield return new WaitForSeconds(dashingTime);
         trailRenderer.emitting = false;
         isDashing = false;
         currentDashPower = 1.0f;
         yield return new WaitForSeconds(dashingCooldown);
         canDash = true;
+    }
+
+    private IEnumerator MakeInvulnerable(){
+        yield return new WaitForSeconds((dashingTime-invulnerabilityTime)/3f);
+        isInvulnerable = true;
+        yield return new WaitForSeconds(((dashingTime-invulnerabilityTime)*2)/3f);
+        isInvulnerable = false;
     }
 }
