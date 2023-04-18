@@ -6,7 +6,7 @@ public class EnemyScript : MonoBehaviour
 {
     int maxHealth = 100;
     int currentHealth;
-    float size = 1f; 
+    float size = 1f;
     Rigidbody2D rb;
 
     void Start()
@@ -15,11 +15,12 @@ public class EnemyScript : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
     }
 
-    public void TakeDamage(int dmg,Vector2 knockback)
+    public void TakeDamage(int dmg,Vector2 knockback,float knockbackAmplifier)
     {
         //knockback enemy
         float sizeAmplifier = 1 / size;//TODO find a fitting konstant for knockback
-        rb.velocity = knockback * sizeAmplifier;
+        stun(knockbackAmplifier);
+        rb.velocity = knockback * sizeAmplifier * knockbackAmplifier;
         
         //TODO visual feedback
 
@@ -31,10 +32,15 @@ public class EnemyScript : MonoBehaviour
             Death();
         }
     }
-    private void Death(){
+    private void Death()
+    {
         //TODO play death animation
 
         //disable enemy
         gameObject.SetActive(false);
+    }
+    private void stun(float amplifier)
+    {
+
     }
 }

@@ -42,7 +42,7 @@ public abstract class WeaponScript : MonoBehaviour
             weaponHitBox.OverlapCollider(enemyFilter, enemiesHit);
 
             foreach (Collider2D enemy in enemiesHit)
-                enemy.GetComponent<EnemyScript>().TakeDamage(attackDamage,playerDirection * knockbackAmplifier);
+                enemy.GetComponent<EnemyScript>().TakeDamage(attackDamage,playerDirection,knockbackAmplifier);
         }
     }
 
