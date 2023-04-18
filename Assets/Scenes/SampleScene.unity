@@ -1842,7 +1842,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36d3b30ad22b2234fa17f97db746390a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponOffset: 0.5
+  weaponOffset: 3
   enemyLayers:
     serializedVersion: 2
     m_Bits: 256
@@ -2499,6 +2499,7 @@ GameObject:
   - component: {fileID: 1601718791}
   - component: {fileID: 1601718790}
   - component: {fileID: 1601718794}
+  - component: {fileID: 1601718795}
   m_Layer: 8
   m_Name: Enemy
   m_TagString: Untagged
@@ -2620,6 +2621,18 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!114 &1601718795
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1601718789}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f98bd751f53bba949999957b6267ab42, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1621482569
 GameObject:
   m_ObjectHideFlags: 0
