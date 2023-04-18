@@ -10,6 +10,7 @@ public class PlayerAttack : MonoBehaviour
         Debug.Log(weaponScript.transform.name);
     }
     public void OnAttack(InputValue input){
+        //if(!isDashing)TODO
         if(weaponScript == null)
             return;
         Debug.Log("Attack!");

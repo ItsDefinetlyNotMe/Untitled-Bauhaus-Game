@@ -40,7 +40,7 @@ public class EnemyScript : MonoBehaviour
         gameObject.SetActive(false);
     }
     private void stun(float amplifier)
-    {
-
+    {   
+        //stunning for a certain time
     }
 }
