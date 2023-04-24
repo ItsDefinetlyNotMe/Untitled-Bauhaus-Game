@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -39,6 +40,8 @@ public abstract class WeaponScript : MonoBehaviour
 
             //locating enemies
             transform.localPosition = weaponOffset * playerDirection;
+            RepositionWeaponCollider();
+
             List<Collider2D> enemiesHit = new List<Collider2D>();
             ContactFilter2D enemyFilter = new ContactFilter2D();
             enemyFilter.SetLayerMask(enemyLayers);
@@ -58,6 +61,42 @@ public abstract class WeaponScript : MonoBehaviour
         {
             playerDirection = movementScript.movementDirection;
             playerDirection.Normalize();
+        }
+
+        //Debug.Log(animator.GetCurrentAnimatorClipInfo(0)[0].clip.name);
+    }
+
+    private void RepositionWeaponCollider(int depth = 0)
+    {
+        AnimatorClipInfo[] animations = animator.GetCurrentAnimatorClipInfo(0);
+
+        foreach (AnimatorClipInfo anim in animations)
+            Debug.Log(anim.clip.name);
+        //Debug.Log(animator.GetCurrentAnimatorClipInfo(0)[0].clip.name);
+        switch (animator.GetCurrentAnimatorClipInfo(0)[0].clip.name)
+        {
+            case "AttackDownAnimation":
+                Debug.Log("Attack Down");
+                break;
+
+            case "AttackLeftAnimation":
+                Debug.Log("Attack Left");
+                break;
+
+            case "AttackRightAnimation":
+                Debug.Log("Attack Right");
+                break;
+
+            case "AttackUpAnimation":
+                Debug.Log("Attack Up");
+                break;
+
+
+            default:
+                Debug.Log(animations[0].clip.name);
+                if (depth < 10)
+                    RepositionWeaponCollider(depth + 1);
+                break;
         }
     }
     
