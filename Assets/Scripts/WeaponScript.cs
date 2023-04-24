@@ -59,8 +59,6 @@ public abstract class WeaponScript : MonoBehaviour
             playerDirection = movementScript.movementDirection;
             playerDirection.Normalize();
         }
-
-        Debug.Log(animator.GetCurrentAnimatorClipInfo(0)[0].clip);
     }
     
     void OnDrawGizmosSelected()

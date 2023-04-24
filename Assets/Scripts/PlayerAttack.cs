@@ -7,13 +7,11 @@ public class PlayerAttack : MonoBehaviour
     private void Start()   
     {
         weaponScript = GetComponentInChildren<WeaponScript>();
-        Debug.Log(weaponScript.transform.name);
     }
     public void OnAttack(InputValue input){
         //if(!isDashing)TODO
         if(weaponScript == null)
             return;
-        Debug.Log("Attack!");
         weaponScript.Attack();
     }
 }
