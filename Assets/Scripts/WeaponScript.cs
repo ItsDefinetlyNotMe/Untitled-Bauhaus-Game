@@ -7,8 +7,8 @@ public abstract class WeaponScript : MonoBehaviour
     Vector2 playerDirection = new Vector2(-1,0);
     private float attackRange = 1f;
     private float attackSpeed = 2f;
-    private int attackDamage = 20;
-    private float knockbackAmplifier = 10f;
+    public int attackDamage { get; private set; } = 20; 
+    public float knockbackAmplifier { get; private set; } = 10f;
     [SerializeField] float weaponOffset = 0.5f;
     [SerializeField] LayerMask enemyLayers;
     float nextAttack = 0f;
