@@ -33,14 +33,13 @@ public abstract class WeaponScript : MonoBehaviour
         //tracking the attacktimer and detecting enemys in attackradius if possible to attack
         if(Time.time >= nextAttack){
             //call animation
-            playerAnimator.PlayAttackAnimation();
+            DetermineAttackDirection();
 
             //Cooldown
             nextAttack = Time.time + 1f/attackSpeed;
 
             //locating enemies
             transform.localPosition = weaponOffset * playerDirection;
-            RepositionWeaponCollider();
 
             List<Collider2D> enemiesHit = new List<Collider2D>();
             ContactFilter2D enemyFilter = new ContactFilter2D();
@@ -58,46 +57,37 @@ public abstract class WeaponScript : MonoBehaviour
     {
         //getting the last direction player looked in
         if(movementScript.movementDirection.magnitude > 0)
-        {
             playerDirection = movementScript.movementDirection;
-            playerDirection.Normalize();
-        }
 
-        //Debug.Log(animator.GetCurrentAnimatorClipInfo(0)[0].clip.name);
     }
 
-    private void RepositionWeaponCollider(int depth = 0)
+    private void DetermineAttackDirection()
     {
-        AnimatorClipInfo[] animations = animator.GetCurrentAnimatorClipInfo(0);
+        string attackDirection = "";
 
-        foreach (AnimatorClipInfo anim in animations)
-            Debug.Log(anim.clip.name);
-        //Debug.Log(animator.GetCurrentAnimatorClipInfo(0)[0].clip.name);
-        switch (animator.GetCurrentAnimatorClipInfo(0)[0].clip.name)
+        //if the absolute value of y is bigger than the absolute value of x you attack up
+        //same thing with the down direction
+        if (playerDirection.y > 0)
         {
-            case "AttackDownAnimation":
-                Debug.Log("Attack Down");
-                break;
-
-            case "AttackLeftAnimation":
-                Debug.Log("Attack Left");
-                break;
-
-            case "AttackRightAnimation":
-                Debug.Log("Attack Right");
-                break;
-
-            case "AttackUpAnimation":
-                Debug.Log("Attack Up");
-                break;
-
-
-            default:
-                Debug.Log(animations[0].clip.name);
-                if (depth < 10)
-                    RepositionWeaponCollider(depth + 1);
-                break;
+            if (Mathf.Abs(playerDirection.x) <= playerDirection.y)
+                attackDirection = "AttackUp";
+            else if (playerDirection.x > 0)
+                attackDirection = "AttackRight";                
+            else
+                attackDirection = "AttackLeft";
         }
+        else
+        {
+            if (Mathf.Abs(playerDirection.x) <= Mathf.Abs(playerDirection.y))
+                attackDirection = "AttackDown";
+            else if (playerDirection.x > 0)
+                attackDirection = "AttackRight";
+            else
+                attackDirection = "AttackLeft";
+        }
+        
+        //call actual animation in PlayerAnimator.cs
+        playerAnimator.PlayAttackAnimation(attackDirection);
     }
     
     void OnDrawGizmosSelected()
