@@ -19,7 +19,6 @@ public class PlayerAttack : MonoBehaviour
         
         StartCoroutine(weaponScript.Attack((enemiesHit,weaponDamage)=>{
             foreach (Collider2D enemy in enemiesHit){
-                Debug.Log(enemy.name);
                 enemy.GetComponent<HittableObject>().GetHit((int)(weaponDamage * damageMultiplier),transform.position,knockbackMultiplier);
             }
         }));

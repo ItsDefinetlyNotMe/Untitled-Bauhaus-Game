@@ -34,7 +34,6 @@ public abstract class WeaponScript : MonoBehaviour
     {
         if(movementScript.movementDirection.magnitude > 0)
             playerDirection = movementScript.movementDirection;
-        Debug.Log(weaponHitBoxes[0].enabled);
     }
     public IEnumerator Attack(Action<List<Collider2D>,int> callback )
     {
