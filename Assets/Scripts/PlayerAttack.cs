@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine.InputSystem;
 using UnityEngine;
+using System;
 
 public class PlayerAttack : MonoBehaviour
 {    
@@ -16,12 +17,11 @@ public class PlayerAttack : MonoBehaviour
         if(weaponScript == null)
             return;
         
-        List<Collider2D> enemiesHit = new List<Collider2D>();
-        int weaponDamage = weaponScript.Attack(ref enemiesHit);
-        foreach(Collider2D enemy in enemiesHit){
-            Debug.Log(enemy);
-        }
-        foreach (Collider2D enemy in enemiesHit)
-            enemy.GetComponent<HittableObject>().GetHit((int)(weaponDamage * damageMultiplier),transform.position,knockbackMultiplier);
+        StartCoroutine(weaponScript.Attack((enemiesHit,weaponDamage)=>{
+            foreach (Collider2D enemy in enemiesHit){
+                Debug.Log(enemy.name);
+                enemy.GetComponent<HittableObject>().GetHit((int)(weaponDamage * damageMultiplier),transform.position,knockbackMultiplier);
+            }
+        }));
     }
 }

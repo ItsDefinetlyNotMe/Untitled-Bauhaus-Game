@@ -16,7 +16,7 @@ public abstract class WeaponScript : MonoBehaviour
     Animator animator;
     //Hitbox
     Collider2D[] weaponHitBoxes;
-    public bool atttttttack=false;
+    public bool isAttacking=false;
 
     private void Start()
     {
@@ -36,38 +36,37 @@ public abstract class WeaponScript : MonoBehaviour
             playerDirection = movementScript.movementDirection;
         Debug.Log(weaponHitBoxes[0].enabled);
     }
-    public int Attack(ref List<Collider2D> enemiesHit )
+    public IEnumerator Attack(Action<List<Collider2D>,int> callback )
     {
         //tracking the attacktimer and detecting enemys in attackradius if possible to attack
         if(Time.time >= nextAttack){
             //call animation
             DetermineAttackDirection();
-            //wait for 
-            StartCoroutine(WaitForAttackAnimation(enemiesHit));
+            
             //Cooldown
             nextAttack = Time.time + 1f/attackSpeed;
-
-            //locating enemies
             
-            return attackDamage;
-        }
-        return 0;
-    }
-    private void TrackEnemiesInAttackHitbox(List<Collider2D> enemiesHit)
-    {
-        Debug.Log("Attacking");
-        ContactFilter2D enemyFilter = new ContactFilter2D();
-        //enemyFilter.SetLayerMask(hittableLayers);
-        foreach(Collider2D weaponHitBox in weaponHitBoxes)
-        {
-            if(!weaponHitBox.gameObject.activeSelf){
-                continue;
+            //Wait for animation to start
+            yield return new WaitWhile(() => isAttacking == false);
+            
+            //locating enemies
+            List<Collider2D> enemiesHit = new List<Collider2D>();
+            ContactFilter2D enemyFilter = new ContactFilter2D();
+            enemyFilter.SetLayerMask(hittableLayers);
+            foreach(Collider2D weaponHitBox in weaponHitBoxes)
+            {
+                if(!weaponHitBox.gameObject.activeSelf){
+                    continue;
+                }
+                weaponHitBox.OverlapCollider(enemyFilter, enemiesHit);
             }
-            weaponHitBox.OverlapCollider(enemyFilter.NoFilter(), enemiesHit);
+            //TODO maybe wait until attack is over ? will probably lead to delayed dmg from attacks might look weird
+            //yield return new WaitWhile(() => isAttacking == true);
+        
+            //giving back enemies and the attackdamage as soon as they are calculated 
+            callback(enemiesHit,attackDamage);
         }
-        foreach(Collider2D enemy in enemiesHit){
-            Debug.Log(enemy.name);
-        }
+
     }
     public abstract void LeftTriggerAttack();//special Attack based on weapon
     private void DetermineAttackDirection()
@@ -95,10 +94,5 @@ public abstract class WeaponScript : MonoBehaviour
         }
         //call actual animation in PlayerAnimator.cs
         playerAnimator.PlayAttackAnimation(attackDirection);
-    }
-    private IEnumerator WaitForAttackAnimation(List<Collider2D> enemiesHit)
-    {
-        yield return new WaitWhile(() => atttttttack == false);
-        TrackEnemiesInAttackHitbox(enemiesHit);
     }
 }
