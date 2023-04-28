@@ -7,7 +7,7 @@ public class PlayerAttack : MonoBehaviour
 {    
     WeaponScript weaponScript;
     float damageMultiplier = 1f;
-    float knockbackMultiplier = 1f;
+    float knockbackMultiplier = 5f;//TODO sollte mit der waffe importiert werden also dmg aswell
     private void Start()   
     {
         weaponScript = GetComponentInChildren<WeaponScript>();

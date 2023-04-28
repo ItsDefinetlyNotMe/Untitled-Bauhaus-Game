@@ -6,7 +6,7 @@ abstract public class HittableObject : MonoBehaviour
 {
     [SerializeField] protected int maxHealth;
     protected int currentHealth;
-    [SerializeField] float size;
+    [SerializeField] protected float size;
     virtual protected void Start()
     {
         currentHealth = maxHealth;
@@ -23,17 +23,6 @@ abstract public class HittableObject : MonoBehaviour
     virtual public void GetHit(int Damage, Vector2 damageSourcePosition, float knockbackMultiplier)
     {
         TakeDamage(Damage);
-        /*
-        float sizeMultiplier;
-        //knockback enemy
-        if(size == 0){//imoveable object
-            sizeMultiplier = 0;
-        }else{
-            sizeMultiplier = 1 / size;
-        }
-        rb.velocity = knockbackDirection * sizeAmplifier * knockbackAmplifier;*/
-
-        //TODO visual feedback
     }
     virtual public void Die()
     {
