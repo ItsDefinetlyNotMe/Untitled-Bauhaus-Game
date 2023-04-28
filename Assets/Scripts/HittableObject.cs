@@ -4,14 +4,14 @@ using UnityEngine;
 
 abstract public class HittableObject : MonoBehaviour
 {
-    [SerializeField] int maxHealth;
-    int currentHealth;
+    [SerializeField] protected int maxHealth;
+    protected int currentHealth;
     float size;
     private void Start()
     {
         currentHealth = maxHealth;
     }
-    private void TakeDamage(int damage)
+    virtual protected void TakeDamage(int damage)
     {
         //apply damage
         currentHealth -= damage;

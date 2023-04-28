@@ -18,6 +18,9 @@ public class PlayerAttack : MonoBehaviour
         
         List<Collider2D> enemiesHit = new List<Collider2D>();
         int weaponDamage = weaponScript.Attack(ref enemiesHit);
+        foreach(Collider2D enemy in enemiesHit){
+            Debug.Log(enemy);
+        }
         foreach (Collider2D enemy in enemiesHit)
             enemy.GetComponent<HittableObject>().GetHit((int)(weaponDamage * damageMultiplier),transform.position,knockbackMultiplier);
     }
