@@ -5,30 +5,32 @@ using UnityEngine;
 public abstract class WeaponScript : MonoBehaviour
 {
     Vector2 playerDirection = new Vector2(-1,0);
-    private float attackRange = 1f;
     private float attackSpeed = 2f;
     public int attackDamage { get; private set; } = 20; 
     public float knockbackAmplifier { get; private set; } = 10f;
-    [SerializeField] float weaponOffset = 0.5f;
-    [SerializeField] LayerMask enemyLayers;
+    [SerializeField] LayerMask hittableLayers;
     float nextAttack = 0f;
     PlayerMovement movementScript;
     PlayerAnimator playerAnimator;
 
     Animator animator;
-
-    Collider2D weaponHitBox;
+    //Hitbox
+    Collider2D[] weaponHitBoxes;
 
     private void Start()
     {
         movementScript = GetComponentInParent<PlayerMovement>();
         playerAnimator = GetComponentInParent<PlayerAnimator>();
         animator = GetComponentInParent<Animator>();
-        weaponHitBox = GetComponent<Collider2D>();
-        transform.localPosition = weaponOffset * playerDirection;
+        //maybe temporary
+        weaponHitBoxes = new Collider2D[4];
+        for(int i = 0; i < 4;++i ){
+            //Left, Up, Right, Down
+            weaponHitBoxes[i] = transform.GetChild(i).GetComponent<Collider2D>();
+        }
     }
 
-    public void Attack()
+    public int Attack(ref List<Collider2D> enemiesHit )
     {
         //tracking the attacktimer and detecting enemys in attackradius if possible to attack
         if(Time.time >= nextAttack){
@@ -39,28 +41,19 @@ public abstract class WeaponScript : MonoBehaviour
             nextAttack = Time.time + 1f/attackSpeed;
 
             //locating enemies
-            transform.localPosition = weaponOffset * playerDirection;
-
-            List<Collider2D> enemiesHit = new List<Collider2D>();
             ContactFilter2D enemyFilter = new ContactFilter2D();
-            enemyFilter.SetLayerMask(enemyLayers);
-            weaponHitBox.OverlapCollider(enemyFilter, enemiesHit);
-
-            foreach (Collider2D enemy in enemiesHit)
-                enemy.GetComponent<EnemyScript>().TakeDamage(attackDamage,playerDirection,knockbackAmplifier);
+            enemyFilter.SetLayerMask(hittableLayers);
+            foreach(Collider2D weaponHitBox in weaponHitBoxes)
+            {
+                if(!weaponHitBox.enabled)
+                    continue;
+                weaponHitBox.OverlapCollider(enemyFilter, enemiesHit);
+            }
+            return attackDamage;
         }
+        return 0;
     }
-
     public abstract void LeftTriggerAttack();//special Attack based on weapon
-
-    private void Update()
-    {
-        //getting the last direction player looked in
-        if(movementScript.movementDirection.magnitude > 0)
-            playerDirection = movementScript.movementDirection;
-
-    }
-
     private void DetermineAttackDirection()
     {
         string attackDirection = "";
@@ -88,11 +81,5 @@ public abstract class WeaponScript : MonoBehaviour
         
         //call actual animation in PlayerAnimator.cs
         playerAnimator.PlayAttackAnimation(attackDirection);
-    }
-    
-    void OnDrawGizmosSelected()
-    {
-        //Gizmos.color = Color.red;
-        //Gizmos.DrawCube(transform.position, 1);
     }
 }
