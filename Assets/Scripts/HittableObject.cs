@@ -7,7 +7,7 @@ abstract public class HittableObject : MonoBehaviour
     [SerializeField] protected int maxHealth;
     protected int currentHealth;
     float size;
-    private void Start()
+    virtual protected void Start()
     {
         currentHealth = maxHealth;
     }
