@@ -4,11 +4,13 @@ using UnityEngine;
 
 abstract public class HittableObject : MonoBehaviour
 {
+    private Collider2D collider;
     [SerializeField] protected int maxHealth;
     protected int currentHealth;
     [SerializeField] protected float size;
     virtual protected void Start()
     {
+        collider = GetComponent<Collider2D>();
         currentHealth = maxHealth;
     }
     virtual protected void TakeDamage(int damage)
@@ -26,8 +28,9 @@ abstract public class HittableObject : MonoBehaviour
     }
     virtual public void Die()
     {
+        collider.enabled = false;
         //disable enemy
-        gameObject.SetActive(false);
+        //gameObject.SetActive(false);
     }
     
 }
