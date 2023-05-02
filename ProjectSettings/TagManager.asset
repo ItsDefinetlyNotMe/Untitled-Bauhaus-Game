@@ -61,3 +61,6 @@ TagManager:
   - name: Overlaye
     uniqueID: 3252897593
     locked: 0
+  - name: Invisible walls
+    uniqueID: 4109067993
+    locked: 0
