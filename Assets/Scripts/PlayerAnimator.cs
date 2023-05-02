@@ -6,6 +6,7 @@ public class PlayerAnimator : MonoBehaviour
     private Animator animator;
     private Vector2 movementDirection;
     public GameObject Sound;
+    private bool isInvoked = true;
 
     private void Awake()
     {
@@ -18,15 +19,19 @@ public class PlayerAnimator : MonoBehaviour
 
         if (movementDirection.x != 0 || movementDirection.y != 0)
         {
+            if (isInvoked) { 
+                InvokeRepeating("PlayFootStepSound", 0.3f, 0.5f);
+                isInvoked = false;
+            }
             animator.SetBool("isWalking", true);
             animator.SetFloat("X", movementDirection.x);
             animator.SetFloat("Y", movementDirection.y);
-            InvokeRepeating("PlayFootStepSound", 0.3f, 0.5f);
         }
 
         else
         {
             animator.SetBool("isWalking", false);
+            isInvoked = true;
             CancelInvoke("PlayFootStepSound");
         }
     }
