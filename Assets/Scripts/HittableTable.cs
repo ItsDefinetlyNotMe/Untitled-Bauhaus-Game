@@ -18,7 +18,6 @@ public class HittableTable : HittableObject
     {
         // Sound
         Sound.GetComponent<RandomSound>().PlayRandom2();
-
         //change sprite
         spriteRenderer.sprite = destroyedThirdSprite;
         base.Die();
@@ -29,7 +28,6 @@ public class HittableTable : HittableObject
         if(currentHealth <= maxHealth * 1f/3f && currentHealth > 0)
         {
             spriteRenderer.sprite = destroyedSecondSprite;
-
             // Sound
             Sound.GetComponent<RandomSound>().PlayRandom1();
         }
@@ -37,7 +35,6 @@ public class HittableTable : HittableObject
         {
             // Sound
             Sound.GetComponent<RandomSound>().PlayRandom1();
-
             spriteRenderer.sprite = destroyedFirstSprite;
         }
 
