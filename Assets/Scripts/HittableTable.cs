@@ -8,12 +8,17 @@ public class HittableTable : HittableObject
     [SerializeField] private Sprite destroyedSecondSprite;
     [SerializeField] private Sprite destroyedThirdSprite;
     private SpriteRenderer spriteRenderer;
+    public GameObject Sound;
+
     override protected void Start() {
         base.Start();
         spriteRenderer = GetComponent<SpriteRenderer>();
     }
     override public void Die()
     {
+        // Sound
+        Sound.GetComponent<RandomSound>().PlayRandom2();
+
         //change sprite
         spriteRenderer.sprite = destroyedThirdSprite;
         base.Die();
@@ -24,8 +29,15 @@ public class HittableTable : HittableObject
         if(currentHealth <= maxHealth * 1f/3f && currentHealth > 0)
         {
             spriteRenderer.sprite = destroyedSecondSprite;
-        }else if(currentHealth <= maxHealth * 2f/3f && currentHealth > 0)
+
+            // Sound
+            Sound.GetComponent<RandomSound>().PlayRandom1();
+        }
+        else if(currentHealth <= maxHealth * 2f/3f && currentHealth > 0)
         {
+            // Sound
+            Sound.GetComponent<RandomSound>().PlayRandom1();
+
             spriteRenderer.sprite = destroyedFirstSprite;
         }
 
