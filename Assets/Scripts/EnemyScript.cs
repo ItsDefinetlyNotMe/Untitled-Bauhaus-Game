@@ -10,7 +10,7 @@ public class EnemyScript : MonoBehaviour
     Vector3 lastTargetPosition = new Vector3(0f,0f,0f);
     Path path;
     int currentWaypoint = 0;
-    float reachedWayPointDistance = 0f;
+    float reachedWayPointDistance = .4f;
     bool reachedEndofPath = false;
     Seeker seeker;
     float attackRange = 1.3f;
