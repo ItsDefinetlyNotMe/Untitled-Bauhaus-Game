@@ -17,12 +17,10 @@ public class Arrow : MonoBehaviour
         HittableObject script  = hitInfo.GetComponent<HittableObject>();
         if(script == null)
         {
-            Debug.Log("AHHH");
             Destroy(gameObject);
             return;
         }
         script.GetHit(damage,transform.position + transform.up,1f);
-        Debug.Log("Hit: " + hitInfo.name);
         Destroy(gameObject);
         
     }

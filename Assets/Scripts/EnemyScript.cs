@@ -5,6 +5,7 @@ public class EnemyScript : MonoBehaviour
 {
     Rigidbody2D rb;
     [SerializeField] Transform target;
+    [SerializeField] GameObject playerhitscript;
     float movementspeed = 1f;
     public float nextWayPointDistance = 3f;
     Vector3 lastTargetPosition = new Vector3(0f,0f,0f);
@@ -55,7 +56,9 @@ public class EnemyScript : MonoBehaviour
             reachedEndofPath = false;
         }
         if(Vector2.Distance(rb.position,target.position) <= attackRange * 2f/3f){
-            Attack();
+            //HitablePlayer hp = playerhitscript.GetComponent<HitablePlayer>();
+            //if(hp!=null) 
+                //Attack(hp);
             //Debug.Log("ATTACKRANGE");
             reachedEndofPath = true;
         }
@@ -69,8 +72,9 @@ public class EnemyScript : MonoBehaviour
                 ++currentWaypoint;
         }
     }
-    private void Attack()
+    private void Attack(HitablePlayer hp)
     {
+        hp.GetHit(20,transform.position,10f);
         //Debug.Log("AttackPlayer");
         //do something
     }
