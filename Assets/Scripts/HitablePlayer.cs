@@ -2,15 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HittableEnemy : HittableObject
+public class HitablePlayer : HittableObject
 {
-    private SpriteRenderer spriteRenderer;
-    private Rigidbody2D rb;
-    override protected void Start()
-    {
+    Rigidbody2D rb;
+    SpriteRenderer spriteRenderer;
+    private void Start() {
         base.Start();
-        spriteRenderer = GetComponent<SpriteRenderer>();
         rb = GetComponent<Rigidbody2D>();
+        spriteRenderer = GetComponent<SpriteRenderer>();    
     }
     override public void GetHit(int Damage, Vector2 damageSourcePosition, float knockbackMultiplier)
     {
@@ -42,6 +41,7 @@ public class HittableEnemy : HittableObject
     public override void Die()
     {
         base.Die();
-        gameObject.SetActive(false);
+        //gameObject.SetActive(false);
+        Application.Quit();
     }
 }
