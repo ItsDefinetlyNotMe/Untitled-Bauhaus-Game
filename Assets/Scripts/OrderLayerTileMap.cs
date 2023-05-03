@@ -22,13 +22,11 @@ public class OrderLayerTileMap : MonoBehaviour
         if (Character.transform.position.y > DestinationRoot.transform.position.y)
         {
             render.sortingOrder = smalllayer;
-            print("Davor");
         }
 
         if (Character.transform.position.y <= DestinationRoot.transform.position.y)
         {
             render.sortingOrder = biglayer;
-            print("Hinter");
         }
     }
 
