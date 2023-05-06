@@ -39,12 +39,19 @@ public class CreateRandomRoomLayout : MonoBehaviour
 
     private void Start()
     {
+        StartRoomGeneration();
+    }
+
+    public void StartRoomGeneration()
+    {
+        ResetEverything();
+
         numberOfMaxTiles = UnityEngine.Random.Range(minNumberOfTiles, maxNumberOfTiles + 1);
         tileMatrix = new float[numberOfMaxTiles, numberOfMaxTiles];
 
         GenerateMatrix();
 
-        PrintTileMatrix();
+        //PrintTileMatrix();
 
         InstantiateFloor();
     }
@@ -53,7 +60,6 @@ public class CreateRandomRoomLayout : MonoBehaviour
     {
         int x = numberOfMaxTiles / 2;
         int y = numberOfMaxTiles / 2;
-        UnityEngine.Debug.Log("Matrix length: " + tileMatrix.Length);
         tileMatrix[x,y] = 1;
         newTiles.Add(new Tuple<int, int>(x, y));
 
@@ -68,8 +74,8 @@ public class CreateRandomRoomLayout : MonoBehaviour
 
     private void PrintTileMatrix()
     {
-        System.Diagnostics.Debug.WriteLine("---------------------TileMatrix--------------------");
-        String printString = "";
+        print("---------------------TileMatrix--------------------");
+        string printString = "";
         for (int x = 0; x < numberOfMaxTiles; x++)
         {
             for (int y = 0; y < numberOfMaxTiles; y++)
@@ -95,12 +101,15 @@ public class CreateRandomRoomLayout : MonoBehaviour
 
     private void CalculateProbability(int x, int y)
     {
-        float probability = 0;
-        probability += tileMatrix[x - 1, y];
-        probability += tileMatrix[x + 1, y];
-        probability += tileMatrix[x, y - 1];
-        probability += tileMatrix[x, y + 1];
-        tileMatrix[x, y] = probability/4;
+        if (tileMatrix[x, y] != 1)
+        {
+            float probability = 0;
+            probability += tileMatrix[x - 1, y];
+            probability += tileMatrix[x + 1, y];
+            probability += tileMatrix[x, y - 1];
+            probability += tileMatrix[x, y + 1];
+            tileMatrix[x, y] = probability/4;
+        }
     }
 
     private bool AddTiles()
@@ -137,9 +146,21 @@ public class CreateRandomRoomLayout : MonoBehaviour
             {
                 if (tileMatrix[x, y] == 1)
                 {
-                    Instantiate(floor, new Vector3(x * 4, y * 4, 0), Quaternion.identity);
+                    GameObject newFloorTile = Instantiate(floor, new Vector3(x * 4, y * 4, 0), Quaternion.identity);
+                    newFloorTile.transform.parent = gameObject.transform;
                 }
             }
         }
+    }
+
+    private void ResetEverything()
+    {
+        foreach (Transform child in transform)
+            Destroy(child.gameObject);
+
+        tileMatrix = null;
+        numberOfActiveTiles = 0;
+        numberOfMaxTiles = 0;
+        newTiles.Clear();
     }
 }
