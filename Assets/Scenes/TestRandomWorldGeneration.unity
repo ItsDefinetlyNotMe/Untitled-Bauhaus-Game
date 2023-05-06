@@ -162,6 +162,9 @@ MonoBehaviour:
   cornerLeftDown: {fileID: 7980319443548456798, guid: 53e55a39c2f3bb849a07fe75b3a104f6, type: 3}
   cornerRightUp: {fileID: 7980319443548456798, guid: f436d6d31b537a24da0eacf13bad5828, type: 3}
   cornerRightDown: {fileID: 7980319443548456798, guid: e58d00a54a12bcb43bed3102c7c77cf7, type: 3}
+  floor: {fileID: 1844641872881927475, guid: 7a747266ca3d3af4791cc0ecb1259dbf, type: 3}
+  minNumberOfTiles: 20
+  maxNumberOfTiles: 30
 --- !u!4 &939599504
 Transform:
   m_ObjectHideFlags: 0

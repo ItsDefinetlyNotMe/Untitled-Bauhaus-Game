@@ -23,6 +23,8 @@ public class CreateRandomRoomLayout : MonoBehaviour
     private GameObject cornerRightUp;
     [SerializeField]
     private GameObject cornerRightDown;
+    [SerializeField]
+    private GameObject floor;
 
     private int numberOfMaxTiles;
     private float[,] tileMatrix;
@@ -37,17 +39,23 @@ public class CreateRandomRoomLayout : MonoBehaviour
 
     private void Start()
     {
-        numberOfMaxTiles = UnityEngine.Random.Range(minNumberOfTiles, maxNumberOfTiles);
+        numberOfMaxTiles = UnityEngine.Random.Range(minNumberOfTiles, maxNumberOfTiles + 1);
         tileMatrix = new float[numberOfMaxTiles, numberOfMaxTiles];
 
         GenerateMatrix();
+
+        PrintTileMatrix();
+
+        InstantiateFloor();
     }
 
     private void GenerateMatrix()
     {
         int x = numberOfMaxTiles / 2;
         int y = numberOfMaxTiles / 2;
+        UnityEngine.Debug.Log("Matrix length: " + tileMatrix.Length);
         tileMatrix[x,y] = 1;
+        newTiles.Add(new Tuple<int, int>(x, y));
 
         do
         {
@@ -56,6 +64,22 @@ public class CreateRandomRoomLayout : MonoBehaviour
         }
         while (!AddTiles());
 
+    }
+
+    private void PrintTileMatrix()
+    {
+        System.Diagnostics.Debug.WriteLine("---------------------TileMatrix--------------------");
+        String printString = "";
+        for (int x = 0; x < numberOfMaxTiles; x++)
+        {
+            for (int y = 0; y < numberOfMaxTiles; y++)
+            {
+                printString += (tileMatrix[x, y]);
+                printString += "   ";
+            }
+            print(printString);
+            printString = "";
+        }
     }
 
     private void UpdateProbabilities()
@@ -103,5 +127,19 @@ public class CreateRandomRoomLayout : MonoBehaviour
         }
 
         return false;
+    }
+
+    private void InstantiateFloor()
+    {
+        for (int x = 0; x < numberOfMaxTiles; x++)
+        {
+            for (int y = 0; y < numberOfMaxTiles; y++)
+            {
+                if (tileMatrix[x, y] == 1)
+                {
+                    Instantiate(floor, new Vector3(x * 4, y * 4, 0), Quaternion.identity);
+                }
+            }
+        }
     }
 }
