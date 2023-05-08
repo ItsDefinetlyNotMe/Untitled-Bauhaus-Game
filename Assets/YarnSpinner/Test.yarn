@@ -1,0 +1,7 @@
+﻿title: Start
+tags:
+---
+Hello, this is an unskippable script
+->skip
+	<<stop>>
+===
