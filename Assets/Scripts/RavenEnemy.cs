@@ -26,6 +26,8 @@ public class RavenEnemy : MonoBehaviour
     Collider2D collider;
     [SerializeField] float minimumRange;
     [SerializeField] float maximumRange = 50f;
+    //Debug
+    bool debug = false; 
 
     private void Start() 
     {
@@ -36,6 +38,7 @@ public class RavenEnemy : MonoBehaviour
         rb.isKinematic = true;
         animator = GetComponent<Animator>();
         ravenDrawPath = GetComponentInChildren<RavenDrawPath>();
+        debug = true;
     }
     void Update()
     {
@@ -105,6 +108,8 @@ public class RavenEnemy : MonoBehaviour
    }
    void OnDrawGizmos()
    {
+    if(debug)
+    {
         if(currentState == state.MOVING)
         {
             Gizmos.color = Color.green;
@@ -123,5 +128,6 @@ public class RavenEnemy : MonoBehaviour
         if(Vector3.Distance(transform.position,target.position) <= minimumRange + 1.5){
             Gizmos.DrawWireSphere(transform.position,minimumRange);
         }
+    }
    }
 }
