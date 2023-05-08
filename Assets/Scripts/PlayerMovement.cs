@@ -12,6 +12,7 @@ public class PlayerMovement : MonoBehaviour
     
     //Dash related
     private TrailRenderer trailRenderer;
+    Collider2D collider;
     public bool isDashing { get; private set; }
     private float maxDashingPower = 2.4f;
     private float currentDashPower = 1f;
@@ -27,6 +28,7 @@ public class PlayerMovement : MonoBehaviour
         trailRenderer = GetComponent<TrailRenderer>();
         trailRenderer.emitting = false;
         rb = GetComponent<Rigidbody2D>();
+        collider = GetComponent<Collider2D>();
     }
 
     private void FixedUpdate() 
@@ -62,7 +64,11 @@ public class PlayerMovement : MonoBehaviour
     private IEnumerator MakeInvulnerable(){
         yield return new WaitForSeconds((dashingTime-invulnerabilityTime)/3f);
         isInvulnerable = true;
+        rb.isKinematic = true;
+        collider.enabled = false;
         yield return new WaitForSeconds(((dashingTime-invulnerabilityTime)*2)/3f);
         isInvulnerable = false;
+        rb.isKinematic = false;
+        collider.enabled = true;
     }
 }

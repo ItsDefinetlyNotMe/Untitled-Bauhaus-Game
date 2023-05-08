@@ -1,99 +1,109 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Pathfinding;
+using System;
 
+public enum state{
+    CHARGING_ATTACK,DASHING,RECHARGING ,MOVING
+}
 
 public class RavenEnemy : MonoBehaviour
 {
-    Rigidbody2D rb;
-    [SerializeField] Transform target;
-    [SerializeField] GameObject playerhitscript;
-    [SerializeField] Transform enemyTransform;
-    float movementspeed = 1.5f;
-    public float nextWayPointDistance = 3f;
-    Vector3 lastTargetPosition = new Vector3(0f, 0f, 0f);
-    Path path;
-    int currentWaypoint = 0;
-    float reachedWayPointDistance = .4f;
-    bool reachedEndofPath = false;
-    Seeker seeker;
-    float attackRange = 0.5f;
-    float vel;
-    public GameObject Rave;
-
-    void Start()
+    //Movement
+    private Rigidbody2D rb;
+    [SerializeField] private LayerMask airLayer;
+    state currentState;
+    [SerializeField] private float dashingPower = 5f;
+    [SerializeField] private float dashingTime = 1f;
+    [SerializeField] private float recharginTime = 1f;
+    //combat
+    [SerializeField]private float chargeDamage = 10f;
+    private Transform target;
+    [SerializeField] private float chargeAttackTime = .6f;
+    Collider2D collider;
+    [SerializeField] float minimumRange;
+    [SerializeField] float maximumRange = 50f;
+    private void Start() 
     {
-        seeker = GetComponent<Seeker>();
         rb = GetComponent<Rigidbody2D>();
-        seeker.StartPath(rb.position, target.position, OnPathComplete);
-        InvokeRepeating("UpdatePath", 0f, .5f);
-        target = GameObject.FindGameObjectWithTag("Player").transform;
+        collider = GetComponent<Collider2D>();
+        target = (GameObject.FindGameObjectsWithTag("Player"))[0].transform;
+        currentState = state.MOVING;
+        rb.isKinematic = true;
+        
     }
-    void UpdatePath()
+    void Update()
     {
-        if (lastTargetPosition != target.position)//only if player moved
+        float distance = Vector2.Distance(transform.position,target.position);
+        Debug.Log("isMoving: " + (currentState == state.MOVING));
+        Debug.Log("inRange: " + (distance < maximumRange));
+        if(currentState == state.MOVING &&  distance < maximumRange)
+            StartAttack();
+    }
+    private void StartAttack()
+    {
+        ContactFilter2D rayCastFilter = new ContactFilter2D();
+        rayCastFilter.layerMask = airLayer;
+        RaycastHit2D[]  results = new RaycastHit2D[1];
+        Vector2 direction = target.position -new Vector3(0f,0.2f,0) - transform.position;
+        Physics2D.Raycast(transform.position,direction.normalized,rayCastFilter,results,maximumRange);//Raycast to check wether player is behind an Object
+
+        if(results[0])
         {
-            lastTargetPosition = target.position;
-            if (seeker.IsDone())
-                seeker.StartPath(rb.position, target.position, OnPathComplete);
+            Debug.Log(results[0].transform.CompareTag("Player"));
+            if(results[0].transform.CompareTag("Player"))
+                StartCoroutine(Attack());
+                
         }
     }
-    void OnPathComplete(Path p)
+    public IEnumerator Attack()
     {
-        if (!p.error)
-        {
-            path = p;
-            currentWaypoint = 0;
-        }
+        currentState = state.CHARGING_ATTACK;
+        //charge Attack
+        Vector3 chargePoint = target.position; 
+        //Draw Path where he flies
+        yield return new WaitForSeconds(chargeAttackTime);
+        //start animation
+        
+        currentState = state.DASHING;
+        rb.velocity = (chargePoint - transform.position).normalized * dashingPower;
+        yield return new WaitForSeconds(dashingTime);
+        rb.velocity = new Vector2(0,0);
+        currentState = state.RECHARGING;
+        yield return new WaitForSeconds(recharginTime);
+        currentState = state.MOVING;
+
+        
+        //charges in said direction until it hits a relevant collider or maximum range
     }
-    void FixedUpdate()
-    {
-        vel = rb.velocity.magnitude;
-        if (path == null)
+  
+    void OnTriggerEnter2D(Collider2D other)
+   {
+        if(currentState == state.DASHING){
+            if(other.CompareTag("Player"))
+                other.GetComponent<HitablePlayer>().GetHit((int)chargeDamage,transform.position,5);
+        }
+
+   }
+   void OnDrawGizmos()
+   {
+        if(currentState == state.MOVING)
+        {
+            Gizmos.color = Color.green;
+        }else if(currentState == state.RECHARGING)
+        {
+            Gizmos.color = Color.red;
+        }
+        else if(currentState == state.CHARGING_ATTACK) {
+            Gizmos.color = Color.blue;
+        } else {
             return;
-        if (currentWaypoint >= path.vectorPath.Count)
-        {
-            Debug.Log(path.vectorPath.Count + ":" + currentWaypoint);
-            reachedEndofPath = true;
-            return;
         }
-        else
-        {
-            reachedEndofPath = false;
+        Vector2 direction = target.position - transform.position;
+        Gizmos.DrawRay(transform.position,direction.normalized * maximumRange);
+        
+        if(Vector3.Distance(transform.position,target.position) <= minimumRange + 1.5){
+            Gizmos.DrawWireSphere(transform.position,minimumRange);
         }
-        if (Vector2.Distance(rb.position, target.position) <= attackRange * 2f / 3f)
-        {
-
-            reachedEndofPath = true;
-        }
-        if (!reachedEndofPath)
-        {
-            Vector2 direction = ((Vector2)path.vectorPath[currentWaypoint] - rb.position).normalized;
-            direction.x = 0; 
-            Vector2 force = direction * movementspeed;
-            rb.velocity = force;
-            float distance = Vector2.Distance(rb.position, path.vectorPath[currentWaypoint]);
-            if (distance < reachedWayPointDistance)
-                ++currentWaypoint;
-        }
-
-    }
-
-    public void Update()
-    {
-        if (target.position.x < Rave.transform.position.x)
-        {
-            Rave.transform.localScale = new Vector3(1, 1, 1);
-        }
-        else
-        {
-            Rave.transform.localScale = new Vector3(-1, 1, 1);
-        }
-    }
-
-    private void Attack(HitablePlayer hp)
-    {
-        hp.GetHit(20, transform.position, 10f);
-    }
+   }
 }

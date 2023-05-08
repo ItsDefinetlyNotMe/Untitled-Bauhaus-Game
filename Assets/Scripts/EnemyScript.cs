@@ -5,8 +5,8 @@ public class EnemyScript : MonoBehaviour
 {
     Rigidbody2D rb;
     [SerializeField] Transform target;
-    [SerializeField] GameObject playerhitscript;
-    float movementspeed = 1f;
+    [SerializeField] GameObject playerHittScript;
+    float movementSpeed = 1f;
     public float nextWayPointDistance = 3f;
     Vector3 lastTargetPosition = new Vector3(0f,0f,0f);
     Path path;
@@ -33,11 +33,11 @@ public class EnemyScript : MonoBehaviour
                 seeker.StartPath(rb.position,target.position,OnPathComplete);
         }
     }
-    void OnPathComplete(Path p)
+    void OnPathComplete(Path newPath)
     {
-        if(!p.error)
+        if(!newPath.error)
         {
-            path = p;
+            path = newPath;
             currentWaypoint = 0;
         }
     }
@@ -65,16 +65,16 @@ public class EnemyScript : MonoBehaviour
         if(!reachedEndofPath)
         {
             Vector2 direction = ((Vector2)path.vectorPath[currentWaypoint] - rb.position).normalized;
-            Vector2 force = direction * movementspeed;
+            Vector2 force = direction * movementSpeed;
             rb.velocity = force;
             float distance = Vector2.Distance(rb.position, path.vectorPath[currentWaypoint]);
             if(distance < reachedWayPointDistance)
                 ++currentWaypoint;
         }
     }
-    private void Attack(HitablePlayer hp)
+    private void Attack(HitablePlayer player)
     {
-        hp.GetHit(20,transform.position,10f);
+        player.GetHit(20,transform.position,10f);
         //Debug.Log("AttackPlayer");
         //do something
     }
