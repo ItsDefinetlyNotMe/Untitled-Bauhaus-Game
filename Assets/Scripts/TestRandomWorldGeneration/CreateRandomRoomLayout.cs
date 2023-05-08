@@ -4,28 +4,23 @@ using Unity.Mathematics;
 using UnityEngine;
 
 public class CreateRandomRoomLayout : MonoBehaviour
-{   [SerializeField]
-    private GameObject wallLeft;
-    [SerializeField]
-    private GameObject wallRight;
-    [SerializeField]
-    private GameObject wallUp;
-    [SerializeField]
-    private GameObject wallDown;
-    [SerializeField]
-    private GameObject wallUpWindow;
-    [SerializeField]
-    private GameObject wallDownWindow;
-    [SerializeField]
-    private GameObject cornerLeftUp;
-    [SerializeField]
-    private GameObject cornerLeftDown;
-    [SerializeField]
-    private GameObject cornerRightUp;
-    [SerializeField]
-    private GameObject cornerRightDown;
-    [SerializeField]
-    private GameObject floor;
+{   [SerializeField] private GameObject wallLeft;
+    [SerializeField] private GameObject wallRight;
+    [SerializeField] private GameObject wallUp;
+    [SerializeField] private GameObject wallDown;
+    [SerializeField] private GameObject wallUpWindow;
+    [SerializeField] private GameObject wallDownWindow;
+    [SerializeField] private GameObject cornerLeftUp;
+    [SerializeField] private GameObject cornerLeftDown;
+    [SerializeField] private GameObject cornerRightUp;
+    [SerializeField] private GameObject cornerRightDown;
+    [SerializeField] private GameObject wallUpCornerRight;
+    [SerializeField] private GameObject wallUpCornerLeft;
+    [SerializeField] private GameObject wallUpCornerRightCornerLeft;
+    [SerializeField] private GameObject wallDownCornerRight;
+    [SerializeField] private GameObject wallDownCornerLeft;
+    [SerializeField] private GameObject wallDownCornerRightCornerLeft;
+    [SerializeField] private GameObject floor;
 
     private int numberOfMaxTiles;
     private float[,] tileMatrix;
@@ -153,7 +148,10 @@ public class CreateRandomRoomLayout : MonoBehaviour
             {
                 if (tileMatrix[x, y] == 1)
                 {
-                    GameObject newFloorTile = Instantiate(floor, new Vector3(x, y, 0), Quaternion.identity);
+                    int worldX = x - numberOfMaxTiles / 2; //reposition to the center of the scene
+                    int worldY = y - numberOfMaxTiles / 2;
+
+                    GameObject newFloorTile = Instantiate(floor, new Vector3(worldX, worldY, 0), Quaternion.identity);
                     
                     newFloorTile.transform.parent = gameObject.transform;
                 }
@@ -180,24 +178,99 @@ public class CreateRandomRoomLayout : MonoBehaviour
             {
                 if (tileMatrix[x, y] == 1)
                 {
-                    if (tileMatrix[x - 1, y] != 1)
+                    int worldX = x - numberOfMaxTiles / 2; //reposition to the center of the scene
+                    int worldY = y - numberOfMaxTiles / 2;
+
+                    bool upEmpty        = tileMatrix[x + 0, y  + 1] != 1;
+                    bool upRightEmpty   = tileMatrix[x + 1, y  + 1] != 1;
+                    bool rightEmpty     = tileMatrix[x + 1, y  + 0] != 1;
+                    bool downRightEmpty = tileMatrix[x + 1, y  - 1] != 1;
+                    bool downEmpty      = tileMatrix[x + 0, y  - 1] != 1;
+                    bool downLeftEmpty  = tileMatrix[x - 1, y  - 1] != 1;
+                    bool leftEmpty      = tileMatrix[x - 1, y  + 0] != 1;
+                    bool upLeftEmpty    = tileMatrix[x - 1, y  + 1] != 1;
+
+                    if (upEmpty)
                     {
-                        GameObject newWallTile = Instantiate(wallLeft, new Vector3(x - 1, y, 0), quaternion.identity);
+                        if (upRightEmpty && upLeftEmpty)
+                        {
+                            GameObject newWallTile = Instantiate(wallUp, new Vector3(worldX, worldY + 1, 0), quaternion.identity);
+                            newWallTile.transform.parent = gameObject.transform;
+                        }
+                        else if (!upRightEmpty && upLeftEmpty)
+                        {
+                            GameObject newWallTile = Instantiate(wallUpCornerRight, new Vector3(worldX, worldY + 1, 0), quaternion.identity);
+                            newWallTile.transform.parent = gameObject.transform;
+                        }
+                        else if (upRightEmpty && !upLeftEmpty)
+                        {
+                            GameObject newWallTile = Instantiate(wallUpCornerLeft, new Vector3(worldX, worldY + 1, 0), quaternion.identity);
+                            newWallTile.transform.parent = gameObject.transform;
+                        }
+                        else if (!upRightEmpty && !upLeftEmpty)
+                        {
+                            GameObject newWallTile = Instantiate(wallUpCornerRightCornerLeft, new Vector3(worldX, worldY + 1, 0), quaternion.identity);
+                            newWallTile.transform.parent = gameObject.transform;
+                        }
+
+                        if (upRightEmpty && rightEmpty)
+                        {
+                            GameObject newWallTile = Instantiate(cornerRightUp, new Vector3(worldX + 1, worldY + 1, 0), quaternion.identity);
+                            newWallTile.transform.parent = gameObject.transform;
+                        }
+
+                        if (upLeftEmpty && leftEmpty)
+                        {
+                            GameObject newWallTile = Instantiate(cornerLeftUp, new Vector3(worldX - 1, worldY + 1, 0), quaternion.identity);
+                            newWallTile.transform.parent = gameObject.transform;
+                        }
+                    }
+
+                    if (downEmpty)
+                    {
+                        if (downRightEmpty && downLeftEmpty)
+                        {
+                            GameObject newWallTile = Instantiate(wallDown, new Vector3(worldX, worldY, 0), quaternion.identity);
+                            newWallTile.transform.parent = gameObject.transform;
+                        }
+                        else if (!downRightEmpty && downLeftEmpty)
+                        {
+                            GameObject newWallTile = Instantiate(wallDownCornerRight, new Vector3(worldX, worldY, 0), quaternion.identity);
+                            newWallTile.transform.parent = gameObject.transform;
+                        }
+                        else if (downRightEmpty && !downLeftEmpty)
+                        {
+                            GameObject newWallTile = Instantiate(wallDownCornerLeft, new Vector3(worldX, worldY, 0), quaternion.identity);
+                            newWallTile.transform.parent = gameObject.transform;
+                        }
+                        else if (!downRightEmpty && !downLeftEmpty)
+                        {
+                            GameObject newWallTile = Instantiate(wallDownCornerRightCornerLeft, new Vector3(worldX, worldY, 0), quaternion.identity);
+                            newWallTile.transform.parent = gameObject.transform;
+                        }
+
+                        if (downRightEmpty && rightEmpty)
+                        {
+                            GameObject newWallTile = Instantiate(cornerRightDown, new Vector3(worldX + 1, worldY, 0), quaternion.identity);
+                            newWallTile.transform.parent = gameObject.transform;
+                        }
+
+                        if (downLeftEmpty && leftEmpty)
+                        {
+                            GameObject newWallTile = Instantiate(cornerLeftDown, new Vector3(worldX - 1, worldY, 0), quaternion.identity);
+                            newWallTile.transform.parent = gameObject.transform;
+                        }
+                    }
+
+                    if (rightEmpty)
+                    {
+                        GameObject newWallTile = Instantiate(wallRight, new Vector3(worldX + 1, worldY, 0), quaternion.identity);
                         newWallTile.transform.parent = gameObject.transform;
                     }
-                    if (tileMatrix[x + 1, y] != 1)
+
+                    if (leftEmpty)
                     {
-                        GameObject newWallTile = Instantiate(wallRight, new Vector3(x + 1, y, 0), quaternion.identity);
-                        newWallTile.transform.parent = gameObject.transform;
-                    }
-                    if (tileMatrix[x, y - 1] != 1)
-                    {
-                        GameObject newWallTile = Instantiate(wallDown, new Vector3(x, y, 0), quaternion.identity);
-                        newWallTile.transform.parent = gameObject.transform;
-                    }
-                    if (tileMatrix[x, y + 1] != 1)
-                    {
-                        GameObject newWallTile = Instantiate(wallUp, new Vector3(x, y + 1, 0), quaternion.identity);
+                        GameObject newWallTile = Instantiate(wallLeft, new Vector3(worldX - 1, worldY, 0), quaternion.identity);
                         newWallTile.transform.parent = gameObject.transform;
                     }
                 }

@@ -162,6 +162,12 @@ MonoBehaviour:
   cornerLeftDown: {fileID: 7980319443548456798, guid: 53e55a39c2f3bb849a07fe75b3a104f6, type: 3}
   cornerRightUp: {fileID: 7980319443548456798, guid: f436d6d31b537a24da0eacf13bad5828, type: 3}
   cornerRightDown: {fileID: 7980319443548456798, guid: e58d00a54a12bcb43bed3102c7c77cf7, type: 3}
+  wallUpCornerRight: {fileID: 1039290477395788548, guid: af83473f78b3af2418eb059e74ca428d, type: 3}
+  wallUpCornerLeft: {fileID: 3328353918352971396, guid: 63b3003c452d59b48bf844c808394efd, type: 3}
+  wallUpCornerRightCornerLeft: {fileID: 7560469038094115259, guid: c17053bf288d98a41a73e0cfb26216f4, type: 3}
+  wallDownCornerRight: {fileID: 1039290477395788548, guid: a12a32f8646339741ae949aac429db35, type: 3}
+  wallDownCornerLeft: {fileID: 3328353918352971396, guid: aac41c0bd15d32b43bd6c303e0620fe8, type: 3}
+  wallDownCornerRightCornerLeft: {fileID: 7560469038094115259, guid: 1a6d24f34cdeeb44b817f0a857127f0b, type: 3}
   floor: {fileID: 1844641872881927475, guid: 7a747266ca3d3af4791cc0ecb1259dbf, type: 3}
   minNumberOfTiles: 20
   maxNumberOfTiles: 30
