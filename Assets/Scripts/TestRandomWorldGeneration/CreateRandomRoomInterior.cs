@@ -71,7 +71,7 @@ public class CreateRandomRoomInterior : MonoBehaviour
             borderTiles.RemoveRange(posIndex, 0);
         }
 
-        PrintTileMatrix();
+        //PrintTileMatrix();
     }
 
     private void SetObjectOffset()
