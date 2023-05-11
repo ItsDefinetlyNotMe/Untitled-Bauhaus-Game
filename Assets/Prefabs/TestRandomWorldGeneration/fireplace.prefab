@@ -130,7 +130,7 @@ GameObject:
   - component: {fileID: 755974262572585432}
   - component: {fileID: 755974262572585433}
   m_Layer: 9
-  m_Name: Feuerstelle 20000
+  m_Name: fireplace
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

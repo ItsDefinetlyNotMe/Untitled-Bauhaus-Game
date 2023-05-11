@@ -4,7 +4,7 @@ using Unity.Mathematics;
 using UnityEngine;
 
 public class CreateRandomRoomLayout : MonoBehaviour
-{   
+{
     [SerializeField] private GameObject wallLeft;
     [SerializeField] private GameObject wallRight;
     [SerializeField] private GameObject wallUp;
@@ -64,7 +64,7 @@ public class CreateRandomRoomLayout : MonoBehaviour
     {
         int x = numberOfMaxTiles / 2;
         int y = numberOfMaxTiles / 2;
-        tileMatrix[x,y] = 1;
+        tileMatrix[x, y] = 1;
         newTiles.Add(new Tuple<int, int>(x, y));
 
         do
@@ -159,7 +159,7 @@ public class CreateRandomRoomLayout : MonoBehaviour
                     int worldY = y - numberOfMaxTiles / 2;
 
                     GameObject newFloorTile = Instantiate(floor, new Vector3(worldX, worldY, 0), Quaternion.identity);
-                    
+
                     newFloorTile.transform.parent = gameObject.transform;
                 }
             }
@@ -188,14 +188,14 @@ public class CreateRandomRoomLayout : MonoBehaviour
                     int worldX = x - numberOfMaxTiles / 2; //reposition to the center of the scene
                     int worldY = y - numberOfMaxTiles / 2;
 
-                    bool upEmpty        = tileMatrix[x + 0, y  + 1] != 1;
-                    bool upRightEmpty   = tileMatrix[x + 1, y  + 1] != 1;
-                    bool rightEmpty     = tileMatrix[x + 1, y  + 0] != 1;
-                    bool downRightEmpty = tileMatrix[x + 1, y  - 1] != 1;
-                    bool downEmpty      = tileMatrix[x + 0, y  - 1] != 1;
-                    bool downLeftEmpty  = tileMatrix[x - 1, y  - 1] != 1;
-                    bool leftEmpty      = tileMatrix[x - 1, y  + 0] != 1;
-                    bool upLeftEmpty    = tileMatrix[x - 1, y  + 1] != 1;
+                    bool upEmpty = tileMatrix[x + 0, y + 1] != 1;
+                    bool upRightEmpty = tileMatrix[x + 1, y + 1] != 1;
+                    bool rightEmpty = tileMatrix[x + 1, y + 0] != 1;
+                    bool downRightEmpty = tileMatrix[x + 1, y - 1] != 1;
+                    bool downEmpty = tileMatrix[x + 0, y - 1] != 1;
+                    bool downLeftEmpty = tileMatrix[x - 1, y - 1] != 1;
+                    bool leftEmpty = tileMatrix[x - 1, y + 0] != 1;
+                    bool upLeftEmpty = tileMatrix[x - 1, y + 1] != 1;
 
                     if (upEmpty)
                     {
