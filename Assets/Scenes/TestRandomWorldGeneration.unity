@@ -133,8 +133,9 @@ GameObject:
   m_Component:
   - component: {fileID: 939599504}
   - component: {fileID: 939599503}
+  - component: {fileID: 939599505}
   m_Layer: 0
-  m_Name: RoomLayoutGenerator
+  m_Name: RoomGenerator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -186,6 +187,27 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &939599505
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 939599502}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eef64e32bbc2201448174a746db7d76e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  interiorObjects:
+  - prefab: {fileID: 4117696239075510226, guid: d2593e84b281b53428d59f0919d62850, type: 3}
+    weight: 4
+  - prefab: {fileID: 7519646610877873944, guid: 878e2f27faa700346ac0e0592be0370a, type: 3}
+    weight: 3
+  - prefab: {fileID: 4777662169212377178, guid: 17e04fa81eb7e614da60a9ed2f8f3241, type: 3}
+    weight: 1
+  - prefab: {fileID: 755974262572585427, guid: 6f16271e7a0bf7241933513da3107250, type: 3}
+    weight: 2
 --- !u!1 &2073400456
 GameObject:
   m_ObjectHideFlags: 0
@@ -197,6 +219,7 @@ GameObject:
   - component: {fileID: 2073400459}
   - component: {fileID: 2073400458}
   - component: {fileID: 2073400457}
+  - component: {fileID: 2073400460}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -270,3 +293,36 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2073400460
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2073400456}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a79441f348de89743a2939f4d699eac1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_RenderShadows: 1
+  m_RequiresDepthTextureOption: 2
+  m_RequiresOpaqueTextureOption: 2
+  m_CameraType: 0
+  m_Cameras: []
+  m_RendererIndex: -1
+  m_VolumeLayerMask:
+    serializedVersion: 2
+    m_Bits: 1
+  m_VolumeTrigger: {fileID: 0}
+  m_VolumeFrameworkUpdateModeOption: 2
+  m_RenderPostProcessing: 0
+  m_Antialiasing: 0
+  m_AntialiasingQuality: 2
+  m_StopNaN: 0
+  m_Dithering: 0
+  m_ClearDepth: 1
+  m_AllowXRRendering: 1
+  m_RequiresDepthTexture: 0
+  m_RequiresColorTexture: 0
+  m_Version: 2
