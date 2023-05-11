@@ -12,7 +12,8 @@ public class CreateRandomWalls : MonoBehaviour
     void Start()
     {
         GameObject wall = wallPrefabs[Random.Range(0, wallPrefabs.Count)];
-        Instantiate(wall, transform.position, Quaternion.identity);
+        GameObject newWall = Instantiate(wall, transform.position, Quaternion.identity);
+        newWall.transform.parent = gameObject.transform.parent;
         Destroy(gameObject);
     }
 

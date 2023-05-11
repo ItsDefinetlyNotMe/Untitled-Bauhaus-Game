@@ -4,7 +4,8 @@ using Unity.Mathematics;
 using UnityEngine;
 
 public class CreateRandomRoomLayout : MonoBehaviour
-{   [SerializeField] private GameObject wallLeft;
+{   
+    [SerializeField] private GameObject wallLeft;
     [SerializeField] private GameObject wallRight;
     [SerializeField] private GameObject wallUp;
     [SerializeField] private GameObject wallDown;
@@ -33,8 +34,12 @@ public class CreateRandomRoomLayout : MonoBehaviour
 
     private List<Tuple<int, int>> newTiles = new List<Tuple<int, int>>();
 
+    private CreateRandomRoomInterior createRandomRoomInterior;
+
     private void Start()
     {
+        createRandomRoomInterior = gameObject.GetComponent<CreateRandomRoomInterior>();
+
         StartRoomGeneration();
     }
 
@@ -51,6 +56,8 @@ public class CreateRandomRoomLayout : MonoBehaviour
 
         InstantiateFloor();
         InstantiateWalls();
+
+        createRandomRoomInterior.SetInteriorVariables(tileMatrix, numberOfActiveTiles);
     }
 
     private void GenerateMatrix()
