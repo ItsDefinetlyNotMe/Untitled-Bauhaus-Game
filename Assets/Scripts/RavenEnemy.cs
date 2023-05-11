@@ -4,14 +4,15 @@ using UnityEngine;
 using System;
 
 public enum state{
-    CHARGING_ATTACK,DASHING,RECHARGING ,MOVING
+    CHARGING_ATTACK,DASHING,RECHARGING,MOVING,FLEEING
 }
 
 public class RavenEnemy : MonoBehaviour
 {
     //Movement
     private Rigidbody2D rb;
-    [SerializeField] private LayerMask airLayer;
+    [SerializeField] private LayerMask airLayer;//all layers that are relevant / hitable
+    [SerializeField] private LayerMask enviromentLayer;//layers that are obstacles
     state currentState;
     [SerializeField] private float dashingPower = 5f;
     [SerializeField] private float dashingTime = 1f;
@@ -29,18 +30,18 @@ public class RavenEnemy : MonoBehaviour
     //Debug
     bool debug = false; 
 
-    private void Start() 
+   private void Start() 
     {
         rb = GetComponent<Rigidbody2D>();
         collider = GetComponent<Collider2D>();
         target = (GameObject.FindGameObjectsWithTag("Player"))[0].transform;
         currentState = state.MOVING;
-        rb.isKinematic = true;
+        //rb.isKinematic = true;
         animator = GetComponent<Animator>();
         ravenDrawPath = GetComponentInChildren<RavenDrawPath>();
         debug = true;
     }
-    void Update()
+   void Update()
     {
         if(currentState != state.DASHING)
         {
@@ -58,53 +59,80 @@ public class RavenEnemy : MonoBehaviour
         if(currentState == state.MOVING &&  distance < maximumRange)
             StartAttack();
     }
-    private void StartAttack()
+   void OnTriggerEnter2D(Collider2D other)
     {
-        ContactFilter2D rayCastFilter = new ContactFilter2D();
-        rayCastFilter.layerMask = airLayer;
-        RaycastHit2D[]  results = new RaycastHit2D[1];
-        Vector2 direction = target.position - new Vector3(0f,0.2f,0) - transform.position;
-        Physics2D.Raycast(transform.position,direction.normalized,rayCastFilter,results,maximumRange);//Raycast to check wether player is behind an Object
-
-        if(results[0])
-        {
-            if(results[0].transform.CompareTag("Player"))
-                StartCoroutine(Attack());
-                
+        if(currentState == state.DASHING){
+            if(other.CompareTag("Player"))
+                other.GetComponent<HitablePlayer>().GetHit((int)chargeDamage,transform.position,5);
+            else if(airLayer == (airLayer | (1 << other.gameObject.layer)))
+            {
+                rb.isKinematic = false;
+                rb.velocity = new Vector2(0f,0f);
+                animator.SetBool("isDashing",false);
+            }
         }
     }
-    public IEnumerator Attack()
+   private void StartAttack()
     {
+        int arraysize = 10;
+        ContactFilter2D rayCastFilter = new ContactFilter2D();
+        rayCastFilter.layerMask = airLayer;
+        RaycastHit2D[]  results = new RaycastHit2D[arraysize];
+        Vector2 direction = target.position - new Vector3(0f,0.2f,0) - transform.position;
+        arraysize = Physics2D.Raycast(transform.position,direction.normalized,rayCastFilter,results,maximumRange);//Raycast to check wether player is behind an Object
+        
+        for(int i = 0; i < arraysize; ++i)
+        {
+            Debug.Log(results[i].collider.gameObject.name);
+            int layer = results[i].collider.gameObject.layer;
+            if(enviromentLayer == (enviromentLayer | (1 << layer))){
+                Reposition();
+                break;
+            }
+            else if(results[i].transform.CompareTag("Player"))
+                StartCoroutine(Attack());
+        }
+    }
+   public IEnumerator Attack()
+    {
+        //charging Attack
+        //set state to charging
         currentState = state.CHARGING_ATTACK;
-        //charge Attack
-        Vector3 chargePoint = target.position; 
+        //Choose point to charge to
+        Vector3 chargePoint = target.position;
         //Draw Path where he flies
         ravenDrawPath.DrawPath(chargePoint,transform.position);
         yield return new WaitForSeconds(chargeAttackTime);
+        
+        //Dash
+        currentState = state.DASHING;
         //start animation
         animator.SetBool("isDashing",true);
-        
-        currentState = state.DASHING;
+        //disable rb collisions and 
+        rb.isKinematic = true;
         rb.velocity = (chargePoint - transform.position).normalized * dashingPower;
         yield return new WaitForSeconds(dashingTime);
+        
+        //End dash / recharging
         rb.velocity = new Vector2(0,0);
         animator.SetBool("isDashing",false);
         ravenDrawPath.HidePath();
         currentState = state.RECHARGING;
+        rb.isKinematic = false;
         yield return new WaitForSeconds(recharginTime);
-        currentState = state.MOVING;
-
         
-        //charges in said direction until it hits a relevant collider or maximum range
+        //move 
+        currentState = state.MOVING;
     }
-  
-    void OnTriggerEnter2D(Collider2D other)
+   private void Reposition()
    {
-        if(currentState == state.DASHING){
-            if(other.CompareTag("Player"))
-                other.GetComponent<HitablePlayer>().GetHit((int)chargeDamage,transform.position,5);
-        }
+    	//repositioning when unable to hit Player
 
+   }
+
+   private void flee()
+   {
+        //flee when Player to close
    }
    void OnDrawGizmos()
    {
