@@ -199,7 +199,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eef64e32bbc2201448174a746db7d76e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interiorObjects: []
+  interiorObjects:
+  - prefab: {fileID: 4117696239075510226, guid: d2593e84b281b53428d59f0919d62850, type: 3}
+    weight: 4
+  - prefab: {fileID: 7519646610877873944, guid: 878e2f27faa700346ac0e0592be0370a, type: 3}
+    weight: 3
+  - prefab: {fileID: 4777662169212377178, guid: 17e04fa81eb7e614da60a9ed2f8f3241, type: 3}
+    weight: 1
+  - prefab: {fileID: 755974262572585427, guid: 6f16271e7a0bf7241933513da3107250, type: 3}
+    weight: 2
 --- !u!1 &2073400456
 GameObject:
   m_ObjectHideFlags: 0
