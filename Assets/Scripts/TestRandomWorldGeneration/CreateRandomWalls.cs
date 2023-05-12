@@ -5,8 +5,7 @@ using UnityEngine;
 public class CreateRandomWalls : MonoBehaviour
 {
 
-    [SerializeField]
-    private List<GameObject> wallPrefabs = new List<GameObject>();
+    [SerializeField] private List<GameObject> wallPrefabs = new List<GameObject>();
 
 
     void Start()
