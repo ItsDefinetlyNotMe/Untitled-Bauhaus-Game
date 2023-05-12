@@ -170,8 +170,8 @@ MonoBehaviour:
   wallDownCornerLeft: {fileID: 3328353918352971396, guid: aac41c0bd15d32b43bd6c303e0620fe8, type: 3}
   wallDownCornerRightCornerLeft: {fileID: 7560469038094115259, guid: 1a6d24f34cdeeb44b817f0a857127f0b, type: 3}
   floor: {fileID: 1844641872881927475, guid: 7a747266ca3d3af4791cc0ecb1259dbf, type: 3}
-  minNumberOfTiles: 20
-  maxNumberOfTiles: 30
+  minNumberOfTiles: 40
+  maxNumberOfTiles: 70
 --- !u!4 &939599504
 Transform:
   m_ObjectHideFlags: 0
@@ -201,13 +201,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   interiorObjects:
   - prefab: {fileID: 4117696239075510226, guid: d2593e84b281b53428d59f0919d62850, type: 3}
-    weight: 4
-  - prefab: {fileID: 7519646610877873944, guid: 878e2f27faa700346ac0e0592be0370a, type: 3}
-    weight: 3
+    size: {x: 1, y: 1}
+    possibleMainObject: 1
   - prefab: {fileID: 4777662169212377178, guid: 17e04fa81eb7e614da60a9ed2f8f3241, type: 3}
-    weight: 1
+    size: {x: 1, y: 1}
+    possibleMainObject: 1
   - prefab: {fileID: 755974262572585427, guid: 6f16271e7a0bf7241933513da3107250, type: 3}
-    weight: 2
+    size: {x: 1, y: 1}
+    possibleMainObject: 1
+  - prefab: {fileID: 7519646610877873944, guid: 878e2f27faa700346ac0e0592be0370a, type: 3}
+    size: {x: 1, y: 1}
+    possibleMainObject: 0
+  - prefab: {fileID: 5410420914187539074, guid: 824ac2712b9825f469daf85320b6569c, type: 3}
+    size: {x: 1, y: 4}
+    possibleMainObject: 1
+  - prefab: {fileID: 8332500311187279662, guid: a87bda9b7378c214f88897cbbde9fda8, type: 3}
+    size: {x: 3, y: 1}
+    possibleMainObject: 1
 --- !u!1 &2073400456
 GameObject:
   m_ObjectHideFlags: 0

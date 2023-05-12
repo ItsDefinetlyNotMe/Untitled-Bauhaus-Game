@@ -9,25 +9,26 @@ using UnityEngine;
 public struct InteriorPrefab
 {
     public GameObject prefab;
-    public int weight;
+    public Vector2Int size;
+    public bool possibleMainObject;
 }
 
 public class CreateRandomRoomInterior : MonoBehaviour
 {
     [SerializeField] private InteriorPrefab[] interiorObjects;
 
-    private List<Vector3> borderTiles = new List<Vector3>();
-    private List<Vector3> internalTiles = new List<Vector3>();
+    private List<Vector2> possibleSpawnPositions = new List<Vector2>();
 
     private float[,] tileMatrix;
     private int floorTileCount = 0;
 
     private int indexOfMainObject = 0;
     private int spaceToFill = 0;
+    private int spaceToFillWithMainObject = 0;
     private int maxNumOfMainObject = 0;
     private Vector2 objectOffset = Vector2.zero;
 
-    public void SetInteriorVariables(float[,] newTileMatrix, int newFloorTileCount)
+    public void SetInteriorVariables(ref float[,] newTileMatrix, int newFloorTileCount)
     {
         tileMatrix = newTileMatrix;
         floorTileCount = newFloorTileCount;
@@ -51,31 +52,76 @@ public class CreateRandomRoomInterior : MonoBehaviour
         }
     }
 
+
     private void CreateInterior()
     {
         spaceToFill = (int)(floorTileCount * UnityEngine.Random.Range(0.2f, 0.5f)); //Fill up 20% - 50% of the room
 
         //Choose main furniture and fill up ~70% of the space you want to fill
         //Then choose remaining ~30% random from remaining possible objects
-        indexOfMainObject = UnityEngine.Random.Range(0, interiorObjects.Length);
-
-        maxNumOfMainObject = (int)(spaceToFill * 0.7 / interiorObjects[indexOfMainObject].weight);
-
-        SetObjectOffset();
-        GeneratePositionLists();
-
-        //foreach (Vector3 vec in borderTiles)
-        //    print(vec);
-
-        for (int i = 0; i < maxNumOfMainObject; i++)
+        do
         {
-            int posIndex = UnityEngine.Random.Range(0, borderTiles.Count);
-            GameObject newObject = Instantiate(interiorObjects[indexOfMainObject].prefab, borderTiles[posIndex], Quaternion.identity);
-            newObject.transform.parent = gameObject.transform;
-            borderTiles.RemoveRange(posIndex, 1);
-        }
+            indexOfMainObject = UnityEngine.Random.Range(0, interiorObjects.Length);
 
-        //PrintTileMatrix();
+        } while (!interiorObjects[indexOfMainObject].possibleMainObject);
+
+        spaceToFillWithMainObject = (int)(spaceToFill * 0.7);
+
+        //SetObjectOffset();
+        MarkBorderTiles();
+
+        for (int x = 0; x < 10; x++)
+        {  
+            InstantiateBigObject(interiorObjects[5]);
+        }
+    }
+
+    /// <summary>
+    /// Instantiate objects of size 1x1 on the room border
+    /// </summary>
+    private void InstantiateSmallObject(InteriorPrefab interiorObject)
+    {
+        GenerateSmallObjectPositionList();
+
+        if (possibleSpawnPositions.Count <= 0)
+            return;
+
+        int posIndex = UnityEngine.Random.Range(0, possibleSpawnPositions.Count);
+        GameObject newObject = Instantiate(interiorObject.prefab, possibleSpawnPositions[posIndex], Quaternion.identity);
+        newObject.transform.parent = gameObject.transform;
+
+        BlockWorldPositionInMatrix(possibleSpawnPositions[posIndex]);
+    }
+
+    /// <summary>
+    /// Instantiate objects of bigger size anywhere in the room
+    /// </summary>
+    private void InstantiateBigObject(InteriorPrefab interiorObject)
+    {
+        GenerateBigObjectPositionList(interiorObject.size);
+
+        if (possibleSpawnPositions.Count <= 0)
+            return;
+
+        int posIndex = UnityEngine.Random.Range(0, possibleSpawnPositions.Count);
+        GameObject newObject = Instantiate(interiorObject.prefab, possibleSpawnPositions[posIndex], Quaternion.identity);
+        newObject.transform.parent = gameObject.transform;
+
+        for (int x = 0; x < interiorObject.size.x; x++)
+        {
+            for (int y = 0; y < interiorObject.size.y; y++)
+            {
+                BlockWorldPositionInMatrix(new Vector2(possibleSpawnPositions[posIndex].x + x, possibleSpawnPositions[posIndex].y + y));
+            }
+        }
+    }
+
+    private void BlockWorldPositionInMatrix(Vector2 pos)
+    {
+        int MatX = (int)(pos.x + floorTileCount / 2);
+        int MatY = (int)(pos.y + floorTileCount / 2);
+
+        tileMatrix[MatX, MatY] = 3;
     }
 
     private void SetObjectOffset()
@@ -100,7 +146,10 @@ public class CreateRandomRoomInterior : MonoBehaviour
         }
     }
 
-    private void GeneratePositionLists()
+    //1 means floor tile
+    //2 means border tile
+    //3 means instantiated object
+    private void MarkBorderTiles()
     {
         for (int x = 0; x < floorTileCount; x++)
         {
@@ -108,55 +157,99 @@ public class CreateRandomRoomInterior : MonoBehaviour
             {
                 if (tileMatrix[x, y] == 1f)
                 {
-
-
-                    int worldX = x - floorTileCount / 2; //reposition to the center of the scene
-                    int worldY = y - floorTileCount / 2;
-
-                    //print(new Vector2(worldX + objectOffset.x, worldY + objectOffset.y));
-
-                    int neighbourCount = 0;
-
-                    bool upFull = false;
-                    bool rightFull = false;
-                    bool downFull = false;
-                    bool leftFull = false;
+                    bool upEmpty = true;
+                    bool rightEmpty = true;
+                    bool downEmpty = true;
+                    bool leftEmpty = true;
 
 
                     if (y != floorTileCount - 1)                    
-                        upFull = tileMatrix[x + 0, y + 1] == 1;
+                        upEmpty = tileMatrix[x + 0, y + 1] < 1;
 
                     if (x != floorTileCount - 1)
-                        rightFull = tileMatrix[x + 1, y + 0] == 1;
+                        rightEmpty = tileMatrix[x + 1, y + 0] < 1;
 
                     if (y != 0)
-                        downFull = tileMatrix[x + 0, y - 1] == 1;
+                        downEmpty = tileMatrix[x + 0, y - 1] < 1;
 
                     if (x != 0)
-                        leftFull = tileMatrix[x - 1, y + 0] == 1;
+                        leftEmpty = tileMatrix[x - 1, y + 0] < 1;
 
-                    if (upFull)
-                        neighbourCount += 1;
-                    if (rightFull)
-                        neighbourCount += 1;
-                    if (downFull)
-                        neighbourCount += 1;
-                    if (leftFull)
-                        neighbourCount += 1;
-
-                    if (neighbourCount <= 3)
-                        borderTiles.Add(new Vector3(worldX + objectOffset.x, worldY + objectOffset.y, 0));
-                    else
-                        internalTiles.Add(new Vector3(worldX + objectOffset.x, worldY + objectOffset.y, 0));
+                    if (upEmpty || rightEmpty || downEmpty || leftEmpty)
+                        tileMatrix[x, y] = 2;
                 }
             }
         }
     }
 
+    private void GenerateSmallObjectPositionList()
+    {
+        possibleSpawnPositions.Clear();
+
+        for (int x = 0; x < floorTileCount; x++)
+        {
+            for (int y = 0; y < floorTileCount; y++)
+            {
+                if (tileMatrix[x, y] == 2f)
+                {
+                    int worldX = x - floorTileCount / 2; //reposition to the center of the scene
+                    int worldY = y - floorTileCount / 2;
+
+                    possibleSpawnPositions.Add(new Vector2(worldX, worldY));
+                }
+            }
+        }
+    }
+    private void GenerateBigObjectPositionList(Vector2Int size)
+    {
+        //reset values
+        possibleSpawnPositions.Clear();
+        bool positionNotValid = false;
+
+        //iterate over every tile in matrix
+        for (int x = 0; x < floorTileCount - size.x; x++)
+            for (int y = 0; y < floorTileCount - size.y; y++)
+            {
+                //check if current tile is floor or border tile
+                if (tileMatrix[x, y] == 1f || tileMatrix[x, y] == 2f)
+                {
+                    //iterate over every tile that would be occupied by the new prefab
+                    for (int i = 0; i < size.x; i++)
+                    {
+                        for (int j = 0; j < size.y; j++)
+                        {
+                            //check for every tile if it is free
+                            if (tileMatrix[x + i, y + j] < 1f || tileMatrix[x + i, y + j] == 3f)
+                            {
+                                //if it is not free, check next tile
+                                positionNotValid = true;
+                                break;
+                            }
+                        }
+                        //if it is not free, check next tile
+                        if (positionNotValid)
+                            break;
+                    }
+
+                    //if you checked every tile for current object position, add spawnPosition to list
+                    if (!positionNotValid)
+                    {
+                        int worldX = x - floorTileCount / 2; //reposition to the center of the scene
+                        int worldY = y - floorTileCount / 2;
+
+                        possibleSpawnPositions.Add(new Vector2(worldX, worldY));
+
+                    }
+
+                    //reset bool
+                    positionNotValid = false;
+
+                }
+            }
+    }
+
     private void ResetEverything()
     {
-        borderTiles.Clear();
-        internalTiles.Clear();
         objectOffset = Vector2.zero;
     }
 }

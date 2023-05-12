@@ -56,7 +56,7 @@ public class CreateRandomRoomLayout : MonoBehaviour
         InstantiateFloor();
         InstantiateWalls();
 
-        createRandomRoomInterior.SetInteriorVariables(tileMatrix, numberOfMaxTiles);
+        createRandomRoomInterior.SetInteriorVariables(ref tileMatrix, numberOfMaxTiles);
     }
 
     private void GenerateMatrix()
