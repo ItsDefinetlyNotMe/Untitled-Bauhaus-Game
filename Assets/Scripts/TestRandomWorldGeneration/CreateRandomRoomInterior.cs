@@ -31,6 +31,7 @@ public class CreateRandomRoomInterior : MonoBehaviour
     {
         tileMatrix = newTileMatrix;
         floorTileCount = newFloorTileCount;
+        ResetEverything();
         CreateInterior();
     }
 
@@ -63,12 +64,15 @@ public class CreateRandomRoomInterior : MonoBehaviour
         SetObjectOffset();
         GeneratePositionLists();
 
+        //foreach (Vector3 vec in borderTiles)
+        //    print(vec);
+
         for (int i = 0; i < maxNumOfMainObject; i++)
         {
             int posIndex = UnityEngine.Random.Range(0, borderTiles.Count);
             GameObject newObject = Instantiate(interiorObjects[indexOfMainObject].prefab, borderTiles[posIndex], Quaternion.identity);
             newObject.transform.parent = gameObject.transform;
-            borderTiles.RemoveRange(posIndex, 0);
+            borderTiles.RemoveRange(posIndex, 1);
         }
 
         //PrintTileMatrix();
@@ -102,11 +106,14 @@ public class CreateRandomRoomInterior : MonoBehaviour
         {
             for (int y = 0; y < floorTileCount; y++)
             {
-                if (tileMatrix[x, y] == 1)
+                if (tileMatrix[x, y] == 1f)
                 {
+
 
                     int worldX = x - floorTileCount / 2; //reposition to the center of the scene
                     int worldY = y - floorTileCount / 2;
+
+                    //print(new Vector2(worldX + objectOffset.x, worldY + objectOffset.y));
 
                     int neighbourCount = 0;
 
@@ -144,5 +151,12 @@ public class CreateRandomRoomInterior : MonoBehaviour
                 }
             }
         }
+    }
+
+    private void ResetEverything()
+    {
+        borderTiles.Clear();
+        internalTiles.Clear();
+        objectOffset = Vector2.zero;
     }
 }

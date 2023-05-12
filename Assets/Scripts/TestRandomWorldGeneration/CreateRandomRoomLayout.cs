@@ -25,7 +25,7 @@ public class CreateRandomRoomLayout : MonoBehaviour
 
     private int numberOfMaxTiles;
     private float[,] tileMatrix;
-    private int numberOfActiveTiles = 0;
+    private int numberOfActiveTiles = 1;
 
     [SerializeField]
     private int minNumberOfTiles;
@@ -47,12 +47,11 @@ public class CreateRandomRoomLayout : MonoBehaviour
     {
         ResetEverything();
 
+
         numberOfMaxTiles = UnityEngine.Random.Range(minNumberOfTiles, maxNumberOfTiles + 1);
         tileMatrix = new float[numberOfMaxTiles, numberOfMaxTiles];
 
         GenerateMatrix();
-
-        //PrintTileMatrix();
 
         InstantiateFloor();
         InstantiateWalls();
@@ -92,6 +91,22 @@ public class CreateRandomRoomLayout : MonoBehaviour
         }
     }
 
+    private void CountOnesInMatrix()
+    {
+        int floorTileCount = 0;
+
+        for (int x = 0; x < numberOfMaxTiles; x++)
+        {
+            for (int y = 0; y < numberOfMaxTiles; y++)
+            {
+                if (tileMatrix[x, y] == 1f)
+                    floorTileCount++;
+            }
+        }
+
+        print("current number of ones: " + floorTileCount);
+    }
+
     private void UpdateProbabilities()
     {
         foreach (Tuple<int, int> tile in newTiles)
@@ -113,7 +128,7 @@ public class CreateRandomRoomLayout : MonoBehaviour
             probability += tileMatrix[x, y - 1];
             probability += tileMatrix[x, y + 1];
             probability /= 4;
-            if (probability >= 0.9)
+            if (probability >= 0.9f)
             {
                 probability = 0.9f;
             }
@@ -153,7 +168,7 @@ public class CreateRandomRoomLayout : MonoBehaviour
         {
             for (int y = 0; y < numberOfMaxTiles; y++)
             {
-                if (tileMatrix[x, y] == 1)
+                if (tileMatrix[x, y] == 1f)
                 {
                     int worldX = x - numberOfMaxTiles / 2; //reposition to the center of the scene
                     int worldY = y - numberOfMaxTiles / 2;
@@ -172,7 +187,7 @@ public class CreateRandomRoomLayout : MonoBehaviour
             Destroy(child.gameObject);
 
         tileMatrix = null;
-        numberOfActiveTiles = 0;
+        numberOfActiveTiles = 1;
         numberOfMaxTiles = 0;
         newTiles.Clear();
     }
