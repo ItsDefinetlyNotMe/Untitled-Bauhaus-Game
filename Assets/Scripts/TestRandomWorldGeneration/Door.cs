@@ -1,13 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 using TestRandomWorldGeneration;
 using UnityEngine;
+using static Structs;
 
-public enum Direction
-{
-    Left, Up, Right, Down
-}
+
 
 public class Door : MonoBehaviour
 {

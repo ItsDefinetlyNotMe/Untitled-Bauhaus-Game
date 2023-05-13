@@ -1,8 +1,8 @@
 using System;
 using System.Collections.Generic;
-using TMPro;
 using Unity.Mathematics;
 using UnityEngine;
+using static Structs;
 
 namespace TestRandomWorldGeneration
 {
@@ -46,7 +46,7 @@ namespace TestRandomWorldGeneration
         {
             createRandomRoomInterior = gameObject.GetComponent<CreateRandomRoomInterior>();
 
-            StartRoomGeneration(Direction.UP); //TODO delete this line when object is in normal scene with doors
+            StartRoomGeneration(Direction.Up); //TODO delete this line when object is in normal scene with doors
         }
 
     
@@ -119,7 +119,7 @@ namespace TestRandomWorldGeneration
             switch (doorDirection)
             {
                 //search for upmost floor tiles
-                case Direction.LEFT:
+                case Direction.Left:
                     for (int x = 0; x < numberOfMaxTiles; x++)
                     {
                         for (int y = 0; y < numberOfMaxTiles; y++)
@@ -135,7 +135,7 @@ namespace TestRandomWorldGeneration
                     }
                     break;
 
-                case Direction.UP:
+                case Direction.Up:
                     for (int y = 0; y < numberOfMaxTiles; y++)
                     {
                         for (int x = 0; x < numberOfMaxTiles; x++)
@@ -151,7 +151,7 @@ namespace TestRandomWorldGeneration
                     }
                     break;
 
-                case Direction.RIGHT:
+                case Direction.Right:
                     for (int x = numberOfMaxTiles - 1; x >= 0; x--)
                     {
                         for (int y = 0; y < numberOfMaxTiles; y++)
@@ -167,7 +167,7 @@ namespace TestRandomWorldGeneration
                     }
                     break;
 
-                case Direction.DOWN:
+                case Direction.Down:
                     for (int y = numberOfMaxTiles - 1; y >= 0; y--)
                     {
                         for (int x = 0; x < numberOfMaxTiles; x++)

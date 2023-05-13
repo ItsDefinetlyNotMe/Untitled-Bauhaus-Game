@@ -2,8 +2,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static Direction;
-using static PlayerState;
+using static Structs.Direction;
+using static Structs.PlayerState;
 public abstract class WeaponScript : MonoBehaviour
 {
     
@@ -31,7 +31,7 @@ public abstract class WeaponScript : MonoBehaviour
     private int attackNumber;
     [SerializeField] private float attackNumberCooldown = 5.0f;
     private float attackNumberTimeStamp;
-    private Direction attackDirection;
+    private Structs.Direction attackDirection;
 
     private void Start()
     {
@@ -89,7 +89,7 @@ public abstract class WeaponScript : MonoBehaviour
     public abstract void LeftTriggerAttack();//special Attack based on weapon
     private void DetermineAttackDirection()
     {
-        Direction newAttackDirection;
+        Structs.Direction newAttackDirection;
         
         //if the absolute value of y is bigger than the absolute value of x you attack up
         //same thing with the down direction

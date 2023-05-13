@@ -1,17 +1,14 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using static PlayerState;
+using static Structs.PlayerState;
 // ReSharper disable Unity.InefficientPropertyAccess
-public enum PlayerState{
-    Moving,Dashing,Attacking
-}
 public class PlayerMovement : MonoBehaviour
 {
     [Header("Movement")]
     [SerializeField] private float defaultMoveSpeed = 11f;
     public Vector2 movementDirection { get; private set; }
-    public PlayerState currentState; //{get; private set;}
+    public Structs.PlayerState currentState; //{get; private set;}
 
     [Header("Visual")]
     private TrailRenderer trailRenderer;
@@ -79,7 +76,7 @@ public class PlayerMovement : MonoBehaviour
         rb.isKinematic = false;
         coll.enabled = true;
     }
-    private void ChangeState(PlayerState nextState)
+    private void ChangeState(Structs.PlayerState nextState)
     {
         switch(nextState)
         {

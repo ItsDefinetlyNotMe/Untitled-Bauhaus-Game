@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Serialization;
-using static Direction;
+using static Structs.Direction;
 
 public class PlayerAnimator : MonoBehaviour
 {
@@ -40,7 +40,7 @@ public class PlayerAnimator : MonoBehaviour
             CancelInvoke(nameof(PlayFootStepSound));
         }
     }
-    public void PlayAttackAnimation(Direction attackDirection,int number)
+    public void PlayAttackAnimation(Structs.Direction attackDirection,int number)
     {
         string localAttackDirection = "";
         switch(attackDirection)

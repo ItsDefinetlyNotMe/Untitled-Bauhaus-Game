@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using static Structs;
 
 namespace Enemies
 {
@@ -23,10 +24,10 @@ namespace Enemies
             ravenDrawPath = GetComponentInChildren<RavenDrawPath>();
         }
         private void Update() {
-            if(currentState != State.Attacking)
+            if(currentEnemyState != EnemyState.Attacking)
             {   
                 float invert = 1;
-                if(currentState == State.Fleeing){
+                if(currentEnemyState == EnemyState.Fleeing){
                     invert = -1;
                 }
                 transform.localScale = target.position.x < transform.position.x ? new Vector3(1f*invert, 1f, 1f) : new Vector3(-1f*invert, 1f, 1f);
@@ -36,12 +37,12 @@ namespace Enemies
         void OnTriggerEnter2D(Collider2D other)
         {//if Attacking detect collisions
         
-            if(currentState == State.Attacking){
+            if(currentEnemyState == EnemyState.Attacking){
                 if(other.CompareTag("Player"))
                     other.GetComponent<HitablePlayer>().GetHit((int)chargeDamage,transform.position,5);
                 else if(projectileLayer == (projectileLayer | (1 << other.gameObject.layer)))
                 {
-                    ChangeState(State.Recharging);
+                    ChangeState(EnemyState.Recharging);
                     rb.velocity = new Vector2(0f,0f);
                     animator.SetBool(IsDashing,false);
                 }
@@ -52,7 +53,7 @@ namespace Enemies
         {//channeling Dash & Dashing & recovering 
             //charging Attack
             //set state to charging
-            ChangeState(State.ChargingAttack);
+            ChangeState(EnemyState.ChargingAttack);
             rb.velocity = new Vector3(0,0,0);
             //Choose point to charge to
             Vector3 chargePoint = target.position;
@@ -62,7 +63,7 @@ namespace Enemies
             yield return new WaitForSeconds(chargeAttackTime);
         
             //Dash
-            ChangeState(State.Attacking);
+            ChangeState(EnemyState.Attacking);
             //start animation
             animator.SetBool(IsDashing,true);
             //disable rb collisions and 
@@ -74,36 +75,36 @@ namespace Enemies
             rb.velocity = new Vector2(0,0);
             animator.SetBool(IsDashing,false);
             ravenDrawPath.HidePath();
-            ChangeState(State.Recharging);
+            ChangeState(EnemyState.Recharging);
             yield return new WaitForSeconds(rechargingTime);
         
             //move 
-            ChangeState(State.Moving);
+            ChangeState(EnemyState.Moving);
         }
         /// <summary>Changing State into parameter </summary> <param name="nextState"></param>
-        protected override void ChangeState(State nextState)
+        protected override void ChangeState(EnemyState nextState)
         {
             //Changing state and if necessary change some other parameters
             switch(nextState){
-                case State.Attacking:
+                case EnemyState.Attacking:
                     rb.isKinematic = true;
                     break;
-                case State.ChargingAttack:
+                case EnemyState.ChargingAttack:
                     StopTargeting();
                     break;
-                case State.Moving:
+                case EnemyState.Moving:
                     rb.isKinematic = false;
                     StartTargeting();
                     break;
-                case State.Fleeing:
+                case EnemyState.Fleeing:
                     StopTargeting();
                     break;
             }
-            if(nextState != State.Moving)
+            if(nextState != EnemyState.Moving)
             {    
                 rb.isKinematic = false;
             }
-            currentState = nextState;
+            currentEnemyState = nextState;
         }   
     }
 }

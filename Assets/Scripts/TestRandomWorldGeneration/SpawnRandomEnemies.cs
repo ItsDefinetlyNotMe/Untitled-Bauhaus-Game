@@ -13,8 +13,8 @@ namespace TestRandomWorldGeneration {
 
     public enum DifficultyType
     {
-        VALHALLA,
-        HELHEIM
+        Valhalla,
+        Helheim
     }
 
     [Serializable]
