@@ -5,13 +5,17 @@ namespace TestRandomWorldGeneration
 {
     public class CreateRandomRoomInterior : MonoBehaviour
     {
+        [Header("Prefabs")]
         [SerializeField] private Structs.InteriorPrefab[] interiorObjects;
+        
+        [Header("Percentage")]
         [SerializeField] private float percentageOfMainObject;
 
         private List<Vector2> possibleSpawnPositions = new();
 
         private SpawnRandomEnemies spawnRandomEnemies;
-
+        
+        [Header("Matrix")]
         private float[,] tileMatrix;
         private int floorTileCount;
 

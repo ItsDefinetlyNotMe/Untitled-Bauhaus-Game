@@ -4,14 +4,18 @@ using UnityEngine;
 namespace TestRandomWorldGeneration {
     public class SpawnRandomEnemies : MonoBehaviour
     {
+        [Header("Enemy")]
         [SerializeField] private Structs.EnemyPrefab[] enemyPrefabs;
         [SerializeField] private float percentageOfMainEnemy;
+        
+        [Header("Difficulty")]
         [SerializeField] private Structs.DifficultyStruct[] difficulties;
 
         private List<Vector2> possibleSpawnPositions = new();
         private List<Structs.EnemyPrefab> enemiesToSpawn = new();
         private Structs.EnemyPrefab mainEnemy;
 
+        [Header("Matrix")]
         private float[,] tileMatrix;
 
         private int floorTileCount;

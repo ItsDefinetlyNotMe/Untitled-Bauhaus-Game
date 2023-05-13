@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Unity.Mathematics;
+using UnityEditor;
 using UnityEngine;
 using static Structs;
 
@@ -8,6 +9,7 @@ namespace TestRandomWorldGeneration
 {
     public class CreateRandomRoomLayout : MonoBehaviour
     {
+        [Header("Prefab")]
         [SerializeField] private GameObject wallLeft;
         [SerializeField] private GameObject wallRight;
         [SerializeField] private GameObject wallUp;
@@ -23,7 +25,8 @@ namespace TestRandomWorldGeneration
         [SerializeField] private GameObject wallDownCornerLeft;
         [SerializeField] private GameObject wallDownCornerRightCornerLeft;
         [SerializeField] private GameObject floor;
-
+        
+        [Header("Matrix")]
         [SerializeField] private int minNumberOfTiles;
         [SerializeField] private int maxNumberOfTiles;
 
