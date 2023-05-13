@@ -5,19 +5,29 @@ using UnityEngine;
 
 public abstract class WeaponScript : MonoBehaviour
 {
-    Vector2 playerDirection = new Vector2(-1,0);
-    private float attackSpeed = 2f;
+    [Header("Animation")]
+    Animator animator;
+    PlayerAnimator playerAnimator;
+
+    [Header("Stats")]
     [SerializeField] protected int attackDamage = 20;
+    private float attackSpeed = 2f;
     protected float knockbackAmplifier = 10f;
+    
+    [Header("Layer")]
     [SerializeField] LayerMask hittableLayers;
     float nextAttack = 0f;
-    PlayerMovement movementScript;
-    PlayerAnimator playerAnimator;
-    Animator animator;
-    //Hitbox
-    Collider2D[] weaponHitBoxes;
-    public bool isAttacking=false;
 
+    [Header("Player")]
+    PlayerMovement movementScript;
+    Vector2 playerDirection = new Vector2(-1,0);
+
+    [Header("Physics")]
+    Collider2D[] weaponHitBoxes;
+    
+    [Header("Attack")]
+    public bool isAttacking = false;
+    private int attackNumber = 0;
     private void Start()
     {
         movementScript = GetComponentInParent<PlayerMovement>();

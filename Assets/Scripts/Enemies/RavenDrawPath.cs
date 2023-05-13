@@ -16,7 +16,7 @@ public class RavenDrawPath : MonoBehaviour
         lineRenderer.enabled = false;
     }
 
-    public void DrawPath(Vector3 posFrom, Vector3 posTo,float distance,LayerMask mask)
+    public void DrawPath(Vector3 posFrom, Vector3 posTo,float distance,LayerMask mask)//TODO: The playeroffset is not set thus the path is different from the real dash
     {
         Vector3 direction = (posTo - posFrom).normalized;
         RaycastHit2D hit = Physics2D.Raycast(posFrom,direction,distance,mask);
