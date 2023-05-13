@@ -19,7 +19,9 @@ namespace TestRandomWorldGeneration
         [SerializeField] private InteriorPrefab[] interiorObjects;
         [SerializeField] private float percentageOfMainObject;
 
-        private List<Vector2> possibleSpawnPositions = new List<Vector2>();
+        private List<Vector2> possibleSpawnPositions = new();
+
+        private SpawnRandomEnemies spawnRandomEnemies;
 
         private float[,] tileMatrix;
         private int floorTileCount;
@@ -43,6 +45,13 @@ namespace TestRandomWorldGeneration
             ResetEverything();
             MarkBorderTiles();
             CreateInterior();
+
+            spawnRandomEnemies.StartEnemySpawning(ref tileMatrix);
+        }
+
+        private void Start()
+        {
+            spawnRandomEnemies = gameObject.GetComponent<SpawnRandomEnemies>();
         }
 
         private void PrintTileMatrix()

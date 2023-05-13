@@ -30,7 +30,7 @@ namespace TestRandomWorldGeneration
         [SerializeField] private int minNumberOfTiles;
         [SerializeField] private int maxNumberOfTiles;
 
-        private List<Tuple<int, int>> newTiles = new List<Tuple<int, int>>();
+        private List<Tuple<int, int>> newTiles = new();
 
         private CreateRandomRoomInterior createRandomRoomInterior;
 
@@ -39,14 +39,14 @@ namespace TestRandomWorldGeneration
         {
             createRandomRoomInterior = gameObject.GetComponent<CreateRandomRoomInterior>();
 
-            StartRoomGeneration();
+            StartRoomGeneration(Direction.UP);
         }
 
     
         /// <summary>
         /// Generate room with floor and walls
         /// </summary>
-        public void StartRoomGeneration()
+        public void StartRoomGeneration(Direction doorDirection)
         {
             ResetEverything();
         
