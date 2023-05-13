@@ -1,47 +1,16 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace TestRandomWorldGeneration {
-
-    public enum Type
-    {
-        Enemy,
-        Trap
-    }
-
-    public enum DifficultyType
-    {
-        Valhalla,
-        Helheim
-    }
-
-    [Serializable]
-    public struct DifficultyStruct
-    {
-        public DifficultyType difficultyType;
-        public int difficulty;
-    }
-
-    [Serializable]
-    public struct EnemyPrefab
-    {
-        public GameObject prefab;
-        public int strength;
-        public Vector2Int size;
-        public Type type;
-    }
-
     public class SpawnRandomEnemies : MonoBehaviour
     {
-        [SerializeField] private EnemyPrefab[] enemyPrefabs;
+        [SerializeField] private Structs.EnemyPrefab[] enemyPrefabs;
         [SerializeField] private float percentageOfMainEnemy;
-        [SerializeField] private DifficultyStruct[] difficulties;
+        [SerializeField] private Structs.DifficultyStruct[] difficulties;
 
         private List<Vector2> possibleSpawnPositions = new();
-        private List<EnemyPrefab> enemiesToSpawn = new();
-        private EnemyPrefab mainEnemy;
+        private List<Structs.EnemyPrefab> enemiesToSpawn = new();
+        private Structs.EnemyPrefab mainEnemy;
 
         private float[,] tileMatrix;
 
@@ -82,7 +51,7 @@ namespace TestRandomWorldGeneration {
                 if (indexOfSideEnemy == indexOfMainEnemy)
                     continue;
 
-                EnemyPrefab sideEnemy = enemyPrefabs[indexOfSideEnemy];
+                Structs.EnemyPrefab sideEnemy = enemyPrefabs[indexOfSideEnemy];
 
                 if (currentRoomDifficulty + sideEnemy.strength <= difficulty)
                 {

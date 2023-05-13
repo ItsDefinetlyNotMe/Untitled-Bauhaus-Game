@@ -1,22 +1,11 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace TestRandomWorldGeneration
 {
-    [Serializable]
-    public struct InteriorPrefab
-    {
-        public GameObject prefab;
-        public Vector2Int size;
-        public bool possibleMainObject;
-        public Vector2 offset;
-    }
-
-
     public class CreateRandomRoomInterior : MonoBehaviour
     {
-        [SerializeField] private InteriorPrefab[] interiorObjects;
+        [SerializeField] private Structs.InteriorPrefab[] interiorObjects;
         [SerializeField] private float percentageOfMainObject;
 
         private List<Vector2> possibleSpawnPositions = new();
@@ -128,7 +117,7 @@ namespace TestRandomWorldGeneration
         /// Instantiate objects of size 1x1 on the room border
         /// </summary>
         /// <param name="interiorObject"> object to instantiate </param>
-        private void InstantiateSmallObject(InteriorPrefab interiorObject)
+        private void InstantiateSmallObject(Structs.InteriorPrefab interiorObject)
         {
             //Generate possible position list
             GenerateSmallObjectPositionList();
@@ -150,7 +139,7 @@ namespace TestRandomWorldGeneration
         /// Instantiate objects of bigger size anywhere in the room
         /// </summary>
         /// <param name="interiorObject"> object to instantiate </param>
-        private void InstantiateBigObject(InteriorPrefab interiorObject)
+        private void InstantiateBigObject(Structs.InteriorPrefab interiorObject)
         {
             //Generate possible position list
             GenerateBigObjectPositionList(interiorObject.size);
