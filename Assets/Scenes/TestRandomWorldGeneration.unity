@@ -202,7 +202,7 @@ MonoBehaviour:
     size: {x: 1, y: 1}
     possibleMainObject: 1
     offset: {x: 0, y: 0.15}
-  - prefab: {fileID: 4777662169212377178, guid: 17e04fa81eb7e614da60a9ed2f8f3241, type: 3}
+  - prefab: {fileID: 2450496227188854435, guid: 128fdf74669c04c1d87a485ad5e02864, type: 3}
     size: {x: 1, y: 1}
     possibleMainObject: 1
     offset: {x: 0, y: 0}
