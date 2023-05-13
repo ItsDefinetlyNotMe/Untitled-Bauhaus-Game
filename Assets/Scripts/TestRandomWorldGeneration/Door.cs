@@ -6,7 +6,7 @@ using UnityEngine;
 
 public enum Direction
 {
-    LEFT, UP, RIGHT, DOWN
+    Left, Up, Right, Down
 }
 
 public class Door : MonoBehaviour

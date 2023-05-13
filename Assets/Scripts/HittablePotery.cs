@@ -1,23 +1,23 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class HittablePotery : HittableObject
 {
     [SerializeField] private Sprite destroyedSprite;
     SpriteRenderer spriteRenderer;
-    public GameObject Sound;
-    override protected void Start() {
+    [FormerlySerializedAs("Sound")] [SerializeField] private GameObject sound;
+    protected override void Start() {
         base.Start();
         spriteRenderer = GetComponent<SpriteRenderer>();
     }
-    override public void Die()
+
+    protected override void Die()
     {
         //change sprite
         spriteRenderer.sprite = destroyedSprite;
         //disable Collider2D
         base.Die();
         // Sound
-        Sound.GetComponent<RandomSound>().PlayRandom1();
+        sound.GetComponent<RandomSound>().PlayRandom1();
     }
 }

@@ -1,13 +1,17 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Serialization;
 using static Direction;
 
 public class PlayerAnimator : MonoBehaviour
 {
     private Animator animator;
     private Vector2 movementDirection;
-    public GameObject Sound;
+    [FormerlySerializedAs("Sound")] [SerializeField] private GameObject sound;
     private bool isInvoked = true;
+    private static readonly int IsWalking = Animator.StringToHash("isWalking");
+    private static readonly int X = Animator.StringToHash("X");
+    private static readonly int Y = Animator.StringToHash("Y");
 
     private void Awake()
     {
@@ -21,19 +25,19 @@ public class PlayerAnimator : MonoBehaviour
         if (movementDirection.x != 0 || movementDirection.y != 0)
         {
             if (isInvoked) { 
-                InvokeRepeating("PlayFootStepSound", 0.3f, 0.5f);
+                InvokeRepeating(nameof(PlayFootStepSound), 0.3f, 0.5f);
                 isInvoked = false;
             }
-            animator.SetBool("isWalking", true);
-            animator.SetFloat("X", movementDirection.x);
-            animator.SetFloat("Y", movementDirection.y);
+            animator.SetBool(IsWalking, true);
+            animator.SetFloat(X, movementDirection.x);
+            animator.SetFloat(Y, movementDirection.y);
         }
 
         else
         {
-            animator.SetBool("isWalking", false);
+            animator.SetBool(IsWalking, false);
             isInvoked = true;
-            CancelInvoke("PlayFootStepSound");
+            CancelInvoke(nameof(PlayFootStepSound));
         }
     }
     public void PlayAttackAnimation(Direction attackDirection,int number)
@@ -41,16 +45,16 @@ public class PlayerAnimator : MonoBehaviour
         string localAttackDirection = "";
         switch(attackDirection)
         {
-            case LEFT:
+            case Left:
                 localAttackDirection = "AttackLeft";
                 break;
-            case UP:
+            case Up:
                 localAttackDirection = "AttackUp";
                 break;
-            case RIGHT:
+            case Right:
                 localAttackDirection = "AttackRight";
                 break;
-            case DOWN:
+            case Down:
                 localAttackDirection = "AttackDown";
                 break;
         }
@@ -62,6 +66,6 @@ public class PlayerAnimator : MonoBehaviour
 
     private void PlayFootStepSound()
     {
-        Sound.GetComponent<RandomSound>().PlayRandom1();
+        sound.GetComponent<RandomSound>().PlayRandom1();
     }
 }

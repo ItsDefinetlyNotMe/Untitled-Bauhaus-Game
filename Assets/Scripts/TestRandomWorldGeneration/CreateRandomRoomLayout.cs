@@ -79,20 +79,20 @@ namespace TestRandomWorldGeneration
 
             switch (entryDirection)
             {
-                case Direction.LEFT:
-                    entryDirection = Direction.RIGHT;
+                case Direction.Left:
+                    entryDirection = Direction.Right;
                     break;
 
-                case Direction.UP:
-                    entryDirection = Direction.DOWN;
+                case Direction.Up:
+                    entryDirection = Direction.Down;
                     break;
 
-                case Direction.RIGHT:
-                    entryDirection = Direction.LEFT;
+                case Direction.Right:
+                    entryDirection = Direction.Left;
                     break;
 
-                case Direction.DOWN:
-                    entryDirection = Direction.UP;
+                case Direction.Down:
+                    entryDirection = Direction.Up;
                     break;
             }
 

@@ -1,20 +1,13 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class CrossBowShoot : MonoBehaviour
 {
 
     public Transform firePoint;
-    public GameObject ArrowPrefab;
+    public GameObject arrowPrefab;
 
-    void Update()
+    private void Shoot() 
     {
-        
-    }
-
-    private void shoot() 
-    {
-        Instantiate(ArrowPrefab, firePoint.position, firePoint.rotation);
+        Instantiate(arrowPrefab, firePoint.position, firePoint.rotation);
     }
 }

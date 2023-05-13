@@ -1,16 +1,16 @@
 using System.Collections;
-using System.Collections.Generic;
+using Enemies;
 using UnityEngine;
 
-public enum state{
-    CHARGING_ATTACK,ATTACKING,RECHARGING,MOVING,FLEEING
+public enum State{
+    ChargingAttack,Attacking,Recharging,Moving,Fleeing
 }
-abstract public class RangedEnemyMovement : EnemyMovement
+public abstract class RangedEnemyMovement : EnemyMovement
 {
     [Header("Movement")]
     
     [Header("States")]
-    protected state currentState;
+    protected State currentState;
     
     [Header("Layer")]
     [SerializeField] protected LayerMask projectileLayer;//all layers that are relevant / hitable
@@ -19,10 +19,8 @@ abstract public class RangedEnemyMovement : EnemyMovement
     //fleeing
 
     [Header("Fleeing")]
-    [SerializeField] private float fleeingTime = 1f;
-    private float fleeingOffset = 1f;
-    private float fleeingTimeStamp=0f;
-    private float fleeingMovementSpeedMultiplier = 3f;
+    private readonly float fleeingOffset = 1f;
+    private readonly float fleeingMovementSpeedMultiplier = 3f;
 
     
     [Header("Animation")]
@@ -38,38 +36,35 @@ abstract public class RangedEnemyMovement : EnemyMovement
     [SerializeField] protected float rechargingTime = 1f;
     
     [Header("Debug",order = 2)]
-    public bool debug = false;
-    public bool debugRanges = false;
-    public bool debugRaycast = false;
-    public bool debugState = false;
-    Vector3 debugTransposi = new Vector3(0,0,0);  
-    Vector3 debugEnemytransposi = new Vector3(0,0,0);
+    public bool debug;
+    public bool debugRanges;
+    public bool debugRaycast;
+    public bool debugState;
     Vector3 debugdirection;
     Vector3 debugDirection;
-    RaycastHit2D[] debugObjecthit = null;
-    RaycastHit2D debugFleeObjectHit = new RaycastHit2D();    
+    RaycastHit2D[] debugObjecthit;
     /// <summary>To call on Start, gets basic Components </summary>
-    override protected void StartUp() 
+    protected override void StartUp() 
     {
         base.StartUp();
-        currentState = state.MOVING;
+        currentState = State.Moving;
         animator = GetComponent<Animator>();
     }
     /// <summary> Figuring out what to do next based on The state Enemy is in</summary>
     protected void NextMove()
     {//figuring out what to do next called in update
         float distance = Vector2.Distance(transform.position, target.position);
-        if(currentState == state.FLEEING)
+        if(currentState == State.Fleeing)
         {
             if(distance > minimumRange + fleeingOffset)
             {
-                ChangeState(state.MOVING);
+                ChangeState(State.Moving);
             }else
             {
                 CheckFleeing();
             }
         }
-        if(currentState == state.MOVING){
+        if(currentState == State.Moving){
             if(distance <= maximumRange && distance > minimumRange)
                 StartAttack();
             else if(distance <= minimumRange)
@@ -83,8 +78,10 @@ abstract public class RangedEnemyMovement : EnemyMovement
     private void StartAttack()
     {
         int arraysize = 10;
-        ContactFilter2D rayCastFilter = new ContactFilter2D();
-        rayCastFilter.layerMask = projectileLayer;
+        ContactFilter2D rayCastFilter = new ContactFilter2D
+        {
+            layerMask = projectileLayer
+        };
         RaycastHit2D[]  results = new RaycastHit2D[arraysize];
         Vector2 direction = target.position - new Vector3(0f,0.2f,0) - transform.position;//TODO
         arraysize = Physics2D.Raycast(transform.position, direction.normalized, rayCastFilter, results, maximumRange);//Raycast to check wether player is behind an Object
@@ -107,44 +104,43 @@ abstract public class RangedEnemyMovement : EnemyMovement
     private void CheckFleeing()
     {//flee when Player to close
        
-        ChangeState(state.FLEEING);
+        ChangeState(State.Fleeing);
         Vector3 direction = (transform.position - target.position).normalized;
         RaycastHit2D hit = Physics2D.Raycast(transform.position,direction,minimumRange,enemyObstacleLayer); 
         debugDirection = direction;
-        debugFleeObjectHit = hit;
         float distance = hit.distance;
         if(distance <= minimumRange/2 && distance > 0)
         {
-            Debug.Log(distance);
             //if in a corner just Attack in desperation
             StartAttack();
         }else
         {//flee 
-            rb.velocity = direction * movementSpeed * fleeingMovementSpeedMultiplier;
+            rb.velocity = direction * (movementSpeed * fleeingMovementSpeedMultiplier);
             //enemyMovement.SwapTargetBriefly( transform.position + fleeingDirection.normalized * minimumRange,fleeingTime);
         }
     }
-    virtual public void ChangeState(state nextState)
+
+    protected virtual void ChangeState(State nextState)
     {
         currentState = nextState;
     }
     /// <summary> Needs to be overriden, implements The Attack  </summary>
-    abstract public IEnumerator Attack();
+    protected abstract IEnumerator Attack();
     private void OnDrawGizmosSelected() {
         if(debug)
         {
             if(debugState)
             {
-                if(currentState == state.MOVING)
+                if(currentState == State.Moving)
                 {
                     Gizmos.color = Color.green;
-                }else if(currentState == state.RECHARGING)
+                }else if(currentState == State.Recharging)
                 {
                     Gizmos.color = Color.red;
                 }
-                else if(currentState == state.CHARGING_ATTACK) {
+                else if(currentState == State.ChargingAttack) {
                     Gizmos.color = Color.blue;
-                } else if(currentState == state.FLEEING){
+                } else if(currentState == State.Fleeing){
                     Gizmos.color = Color.yellow;
                 }
                 Gizmos.DrawWireSphere(transform.position,transform.localScale.x*1.2f);
@@ -167,14 +163,14 @@ abstract public class RangedEnemyMovement : EnemyMovement
                 //
             }
             if(debugRanges){
-                if(currentState == state.MOVING)
+                if(currentState == State.Moving)
                 {
                     Gizmos.color = Color.green;
-                }else if(currentState == state.RECHARGING)
+                }else if(currentState == State.Recharging)
                 {
                     Gizmos.color = Color.red;
                 }
-                else if(currentState == state.CHARGING_ATTACK) {
+                else if(currentState == State.ChargingAttack) {
                     Gizmos.color = Color.blue;
                 } else {
                     return;
@@ -188,5 +184,5 @@ abstract public class RangedEnemyMovement : EnemyMovement
                 Gizmos.DrawWireSphere(transform.position,maximumRange);
             }
         }
-   }
+    }
 }

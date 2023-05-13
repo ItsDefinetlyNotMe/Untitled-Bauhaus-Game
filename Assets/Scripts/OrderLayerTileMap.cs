@@ -1,6 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.Tilemaps;
 
 public class OrderLayerTileMap : MonoBehaviour
@@ -8,23 +7,23 @@ public class OrderLayerTileMap : MonoBehaviour
     private int biglayer = 6;
     private int smalllayer = 1;
     private TilemapRenderer render;
-    private GameObject Character;
-    public GameObject DestinationRoot;
+    private GameObject character;
+    [FormerlySerializedAs("DestinationRoot")] [SerializeField] private GameObject destinationRoot;
 
     void Start()
     {
         render = GetComponent<TilemapRenderer>();
-        Character = GameObject.FindGameObjectWithTag("Player");
+        character = GameObject.FindGameObjectWithTag("Player");
     }
 
     void Update()
     {
-        if (Character.transform.position.y > DestinationRoot.transform.position.y)
+        if (character.transform.position.y > destinationRoot.transform.position.y)
         {
             render.sortingOrder = smalllayer;
         }
 
-        if (Character.transform.position.y <= DestinationRoot.transform.position.y)
+        if (character.transform.position.y <= destinationRoot.transform.position.y)
         {
             render.sortingOrder = biglayer;
         }

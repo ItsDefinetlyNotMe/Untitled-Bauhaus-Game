@@ -1,22 +1,22 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+// ReSharper disable Unity.InefficientPropertyAccess
 
 public class HitablePlayer : HittableObject
 {
     Rigidbody2D rb;
     SpriteRenderer spriteRenderer;
-    override protected void Start() {
+    protected override void Start() {
         base.Start();
         rb = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();    
     }
-    override public void GetHit(int Damage, Vector2 damageSourcePosition, float knockbackMultiplier)
+    public override void GetHit(int damage, Vector2 damageSourcePosition, float knockbackMultiplier)
     {
         //visual Feedback
         StartCoroutine(HitFeedback());
         
-        base.GetHit(Damage,damageSourcePosition, knockbackMultiplier);
+        base.GetHit(damage,damageSourcePosition, knockbackMultiplier);
         
         //knockback
         float sizeMultiplier;
@@ -26,8 +26,10 @@ public class HitablePlayer : HittableObject
         }else{
             sizeMultiplier = 1 / size;
         }
-        Vector2 knockbackDirection = new Vector2(transform.position.x,transform.position.y) - damageSourcePosition;
-        rb.velocity = knockbackDirection.normalized * sizeMultiplier * knockbackMultiplier;
+
+        var position = transform.position;
+        Vector2 knockbackDirection = new Vector2(position.x,position.y) - damageSourcePosition;
+        rb.velocity = knockbackDirection.normalized * (sizeMultiplier * knockbackMultiplier);
 
     }
     private IEnumerator HitFeedback(){
@@ -38,7 +40,8 @@ public class HitablePlayer : HittableObject
         transform.localScale = t;
         spriteRenderer.color = new Color(255,255,255,255);
     }
-    public override void Die()
+
+    protected override void Die()
     {
         base.Die();
         //gameObject.SetActive(false);

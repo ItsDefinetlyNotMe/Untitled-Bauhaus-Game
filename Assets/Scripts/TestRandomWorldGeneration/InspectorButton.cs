@@ -13,7 +13,7 @@ public class InspectorButton : Editor
         CreateRandomRoomLayout roomGenerator = (CreateRandomRoomLayout)target;
         if (GUILayout.Button("Generate Room"))
         {
-            roomGenerator.StartRoomGeneration(Direction.UP);
+            roomGenerator.StartRoomGeneration(Direction.Up);
         }
     }
 }

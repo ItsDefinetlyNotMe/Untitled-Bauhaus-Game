@@ -8,12 +8,11 @@ public abstract class WeaponScript : MonoBehaviour
 {
     
     [Header("Animation")]
-    Animator animator;
     PlayerAnimator playerAnimator;
 
     [Header("Stats")]
     [SerializeField] protected int attackDamage = 20;
-    private float attackSpeed = 2f;
+    private readonly float attackSpeed = 2f;
     protected float knockbackAmplifier = 10f;
     
     [Header("Layer")]
@@ -27,18 +26,17 @@ public abstract class WeaponScript : MonoBehaviour
     Collider2D[] weaponHitBoxes;
     
     [Header("Attack")]
-    private float nextAttack = 0f;
+    private float nextAttack;
     //public bool isAttacking = false;
-    private int attackNumber = 0;
+    private int attackNumber;
     [SerializeField] private float attackNumberCooldown = 5.0f;
-    private float attackNumberTimeStamp = 0f;
+    private float attackNumberTimeStamp;
     private Direction attackDirection;
 
     private void Start()
     {
         movementScript = GetComponentInParent<PlayerMovement>();
         playerAnimator = GetComponentInParent<PlayerAnimator>();
-        animator = GetComponentInParent<Animator>();
         //maybe temporary
         weaponHitBoxes = new Collider2D[4];
         for(int i = 0; i < 4;++i ){
@@ -54,7 +52,7 @@ public abstract class WeaponScript : MonoBehaviour
     public IEnumerator Attack(Action<List<Collider2D>,int> callback )
     {
         //tracking the attacktimer and detecting enemys in attackradius if possible to attack
-        if(Time.time >= nextAttack && movementScript.currentState == MOVING){
+        if(Time.time >= nextAttack && movementScript.currentState == Moving){
             //movementScript.ChangeState(ATTACKING);
             //call animation
             DetermineAttackDirection();
@@ -64,7 +62,7 @@ public abstract class WeaponScript : MonoBehaviour
             
             //Wait for animation to start
             //yield return new WaitWhile(() => isAttacking == false);
-            yield return new WaitWhile(() => movementScript.currentState != ATTACKING);
+            yield return new WaitWhile(() => movementScript.currentState != Attacking);
             
             //locating enemies
             List<Collider2D> enemiesHit = new List<Collider2D>();
@@ -83,7 +81,7 @@ public abstract class WeaponScript : MonoBehaviour
             //giving back enemies and the attackdamage as soon as they are calculated 
             callback(enemiesHit,attackDamage);
             //yield return new WaitWhile(()=> isAttacking == true);
-            yield return new WaitWhile(()=> movementScript.currentState == ATTACKING);
+            yield return new WaitWhile(()=> movementScript.currentState == Attacking);
             //movementScript.ChangeState(MOVING);
         }
 
@@ -97,13 +95,13 @@ public abstract class WeaponScript : MonoBehaviour
         //same thing with the down direction
         //TODO fix this
         if (playerDirection.y > 0 && Mathf.Abs(playerDirection.x) <= playerDirection.y)
-            newAttackDirection = UP;
+            newAttackDirection = Up;
         else if(Mathf.Abs(playerDirection.x) <= Mathf.Abs(playerDirection.y))
-            newAttackDirection = DOWN;
+            newAttackDirection = Down;
         else if (playerDirection.x > 0)
-            newAttackDirection = RIGHT;
+            newAttackDirection = Right;
         else
-            newAttackDirection = LEFT;
+            newAttackDirection = Left;
 
         //determine what Attack we are at
         if(attackDirection != newAttackDirection)

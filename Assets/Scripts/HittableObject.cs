@@ -1,19 +1,17 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-abstract public class HittableObject : MonoBehaviour
+public abstract class HittableObject : MonoBehaviour
 {
     private Collider2D objectCollider;
     [SerializeField] protected int maxHealth;
     protected int currentHealth;
     [SerializeField] protected float size;
-    virtual protected void Start()
+    protected virtual void Start()
     {
         objectCollider = GetComponent<Collider2D>();
         currentHealth = maxHealth;
     }
-    virtual protected void TakeDamage(int damage)
+    protected virtual void TakeDamage(int damage)
     {
         //apply damage
         currentHealth -= damage;
@@ -22,11 +20,12 @@ abstract public class HittableObject : MonoBehaviour
             Die();
         }
     }
-    virtual public void GetHit(int Damage, Vector2 damageSourcePosition, float knockbackMultiplier)
+    public virtual void GetHit(int damage, Vector2 damageSourcePosition, float knockbackMultiplier)
     {
-        TakeDamage(Damage);
+        TakeDamage(damage);
     }
-    virtual public void Die()
+
+    protected virtual void Die()
     {
         objectCollider.enabled = false;
         //disable enemy

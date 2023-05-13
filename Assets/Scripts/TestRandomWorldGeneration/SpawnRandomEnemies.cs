@@ -7,8 +7,8 @@ namespace TestRandomWorldGeneration {
 
     public enum Type
     {
-        ENEMY,
-        TRAP
+        Enemy,
+        Trap
     }
 
     public enum DifficultyType
