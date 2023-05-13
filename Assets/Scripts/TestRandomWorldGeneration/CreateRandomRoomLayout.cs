@@ -23,12 +23,14 @@ namespace TestRandomWorldGeneration
         [SerializeField] private GameObject wallDownCornerRightCornerLeft;
         [SerializeField] private GameObject floor;
 
+        [SerializeField] private int minNumberOfTiles;
+        [SerializeField] private int maxNumberOfTiles;
+
         private int numberOfMaxTiles;
         private float[,] tileMatrix;
         private int numberOfActiveTiles = 1;
 
-        [SerializeField] private int minNumberOfTiles;
-        [SerializeField] private int maxNumberOfTiles;
+        private List<Vector2Int> possibleDoorPositions = new();
 
         private List<Tuple<int, int>> newTiles = new();
 
@@ -53,7 +55,10 @@ namespace TestRandomWorldGeneration
             //Create matrix
             numberOfMaxTiles = UnityEngine.Random.Range(minNumberOfTiles, maxNumberOfTiles + 1);
             tileMatrix = new float[numberOfMaxTiles, numberOfMaxTiles];
+
             GenerateMatrix();
+
+            SetDoorDirections(doorDirection);
 
             InstantiateFloor();
             InstantiateWalls();
@@ -62,7 +67,57 @@ namespace TestRandomWorldGeneration
             createRandomRoomInterior.SetInteriorVariables(ref tileMatrix, numberOfMaxTiles);
         }
 
-    
+        private void SetDoorDirections(Direction entryDirection)
+        {
+            Direction exitDirection1;
+            Direction exitDirection2;
+
+            switch (entryDirection)
+            {
+                case Direction.LEFT:
+                    entryDirection = Direction.RIGHT;
+                    break;
+
+                case Direction.UP:
+                    entryDirection = Direction.DOWN;
+                    break;
+
+                case Direction.RIGHT:
+                    entryDirection = Direction.LEFT;
+                    break;
+
+                case Direction.DOWN:
+                    entryDirection = Direction.UP;
+                    break;
+            }
+
+            do
+            {
+                exitDirection1 = (Direction)UnityEngine.Random.Range(0, 3);
+            } while (exitDirection1 == entryDirection);
+            
+            do
+            {
+                exitDirection2 = (Direction)UnityEngine.Random.Range(0, 3);
+            } while (exitDirection2 == entryDirection || exitDirection2 == exitDirection1);
+
+            SearchDoorSpawnPosition(entryDirection, true);
+            SearchDoorSpawnPosition(exitDirection1, false);
+            SearchDoorSpawnPosition(exitDirection2, false);
+        }
+
+        private void SearchDoorSpawnPosition(Direction doorDirection, bool isEntry)
+        {
+            switch (doorDirection)
+            {
+                //search for upmost floor tiles
+                case Direction.DOWN:
+
+                    break;
+            }
+        }
+
+
         private void GenerateMatrix()
         {
             int x = numberOfMaxTiles / 2;
