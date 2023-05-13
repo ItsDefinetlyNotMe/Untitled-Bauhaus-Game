@@ -1,34 +1,40 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using Pathfinding;
 
-public class EnemyScript : MonoBehaviour
+abstract public class EnemyMovement : MonoBehaviour
 {
-    Rigidbody2D rb;
-    [SerializeField] Transform target;
-    [SerializeField] GameObject playerHittScript;
-    float movementSpeed = 1f;
-    public float nextWayPointDistance = 3f;
-    Vector3 lastTargetPosition = new Vector3(0f,0f,0f);
+    [Header("Physics")]
+    [SerializeField] protected Transform target;
+    protected Rigidbody2D rb;
+    
+    [Header("Movement")]
+    protected float movementSpeed = 1f;
+    
+    [Header("Pathfinding")]
     Path path;
+    Seeker seeker;
     int currentWaypoint = 0;
+    public float nextWayPointDistance = 3f;
     float reachedWayPointDistance = .4f;
     bool reachedEndofPath = false;
-    Seeker seeker;
-    float vel;
-    public bool targeting = false;
-
-    void Start()
+    
+    [Header("Target")]
+    private bool targeting = false;
+    /// <summary> To be called on Start, getting basic Components </summary>
+    virtual protected void StartUp()
     {
+        target = (GameObject.FindGameObjectsWithTag("Player"))[0].transform;
         seeker = GetComponent<Seeker>();
-        rb = GetComponent<Rigidbody2D>();       
+        rb = GetComponent<Rigidbody2D>();
         seeker.StartPath(rb.position,target.position,OnPathComplete); 
         InvokeRepeating("UpdatePath",0f,.5f);
     }
     void UpdatePath()
     {
-        if(lastTargetPosition != target.position && targeting)//only if player moved and we are currently targeting the player
+        if(targeting)
         {
-            lastTargetPosition = target.position;
             if(seeker.IsDone())
                 seeker.StartPath(rb.position,target.position,OnPathComplete);
         }
@@ -43,7 +49,6 @@ public class EnemyScript : MonoBehaviour
     }
     void FixedUpdate()
     {
-        vel = rb.velocity.magnitude;
         if(path == null)
             return;
         if(currentWaypoint >= path.vectorPath.Count)
@@ -63,5 +68,11 @@ public class EnemyScript : MonoBehaviour
             if(distance < reachedWayPointDistance)
                 ++currentWaypoint;
         }
+    }
+    public void StartTargeting(){
+        targeting = true;
+    }
+    public void StopTargeting(){
+        targeting = false;
     }
 }

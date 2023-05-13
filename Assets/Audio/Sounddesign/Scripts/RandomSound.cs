@@ -13,7 +13,7 @@ public class RandomSound : MonoBehaviour
     {
         randomSound1.clip = audioSources1[Random.Range(0, audioSources1.Length)];
         randomSound1.Play();
-        print("PersonSound");
+        //print("PersonSound");
     }
 
     public void PlayRandom2()

@@ -6,7 +6,7 @@ public class HitablePlayer : HittableObject
 {
     Rigidbody2D rb;
     SpriteRenderer spriteRenderer;
-    private void Start() {
+    override protected void Start() {
         base.Start();
         rb = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();    

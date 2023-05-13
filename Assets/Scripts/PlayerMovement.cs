@@ -6,15 +6,18 @@ public class PlayerMovement : MonoBehaviour
 {
 
     //default movement
+    [Header("Movement")]
     [SerializeField] private float defaultMoveSpeed = 11f;
     public Vector2 movementDirection { get; private set; }
-    private Rigidbody2D rb;
-    
-    //Dash related
+    [Header("Visual")]
     private TrailRenderer trailRenderer;
-    Collider2D collider;
+    [Header("Physics")]
+    private Rigidbody2D rb;
+    Collider2D coll;
+    
+    [Header("Dash")]
+    [SerializeField] private float maxDashingPower = 2.4f;
     public bool isDashing { get; private set; }
-    private float maxDashingPower = 2.4f;
     private float currentDashPower = 1f;
     private float dashingTime = 0.25f;
     private float dashingCooldown = 0f;
@@ -28,7 +31,7 @@ public class PlayerMovement : MonoBehaviour
         trailRenderer = GetComponent<TrailRenderer>();
         trailRenderer.emitting = false;
         rb = GetComponent<Rigidbody2D>();
-        collider = GetComponent<Collider2D>();
+        coll = GetComponent<Collider2D>();
     }
 
     private void FixedUpdate() 
@@ -65,10 +68,10 @@ public class PlayerMovement : MonoBehaviour
         yield return new WaitForSeconds((dashingTime-invulnerabilityTime)/3f);
         isInvulnerable = true;
         rb.isKinematic = true;
-        collider.enabled = false;
+        coll.enabled = false;
         yield return new WaitForSeconds(((dashingTime-invulnerabilityTime)*2)/3f);
         isInvulnerable = false;
         rb.isKinematic = false;
-        collider.enabled = true;
+        coll.enabled = true;
     }
 }

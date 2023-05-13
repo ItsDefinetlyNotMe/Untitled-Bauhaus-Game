@@ -1,7 +1,5 @@
-using System.Collections.Generic;
 using UnityEngine.InputSystem;
 using UnityEngine;
-using System;
 
 public class PlayerAttack : MonoBehaviour
 {    
