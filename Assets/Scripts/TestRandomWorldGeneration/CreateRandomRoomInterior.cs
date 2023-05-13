@@ -49,7 +49,7 @@ namespace TestRandomWorldGeneration
             spawnRandomEnemies.StartEnemySpawning(ref tileMatrix);
         }
 
-        private void Start()
+        private void Awake()
         {
             spawnRandomEnemies = gameObject.GetComponent<SpawnRandomEnemies>();
         }
