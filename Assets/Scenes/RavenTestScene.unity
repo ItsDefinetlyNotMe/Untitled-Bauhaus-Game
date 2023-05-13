@@ -420,18 +420,16 @@ MonoBehaviour:
     m_Bits: 512
   fleeingTime: 1
   minimumRange: 2
-  maximumRange: 7
+  maximumRange: 1
   chargeAttackTime: 0.6
   rechargingTime: 1
   debug: 0
-  debugFleeing: 1
   debugRanges: 0
   debugRaycast: 0
   debugState: 0
-  debugIndexRays: 0
-  dashingPower: 5
+  dashingPower: 7
   chargeDamage: 10
-  dashingTime: 0.8
+  dashingTime: 1
 --- !u!58 &334864194
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -2053,8 +2051,8 @@ MonoBehaviour:
   - {x: 0.027772903, y: 0.1406962, z: 0}
   - {x: 0.02350378, y: -0.09373565, z: 0}
   m_ShapePathHash: 2140632269
-  m_Mesh: {fileID: 1673679306}
-  m_InstanceId: 28846
+  m_Mesh: {fileID: 1549384222}
+  m_InstanceId: 29070
   m_LocalBounds:
     m_Center: {x: -0.021345854, y: 0.021345705, z: 0}
     m_Extent: {x: 0.049118757, y: 0.123619616, z: 0}
@@ -2655,7 +2653,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e99e9a094f040f54bbc0178f3e074499, type: 3}
---- !u!43 &1673679306
+--- !u!43 &1549384222
 Mesh:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
