@@ -1,16 +1,21 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
-
+using static PlayerState;
+public enum PlayerState{
+    MOVING,DASHING,ATTACKING
+}
 public class PlayerMovement : MonoBehaviour
 {
-
-    //default movement
     [Header("Movement")]
     [SerializeField] private float defaultMoveSpeed = 11f;
     public Vector2 movementDirection { get; private set; }
+    private PlayerAttack playerAttack;
+    public PlayerState currentState {get; private set;}
+
     [Header("Visual")]
     private TrailRenderer trailRenderer;
+    
     [Header("Physics")]
     private Rigidbody2D rb;
     Collider2D coll;
@@ -28,6 +33,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Awake()
     {
+        playerAttack = GetComponent<PlayerAttack>();
         trailRenderer = GetComponent<TrailRenderer>();
         trailRenderer.emitting = false;
         rb = GetComponent<Rigidbody2D>();
@@ -36,7 +42,8 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate() 
     {
-        rb.velocity = movementDirection * defaultMoveSpeed * currentDashPower;
+        if(currentState != ATTACKING)
+            rb.velocity = movementDirection * defaultMoveSpeed * currentDashPower;
     }
 
     private void OnMovement(InputValue input)
@@ -46,6 +53,7 @@ public class PlayerMovement : MonoBehaviour
     private void OnDash()
     {
         if (canDash){
+            ChangeState(DASHING);
             currentDashPower = maxDashingPower;
             trailRenderer.emitting = true;
             canDash = false;
@@ -61,6 +69,7 @@ public class PlayerMovement : MonoBehaviour
         isDashing = false;
         currentDashPower = 1.0f;
         yield return new WaitForSeconds(dashingCooldown);
+        ChangeState(MOVING);
         canDash = true;
     }
 
@@ -73,5 +82,15 @@ public class PlayerMovement : MonoBehaviour
         isInvulnerable = false;
         rb.isKinematic = false;
         coll.enabled = true;
+    }
+    public void ChangeState(PlayerState nextState)
+    {
+        switch(nextState)
+        {
+            case ATTACKING:
+                rb.velocity = new Vector3(0f,0f,0f);
+                break;
+        }
+        currentState = nextState;
     }
 }

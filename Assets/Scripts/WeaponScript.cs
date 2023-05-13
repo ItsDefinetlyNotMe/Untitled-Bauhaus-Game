@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using static Direction;
+using static PlayerState;
 public abstract class WeaponScript : MonoBehaviour
 {
     
@@ -53,7 +54,8 @@ public abstract class WeaponScript : MonoBehaviour
     public IEnumerator Attack(Action<List<Collider2D>,int> callback )
     {
         //tracking the attacktimer and detecting enemys in attackradius if possible to attack
-        if(Time.time >= nextAttack){
+        if(Time.time >= nextAttack && movementScript.currentState == MOVING){
+            movementScript.ChangeState(ATTACKING);
             //call animation
             DetermineAttackDirection();
             
@@ -76,9 +78,11 @@ public abstract class WeaponScript : MonoBehaviour
             }
             //TODO maybe wait until attack is over ? will probably lead to delayed dmg from attacks might look weird
             //yield return new WaitWhile(() => isAttacking == true);
-        
+
             //giving back enemies and the attackdamage as soon as they are calculated 
             callback(enemiesHit,attackDamage);
+            yield return new WaitWhile(()=> isAttacking == true);
+            movementScript.ChangeState(MOVING);
         }
 
     }

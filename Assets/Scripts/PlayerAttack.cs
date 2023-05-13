@@ -1,6 +1,6 @@
 using UnityEngine.InputSystem;
 using UnityEngine;
-
+using static PlayerState;
 public class PlayerAttack : MonoBehaviour
 {    
     WeaponScript weaponScript;
@@ -18,6 +18,7 @@ public class PlayerAttack : MonoBehaviour
         StartCoroutine(weaponScript.Attack((enemiesHit,weaponDamage)=>{
             foreach (Collider2D enemy in enemiesHit){
                 enemy.GetComponent<HittableObject>().GetHit((int)(weaponDamage * damageMultiplier),transform.position,knockbackMultiplier);
+                
             }
         }));
     }
