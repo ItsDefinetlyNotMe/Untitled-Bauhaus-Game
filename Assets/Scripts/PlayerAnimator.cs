@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using static Direction;
 
 public class PlayerAnimator : MonoBehaviour
 {
@@ -35,9 +36,27 @@ public class PlayerAnimator : MonoBehaviour
             CancelInvoke("PlayFootStepSound");
         }
     }
-    public void PlayAttackAnimation(string attackDirection)
+    public void PlayAttackAnimation(Direction attackDirection,int number)
     {
-        animator.Play(attackDirection);
+        string localAttackDirection = "";
+        switch(attackDirection)
+        {
+            case LEFT:
+                localAttackDirection = "AttackLeft";
+                break;
+            case UP:
+                localAttackDirection = "AttackUp";
+                break;
+            case RIGHT:
+                localAttackDirection = "AttackRight";
+                break;
+            case DOWN:
+                localAttackDirection = "AttackDown";
+                break;
+        }
+        localAttackDirection += number.ToString();
+        Debug.Log(localAttackDirection);
+        animator.Play(localAttackDirection);
     }
 
 

@@ -2,9 +2,10 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using static Direction;
 public abstract class WeaponScript : MonoBehaviour
 {
+    
     [Header("Animation")]
     Animator animator;
     PlayerAnimator playerAnimator;
@@ -16,7 +17,6 @@ public abstract class WeaponScript : MonoBehaviour
     
     [Header("Layer")]
     [SerializeField] LayerMask hittableLayers;
-    float nextAttack = 0f;
 
     [Header("Player")]
     PlayerMovement movementScript;
@@ -26,8 +26,13 @@ public abstract class WeaponScript : MonoBehaviour
     Collider2D[] weaponHitBoxes;
     
     [Header("Attack")]
+    private float nextAttack = 0f;
     public bool isAttacking = false;
     private int attackNumber = 0;
+    [SerializeField] private float attackNumberCooldown = 5.0f;
+    private float attackNumberTimeStamp = 0f;
+    private Direction attackDirection;
+
     private void Start()
     {
         movementScript = GetComponentInParent<PlayerMovement>();
@@ -80,28 +85,40 @@ public abstract class WeaponScript : MonoBehaviour
     public abstract void LeftTriggerAttack();//special Attack based on weapon
     private void DetermineAttackDirection()
     {
-        string attackDirection = "";
+        Direction newAttackDirection;
+        
         //if the absolute value of y is bigger than the absolute value of x you attack up
         //same thing with the down direction
+        //TODO fix this
         if (playerDirection.y > 0)
         {
             if (Mathf.Abs(playerDirection.x) <= playerDirection.y)
-                attackDirection = "AttackUp";
+                newAttackDirection = UP;
             else if (playerDirection.x > 0)
-                attackDirection = "AttackRight";                
+                newAttackDirection = RIGHT;
             else
-                attackDirection = "AttackLeft";
+                newAttackDirection = LEFT;
         }
         else
         {
             if (Mathf.Abs(playerDirection.x) <= Mathf.Abs(playerDirection.y))
-                attackDirection = "AttackDown";
+                newAttackDirection = DOWN;
             else if (playerDirection.x > 0)
-                attackDirection = "AttackRight";
+                newAttackDirection = RIGHT;
             else
-                attackDirection = "AttackLeft";
+                newAttackDirection = LEFT;
         }
+
+        //determine what Attack we are at
+        if(attackDirection != newAttackDirection)
+            attackNumber = 0;
+        if(Time.time > attackNumberTimeStamp)
+            attackNumber = 0;
+        
+        attackDirection = newAttackDirection; 
         //call actual animation in PlayerAnimator.cs
-        playerAnimator.PlayAttackAnimation(attackDirection);
+        playerAnimator.PlayAttackAnimation(attackDirection,attackNumber);
+        attackNumber = (attackNumber + 1) % 3;
+        attackNumberTimeStamp = attackNumberCooldown + Time.time;
     }
 }
