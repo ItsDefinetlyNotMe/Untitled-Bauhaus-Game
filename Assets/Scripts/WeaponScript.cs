@@ -28,7 +28,7 @@ public abstract class WeaponScript : MonoBehaviour
     
     [Header("Attack")]
     private float nextAttack = 0f;
-    public bool isAttacking = false;
+    //public bool isAttacking = false;
     private int attackNumber = 0;
     [SerializeField] private float attackNumberCooldown = 5.0f;
     private float attackNumberTimeStamp = 0f;
@@ -55,7 +55,7 @@ public abstract class WeaponScript : MonoBehaviour
     {
         //tracking the attacktimer and detecting enemys in attackradius if possible to attack
         if(Time.time >= nextAttack && movementScript.currentState == MOVING){
-            movementScript.ChangeState(ATTACKING);
+            //movementScript.ChangeState(ATTACKING);
             //call animation
             DetermineAttackDirection();
             
@@ -63,7 +63,8 @@ public abstract class WeaponScript : MonoBehaviour
             nextAttack = Time.time + 1f/attackSpeed;
             
             //Wait for animation to start
-            yield return new WaitWhile(() => isAttacking == false);
+            //yield return new WaitWhile(() => isAttacking == false);
+            yield return new WaitWhile(() => movementScript.currentState != ATTACKING);
             
             //locating enemies
             List<Collider2D> enemiesHit = new List<Collider2D>();
@@ -81,8 +82,9 @@ public abstract class WeaponScript : MonoBehaviour
 
             //giving back enemies and the attackdamage as soon as they are calculated 
             callback(enemiesHit,attackDamage);
-            yield return new WaitWhile(()=> isAttacking == true);
-            movementScript.ChangeState(MOVING);
+            //yield return new WaitWhile(()=> isAttacking == true);
+            yield return new WaitWhile(()=> movementScript.currentState == ATTACKING);
+            //movementScript.ChangeState(MOVING);
         }
 
     }

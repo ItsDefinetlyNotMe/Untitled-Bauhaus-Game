@@ -11,7 +11,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float defaultMoveSpeed = 11f;
     public Vector2 movementDirection { get; private set; }
     private PlayerAttack playerAttack;
-    public PlayerState currentState {get; private set;}
+    public PlayerState currentState; //{get; private set;}
 
     [Header("Visual")]
     private TrailRenderer trailRenderer;
