@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using TMPro;
 using Unity.Mathematics;
 using UnityEngine;
 
@@ -27,10 +28,14 @@ namespace TestRandomWorldGeneration
         [SerializeField] private int maxNumberOfTiles;
 
         private int numberOfMaxTiles;
-        private float[,] tileMatrix;
         private int numberOfActiveTiles = 1;
 
-        private List<Vector2Int> possibleDoorPositions = new();
+        //1 means floor tile,
+        //2 means border tile,
+        //3 means instantiated object,
+        //4 means entry door,
+        //5 means exit door.
+        private float[,] tileMatrix;
 
         private List<Tuple<int, int>> newTiles = new();
 
@@ -41,7 +46,7 @@ namespace TestRandomWorldGeneration
         {
             createRandomRoomInterior = gameObject.GetComponent<CreateRandomRoomInterior>();
 
-            StartRoomGeneration(Direction.UP);
+            StartRoomGeneration(Direction.UP); //TODO delete this line when object is in normal scene with doors
         }
 
     
@@ -58,10 +63,10 @@ namespace TestRandomWorldGeneration
 
             GenerateMatrix();
 
-            SetDoorDirections(doorDirection);
-
             InstantiateFloor();
             InstantiateWalls();
+
+            SetDoorDirections(doorDirection);
 
             //create room interior
             createRandomRoomInterior.SetInteriorVariables(ref tileMatrix, numberOfMaxTiles);
@@ -108,13 +113,88 @@ namespace TestRandomWorldGeneration
 
         private void SearchDoorSpawnPosition(Direction doorDirection, bool isEntry)
         {
+            bool tileFound = false;
+            List<Vector2Int> possibleDoorPositions = new();
+
             switch (doorDirection)
             {
                 //search for upmost floor tiles
-                case Direction.DOWN:
+                case Direction.LEFT:
+                    for (int x = 0; x < numberOfMaxTiles; x++)
+                    {
+                        for (int y = 0; y < numberOfMaxTiles; y++)
+                        {
+                            if ((int)tileMatrix[x, y] == 1)
+                            {
+                                tileFound = true;
+                                possibleDoorPositions.Add(new Vector2Int(x, y));
+                            }
+                        }
+                        if (tileFound)
+                            break;
+                    }
+                    break;
 
+                case Direction.UP:
+                    for (int y = 0; y < numberOfMaxTiles; y++)
+                    {
+                        for (int x = 0; x < numberOfMaxTiles; x++)
+                        {
+                            if ((int)tileMatrix[x, y] == 1)
+                            {
+                                tileFound = true;
+                                possibleDoorPositions.Add(new Vector2Int(x, y));
+                            }
+                        }
+                        if (tileFound)
+                            break;
+                    }
+                    break;
+
+                case Direction.RIGHT:
+                    for (int x = numberOfMaxTiles - 1; x >= 0; x--)
+                    {
+                        for (int y = 0; y < numberOfMaxTiles; y++)
+                        {
+                            if ((int)tileMatrix[x, y] == 1)
+                            {
+                                tileFound = true;
+                                possibleDoorPositions.Add(new Vector2Int(x, y));
+                            }
+                        }
+                        if (tileFound)
+                            break;
+                    }
+                    break;
+
+                case Direction.DOWN:
+                    for (int y = numberOfMaxTiles - 1; y >= 0; y--)
+                    {
+                        for (int x = 0; x < numberOfMaxTiles; x++)
+                        {
+                            if ((int)tileMatrix[x, y] == 1)
+                            {
+                                tileFound = true;
+                                possibleDoorPositions.Add(new Vector2Int(x, y));
+                            }
+                        }
+                        if (tileFound)
+                            break;
+                    }
                     break;
             }
+
+            Vector2Int matDoorPos = possibleDoorPositions[UnityEngine.Random.Range(0, possibleDoorPositions.Count)];
+
+            if (isEntry)
+                tileMatrix[matDoorPos.x, matDoorPos.y] = 4;
+            else
+                tileMatrix[matDoorPos.x, matDoorPos.y] = 5;
+
+            float worldX = matDoorPos.x - numberOfMaxTiles / 2;
+            float worldY = matDoorPos.y - numberOfMaxTiles / 2;
+
+            //TODO instantiate door prefabs
         }
 
 
@@ -251,8 +331,8 @@ namespace TestRandomWorldGeneration
                     if ((int)tileMatrix[x, y] == 1)
                     {
                         //reposition to the center of the scene
-                        int worldX = x - numberOfMaxTiles / 2;
-                        int worldY = y - numberOfMaxTiles / 2;
+                        float worldX = x - numberOfMaxTiles / 2;
+                        float worldY = y - numberOfMaxTiles / 2;
 
                         GameObject newFloorTile = Instantiate(floor, new Vector3(worldX, worldY, 0), Quaternion.identity);
                         newFloorTile.transform.parent = gameObject.transform;
@@ -286,8 +366,8 @@ namespace TestRandomWorldGeneration
                     if ((int)tileMatrix[x, y] == 1)
                     {
                         //reposition to the center of the scene
-                        int worldX = x - numberOfMaxTiles / 2;
-                        int worldY = y - numberOfMaxTiles / 2;
+                        float worldX = x - numberOfMaxTiles / 2;
+                        float worldY = y - numberOfMaxTiles / 2;
                     
                         bool upEmpty = (int)tileMatrix[x + 0, y + 1] != 1;
                         bool upRightEmpty = (int)tileMatrix[x + 1, y + 1] != 1;

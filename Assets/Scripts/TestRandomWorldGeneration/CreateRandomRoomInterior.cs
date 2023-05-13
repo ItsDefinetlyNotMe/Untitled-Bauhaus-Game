@@ -41,12 +41,11 @@ namespace TestRandomWorldGeneration
         {
             tileMatrix = newTileMatrix;
             floorTileCount = newFloorTileCount;
-            percentageOfMainObject /= 100;
             ResetEverything();
             MarkBorderTiles();
             CreateInterior();
 
-            spawnRandomEnemies.StartEnemySpawning(ref tileMatrix);
+            spawnRandomEnemies.StartEnemySpawning(ref tileMatrix, floorTileCount, floorTileCount - spaceToFill);
         }
 
         private void Awake()
@@ -77,7 +76,7 @@ namespace TestRandomWorldGeneration
         private void CreateInterior()
         {
             //Fill up 20% - 50% of the room
-            spaceToFill = (int)(floorTileCount * UnityEngine.Random.Range(0.2f, 0.5f));
+            spaceToFill = (int)(floorTileCount * UnityEngine.Random.Range(0.2f, 0.4f));
 
             //Choose main furniture and fill up ~70% of the space you want to fill
             //Then choose remaining random from remaining possible objects
@@ -91,14 +90,20 @@ namespace TestRandomWorldGeneration
 
             int sizeOfMainObject = interiorObjects[indexOfMainObject].size.x * interiorObjects[indexOfMainObject].size.y;
 
+            //instantiate main object
             do
             {
-                InstantiateBigObject(interiorObjects[indexOfMainObject]);
+                if (sizeOfMainObject > 1)
+                    InstantiateBigObject(interiorObjects[indexOfMainObject]);
+                else
+                    InstantiateSmallObject(interiorObjects[indexOfMainObject]);
                 alreadyFilledSpace += sizeOfMainObject;
 
-            } while (alreadyFilledSpace <= spaceToFillWithMainObject);
+            } while (alreadyFilledSpace < spaceToFillWithMainObject);
 
             int indexOfSideObject;
+
+            //instantiate different side objects
             do
             {
                 indexOfSideObject = UnityEngine.Random.Range(0, interiorObjects.Length);
@@ -106,14 +111,16 @@ namespace TestRandomWorldGeneration
                     continue;
                 int sizeOfSideObject = interiorObjects[indexOfSideObject].size.x * interiorObjects[indexOfSideObject].size.y;
                
-                if (sizeOfSideObject > 1)
-                    InstantiateBigObject(interiorObjects[indexOfSideObject]);
-                else
-                    InstantiateSmallObject(interiorObjects[indexOfSideObject]);
-               
-                alreadyFilledSpace += sizeOfSideObject;
-
-            } while (alreadyFilledSpace <= spaceToFill);
+                if (alreadyFilledSpace + sizeOfSideObject <= spaceToFill)
+                {
+                    if (sizeOfSideObject > 1)
+                        InstantiateBigObject(interiorObjects[indexOfSideObject]);
+                    else
+                        InstantiateSmallObject(interiorObjects[indexOfSideObject]);
+                    
+                    alreadyFilledSpace += sizeOfSideObject;
+                }
+            } while (alreadyFilledSpace != spaceToFill);
         }
 
     
@@ -178,13 +185,15 @@ namespace TestRandomWorldGeneration
 
             tileMatrix[matX, matY] = 3;
         }
-        
-    
+
+
         /// <summary>
         /// Mark border tiles in Matrix.
         ///1 means floor tile,
         ///2 means border tile,
-        ///3 means instantiated object.
+        ///3 means instantiated object,
+        ///4 means entry door,
+        ///5 means exit door.
         /// </summary>
         private void MarkBorderTiles()
         {
@@ -233,8 +242,8 @@ namespace TestRandomWorldGeneration
                 {
                     if ((int)tileMatrix[x, y] == 2)
                     {
-                        int worldX = x - floorTileCount / 2; //reposition to the center of the scene
-                        int worldY = y - floorTileCount / 2;
+                        float worldX = x - floorTileCount / 2; //reposition to the center of the scene
+                        float worldY = y - floorTileCount / 2;
 
                         possibleSpawnPositions.Add(new Vector2(worldX, worldY));
                     }
@@ -282,8 +291,8 @@ namespace TestRandomWorldGeneration
                     //if you checked every tile for current object position, add spawnPosition to list
                     if (!positionNotValid)
                     {
-                        int worldX = x - floorTileCount / 2; //reposition to the center of the scene
-                        int worldY = y - floorTileCount / 2;
+                        float worldX = x - floorTileCount / 2; //reposition to the center of the scene
+                        float worldY = y - floorTileCount / 2;
 
                         possibleSpawnPositions.Add(new Vector2(worldX, worldY));
                     }

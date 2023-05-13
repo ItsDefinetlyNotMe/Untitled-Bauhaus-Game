@@ -223,7 +223,7 @@ MonoBehaviour:
     size: {x: 3, y: 1}
     possibleMainObject: 1
     offset: {x: 0, y: 0}
-  percentageOfMainObject: 60
+  percentageOfMainObject: 0.6
 --- !u!114 &939599506
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -241,6 +241,12 @@ MonoBehaviour:
     strength: 0
     size: {x: 0, y: 0}
     type: 0
+  percentageOfMainEnemy: 0.7
+  difficulties:
+  - difficultyType: 0
+    difficulty: 20
+  - difficultyType: 1
+    difficulty: 70
 --- !u!1 &1564414110
 GameObject:
   m_ObjectHideFlags: 0
