@@ -90,24 +90,14 @@ public abstract class WeaponScript : MonoBehaviour
         //if the absolute value of y is bigger than the absolute value of x you attack up
         //same thing with the down direction
         //TODO fix this
-        if (playerDirection.y > 0)
-        {
-            if (Mathf.Abs(playerDirection.x) <= playerDirection.y)
-                newAttackDirection = UP;
-            else if (playerDirection.x > 0)
-                newAttackDirection = RIGHT;
-            else
-                newAttackDirection = LEFT;
-        }
+        if (playerDirection.y > 0 && Mathf.Abs(playerDirection.x) <= playerDirection.y)
+            newAttackDirection = UP;
+        else if(Mathf.Abs(playerDirection.x) <= Mathf.Abs(playerDirection.y))
+            newAttackDirection = DOWN;
+        else if (playerDirection.x > 0)
+            newAttackDirection = RIGHT;
         else
-        {
-            if (Mathf.Abs(playerDirection.x) <= Mathf.Abs(playerDirection.y))
-                newAttackDirection = DOWN;
-            else if (playerDirection.x > 0)
-                newAttackDirection = RIGHT;
-            else
-                newAttackDirection = LEFT;
-        }
+            newAttackDirection = LEFT;
 
         //determine what Attack we are at
         if(attackDirection != newAttackDirection)
@@ -116,6 +106,7 @@ public abstract class WeaponScript : MonoBehaviour
             attackNumber = 0;
         
         attackDirection = newAttackDirection; 
+        
         //call actual animation in PlayerAnimator.cs
         playerAnimator.PlayAttackAnimation(attackDirection,attackNumber);
         attackNumber = (attackNumber + 1) % 3;
