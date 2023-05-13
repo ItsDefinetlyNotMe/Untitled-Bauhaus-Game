@@ -42,8 +42,11 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate() 
     {
+       
         if(currentState != ATTACKING)
             rb.velocity = movementDirection * defaultMoveSpeed * currentDashPower;
+        else
+            rb.velocity = new Vector3(0f,0f,0f);
     }
 
     private void OnMovement(InputValue input)
