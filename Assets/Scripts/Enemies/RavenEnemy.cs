@@ -87,16 +87,19 @@ namespace Enemies
             //Changing state and if necessary change some other parameters
             switch(nextState){
                 case EnemyState.Attacking:
+                    col.isTrigger = true;
                     rb.isKinematic = true;
                     break;
                 case EnemyState.ChargingAttack:
                     StopTargeting();
                     break;
                 case EnemyState.Moving:
+                    col.isTrigger = false;
                     rb.isKinematic = false;
                     StartTargeting();
                     break;
                 case EnemyState.Fleeing:
+                    col.isTrigger = false;
                     StopTargeting();
                     break;
             }

@@ -78,7 +78,8 @@ public abstract class WeaponScript : MonoBehaviour
             //TODO maybe wait until attack is over ? will probably lead to delayed dmg from attacks might look weird
             //yield return new WaitWhile(() => isAttacking == true);
 
-            //giving back enemies and the attackdamage as soon as they are calculated 
+            //giving back enemies and the attackdamage as soon as they are calculated
+            Debug.Log(enemiesHit.Count);
             callback(enemiesHit,attackDamage);
             //yield return new WaitWhile(()=> isAttacking == true);
             yield return new WaitWhile(()=> movementScript.currentState == Attacking);

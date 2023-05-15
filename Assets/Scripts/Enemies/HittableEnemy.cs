@@ -8,6 +8,7 @@ namespace Enemies
     {
         private SpriteRenderer spriteRenderer;
         private Rigidbody2D rb;
+
         
         public delegate void EnemyDeathDelegate();
         public static EnemyDeathDelegate onEnemyDeath;
@@ -19,6 +20,7 @@ namespace Enemies
         }
         public override void GetHit(int damage, Vector2 damageSourcePosition, float knockbackMultiplier)
         {
+            Debug.Log("Ohh no it hurts, Oh no pls stop");
             //visual Feedback
             StartCoroutine(HitFeedback());
         

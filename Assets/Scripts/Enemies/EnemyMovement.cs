@@ -8,7 +8,8 @@ namespace Enemies
         [Header("Physics")]
         [SerializeField] protected Transform target;
         protected Rigidbody2D rb;
-    
+        protected Collider2D col;
+
         [Header("Movement")]
         protected readonly float movementSpeed = 1f;
     
@@ -25,6 +26,7 @@ namespace Enemies
         /// <summary> To be called on Start, getting basic Components </summary>
         protected virtual void StartUp()
         {
+            col = GetComponent<Collider2D>();
             target = (GameObject.FindGameObjectsWithTag("Player"))[0].transform;
             if (target == null)
             {
