@@ -8,6 +8,9 @@ namespace Enemies
     {
         private SpriteRenderer spriteRenderer;
         private Rigidbody2D rb;
+        
+        public delegate void EnemyDeathDelegate();
+        public static EnemyDeathDelegate onEnemyDeath;
         protected override void Start()
         {
             base.Start();
@@ -44,8 +47,10 @@ namespace Enemies
 
         protected override void Die()
         {
+            onEnemyDeath?.Invoke();
             base.Die();
             gameObject.SetActive(false);
+            
         }
     }
 }

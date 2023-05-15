@@ -7,7 +7,7 @@ public class HitablePlayer : HittableObject
     Rigidbody2D rb;
     SpriteRenderer spriteRenderer;
     public delegate void PlayerDeathDelegate();
-    public static PlayerDeathDelegate OnPlayerDeath;
+    public static PlayerDeathDelegate onPlayerDeath;
     protected override void Start() {
         base.Start();
         rb = GetComponent<Rigidbody2D>();
@@ -45,9 +45,8 @@ public class HitablePlayer : HittableObject
 
     protected override void Die()
     {
-        OnPlayerDeath?.Invoke();
+        onPlayerDeath?.Invoke();
         base.Die();
         //gameObject.SetActive(false);
-        //Application.Quit();
     }
 }

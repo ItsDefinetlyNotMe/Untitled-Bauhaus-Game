@@ -29,7 +29,7 @@ public class PlayerMovement : MonoBehaviour
     private PlayerInput playerInput;
     private void Awake()
     {
-        HitablePlayer.OnPlayerDeath += DisableMovement;
+        HitablePlayer.onPlayerDeath += DisableMovement;
         trailRenderer = GetComponent<TrailRenderer>();
         trailRenderer.emitting = false;
         rb = GetComponent<Rigidbody2D>();
