@@ -24,7 +24,6 @@ namespace TestRandomWorldGeneration
         private int spaceToFillWithMainObject;
 
         private int alreadyFilledSpace;
-    
         /// <summary>
         /// Start to create random room interior
         /// </summary>
@@ -37,6 +36,8 @@ namespace TestRandomWorldGeneration
             ResetEverything();
             MarkBorderTiles();
             CreateInterior();
+
+            AstarPath.active.Scan();
 
             spawnRandomEnemies.StartEnemySpawning(ref tileMatrix, floorTileCount, floorTileCount - spaceToFill);
         }

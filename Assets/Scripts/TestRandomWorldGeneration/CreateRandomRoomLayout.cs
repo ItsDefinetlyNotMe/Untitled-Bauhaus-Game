@@ -54,9 +54,9 @@ namespace TestRandomWorldGeneration
 
     
         /// <summary>
-        /// Generate room with floor and walls
+        /// Funtion to make complete room generation
         /// </summary>
-        public void StartRoomGeneration(Direction doorDirection)
+        public bool StartRoomGeneration(Direction doorDirection)
         {
             ResetEverything();
         
@@ -73,6 +73,8 @@ namespace TestRandomWorldGeneration
 
             //create room interior
             createRandomRoomInterior.SetInteriorVariables(ref tileMatrix, numberOfMaxTiles);
+
+            return true;
         }
 
         private void SetDoorDirections(Direction entryDirection)
