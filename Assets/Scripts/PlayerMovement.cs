@@ -1,4 +1,5 @@
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using static Structs.PlayerState;
@@ -93,5 +94,10 @@ public class PlayerMovement : MonoBehaviour
     private void DisableMovement()
     {
         playerInput.DeactivateInput();
+    }
+
+    private void OnDestroy()
+    {
+        HitablePlayer.onPlayerDeath -= DisableMovement;
     }
 }

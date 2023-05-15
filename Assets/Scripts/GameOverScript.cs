@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -19,12 +16,18 @@ public class GameOverScript : MonoBehaviour
 
    public void Respawn()
    {
-      
+      //Spawn new Player with stats
+      //make new Scene
    }
 
    public void Quit()
    {
       //save Progress
       Application.Quit();
+   }
+
+   private void OnDisable()
+   {
+      HitablePlayer.onPlayerDeath -= SetUp;
    }
 }

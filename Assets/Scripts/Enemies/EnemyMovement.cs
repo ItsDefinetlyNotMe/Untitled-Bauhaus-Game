@@ -26,6 +26,12 @@ namespace Enemies
         protected virtual void StartUp()
         {
             target = (GameObject.FindGameObjectsWithTag("Player"))[0].transform;
+            if (target == null)
+            {
+                target = transform;
+                InvokeRepeating(nameof(FindPlayer),0.1f,0.3f);
+            }
+
             seeker = GetComponent<Seeker>();
             rb = GetComponent<Rigidbody2D>();
             seeker.StartPath(rb.position,target.position,OnPathComplete); 
@@ -76,6 +82,14 @@ namespace Enemies
 
         protected void StopTargeting(){
             targeting = false;
+        }
+
+        protected void FindPlayer()
+        {
+            Transform player = (GameObject.FindGameObjectsWithTag("Player"))[0].transform;
+            if (player != null)
+                target = player;
+            CancelInvoke(nameof(FindPlayer));
         }
     }
 }
