@@ -1,3 +1,4 @@
+using Enemies;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -20,20 +21,118 @@ namespace TestRandomWorldGeneration {
 
         private int floorTileCount;
         private int spaceToFill;
-        private int indexOfMainEnemy;
-        private int indexOfSideEnemy;
-        private int strengthToFillWithMainEnemy;
-        private int deadEnemiesCounter = 0;
         private int difficulty = 30;
-        private int currentRoomDifficulty;
 
+        private bool isFirstWave = true;
 
         public void StartEnemySpawning(ref float[,] newTileMatrix, int newFloorTileCount, int remainingSpace)
         {
+            ResetEverything();
+
             tileMatrix = newTileMatrix;
             floorTileCount = newFloorTileCount;
             spaceToFill = (int)(remainingSpace * 0.5);
 
+            GenerateEnemyList();
+            InstantiateFirstWave();
+        }
+
+
+        private void Awake()
+        {
+            HittableEnemy.onEnemyDeath += SpawnOneEnemy;
+        }
+
+        private void InstantiateFirstWave()
+        {
+            int spaceFilled = 0;
+            do
+            {
+                int index = UnityEngine.Random.Range(0, enemiesToSpawn.Count);
+                Structs.EnemyPrefab newEnemy = enemiesToSpawn[index];
+                int enemySize = newEnemy.size.x * newEnemy.size.y;
+
+                if (enemySize > 1)
+                    InstantiateBigEnemy(newEnemy);
+                else
+                    InstantiateSmallEnemy(newEnemy);
+
+                spaceFilled += enemySize;
+
+            } while (spaceFilled < spaceToFill);
+
+            isFirstWave = false;
+        }
+
+        private void SpawnOneEnemy()
+        {
+            if (enemiesToSpawn.Count == 0)
+                return;
+
+            int index = UnityEngine.Random.Range(0, enemiesToSpawn.Count);
+            Structs.EnemyPrefab newEnemy = enemiesToSpawn[index];
+            int enemySize = newEnemy.size.x * newEnemy.size.y;
+
+            if (enemySize > 1)
+                InstantiateBigEnemy(newEnemy);
+            else
+                InstantiateSmallEnemy(newEnemy);
+        }
+
+
+        /// <summary>
+        /// Instantiate enemies of size 1x1
+        /// </summary>
+        /// <param name="enemyPrefab"> enemy to instantiate </param>
+        private void InstantiateSmallEnemy(Structs.EnemyPrefab enemyPrefab)
+        {
+            //Generate possible position list
+            GenerateSmallEnemyPositionList();
+
+            if (possibleSpawnPositions.Count <= 0)
+                return;
+
+            //Instantiate enemy
+            int posIndex = UnityEngine.Random.Range(0, possibleSpawnPositions.Count);
+            GameObject newEnemy = Instantiate(enemyPrefab.prefab, possibleSpawnPositions[posIndex], Quaternion.identity);
+            newEnemy.transform.parent = gameObject.transform;
+
+            //Mark position in matrix
+            BlockWorldPositionInMatrix(possibleSpawnPositions[posIndex]);
+        }
+
+
+        /// <summary>
+        /// Instantiate enemies of bigger size
+        /// </summary>
+        /// <param name="enemyPrefab"> enemy to instantiate </param>
+        private void InstantiateBigEnemy(Structs.EnemyPrefab enemyPrefab)
+        {
+            //Generate possible position list
+            GenerateBigEnemyPositionList(enemyPrefab.size);
+
+            if (possibleSpawnPositions.Count <= 0)
+                return;
+
+            //Instantiate enemy
+            int posIndex = UnityEngine.Random.Range(0, possibleSpawnPositions.Count);
+            GameObject newEnemy = Instantiate(enemyPrefab.prefab, possibleSpawnPositions[posIndex], Quaternion.identity);
+            newEnemy.transform.parent = gameObject.transform;
+
+            //Mark position in matrix
+            for (int x = 0; x < enemyPrefab.size.x; x++)
+            {
+                for (int y = 0; y < enemyPrefab.size.y; y++)
+                {
+                    BlockWorldPositionInMatrix(new Vector2(possibleSpawnPositions[posIndex].x + x, possibleSpawnPositions[posIndex].y + y));
+                }
+            }
+        }
+
+        private void GenerateEnemyList()
+        {
+            int indexOfMainEnemy = 0;
+            int currentRoomDifficulty = 0;
             do
             {
                 indexOfMainEnemy = UnityEngine.Random.Range(0, enemyPrefabs.Length);
@@ -41,7 +140,7 @@ namespace TestRandomWorldGeneration {
 
             } while (!DoesEnemyFitInRoom(mainEnemy.size));
 
-            strengthToFillWithMainEnemy = (int)(difficulty * percentageOfMainEnemy);
+            int strengthToFillWithMainEnemy = (int)(difficulty * percentageOfMainEnemy);
 
             do
             {
@@ -51,7 +150,7 @@ namespace TestRandomWorldGeneration {
 
             do
             {
-                indexOfSideEnemy = UnityEngine.Random.Range(0, enemyPrefabs.Length);
+                int indexOfSideEnemy = UnityEngine.Random.Range(0, enemyPrefabs.Length);
                 if (indexOfSideEnemy == indexOfMainEnemy)
                     continue;
 
@@ -65,14 +164,75 @@ namespace TestRandomWorldGeneration {
                         currentRoomDifficulty += sideEnemy.strength;
                     }
                 }
-            }while (currentRoomDifficulty != difficulty);
+            } while (currentRoomDifficulty != difficulty);
         }
 
-        //TODO call from enemy script when enemy dies
-        public void IncreseDeadEnemiesCounter()
+        /// <summary>
+        /// Changes number of position in matrix to instantiated enemy (6)
+        /// </summary>
+        /// <param name="pos"> World position x,y of object </param>
+        private void BlockWorldPositionInMatrix(Vector2 pos)
         {
-            deadEnemiesCounter++;
+            if (!isFirstWave)
+                return;
+
+            int matX = (int)(pos.x + floorTileCount / 2);
+            int matY = (int)(pos.y + floorTileCount / 2);
+
+            tileMatrix[matX, matY] = 6;
         }
+
+        /// <summary>
+        /// Generate all possible spawn positions for a given big enemy 
+        /// </summary>
+        /// <param name="size"> x,y of enemy size </param>
+        private void GenerateBigEnemyPositionList(Vector2Int size)
+        {
+            //reset values
+            possibleSpawnPositions.Clear();
+            bool positionNotValid = false;
+
+            //iterate over every tile in matrix
+            for (int x = 0; x < floorTileCount - size.x; x++)
+                for (int y = 0; y < floorTileCount - size.y; y++)
+                {
+                    //check if current tile is floor or border tile
+                    if ((int)tileMatrix[x, y] == 1 || (int)tileMatrix[x, y] == 2 || (int)tileMatrix[x, y] == 5)
+                    {
+                        //iterate over every tile that would be occupied by the new prefab
+                        for (int i = 0; i < size.x; i++)
+                        {
+                            for (int j = 0; j < size.y; j++)
+                            {
+                                //check for every tile if it is free
+                                if (tileMatrix[x + i, y + j] < 1f || (int)tileMatrix[x + i, y + j] == 3 || (int)tileMatrix[x + i, y + j] == 4)
+                                {
+                                    //if it is not free, check next tile
+                                    positionNotValid = true;
+                                    break;
+                                }
+                            }
+
+                            //if it is not free, check next tile
+                            if (positionNotValid)
+                                break;
+                        }
+
+                        //if you checked every tile for current enemy position, add spawnPosition to list
+                        if (!positionNotValid)
+                        {
+                            float worldX = x - floorTileCount / 2; //reposition to the center of the scene
+                            float worldY = y - floorTileCount / 2;
+
+                            possibleSpawnPositions.Add(new Vector2(worldX, worldY));
+                        }
+
+                        //reset bool
+                        positionNotValid = false;
+                    }
+                }
+        }
+
 
         /// <summary>
         /// Generate all possible spawn positions for a given small enemy 
@@ -135,7 +295,7 @@ namespace TestRandomWorldGeneration {
                                 break;
                         }
 
-                        //if you checked every tile for current object position, add spawnPosition to list
+                        //if you checked every tile for current enemy position, add spawnPosition to list
                         if (!positionNotValid)
                         {
                             return true;
@@ -148,13 +308,17 @@ namespace TestRandomWorldGeneration {
             return false;
         }
 
-        private void ResetEverythin()
+        private void ResetEverything()
         {
-            deadEnemiesCounter = 0;
+            enemiesToSpawn.Clear();
+            isFirstWave = true;
+        }
+
+        private void OnDisable()
+        {
+            HittableEnemy.onEnemyDeath -= SpawnOneEnemy;
         }
 
 
-
-        
     }
 }
