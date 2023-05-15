@@ -1,27 +1,30 @@
-using TestRandomWorldGeneration;
+using System;
 using UnityEngine;
 using static Structs;
 
 
 
-public class Door : MonoBehaviour
+namespace TestRandomWorldGeneration
 {
-    [SerializeField] private GameObject roomGenerator;
-        
-    public bool isOpen { private get; set; } = false;
-    private Direction direction;
+    public class Door : MonoBehaviour
+    { 
+        public delegate void DoorEnterDelegate(Direction direction);
+        public static DoorEnterDelegate onDoorEnter;
+        private Collider2D col;
+    
+        public bool isOpen { private get; set; } = false;
+        private Direction direction;
 
-    private void Start()
-    {
-        roomGenerator = GameObject.Find("/roomGenerator");
-    }
+        private void Start()
+        {
+            col = GetComponent<Collider2D>();
+        }
 
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.tag != "Player" || !isOpen)
-            return;
-
-        roomGenerator.GetComponent<CreateRandomRoomLayout>().StartRoomGeneration(direction);
+        private void OnTriggerEnter2D(Collider2D collision)
+        {
+            col.enabled = false;
+            onDoorEnter.Invoke(direction);
+            Destroy(this);
+        }
     }
 }

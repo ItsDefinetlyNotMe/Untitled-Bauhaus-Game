@@ -39,7 +39,7 @@ namespace TestRandomWorldGeneration
 
             AstarPath.active.Scan();
 
-            spawnRandomEnemies.StartEnemySpawning(ref tileMatrix, floorTileCount, floorTileCount - spaceToFill);
+            //spawnRandomEnemies.StartEnemySpawning(ref tileMatrix, floorTileCount, floorTileCount - spaceToFill);
         }
 
         private void Awake()

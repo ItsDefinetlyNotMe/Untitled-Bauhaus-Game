@@ -25,7 +25,7 @@ namespace TestRandomWorldGeneration
         [SerializeField] private GameObject wallDownCornerLeft;
         [SerializeField] private GameObject wallDownCornerRightCornerLeft;
         [SerializeField] private GameObject floor;
-        
+        [SerializeField] private GameObject door;
         [Header("Matrix")]
         [SerializeField] private int minNumberOfTiles;
         [SerializeField] private int maxNumberOfTiles;
@@ -49,10 +49,11 @@ namespace TestRandomWorldGeneration
         {
             createRandomRoomInterior = gameObject.GetComponent<CreateRandomRoomInterior>();
 
-            StartRoomGeneration(Direction.Up); //TODO delete this line when object is in normal scene with doors
+            //StartRoomGeneration(Direction.Up); //TODO delete this line when object is in normal scene with doors
         }
 
-    
+        public delegate void onRoomGeneratedDelegate();
+        public static onRoomGeneratedDelegate onRoomGenerated;
         /// <summary>
         /// Funtion to make complete room generation
         /// </summary>
@@ -70,6 +71,7 @@ namespace TestRandomWorldGeneration
             InstantiateWalls();
 
             SetDoorDirections(doorDirection);
+            onRoomGenerated.Invoke();
 
             //create room interior
             createRandomRoomInterior.SetInteriorVariables(ref tileMatrix, numberOfMaxTiles);
@@ -197,7 +199,9 @@ namespace TestRandomWorldGeneration
             float worldX = matDoorPos.x - numberOfMaxTiles / 2;
             float worldY = matDoorPos.y - numberOfMaxTiles / 2;
 
-            //TODO instantiate door prefabs
+            Vector3 pos = new Vector3(worldX,worldY,0f);
+            GameObject newDoor = Instantiate(door,pos,Quaternion.identity);//Todo doordirection
+            newDoor.transform.parent = gameObject.transform;
         }
 
 
