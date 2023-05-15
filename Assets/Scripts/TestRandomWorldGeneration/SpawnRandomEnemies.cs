@@ -21,7 +21,7 @@ namespace TestRandomWorldGeneration {
 
         private int floorTileCount;
         private int spaceToFill;
-        private int difficulty = 30;
+        private int difficulty = 10;
 
         private bool isFirstWave = true;
 
@@ -58,6 +58,8 @@ namespace TestRandomWorldGeneration {
                     InstantiateSmallEnemy(newEnemy);
 
                 spaceFilled += enemySize;
+
+                enemiesToSpawn.RemoveRange(index, 1);
 
             } while (spaceFilled < spaceToFill);
 
@@ -131,7 +133,7 @@ namespace TestRandomWorldGeneration {
 
         private void GenerateEnemyList()
         {
-            int indexOfMainEnemy = 0;
+            int indexOfMainEnemy;
             int currentRoomDifficulty = 0;
             do
             {
