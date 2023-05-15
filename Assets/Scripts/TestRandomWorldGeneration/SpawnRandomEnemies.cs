@@ -79,6 +79,8 @@ namespace TestRandomWorldGeneration {
                 InstantiateBigEnemy(newEnemy);
             else
                 InstantiateSmallEnemy(newEnemy);
+
+            enemiesToSpawn.RemoveRange(index, 1);
         }
 
 
