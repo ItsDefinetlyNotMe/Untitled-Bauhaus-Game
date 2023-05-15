@@ -71,7 +71,7 @@ namespace TestRandomWorldGeneration
             InstantiateWalls();
 
             SetDoorDirections(doorDirection);
-            onRoomGenerated.Invoke();
+            onRoomGenerated?.Invoke();
 
             //create room interior
             createRandomRoomInterior.SetInteriorVariables(ref tileMatrix, numberOfMaxTiles);

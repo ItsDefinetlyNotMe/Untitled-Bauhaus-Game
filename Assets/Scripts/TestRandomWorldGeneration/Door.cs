@@ -22,6 +22,9 @@ namespace TestRandomWorldGeneration
 
         private void OnTriggerEnter2D(Collider2D collision)
         {
+            if (!collision.CompareTag("Player"))
+                return;
+
             col.enabled = false;
             onDoorEnter.Invoke(direction);
             Destroy(this);

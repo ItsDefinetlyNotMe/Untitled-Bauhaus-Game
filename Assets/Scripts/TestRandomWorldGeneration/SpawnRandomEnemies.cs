@@ -61,6 +61,9 @@ namespace TestRandomWorldGeneration {
 
                 enemiesToSpawn.RemoveRange(index, 1);
 
+                if (enemiesToSpawn.Count == 0)
+                    spaceFilled = spaceToFill;
+
             } while (spaceFilled < spaceToFill);
 
             isFirstWave = false;
