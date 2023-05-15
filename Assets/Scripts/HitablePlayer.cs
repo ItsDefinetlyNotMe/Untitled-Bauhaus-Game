@@ -6,10 +6,12 @@ public class HitablePlayer : HittableObject
 {
     Rigidbody2D rb;
     SpriteRenderer spriteRenderer;
+    public delegate void PlayerDeathDelegate();
+    public static PlayerDeathDelegate OnPlayerDeath;
     protected override void Start() {
         base.Start();
         rb = GetComponent<Rigidbody2D>();
-        spriteRenderer = GetComponent<SpriteRenderer>();    
+        spriteRenderer = GetComponent<SpriteRenderer>();
     }
     public override void GetHit(int damage, Vector2 damageSourcePosition, float knockbackMultiplier)
     {
@@ -43,8 +45,9 @@ public class HitablePlayer : HittableObject
 
     protected override void Die()
     {
+        OnPlayerDeath?.Invoke();
         base.Die();
         //gameObject.SetActive(false);
-        Application.Quit();
+        //Application.Quit();
     }
 }

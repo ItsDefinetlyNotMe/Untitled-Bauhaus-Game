@@ -26,12 +26,15 @@ public class PlayerMovement : MonoBehaviour
     //for iframes/itime
     private readonly float invulnerabilityTime = 0.15f;
 
+    private PlayerInput playerInput;
     private void Awake()
     {
+        HitablePlayer.OnPlayerDeath += DisableMovement;
         trailRenderer = GetComponent<TrailRenderer>();
         trailRenderer.emitting = false;
         rb = GetComponent<Rigidbody2D>();
         coll = GetComponent<Collider2D>();
+        playerInput = GetComponent<PlayerInput>();
     }
 
     private void FixedUpdate() 
@@ -85,5 +88,10 @@ public class PlayerMovement : MonoBehaviour
                 break;
         }
         currentState = nextState;
+    }
+
+    private void DisableMovement()
+    {
+        playerInput.DeactivateInput();
     }
 }
