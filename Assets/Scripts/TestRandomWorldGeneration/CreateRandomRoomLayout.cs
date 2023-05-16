@@ -25,7 +25,8 @@ namespace TestRandomWorldGeneration
         [SerializeField] private GameObject wallDownCornerLeft;
         [SerializeField] private GameObject wallDownCornerRightCornerLeft;
         [SerializeField] private GameObject floor;
-        [SerializeField] private GameObject door;
+        [SerializeField] private GameObject exitDoor;
+        [SerializeField] private GameObject entryDoor;
         [Header("Matrix")]
         [SerializeField] private int minNumberOfTiles;
         [SerializeField] private int maxNumberOfTiles;
@@ -36,18 +37,20 @@ namespace TestRandomWorldGeneration
         //1 means floor tile,
         //2 means border tile,
         //3 means instantiated object,
-        //4 means entry door,
-        //5 means exit door.
+        //4 means entry entryDoor,
+        //5 means exit exitDoor.
         private float[,] tileMatrix;
 
         private List<Tuple<int, int>> newTiles = new();
 
         private CreateRandomRoomInterior createRandomRoomInterior;
+        private GameObject player;
 
     
         private void Start()
         {
             createRandomRoomInterior = gameObject.GetComponent<CreateRandomRoomInterior>();
+            player = GameObject.Find("/Character");
 
             //StartRoomGeneration(Direction.Up); //TODO delete this line when object is in normal scene with doors
         }
@@ -121,10 +124,14 @@ namespace TestRandomWorldGeneration
             bool tileFound = false;
             List<Vector2Int> possibleDoorPositions = new();
 
+            Vector3 doorOffset = Vector3.zero;
+
             switch (doorDirection)
             {
                 //search for upmost floor tiles
                 case Direction.Left:
+                    doorOffset = new Vector3(-0.5f, 0, 0);
+
                     for (int x = 0; x < numberOfMaxTiles; x++)
                     {
                         for (int y = 0; y < numberOfMaxTiles; y++)
@@ -141,6 +148,8 @@ namespace TestRandomWorldGeneration
                     break;
 
                 case Direction.Up:
+                    doorOffset = new Vector3(0, 0.5f, 0);
+
                     for (int y = 0; y < numberOfMaxTiles; y++)
                     {
                         for (int x = 0; x < numberOfMaxTiles; x++)
@@ -157,6 +166,8 @@ namespace TestRandomWorldGeneration
                     break;
 
                 case Direction.Right:
+                    doorOffset = new Vector3(0.5f, 0, 0);
+
                     for (int x = numberOfMaxTiles - 1; x >= 0; x--)
                     {
                         for (int y = 0; y < numberOfMaxTiles; y++)
@@ -173,6 +184,8 @@ namespace TestRandomWorldGeneration
                     break;
 
                 case Direction.Down:
+                    doorOffset = new Vector3(0, -0.5f, 0);
+
                     for (int y = numberOfMaxTiles - 1; y >= 0; y--)
                     {
                         for (int x = 0; x < numberOfMaxTiles; x++)
@@ -191,16 +204,27 @@ namespace TestRandomWorldGeneration
 
             Vector2Int matDoorPos = possibleDoorPositions[UnityEngine.Random.Range(0, possibleDoorPositions.Count)];
 
-            if (isEntry)
-                tileMatrix[matDoorPos.x, matDoorPos.y] = 4;
-            else
-                tileMatrix[matDoorPos.x, matDoorPos.y] = 5;
-
             float worldX = matDoorPos.x - numberOfMaxTiles / 2;
             float worldY = matDoorPos.y - numberOfMaxTiles / 2;
 
-            Vector3 pos = new Vector3(worldX,worldY,0f);
-            GameObject newDoor = Instantiate(door,pos,Quaternion.identity);//Todo doordirection
+            Vector3 playerPos = new Vector3(worldX,worldY,0f);
+            Vector3 doorPos = playerPos + doorOffset;
+
+            GameObject newDoor = new();
+
+            if (isEntry)
+            {
+                tileMatrix[matDoorPos.x, matDoorPos.y] = 4;
+                player.transform.position = playerPos;
+                newDoor = Instantiate(entryDoor, doorPos, Quaternion.identity);//Todo doordirection
+            }
+            else
+            {
+                tileMatrix[matDoorPos.x, matDoorPos.y] = 5;
+                newDoor = Instantiate(exitDoor,doorPos,Quaternion.identity);//Todo doordirection
+
+            }
+
             newDoor.transform.parent = gameObject.transform;
         }
 

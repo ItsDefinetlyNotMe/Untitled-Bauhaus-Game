@@ -280,7 +280,7 @@ namespace TestRandomWorldGeneration {
             for (int x = 0; x < floorTileCount - size.x; x++)
                 for (int y = 0; y < floorTileCount - size.y; y++)
                 {
-                    //check if current tile is floor, border tile or in front of exit door
+                    //check if current tile is floor, border tile or in front of exit exitDoor
                     if ((int)tileMatrix[x, y] == 1 || (int)tileMatrix[x, y] == 2 || (int)tileMatrix[x, y] == 5)
                     {
                         //iterate over every tile that would be occupied by the new prefab

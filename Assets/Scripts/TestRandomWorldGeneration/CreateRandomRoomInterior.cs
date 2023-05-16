@@ -186,8 +186,8 @@ namespace TestRandomWorldGeneration
         ///1 means floor tile,
         ///2 means border tile,
         ///3 means instantiated object,
-        ///4 means entry door,
-        ///5 means exit door.
+        ///4 means entry exitDoor,
+        ///5 means exit exitDoor.
         /// </summary>
         private void MarkBorderTiles()
         {
