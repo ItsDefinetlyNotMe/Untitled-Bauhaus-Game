@@ -260,12 +260,12 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 755974262572585427}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 798247a53b99f02439b2107e2adb6cd9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DestinationRoot: {fileID: 755974263182646821}
+  destinationRoot: {fileID: 755974263182646821}
 --- !u!82 &755974262572585433
 AudioSource:
   m_ObjectHideFlags: 0

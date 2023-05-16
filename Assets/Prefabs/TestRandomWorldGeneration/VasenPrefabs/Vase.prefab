@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 4777662169212377177}
   - component: {fileID: 4777662169212377176}
   m_Layer: 7
-  m_Name: vase
+  m_Name: Vase
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -104,7 +104,7 @@ MonoBehaviour:
   maxHealth: 1
   size: 0
   destroyedSprite: {fileID: 21300000, guid: c76c69aa5986f5045bbaeacbcd13076d, type: 3}
-  Sound: {fileID: 4777662170776298862}
+  sound: {fileID: 4777662170776298862}
 --- !u!61 &4777662169212377174
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -168,12 +168,12 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4777662169212377178}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 798247a53b99f02439b2107e2adb6cd9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DestinationRoot: {fileID: 4777662169212377178}
+  destinationRoot: {fileID: 4777662169212377178}
 --- !u!1 &4777662169800894392
 GameObject:
   m_ObjectHideFlags: 0

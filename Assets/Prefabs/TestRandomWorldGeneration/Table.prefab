@@ -358,7 +358,7 @@ MonoBehaviour:
   destroyedFirstSprite: {fileID: 21300000, guid: a2b51448759eb4d41b1a80fd822f9d1a, type: 3}
   destroyedSecondSprite: {fileID: 21300000, guid: 571407bdf12b13d49a1e6fd4e9e2f59d, type: 3}
   destroyedThirdSprite: {fileID: 21300000, guid: cd26e69855c56624ea3a320b92faccda, type: 3}
-  Sound: {fileID: 7519646609285880688}
+  sound: {fileID: 7519646609285880688}
 --- !u!61 &7519646610877873949
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -392,9 +392,9 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7519646610877873944}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 798247a53b99f02439b2107e2adb6cd9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DestinationRoot: {fileID: 7519646608943073763}
+  destinationRoot: {fileID: 7519646608943073763}
