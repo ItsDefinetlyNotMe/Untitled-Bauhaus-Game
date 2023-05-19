@@ -8,6 +8,7 @@ public class HitablePlayer : HittableObject
     SpriteRenderer spriteRenderer;
     public delegate void PlayerDeathDelegate();
     public static PlayerDeathDelegate onPlayerDeath;
+    
     protected override void Start() {
         base.Start();
         rb = GetComponent<Rigidbody2D>();
