@@ -62,16 +62,17 @@ public class PlayerMovement : MonoBehaviour
     }
     private void OnDash(InputValue input)
     {
-        Debug.Log("Dash: " + currentState);
-            if (canDash)
-            {
-                ChangeState(Dashing);
-                currentDashPower = maxDashingPower;
-                trailRenderer.emitting = true;
-                canDash = false;
-                StartCoroutine(TrackDash());
-            }else
-                inputBuffer.BufferEnqueue(OnDash,input);
+        if (currentState != Moving)
+            canDash = false;
+        if (canDash)
+        {
+            ChangeState(Dashing);
+            currentDashPower = maxDashingPower;
+            trailRenderer.emitting = true;
+            canDash = false;
+            StartCoroutine(TrackDash());
+        }else
+            inputBuffer.BufferEnqueue(OnDash,input);
     }
     private IEnumerator TrackDash()
     {

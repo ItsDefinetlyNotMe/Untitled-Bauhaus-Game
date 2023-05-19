@@ -17,7 +17,7 @@ public class PlayerAttack : MonoBehaviour
     
         if(weaponScript == null)
             return;
-        if(playerMovement.currentState == Structs.PlayerState.Attacking)
+        if(playerMovement.currentState != Structs.PlayerState.Moving)
             inputBuffer.BufferEnqueue(OnAttack,input);
         StartCoroutine(weaponScript.Attack((enemiesHit,weaponDamage)=>{
             foreach (Collider2D enemy in enemiesHit){
