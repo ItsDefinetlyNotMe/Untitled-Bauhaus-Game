@@ -2,16 +2,33 @@ using System;
 using TestRandomWorldGeneration;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+
 public class GameManager : MonoBehaviour
 {
-    [SerializeField] private CreateRandomRoomLayout randomRoomLayout;
-    [SerializeField] private Canvas canvas;
-    [SerializeField] private GameObject roomTransitionScreen;
+    private CreateRandomRoomLayout randomRoomLayout;
+    private Canvas gameOverCanvas;
+    private GameObject roomTransitionScreen;
+
+    private void Awake()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
 
     private void Start()
     {
         Door.onDoorEnter += StartRoomTransition;
         CreateRandomRoomLayout.onRoomGenerated += EndRoomTransition;
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        if (scene.name == "Valhalla")
+        {
+            randomRoomLayout = FindObjectOfType<CreateRandomRoomLayout>();
+            gameOverCanvas = GameObject.Find("/GameOverCanvas").GetComponent<Canvas>();
+            roomTransitionScreen = gameOverCanvas.transform.GetChild(1).gameObject;
+        }
     }
 
     private void StartRoomTransition(Structs.Direction direction)
@@ -28,5 +45,6 @@ public class GameManager : MonoBehaviour
     private void OnDisable()
     {
         Door.onDoorEnter -= StartRoomTransition;
+        SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 }
