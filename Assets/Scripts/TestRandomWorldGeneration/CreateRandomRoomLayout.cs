@@ -100,8 +100,6 @@ namespace TestRandomWorldGeneration
             {
                 createRandomRoomInterior = gameObject.GetComponent<CreateRandomRoomInterior>();
 
-                print("SceneLoaded");
-
                 player = GameObject.Find("/Character");
 
                 StartRoomGeneration(Direction.Right);

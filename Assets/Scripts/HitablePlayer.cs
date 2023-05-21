@@ -19,10 +19,8 @@ public class HitablePlayer : HittableObject
 
     public bool isAlreadyDestroyed { private get; set; } = false;
 
-    protected override void Awake()
+    private void Awake()
     {
-        base.Awake();
-
         SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
@@ -62,6 +60,11 @@ public class HitablePlayer : HittableObject
         //set this variable in DontDestroyOnLoad script if this instance of player is a copy --> cleaner approach would be nice
         if (isAlreadyDestroyed)
             return;
+
+        if (scene.name == "HUB")
+        {
+            currentHealth = maxHealth;
+        }
 
         if (scene.name == "Valhalla")
         {
