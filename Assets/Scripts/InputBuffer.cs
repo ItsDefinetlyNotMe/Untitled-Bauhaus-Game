@@ -26,6 +26,10 @@ public class InputBuffer : MonoBehaviour
         //Debug.Log("Dequeueing: " + bufferQueue.Count + " elements.");
         if (bufferQueue.Count > 0)
         {
+            while (bufferQueue.Count > 2)
+            {
+                bufferQueue.Dequeue();
+            }
             var function = bufferQueue.Dequeue();
             //Debug.Log(nameof(function.Key));
             function.Key(function.Value);

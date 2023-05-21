@@ -62,9 +62,7 @@ public class PlayerMovement : MonoBehaviour
     }
     private void OnDash(InputValue input)
     {
-        if (currentState != Moving)
-            canDash = false;
-        if (canDash)
+        if (canDash && currentState == Moving)
         {
             ChangeState(Dashing);
             currentDashPower = maxDashingPower;
