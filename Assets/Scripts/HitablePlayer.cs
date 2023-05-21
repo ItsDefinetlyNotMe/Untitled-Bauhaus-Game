@@ -1,9 +1,14 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 // ReSharper disable Unity.InefficientPropertyAccess
 
 public class HitablePlayer : HittableObject
 {
+    [SerializeField] private GameObject healthBar;
+
+    private Slider healthSlider;
+
     Rigidbody2D rb;
     SpriteRenderer spriteRenderer;
     public delegate void PlayerDeathDelegate();
@@ -13,6 +18,8 @@ public class HitablePlayer : HittableObject
         base.Start();
         rb = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+
+        healthSlider = healthBar.GetComponent<Slider>();
     }
     public override void GetHit(int damage, Vector2 damageSourcePosition, float knockbackMultiplier)
     {
@@ -34,6 +41,14 @@ public class HitablePlayer : HittableObject
         Vector2 knockbackDirection = new Vector2(position.x,position.y) - damageSourcePosition;
         rb.velocity = knockbackDirection.normalized * (sizeMultiplier * knockbackMultiplier);
 
+        UpdateHealthBar();
+
+    }
+
+    private void UpdateHealthBar()
+    {
+        healthSlider.maxValue = maxHealth;
+        healthSlider.value = currentHealth;
     }
     private IEnumerator HitFeedback(){
         Vector3 t = transform.localScale;
