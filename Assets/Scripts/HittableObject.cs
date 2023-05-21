@@ -9,11 +9,14 @@ public abstract class HittableObject : MonoBehaviour
     [SerializeField] protected int maxHealth;
     protected int currentHealth;
     [SerializeField] protected float size;
+
+
     protected virtual void Start()
     {
         objectCollider = GetComponent<Collider2D>();
         currentHealth = maxHealth;
     }
+
     protected virtual void TakeDamage(int damage)
     {
         //apply damage

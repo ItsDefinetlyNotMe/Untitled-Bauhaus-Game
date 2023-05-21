@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 public class HitablePlayer : HittableObject
 {
-    [SerializeField] private GameObject healthBar;
+    private GameObject healthBar;
 
     private Slider healthSlider;
     private TMP_Text healthText;
@@ -16,8 +16,11 @@ public class HitablePlayer : HittableObject
     SpriteRenderer spriteRenderer;
     public delegate void PlayerDeathDelegate();
     public static PlayerDeathDelegate onPlayerDeath;
+
+    public bool isAlreadyDestroyed { private get; set; } = false;
     
-    protected override void Start() {
+    protected override void Start()
+    {
         base.Start();
 
         rb = GetComponent<Rigidbody2D>();
@@ -54,8 +57,14 @@ public class HitablePlayer : HittableObject
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
+        //set this variable in DontDestroyOnLoad script if this instance of player is a copy --> cleaner approach would be nice
+        if (isAlreadyDestroyed)
+            return;
+
         if (scene.name == "Valhalla")
         {
+            healthBar = GameObject.Find("/InGameCanvas/HealthBar");
+
             healthSlider = healthBar.GetComponent<Slider>();
             healthText = healthBar.GetComponentInChildren<TMP_Text>();
 
@@ -68,7 +77,7 @@ public class HitablePlayer : HittableObject
         healthSlider.maxValue = maxHealth;
         healthSlider.value = currentHealth;
 
-        healthText.text =currentHealth.ToString() + " / " + maxHealth.ToString();
+        healthText.text = currentHealth.ToString() + " / " + maxHealth.ToString();
     }
     private IEnumerator HitFeedback(){
         Vector3 t = transform.localScale;
