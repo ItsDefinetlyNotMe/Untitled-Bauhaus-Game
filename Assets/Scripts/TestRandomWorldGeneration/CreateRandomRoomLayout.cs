@@ -82,9 +82,8 @@ namespace TestRandomWorldGeneration
             onRoomGenerated?.Invoke();
             
             //activate doors
-            Debug.Log("activating door");
             foreach(GameObject door in exitDoors)
-                door.GetComponent<Door>().ActivateDoor();
+                door.GetComponent<Door>().ActivateDoor();//TODO after enemies are gone
 
             //create room interior
             createRandomRoomInterior.SetInteriorVariables(ref tileMatrix, numberOfMaxTiles);

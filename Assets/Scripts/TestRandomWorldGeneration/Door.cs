@@ -15,7 +15,7 @@ namespace TestRandomWorldGeneration
         //public 
         [SerializeField] private Direction direction;
         [SerializeField] private bool isOpen = false;
-        private void Start()
+        private void Awake()
         {
             col = GetComponent<Collider2D>();
             col.enabled = isOpen;
