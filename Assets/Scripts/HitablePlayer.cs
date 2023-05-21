@@ -1,6 +1,7 @@
 using System.Collections;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 // ReSharper disable Unity.InefficientPropertyAccess
 
@@ -18,13 +19,11 @@ public class HitablePlayer : HittableObject
     
     protected override void Start() {
         base.Start();
+
+        SceneManager.sceneLoaded += OnSceneLoad;
+
         rb = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
-
-        healthSlider = healthBar.GetComponent<Slider>();
-        healthText = healthBar.GetComponentInChildren<TMP_Text>();
-
-        UpdateHealthBar();
     }
     public override void GetHit(int damage, Vector2 damageSourcePosition, float knockbackMultiplier)
     {
@@ -50,6 +49,14 @@ public class HitablePlayer : HittableObject
 
     }
 
+    private void OnSceneLoad(Scene scene, LoadSceneMode mode)
+    {
+        healthSlider = healthBar.GetComponent<Slider>();
+        healthText = healthBar.GetComponentInChildren<TMP_Text>();
+
+        UpdateHealthBar();
+    }
+
     private void UpdateHealthBar()
     {
         healthSlider.maxValue = maxHealth;
@@ -71,5 +78,10 @@ public class HitablePlayer : HittableObject
         onPlayerDeath?.Invoke();
         base.Die();
         //gameObject.SetActive(false);
+    }
+
+    private void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoad;
     }
 }
