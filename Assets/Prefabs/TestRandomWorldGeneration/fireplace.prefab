@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 755974262460512340}
   - component: {fileID: 755974262460512342}
   - component: {fileID: 755974262460512341}
-  m_Layer: 9
+  m_Layer: 7
   m_Name: Spot Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -129,7 +129,8 @@ GameObject:
   - component: {fileID: 755974262572585439}
   - component: {fileID: 755974262572585432}
   - component: {fileID: 755974262572585433}
-  m_Layer: 9
+  - component: {fileID: 7230726535879917086}
+  m_Layer: 7
   m_Name: fireplace
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -362,6 +363,21 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &7230726535879917086
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 755974262572585427}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ead210ddbbc3674f9fb81917a710bad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 40
+  size: 0
+  destroyedSprite: {fileID: 21300000, guid: c76c69aa5986f5045bbaeacbcd13076d, type: 3}
 --- !u!1 &755974263182646821
 GameObject:
   m_ObjectHideFlags: 0
@@ -371,7 +387,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 755974263182646822}
-  m_Layer: 9
+  m_Layer: 7
   m_Name: LayerRoot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -403,7 +419,7 @@ GameObject:
   m_Component:
   - component: {fileID: 755974263772923215}
   - component: {fileID: 755974263772923208}
-  m_Layer: 9
+  m_Layer: 7
   m_Name: Light 2D
   m_TagString: Untagged
   m_Icon: {fileID: 0}
