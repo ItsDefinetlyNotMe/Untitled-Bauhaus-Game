@@ -11,7 +11,6 @@ public class SceneTransition : MonoBehaviour
     {
         if (collision.tag == "Player")
         {
-            print("Trigger scene load");
             SceneManager.LoadScene(sceneToLoad);
         }
     }

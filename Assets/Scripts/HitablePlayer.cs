@@ -20,8 +20,6 @@ public class HitablePlayer : HittableObject
     protected override void Start() {
         base.Start();
 
-        SceneManager.sceneLoaded += OnSceneLoad;
-
         rb = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
     }
@@ -49,12 +47,20 @@ public class HitablePlayer : HittableObject
 
     }
 
-    private void OnSceneLoad(Scene scene, LoadSceneMode mode)
+    private void Awake()
     {
-        healthSlider = healthBar.GetComponent<Slider>();
-        healthText = healthBar.GetComponentInChildren<TMP_Text>();
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
 
-        UpdateHealthBar();
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        if (scene.name == "Valhalla")
+        {
+            healthSlider = healthBar.GetComponent<Slider>();
+            healthText = healthBar.GetComponentInChildren<TMP_Text>();
+
+            UpdateHealthBar();
+        }
     }
 
     private void UpdateHealthBar()
@@ -82,6 +88,6 @@ public class HitablePlayer : HittableObject
 
     private void OnDisable()
     {
-        SceneManager.sceneLoaded -= OnSceneLoad;
+        SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 }
