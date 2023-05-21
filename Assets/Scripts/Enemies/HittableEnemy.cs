@@ -20,7 +20,7 @@ namespace Enemies
         }
         public override void GetHit(int damage, Vector2 damageSourcePosition, float knockbackMultiplier)
         {
-            Debug.Log("Ohh no it hurts, Oh no pls stop");
+            //Debug.Log("Ohh no it hurts, Oh no pls stop");
             //visual Feedback
             StartCoroutine(HitFeedback());
         

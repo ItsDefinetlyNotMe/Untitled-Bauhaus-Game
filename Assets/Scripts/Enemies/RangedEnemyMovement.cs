@@ -68,7 +68,7 @@ namespace Enemies
                     StartAttack();
                 else if(distance <= minimumRange)
                 {
-                    Debug.Log("Fleee you fool");
+                    //Debug.Log("Fleee you fool");
                     CheckFleeing();
                 }
             }
