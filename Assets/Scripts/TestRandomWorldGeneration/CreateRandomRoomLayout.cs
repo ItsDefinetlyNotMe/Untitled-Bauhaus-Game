@@ -25,8 +25,11 @@ namespace TestRandomWorldGeneration
         [SerializeField] private GameObject wallDownCornerLeft;
         [SerializeField] private GameObject wallDownCornerRightCornerLeft;
         [SerializeField] private GameObject floor;
-        [SerializeField] private GameObject exitDoor;
-        [SerializeField] private GameObject entryDoor;
+        [SerializeField] private GameObject leftDoor;
+        [SerializeField] private GameObject upDoor;
+        [SerializeField] private GameObject rightDoor;
+        [SerializeField] private GameObject downDoor;
+
         [Header("Matrix")]
         [SerializeField] private int minNumberOfTiles;
         [SerializeField] private int maxNumberOfTiles;
@@ -45,8 +48,10 @@ namespace TestRandomWorldGeneration
 
         private CreateRandomRoomInterior createRandomRoomInterior;
         private GameObject player;
+        
+        [Header("Door")]
+        private List<GameObject> exitDoors = new List<GameObject>();
 
-    
         private void Start()
         {
             createRandomRoomInterior = gameObject.GetComponent<CreateRandomRoomInterior>();
@@ -75,6 +80,11 @@ namespace TestRandomWorldGeneration
 
             SetDoorDirections(doorDirection);
             onRoomGenerated?.Invoke();
+            
+            //activate doors
+            Debug.Log("activating door");
+            foreach(GameObject door in exitDoors)
+                door.GetComponent<Door>().ActivateDoor();
 
             //create room interior
             createRandomRoomInterior.SetInteriorVariables(ref tileMatrix, numberOfMaxTiles);
@@ -123,6 +133,7 @@ namespace TestRandomWorldGeneration
         {
             bool tileFound = false;
             List<Vector2Int> possibleDoorPositions = new();
+            GameObject doorPrefab = rightDoor; 
 
             Vector3 doorOffset = Vector3.zero;
 
@@ -131,7 +142,8 @@ namespace TestRandomWorldGeneration
                 //search for upmost floor tiles
                 case Direction.Left:
                     doorOffset = new Vector3(-0.5f, 0, 0);
-
+                    doorPrefab = leftDoor;
+                    
                     for (int x = 0; x < numberOfMaxTiles; x++)
                     {
                         for (int y = 0; y < numberOfMaxTiles; y++)
@@ -148,6 +160,7 @@ namespace TestRandomWorldGeneration
                     break;
 
                 case Direction.Up:
+                    doorPrefab = upDoor;
                     doorOffset = new Vector3(0, 0.5f, 0);
 
                     for (int y = 0; y < numberOfMaxTiles; y++)
@@ -167,7 +180,8 @@ namespace TestRandomWorldGeneration
 
                 case Direction.Right:
                     doorOffset = new Vector3(0.5f, 0, 0);
-
+                    doorPrefab = rightDoor;
+                    
                     for (int x = numberOfMaxTiles - 1; x >= 0; x--)
                     {
                         for (int y = 0; y < numberOfMaxTiles; y++)
@@ -185,7 +199,8 @@ namespace TestRandomWorldGeneration
 
                 case Direction.Down:
                     doorOffset = new Vector3(0, -0.5f, 0);
-
+                    doorPrefab = downDoor;
+                    
                     for (int y = numberOfMaxTiles - 1; y >= 0; y--)
                     {
                         for (int x = 0; x < numberOfMaxTiles; x++)
@@ -201,8 +216,10 @@ namespace TestRandomWorldGeneration
                     }
                     break;
             }
+            
 
-            Vector2Int matDoorPos = possibleDoorPositions[UnityEngine.Random.Range(0, possibleDoorPositions.Count)];
+            int randomDoorIndex = UnityEngine.Random.Range(0, possibleDoorPositions.Count);
+            Vector2Int matDoorPos = possibleDoorPositions[randomDoorIndex];
 
             float worldX = matDoorPos.x - numberOfMaxTiles / 2;
             float worldY = matDoorPos.y - numberOfMaxTiles / 2;
@@ -211,21 +228,19 @@ namespace TestRandomWorldGeneration
             Vector3 doorPos = playerPos + doorOffset;
 
             GameObject newDoor = new();
-
+            
+            tileMatrix[matDoorPos.x, matDoorPos.y] = 4;
+            newDoor = Instantiate(doorPrefab, doorPos, Quaternion.identity);
+            newDoor.transform.parent = gameObject.transform;
+            
             if (isEntry)
             {
-                tileMatrix[matDoorPos.x, matDoorPos.y] = 4;
                 player.transform.position = playerPos;
-                newDoor = Instantiate(entryDoor, doorPos, Quaternion.identity);//Todo doordirection
             }
             else
             {
-                tileMatrix[matDoorPos.x, matDoorPos.y] = 5;
-                newDoor = Instantiate(exitDoor,doorPos,Quaternion.identity);//Todo doordirection
-
+                exitDoors.Add(newDoor);
             }
-
-            newDoor.transform.parent = gameObject.transform;
         }
 
 
@@ -377,7 +392,7 @@ namespace TestRandomWorldGeneration
         {
             foreach (Transform child in transform)
                 Destroy(child.gameObject);
-
+            exitDoors.Clear();
             tileMatrix = null;
             numberOfActiveTiles = 1;
             numberOfMaxTiles = 0;
