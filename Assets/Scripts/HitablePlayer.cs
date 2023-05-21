@@ -18,7 +18,14 @@ public class HitablePlayer : HittableObject
     public static PlayerDeathDelegate onPlayerDeath;
 
     public bool isAlreadyDestroyed { private get; set; } = false;
-    
+
+    protected override void Awake()
+    {
+        base.Awake();
+
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
     protected override void Start()
     {
         base.Start();
@@ -48,11 +55,6 @@ public class HitablePlayer : HittableObject
 
         UpdateHealthBar();
 
-    }
-
-    private void Awake()
-    {
-        SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)

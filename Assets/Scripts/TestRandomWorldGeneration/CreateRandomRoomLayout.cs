@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Unity.Mathematics;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using static Structs;
 
 namespace TestRandomWorldGeneration
@@ -52,10 +53,14 @@ namespace TestRandomWorldGeneration
         [Header("Door")]
         private List<GameObject> exitDoors = new List<GameObject>();
 
+        private void Awake()
+        {
+            SceneManager.sceneLoaded += OnSceneLoaded;
+        }
+
         private void Start()
         {
-            createRandomRoomInterior = gameObject.GetComponent<CreateRandomRoomInterior>();
-            player = GameObject.Find("/Character");
+            
 
             //StartRoomGeneration(Direction.Up); //TODO delete this line when object is in normal scene with doors
         }
@@ -87,6 +92,20 @@ namespace TestRandomWorldGeneration
 
             //create room interior
             createRandomRoomInterior.SetInteriorVariables(ref tileMatrix, numberOfMaxTiles);
+        }
+
+        private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+        {
+            if (scene.name == "Valhalla")
+            {
+                createRandomRoomInterior = gameObject.GetComponent<CreateRandomRoomInterior>();
+
+                print("SceneLoaded");
+
+                player = GameObject.Find("/Character");
+
+                StartRoomGeneration(Direction.Right);
+            }
         }
 
         private void SetDoorDirections(Direction entryDirection)
@@ -510,6 +529,11 @@ namespace TestRandomWorldGeneration
                     }
                 }
             }
+        }
+
+        private void OnDestroy()
+        {
+            SceneManager.sceneLoaded -= OnSceneLoaded;
         }
     }
 }
