@@ -1,33 +1,38 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class GameOverScript : MonoBehaviour
 {
-   [SerializeField] private GameObject gameOverScreen;
-   private void Start()
-   {
-      HitablePlayer.onPlayerDeath += SetUp;
-   }
+    //TODO rework whole game over mechanic
 
-   public void SetUp()
-   {
-      gameOverScreen.SetActive(true);
-   }
+    [SerializeField] private GameObject gameOverScreen;
+    private void Start()
+    {
+        HitablePlayer.onPlayerDeath += SetUp;
+    }
 
-   public void Respawn()
-   {
-      //Spawn new Player with stats
-      //make new Scene
-   }
+    public void SetUp()
+    {
+        SceneManager.LoadScene("HUB");
 
-   public void Quit()
-   {
-      //save Progress
-      Application.Quit();
-   }
+        //gameOverScreen.SetActive(true);
+    }
 
-   private void OnDisable()
-   {
-      HitablePlayer.onPlayerDeath -= SetUp;
-   }
+    public void Respawn()
+    {
+        //Spawn new Player with stats
+        //make new Scene
+    }
+
+    public void Quit()
+    {
+        //save Progress
+        Application.Quit();
+    }
+
+    private void OnDisable()
+    {
+        HitablePlayer.onPlayerDeath -= SetUp;
+    }
 }

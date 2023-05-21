@@ -92,8 +92,11 @@ public class HitablePlayer : HittableObject
 
     protected override void Die()
     {
+        transform.position = new Vector3(-4.5f, -1.5f, 0);
+
         onPlayerDeath?.Invoke();
-        base.Die();
+
+        //base.Die(); TODO talk about correct resetting of player on death
         //gameObject.SetActive(false);
     }
 

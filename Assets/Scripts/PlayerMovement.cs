@@ -104,7 +104,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void DisableMovement()
     {
-        playerInput.DeactivateInput();
+        //playerInput.DeactivateInput(); TODO delete this function and unsubscribe event if unused
     }
 
     private void OnDestroy()
