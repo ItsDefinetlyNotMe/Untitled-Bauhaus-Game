@@ -26,7 +26,7 @@ namespace TestRandomWorldGeneration
                 return;
 
             col.enabled = false;
-            onDoorEnter.Invoke(direction);
+            onDoorEnter?.Invoke(direction);
             Destroy(this);
         }
     }

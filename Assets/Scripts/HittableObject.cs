@@ -2,6 +2,9 @@ using UnityEngine;
 
 public abstract class HittableObject : MonoBehaviour
 {
+    public delegate void ObjectDeathDelegate();
+    public static ObjectDeathDelegate onObjectDeath;
+
     private Collider2D objectCollider;
     [SerializeField] protected int maxHealth;
     protected int currentHealth;
@@ -27,6 +30,8 @@ public abstract class HittableObject : MonoBehaviour
 
     protected virtual void Die()
     {
+        onObjectDeath?.Invoke(); //Invoke event for controller vibration
+
         objectCollider.enabled = false;
         //disable enemy
         //gameObject.SetActive(false);
