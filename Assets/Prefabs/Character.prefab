@@ -16,8 +16,9 @@ GameObject:
   - component: {fileID: -7074893496987505333}
   - component: {fileID: -6367775612054391267}
   - component: {fileID: -1315232987503911339}
+  - component: {fileID: 727635470307707924}
   m_Layer: 0
-  m_Name: Mario
+  m_Name: Character
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -184,6 +185,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   defaultMoveSpeed: 8
+  currentState: 0
+  maxDashingPower: 2.4
 --- !u!95 &-6367775612054391267
 Animator:
   serializedVersion: 5
@@ -215,5 +218,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7dd4d146ab103734697ecb363b3077d7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sound: {fileID: 0}
+--- !u!114 &727635470307707924
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5129063763896722648}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3aa865b07a6f6e64f85355ddaff762ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

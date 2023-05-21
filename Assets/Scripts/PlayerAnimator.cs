@@ -59,7 +59,7 @@ public class PlayerAnimator : MonoBehaviour
                 break;
         }
         localAttackDirection += number.ToString();
-        Debug.Log(localAttackDirection);
+        //Debug.Log(localAttackDirection);
         animator.Play(localAttackDirection);
     }
 

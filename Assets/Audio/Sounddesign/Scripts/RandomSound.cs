@@ -20,6 +20,6 @@ public class RandomSound : MonoBehaviour
     {
         randomSound2.clip = audioSources2[Random.Range(0, audioSources2.Length)];
         randomSound2.Play();
-        print("PersonSound2");
+        //print("PersonSound2");
     }
 }
