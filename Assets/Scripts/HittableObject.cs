@@ -20,23 +20,24 @@ public abstract class HittableObject : MonoBehaviour
         currentHealth = maxHealth;
     }
 
-    protected virtual void TakeDamage(int damage)
+    protected virtual void TakeDamage(int damage,GameObject damageSource)
     {
         //apply damage
         currentHealth -= damage;
         if (currentHealth <= 0)
         {
-            Die();
+            Die(damageSource);
         }
     }
-    public virtual void GetHit(int damage, Vector2 damageSourcePosition, float knockbackMultiplier)
+    public virtual void GetHit(int damage, Vector2 damageSourcePosition, float knockbackMultiplier,GameObject damageSource)
     {
-        TakeDamage(damage);
+        TakeDamage(damage,damageSource);
     }
 
-    protected virtual void Die()
+    protected virtual void Die(GameObject damageSource)
     {
-        onObjectDeath?.Invoke(); //Invoke event for controller vibration
+        if(damageSource.CompareTag("Player"))
+            onObjectDeath?.Invoke(); //Invoke event for controller vibration
 
         objectCollider.enabled = false;
         //disable enemy

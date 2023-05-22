@@ -14,12 +14,12 @@ public class HittableFireplace : HittableObject
         spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
-    protected override void Die()
+    protected override void Die(GameObject damageSource)
     {
         //change sprite
         spriteRenderer.sprite = destroyedSprite;
 
-        base.Die();
+        base.Die(damageSource);
     }
     //protected override void TakeDamage(int damage)
     //{

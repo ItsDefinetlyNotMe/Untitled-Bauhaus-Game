@@ -11,12 +11,12 @@ public class HittablePotery : HittableObject
         spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
-    protected override void Die()
+    protected override void Die(GameObject damageSource)
     {
         //change sprite
         spriteRenderer.sprite = destroyedSprite;
         //disable Collider2D
-        base.Die();
+        base.Die(damageSource);
         // Sound
         sound.GetComponent<RandomSound>().PlayRandom1();
     }

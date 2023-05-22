@@ -31,12 +31,12 @@ public class HitablePlayer : HittableObject
         rb = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
     }
-    public override void GetHit(int damage, Vector2 damageSourcePosition, float knockbackMultiplier)
+    public override void GetHit(int damage, Vector2 damageSourcePosition, float knockbackMultiplier,GameObject damageSource)
     {
         //visual Feedback
         StartCoroutine(HitFeedback());
         
-        base.GetHit(damage,damageSourcePosition, knockbackMultiplier);
+        base.GetHit(damage,damageSourcePosition, knockbackMultiplier,damageSource);
         
         //knockback
         float sizeMultiplier;
@@ -93,7 +93,7 @@ public class HitablePlayer : HittableObject
         spriteRenderer.color = new Color(255,255,255,255);
     }
 
-    protected override void Die()
+    protected override void Die(GameObject damageSource)
     {
         transform.position = new Vector3(-4.5f, -1.5f, 0);
 

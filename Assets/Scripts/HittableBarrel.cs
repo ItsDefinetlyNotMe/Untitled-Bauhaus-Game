@@ -17,17 +17,17 @@ public class HittableBarrel : HittableObject
         spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
-    protected override void Die()
+    protected override void Die(GameObject damageSource)
     {
         // Sound
         sound.GetComponent<RandomSound>().PlayRandom2();
         //change sprite
         spriteRenderer.sprite = destroyedThirdSprite;
-        base.Die();
+        base.Die(damageSource);
     }
-    protected override void TakeDamage(int damage)
+    protected override void TakeDamage(int damage,GameObject damageSource)
     {
-        base.TakeDamage(damage);
+        base.TakeDamage(damage,damageSource);
         if (currentHealth <= maxHealth * 1f / 3f && currentHealth > 0)
         {
             spriteRenderer.sprite = destroyedSecondSprite;

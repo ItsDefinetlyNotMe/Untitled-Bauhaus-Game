@@ -18,13 +18,13 @@ namespace Enemies
             spriteRenderer = GetComponent<SpriteRenderer>();
             rb = GetComponent<Rigidbody2D>();
         }
-        public override void GetHit(int damage, Vector2 damageSourcePosition, float knockbackMultiplier)
+        public override void GetHit(int damage, Vector2 damageSourcePosition, float knockbackMultiplier,GameObject damageSource)
         {
             //Debug.Log("Ohh no it hurts, Oh no pls stop");
             //visual Feedback
             StartCoroutine(HitFeedback());
         
-            base.GetHit(damage,damageSourcePosition, knockbackMultiplier);
+            base.GetHit(damage,damageSourcePosition, knockbackMultiplier,damageSource);
         
             //knockback
             float sizeMultiplier;
@@ -47,10 +47,10 @@ namespace Enemies
             spriteRenderer.color = new Color(255,255,255,255);
         }
 
-        protected override void Die()
+        protected override void Die(GameObject damageSource)
         {
             onEnemyDeath?.Invoke();
-            base.Die();
+            base.Die(damageSource);
             gameObject.SetActive(false);
             
         }

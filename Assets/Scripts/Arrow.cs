@@ -18,7 +18,7 @@ public class Arrow : MonoBehaviour
             Destroy(gameObject);
             return;
         }
-        script.GetHit(damage,transform.position + transform.up,1f);
+        script.GetHit(damage,transform.position + transform.up,1f,gameObject);
         Destroy(gameObject);
         
     }
