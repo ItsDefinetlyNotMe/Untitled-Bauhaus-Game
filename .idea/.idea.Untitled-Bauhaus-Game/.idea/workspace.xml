@@ -5,7 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="df972bb7-6a35-41d5-ab18-c81111b77aa5" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/RavenTestScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/RavenTestScene.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.Untitled-Bauhaus-Game/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Untitled-Bauhaus-Game/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Main Camera.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Main Camera.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/HUB.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/HUB.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/HitablePlayer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/HitablePlayer.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -13,6 +16,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/CameraShake.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/GameOverScript.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/InputBuffer.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Structs.cs" root0="FORCE_HIGHLIGHTING" />
@@ -102,7 +106,7 @@
       <workItem from="1684135438287" duration="1238000" />
       <workItem from="1684225073585" duration="57000" />
       <workItem from="1684495136542" duration="6377000" />
-      <workItem from="1684741959100" duration="1039000" />
+      <workItem from="1684741959100" duration="6632000" />
     </task>
     <servers />
   </component>

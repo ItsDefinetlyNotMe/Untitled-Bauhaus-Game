@@ -35,6 +35,7 @@ public class HitablePlayer : HittableObject
     {
         //visual Feedback
         StartCoroutine(HitFeedback());
+        //CameraShake.Instance.ShakeCamera(0.5f,.7f,true);
         
         base.GetHit(damage,damageSourcePosition, knockbackMultiplier,damageSource);
         

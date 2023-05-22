@@ -402,7 +402,7 @@ MonoBehaviour:
   nextWayPointDistance: 3
   projectileLayer:
     serializedVersion: 2
-    m_Bits: 896
+    m_Bits: 640
   projectileObstacleLayer:
     serializedVersion: 2
     m_Bits: 640
