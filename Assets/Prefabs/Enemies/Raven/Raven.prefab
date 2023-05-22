@@ -402,13 +402,13 @@ MonoBehaviour:
   nextWayPointDistance: 3
   projectileLayer:
     serializedVersion: 2
-    m_Bits: 768
+    m_Bits: 896
   projectileObstacleLayer:
     serializedVersion: 2
-    m_Bits: 512
+    m_Bits: 640
   enemyObstacleLayer:
     serializedVersion: 2
-    m_Bits: 512
+    m_Bits: 640
   minimumRange: 2
   maximumRange: 1
   chargeAttackTime: 0.6

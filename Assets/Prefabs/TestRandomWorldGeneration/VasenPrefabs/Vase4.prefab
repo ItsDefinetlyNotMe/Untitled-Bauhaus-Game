@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 4781898739348760644}
   - component: {fileID: 1527662233882986156}
   - component: {fileID: 1488403867041600246}
-  m_Layer: 7
+  m_Layer: 6
   m_Name: Vase (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -104,7 +104,7 @@ MonoBehaviour:
   maxHealth: 1
   size: 0
   destroyedSprite: {fileID: 21300000, guid: c76c69aa5986f5045bbaeacbcd13076d, type: 3}
-  Sound: {fileID: 3312840750161460134}
+  sound: {fileID: 3312840750161460134}
 --- !u!61 &4781898739348760644
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -173,7 +173,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 798247a53b99f02439b2107e2adb6cd9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DestinationRoot: {fileID: 97295984679162539}
+  destinationRoot: {fileID: 97295984679162539}
 --- !u!1 &384787527325043433
 GameObject:
   m_ObjectHideFlags: 0
@@ -188,7 +188,7 @@ GameObject:
   - component: {fileID: 3502976203119722369}
   - component: {fileID: 455298191446660962}
   - component: {fileID: 2366981756808700464}
-  m_Layer: 7
+  m_Layer: 6
   m_Name: Vase (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -278,7 +278,7 @@ MonoBehaviour:
   maxHealth: 1
   size: 0
   destroyedSprite: {fileID: 21300000, guid: c76c69aa5986f5045bbaeacbcd13076d, type: 3}
-  Sound: {fileID: 2674604008778629546}
+  sound: {fileID: 2674604008778629546}
 --- !u!61 &3502976203119722369
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -347,7 +347,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 798247a53b99f02439b2107e2adb6cd9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DestinationRoot: {fileID: 384787527325043433}
+  destinationRoot: {fileID: 384787527325043433}
 --- !u!1 &2674604008778629546
 GameObject:
   m_ObjectHideFlags: 0
@@ -358,7 +358,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4087758169245924054}
   - component: {fileID: 8070480440827924424}
-  m_Layer: 7
+  m_Layer: 6
   m_Name: Breaks
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -409,7 +409,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4435906919782736207}
   - component: {fileID: 3662372656600775199}
-  m_Layer: 7
+  m_Layer: 6
   m_Name: Sounddesign
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -538,7 +538,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3307190389502358772}
   - component: {fileID: 6291119080430157888}
-  m_Layer: 7
+  m_Layer: 6
   m_Name: Breaks
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -589,7 +589,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1646310522931532928}
   - component: {fileID: 6112035901671572402}
-  m_Layer: 7
+  m_Layer: 6
   m_Name: Breaks
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -640,7 +640,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1428447628071323627}
   - component: {fileID: 6304546424678549787}
-  m_Layer: 7
+  m_Layer: 6
   m_Name: Breaks
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -695,7 +695,7 @@ GameObject:
   - component: {fileID: 5754613374647371551}
   - component: {fileID: 7446683392969755605}
   - component: {fileID: 6071393346127601916}
-  m_Layer: 7
+  m_Layer: 6
   m_Name: Vase
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -785,7 +785,7 @@ MonoBehaviour:
   maxHealth: 1
   size: 0
   destroyedSprite: {fileID: 21300000, guid: c76c69aa5986f5045bbaeacbcd13076d, type: 3}
-  Sound: {fileID: 3250782263554262269}
+  sound: {fileID: 3250782263554262269}
 --- !u!61 &5754613374647371551
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -854,7 +854,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 798247a53b99f02439b2107e2adb6cd9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DestinationRoot: {fileID: 5732370317770303299}
+  destinationRoot: {fileID: 5732370317770303299}
 --- !u!1 &6155542167717501061
 GameObject:
   m_ObjectHideFlags: 0
@@ -869,7 +869,7 @@ GameObject:
   - component: {fileID: 137180794309221594}
   - component: {fileID: 8386030481561157583}
   - component: {fileID: 160189117488394230}
-  m_Layer: 7
+  m_Layer: 6
   m_Name: Vase (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -959,7 +959,7 @@ MonoBehaviour:
   maxHealth: 1
   size: 0
   destroyedSprite: {fileID: 21300000, guid: c76c69aa5986f5045bbaeacbcd13076d, type: 3}
-  Sound: {fileID: 3317568564479492383}
+  sound: {fileID: 3317568564479492383}
 --- !u!61 &137180794309221594
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1028,7 +1028,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 798247a53b99f02439b2107e2adb6cd9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DestinationRoot: {fileID: 6155542167717501061}
+  destinationRoot: {fileID: 6155542167717501061}
 --- !u!1 &7974776087148897926
 GameObject:
   m_ObjectHideFlags: 0
@@ -1039,7 +1039,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8628016171837796445}
   - component: {fileID: 3517627705193652552}
-  m_Layer: 7
+  m_Layer: 6
   m_Name: Sounddesign
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1167,7 +1167,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6385491385796572230}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Vase4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1203,7 +1203,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2147409766577367141}
   - component: {fileID: 1853347538559140502}
-  m_Layer: 7
+  m_Layer: 6
   m_Name: Sounddesign
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1332,7 +1332,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5109707053799770015}
   - component: {fileID: 2673091874262342863}
-  m_Layer: 7
+  m_Layer: 6
   m_Name: Sounddesign
   m_TagString: Untagged
   m_Icon: {fileID: 0}

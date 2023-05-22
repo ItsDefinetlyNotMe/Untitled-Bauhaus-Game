@@ -5,16 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="df972bb7-6a35-41d5-ab18-c81111b77aa5" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Arrow.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Arrow.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Enemies/HittableEnemy.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Enemies/HittableEnemy.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Enemies/RavenEnemy.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Enemies/RavenEnemy.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/HitablePlayer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/HitablePlayer.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/HittableBarrel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/HittableBarrel.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/HittableFireplace.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/HittableFireplace.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/HittableObject.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/HittableObject.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/HittablePotery.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/HittablePotery.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/HittableTable.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/HittableTable.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/PlayerAttack.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/PlayerAttack.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/RavenTestScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/RavenTestScene.unity" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -111,7 +102,7 @@
       <workItem from="1684135438287" duration="1238000" />
       <workItem from="1684225073585" duration="57000" />
       <workItem from="1684495136542" duration="6377000" />
-      <workItem from="1684741959100" duration="590000" />
+      <workItem from="1684741959100" duration="1039000" />
     </task>
     <servers />
   </component>

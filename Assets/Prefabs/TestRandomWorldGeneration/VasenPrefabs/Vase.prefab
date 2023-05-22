@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 4777662169212377174}
   - component: {fileID: 4777662169212377177}
   - component: {fileID: 4777662169212377176}
-  m_Layer: 7
+  m_Layer: 6
   m_Name: Vase
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -184,7 +184,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4777662169800894393}
   - component: {fileID: 4777662169800894390}
-  m_Layer: 7
+  m_Layer: 6
   m_Name: Sounddesign
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -313,7 +313,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4777662170776298863}
   - component: {fileID: 4777662170776298860}
-  m_Layer: 7
+  m_Layer: 6
   m_Name: Breaks
   m_TagString: Untagged
   m_Icon: {fileID: 0}
