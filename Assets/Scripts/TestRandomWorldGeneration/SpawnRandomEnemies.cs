@@ -1,6 +1,8 @@
 using Enemies;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static Structs;
 
 namespace TestRandomWorldGeneration {
     public class SpawnRandomEnemies : MonoBehaviour
@@ -18,6 +20,8 @@ namespace TestRandomWorldGeneration {
 
         [Header("Matrix")]
         private float[,] tileMatrix;
+
+        [SerializeField] GameObject spawnIndicator;
 
         private int floorTileCount;
         private int spaceToFill;
@@ -101,8 +105,9 @@ namespace TestRandomWorldGeneration {
 
             //Instantiate enemy
             int posIndex = UnityEngine.Random.Range(0, possibleSpawnPositions.Count);
-            GameObject newEnemy = Instantiate(enemyPrefab.prefab, possibleSpawnPositions[posIndex], Quaternion.identity);
-            newEnemy.transform.parent = gameObject.transform;
+
+            GameObject circle = Instantiate(spawnIndicator, possibleSpawnPositions[posIndex], Quaternion.identity);
+            StartCoroutine(InstantiateEnemy(enemyPrefab.prefab, possibleSpawnPositions[posIndex], circle));
 
             //Mark position in matrix
             BlockWorldPositionInMatrix(possibleSpawnPositions[posIndex]);
@@ -123,8 +128,10 @@ namespace TestRandomWorldGeneration {
 
             //Instantiate enemy
             int posIndex = UnityEngine.Random.Range(0, possibleSpawnPositions.Count);
-            GameObject newEnemy = Instantiate(enemyPrefab.prefab, possibleSpawnPositions[posIndex], Quaternion.identity);
-            newEnemy.transform.parent = gameObject.transform;
+
+            GameObject circle = Instantiate(spawnIndicator, possibleSpawnPositions[posIndex], Quaternion.identity);
+            StartCoroutine(InstantiateEnemy(enemyPrefab.prefab, possibleSpawnPositions[posIndex], circle));
+            
 
             //Mark position in matrix
             for (int x = 0; x < enemyPrefab.size.x; x++)
@@ -313,6 +320,16 @@ namespace TestRandomWorldGeneration {
                     }
                 }
             return false;
+        }
+
+        private IEnumerator InstantiateEnemy(GameObject enemy, Vector2 pos, GameObject circle)
+        {
+            yield return new WaitForSeconds(4);
+
+            Destroy(circle);
+
+            GameObject newEnemy = Instantiate(enemy, pos, Quaternion.identity);
+            newEnemy.transform.parent = gameObject.transform;
         }
 
         private void ResetEverything()
