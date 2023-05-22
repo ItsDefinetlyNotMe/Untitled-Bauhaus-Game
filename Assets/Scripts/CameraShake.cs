@@ -11,15 +11,20 @@ public class CameraShake : MonoBehaviour
     private float shakeTime_;
     private CinemachineBasicMultiChannelPerlin cinemachineBasicMultiChannelPerlin;
 
+    public bool isAlreadyDestroyed { private get; set; } = false;
+
     private CinemachineVirtualCamera cinemaschineVirtualCamera;
     void Awake()
     {
-        Instance = this;
+        //Instance = this;
         SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
+        if (isAlreadyDestroyed)
+            return;
+
         Debug.Log("HIER");
         Instance = this;
         cinemaschineVirtualCamera = GetComponent<CinemachineVirtualCamera>();

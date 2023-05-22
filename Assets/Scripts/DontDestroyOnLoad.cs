@@ -21,6 +21,12 @@ public class DontDestroyOnLoad : MonoBehaviour
                 HitablePlayer hitablePlayer = GetComponent<HitablePlayer>();
                 hitablePlayer.isAlreadyDestroyed = true;
             }
+
+            else if (CompareTag("MainCamera"))
+            {
+                CameraShake cameraShake = GetComponentInChildren<CameraShake>();
+                cameraShake.isAlreadyDestroyed = true;
+            }
             Destroy(gameObject);
         }
     }
