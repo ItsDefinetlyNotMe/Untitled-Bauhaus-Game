@@ -9,7 +9,7 @@ public class PlayerMovement : MonoBehaviour
 {
     [Header("Movement")]
     [SerializeField] private float defaultMoveSpeed = 11f;
-    public Vector2 movementDirection { get; private set; }
+    public Vector2 movementDirection { get; set; }
     public Structs.PlayerState currentState; //{get; private set;}
 
     [Header("Buffer")] private InputBuffer inputBuffer;    
@@ -31,7 +31,8 @@ public class PlayerMovement : MonoBehaviour
     //for iframes/itime
     private readonly float invulnerabilityTime = 0.15f;
 
-    private PlayerInput playerInput;
+    private int whileLoopTracker = 0;
+
     private void Awake()
     {
         HitablePlayer.onPlayerDeath += DisableMovement;
@@ -39,10 +40,23 @@ public class PlayerMovement : MonoBehaviour
         trailRenderer.emitting = false;
         rb = GetComponent<Rigidbody2D>();
         coll = GetComponent<Collider2D>();
-        playerInput = GetComponent<PlayerInput>();
         inputBuffer = GetComponent<InputBuffer>();
 
-        GetComponent<PlayerInput>().actions.FindActionMap("Movement").Enable();
+        PlayerInput playerInput = null;
+
+        while (playerInput == null)
+        {
+            if (whileLoopTracker > 10)
+                return;
+
+            playerInput = FindObjectOfType<PlayerInput>();
+
+            whileLoopTracker++;
+        }
+
+        playerInput.actions.FindActionMap("Movement").Enable();
+
+        whileLoopTracker = 0;
     }
 
     private void FixedUpdate()
@@ -58,11 +72,7 @@ public class PlayerMovement : MonoBehaviour
             rb.velocity = new Vector3(0f,0f,0f);
     }
 
-    private void OnMovement(InputValue input)
-    {
-        movementDirection = input.Get<Vector2>();
-    }
-    private void OnDash(InputValue input)
+    public void Dash(InputValue input)
     {
         if (canDash && currentState == Moving)
         {
@@ -72,7 +82,7 @@ public class PlayerMovement : MonoBehaviour
             canDash = false;
             StartCoroutine(TrackDash());
         }else
-            inputBuffer.BufferEnqueue(OnDash,input);
+            inputBuffer.BufferEnqueue(Dash,input);
     }
     private IEnumerator TrackDash()
     {

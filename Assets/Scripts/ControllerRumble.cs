@@ -60,7 +60,7 @@ public class ControllerRumble : MonoBehaviour
 
     private void Start()
     {
-        _playerInput = GetComponent<PlayerInput>();
+        _playerInput = FindObjectOfType<PlayerInput>();
         gamepad = Gamepad.all.FirstOrDefault(g => _playerInput.devices.Any(d => d.deviceId == g.deviceId));
 
         HittableObject.onObjectDeath += StartEnemyDeathRumble;
