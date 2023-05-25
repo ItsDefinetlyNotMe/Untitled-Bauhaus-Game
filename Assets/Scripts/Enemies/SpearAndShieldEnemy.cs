@@ -20,24 +20,7 @@ public class SpearAndShieldEnemy : MeleeEnemy
         foreach (int i in attackdirection)
         {
             //play animation 1..3
-            string direction_string = "";
-            switch (direction)
-            {
-                case Direction.Left:
-                    direction_string = "left";
-                    break;
-                case Direction.Up:
-                    direction_string = "up";
-                    break;
-                case Direction.Right:
-                    direction_string = "right";
-                    break;
-                case Direction.Down:
-                    direction_string = "down";
-                    break;
-            }
-            string attack = "attack" + direction_string + i;  
-            animator.Play(attack);
+            animator.SetInteger("Attackdirection",i);
             yield return new WaitWhile(() => currentEnemyState == EnemyState.Attacking);
         }
         //play animation
