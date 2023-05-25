@@ -47,3 +47,5 @@ MonoBehaviour:
   wallPrefabs:
   - {fileID: 7225894655936452431, guid: bfb377c16a3b35940bab8e6209ea933c, type: 3}
   - {fileID: 7980319443548456798, guid: e71e7454088894d479e1e8caaed2e857, type: 3}
+  - {fileID: 974353581449619064, guid: 24040c01806fefc4faa45427d2385f11, type: 3}
+  - {fileID: 4738908800559403561, guid: 77d7d13d4188dbf43b7f3b3a7ea7cbf8, type: 3}
