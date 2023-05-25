@@ -12,8 +12,9 @@ public class PlayerAttack : MonoBehaviour
         playerMovement = GetComponent<PlayerMovement>();
         weaponScript = GetComponentInChildren<WeaponScript>();
         inputBuffer = GetComponent<InputBuffer>();
-    }
-    public void OnAttack(InputValue input){
+        GetComponent<PlayerInput>().actions.FindActionMap("Fighting").Enable();
+}
+public void OnAttack(InputValue input){
     
         if(weaponScript == null)
             return;

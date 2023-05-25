@@ -41,6 +41,8 @@ public class PlayerMovement : MonoBehaviour
         coll = GetComponent<Collider2D>();
         playerInput = GetComponent<PlayerInput>();
         inputBuffer = GetComponent<InputBuffer>();
+
+        GetComponent<PlayerInput>().actions.FindActionMap("Movement").Enable();
     }
 
     private void FixedUpdate()
