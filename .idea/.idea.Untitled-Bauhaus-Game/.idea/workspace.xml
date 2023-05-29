@@ -6,24 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="df972bb7-6a35-41d5-ab18-c81111b77aa5" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Untitled-Bauhaus-Game/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Untitled-Bauhaus-Game/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/RavenTestScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/SimonTestScene.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/RavenTestScene.unity.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/SimonTestScene.unity.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Enemies/EnemyMovement.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Enemies/EnemyMovement.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Enemies/MeleeEnemy.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Enemies/MeleeEnemy.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Enemies/SpearAndShieldEnemy.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Enemies/SpearAndShieldEnemy.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/InputBuffer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/InputBuffer.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Structs.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Structs.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Enemy/SpeerAndShieldSoldier/Down/AttackLeftDown.anim" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/Enemy/SpeerAndShieldSoldier/Left/AttackLeft/LeftDown/AttackLeftDown.anim" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Enemy/SpeerAndShieldSoldier/Down/AttackLeftDown.anim.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/Enemy/SpeerAndShieldSoldier/Left/AttackLeft/LeftDown/AttackLeftDown.anim.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Enemy/SpeerAndShieldSoldier/Down/IdleDown/SpeerAndShieldSoldierIDLE0000.controller" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/Enemy/SpeerAndShieldSoldier/Down/IdleDown/SpeerAndShieldSoldierIDLE0000.controller" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Enemy/SpeerAndShieldSoldier/Left/AttackLeft/AttackLeft.anim" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/Enemy/SpeerAndShieldSoldier/Left/AttackLeft/Left/AttackLeft.anim" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Enemy/SpeerAndShieldSoldier/Left/AttackLeft/AttackLeft.anim.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/Enemy/SpeerAndShieldSoldier/Left/AttackLeft/Left/AttackLeft.anim.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Enemy/SpeerAndShieldSoldier/Left/AttackLeft/AttackLeftUp.anim" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/Enemy/SpeerAndShieldSoldier/Left/AttackLeft/LeftUp/AttackLeftUp.anim" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Enemy/SpeerAndShieldSoldier/Left/AttackLeft/AttackLeftUp.anim.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/Enemy/SpeerAndShieldSoldier/Left/AttackLeft/LeftUp/AttackLeftUp.anim.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Enemy/SpeerAndShieldSoldier/Up/IdleUp/WalkUp.anim" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/Enemy/SpeerAndShieldSoldier/Up/WalkUp/WalkUp.anim" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Enemy/SpeerAndShieldSoldier/Up/IdleUp/WalkUp.anim.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/Enemy/SpeerAndShieldSoldier/Up/WalkUp/WalkUp.anim.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Enemy/SpeerAndShieldSoldier/Up/UpDefense.anim" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/Enemy/SpeerAndShieldSoldier/Up/DefenseUp/UpDefense.anim" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Enemy/SpeerAndShieldSoldier/Up/UpDefense.anim.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/Enemy/SpeerAndShieldSoldier/Up/DefenseUp/UpDefense.anim.meta" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
