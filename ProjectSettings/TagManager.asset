@@ -8,6 +8,7 @@ TagManager:
   - PlayerRoot
   - Enemy
   - GameManager
+  - InputHandler
   layers:
   - Default
   - TransparentFX
