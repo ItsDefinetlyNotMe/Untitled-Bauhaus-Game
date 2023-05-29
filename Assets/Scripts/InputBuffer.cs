@@ -4,8 +4,8 @@ using UnityEngine.InputSystem;
 
 public class InputBuffer : MonoBehaviour
 {
-    //[Header("Buffer")]
-    
+    [Header("Buffer")]
+    [SerializeField] private int toBuffer = 1;
     public delegate void BufferFunctionDelegate(InputValue input);
 
     private Queue<KeyValuePair<BufferFunctionDelegate,InputValue>> bufferQueue;
@@ -26,7 +26,7 @@ public class InputBuffer : MonoBehaviour
         //Debug.Log("Dequeueing: " + bufferQueue.Count + " elements.");
         if (bufferQueue.Count > 0)
         {
-            while (bufferQueue.Count > 2)
+            while (bufferQueue.Count > toBuffer)
             {
                 bufferQueue.Dequeue();
             }

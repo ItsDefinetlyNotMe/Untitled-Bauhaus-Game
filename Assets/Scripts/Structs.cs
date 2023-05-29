@@ -11,7 +11,7 @@ public class Structs : MonoBehaviour
         Moving,Dashing,Attacking
     }
     public enum EnemyState{
-        ChargingAttack,Attacking,Recharging,Moving,Fleeing
+        ChargingAttack,Attacking,Recharging,Moving,Fleeing,Idle
     }
     //[Header("RandomRoomGeneration")]
     [Serializable]

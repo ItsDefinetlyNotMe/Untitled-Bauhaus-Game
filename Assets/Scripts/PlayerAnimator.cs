@@ -18,7 +18,7 @@ public class PlayerAnimator : MonoBehaviour
         animator = GetComponent<Animator>();
     }
 
-    private void OnMovement(InputValue input)
+    public void Movement(InputValue input)
     {
         movementDirection = input.Get<Vector2>();
 

@@ -20,6 +20,7 @@ namespace Enemies
         public float nextWayPointDistance = 3f;
         readonly float reachedWayPointDistance = .4f;
         bool reachedEndofPath;
+        protected Vector2 direction = new Vector2(0f, 0f);
     
         [Header("Target")]
         private bool targeting;
@@ -69,7 +70,7 @@ namespace Enemies
             }
             if(!reachedEndofPath && targeting)
             {
-                Vector2 direction = ((Vector2)path.vectorPath[currentWaypoint] - rb.position).normalized;
+                direction = ((Vector2)path.vectorPath[currentWaypoint] - rb.position).normalized;
                 Vector2 force = direction * movementSpeed;
                 rb.velocity = force;
                 float distance = Vector2.Distance(rb.position, path.vectorPath[currentWaypoint]);
