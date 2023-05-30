@@ -10,6 +10,7 @@ public class InputHandler : MonoBehaviour
     private PlayerMovement playerMovement;
     private PlayerAttack playerAttack;
     private PlayerAnimator playerAnimator;
+    private bool sp;
 
     private int whileLoopTracker = 0;
 
@@ -64,7 +65,6 @@ public class InputHandler : MonoBehaviour
 
     private void OnDash(InputValue input)
     {
-        while (playerMovement == null)
         {
             if (whileLoopTracker > 10)
                 return;
@@ -119,5 +119,32 @@ public class InputHandler : MonoBehaviour
     private void OnDestroy()
     {
         SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    private void OnSpecialAttack()
+    {
+        while (playerAttack == null)
+        {
+            if (whileLoopTracker > 10)
+                return;
+
+            OnSceneLoaded(SceneManager.GetActiveScene(), LoadSceneMode.Single);
+
+            whileLoopTracker++;
+        }
+        whileLoopTracker = 0;
+
+        if (!sp)
+        {
+            //chargeAttack
+            sp = true;
+            playerAttack.ChargeHeavyAttacK();
+        }
+        else
+        {
+            sp = false;
+            playerAttack.HeavyAttacK();            
+        }
+        
     }
 }

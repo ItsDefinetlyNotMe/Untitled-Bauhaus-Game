@@ -6,6 +6,21 @@
   <component name="ChangeListManager">
     <list default="true" id="df972bb7-6a35-41d5-ab18-c81111b77aa5" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Untitled-Bauhaus-Game/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Untitled-Bauhaus-Game/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Misc/InputActions.inputactions" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Misc/InputActions.inputactions" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/CameraShake.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/CameraShake.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/InputHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/InputHandler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/PlayerAttack.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/PlayerAttack.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Player/AttackTree/AttackDown/AxeAttackDownAnimation1.anim" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/Player/AttackTree/AttackDown/AxeAttackDownAnimation1.anim" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Player/AttackTree/AttackDown/AxeAttackDownAnimation2.anim" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/Player/AttackTree/AttackDown/AxeAttackDownAnimation2.anim" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Player/AttackTree/AttackDown/AxeAttackDownAnimation3.anim" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/Player/AttackTree/AttackDown/AxeAttackDownAnimation3.anim" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Player/AttackTree/AttackLeft/Attack2/AttackLeftAnimation3.anim" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/Player/AttackTree/AttackLeft/Attack2/AttackLeftAnimation3.anim" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Player/AttackTree/AttackRight/AxeAttackRightAnimation.anim" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/Player/AttackTree/AttackRight/AxeAttackRightAnimation.anim" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Player/AttackTree/AttackRight/AxeAttackRightAnimation2.anim" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/Player/AttackTree/AttackRight/AxeAttackRightAnimation2.anim" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Player/AttackTree/AttackRight/AxeAttackRightAnimation3.anim" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/Player/AttackTree/AttackRight/AxeAttackRightAnimation3.anim" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Player/AttackTree/AttackUp/AxeAttackUpAnimation1.anim" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/Player/AttackTree/AttackUp/AxeAttackUpAnimation1.anim" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Player/AttackTree/AttackUp/AxeAttackUpAnimation2.anim" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/Player/AttackTree/AttackUp/AxeAttackUpAnimation2.anim" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Player/AttackTree/AttackUp/AxeAttackUpAnimation3.anim" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/Player/AttackTree/AttackUp/AxeAttackUpAnimation3.anim" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Player/PlayerAnimatorController.controller" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/Player/PlayerAnimatorController.controller" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -107,6 +122,7 @@
       <workItem from="1685037875763" duration="1186000" />
       <workItem from="1685085971073" duration="2147000" />
       <workItem from="1685098926887" duration="616000" />
+      <workItem from="1685439209212" duration="3792000" />
     </task>
     <servers />
   </component>
@@ -116,6 +132,23 @@
   <component name="UnityCheckinConfiguration" checkUnsavedScenes="true" />
   <component name="UnityProjectConfiguration" hasMinimizedUI="true" />
   <component name="UnityUnitTestConfiguration" currentTestLauncher="Both" />
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="CUSTOM_BOOLEAN_PROPERTIES">
+                <map>
+                  <entry key="Show.Git.Branches" value="false" />
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
   </component>

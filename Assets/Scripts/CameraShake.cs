@@ -25,7 +25,6 @@ public class CameraShake : MonoBehaviour
         if (isAlreadyDestroyed)
             return;
 
-        Debug.Log("HIER");
         Instance = this;
         cinemaschineVirtualCamera = GetComponent<CinemachineVirtualCamera>();
         cinemachineBasicMultiChannelPerlin = cinemaschineVirtualCamera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();

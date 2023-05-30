@@ -1,3 +1,4 @@
+using System.Threading;
 using UnityEngine.InputSystem;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -9,6 +10,8 @@ public class PlayerAttack : MonoBehaviour
     private PlayerMovement playerMovement;
     private readonly float damageMultiplier = 1f;
     float knockbackMultiplier = 5f;//TODO sollte mit der waffe importiert werden also dmg aswell
+
+    private float heavyAttackTimer; 
 
     private int whileLoopTracker = 0;
 
@@ -48,5 +51,17 @@ public class PlayerAttack : MonoBehaviour
 
             }
         }));
+    }
+
+    public void HeavyAttacK()
+    {
+        float chargedTime = Mathf.Min(2f, Time.time - heavyAttackTimer);
+        Debug.Log(chargedTime);
+        //HevyAttack(dmg);
+    }
+    public void ChargeHeavyAttacK()
+    {
+        heavyAttackTimer = Time.time;
+        //play animation
     }
 }
