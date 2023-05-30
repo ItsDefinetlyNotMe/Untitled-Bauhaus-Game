@@ -9,6 +9,9 @@ namespace Enemies
         private SpriteRenderer spriteRenderer;
         private Rigidbody2D rb;
 
+        public GameObject HitSound;
+        public GameObject DeathHitSound;
+
         
         public delegate void EnemyDeathDelegate();
         public static EnemyDeathDelegate onEnemyDeath;
@@ -23,7 +26,8 @@ namespace Enemies
             //Debug.Log("Ohh no it hurts, Oh no pls stop");
             //visual Feedback
             StartCoroutine(HitFeedback());
-        
+            HitSound.GetComponent<RandomSound>().PlayRandom1();
+
             base.GetHit(damage,damageSourcePosition, knockbackMultiplier,damageSource);
         
             //knockback
@@ -49,10 +53,10 @@ namespace Enemies
 
         protected override void Die(GameObject damageSource)
         {
+            DeathHitSound.GetComponent<RandomSound>().PlayRandom1();
             onEnemyDeath?.Invoke();
             base.Die(damageSource);
             gameObject.SetActive(false);
-            
         }
     }
 }

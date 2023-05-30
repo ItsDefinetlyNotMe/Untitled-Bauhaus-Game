@@ -12,6 +12,8 @@ public class PlayerAnimator : MonoBehaviour
     private static readonly int IsWalking = Animator.StringToHash("isWalking");
     private static readonly int X = Animator.StringToHash("X");
     private static readonly int Y = Animator.StringToHash("Y");
+    public GameObject NormalHit;
+    public GameObject HeavyHit;
 
     private void Awake()
     {
@@ -47,15 +49,19 @@ public class PlayerAnimator : MonoBehaviour
         {
             case Left:
                 localAttackDirection = "AttackLeft";
+                NormalHit.GetComponent<RandomSound>().PlayRandom1();
                 break;
             case Up:
                 localAttackDirection = "AttackUp";
+                NormalHit.GetComponent<RandomSound>().PlayRandom1();
                 break;
             case Right:
                 localAttackDirection = "AttackRight";
+                NormalHit.GetComponent<RandomSound>().PlayRandom1();
                 break;
             case Down:
                 localAttackDirection = "AttackDown";
+                NormalHit.GetComponent<RandomSound>().PlayRandom1();
                 break;
         }
         localAttackDirection += number.ToString();

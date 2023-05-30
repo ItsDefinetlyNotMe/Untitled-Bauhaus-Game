@@ -32,6 +32,7 @@ public class PlayerMovement : MonoBehaviour
     private readonly float invulnerabilityTime = 0.15f;
 
     private int whileLoopTracker = 0;
+    public GameObject DashSound;
 
     private void Awake()
     {
@@ -76,6 +77,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (canDash && currentState == Moving)
         {
+            DashSound.GetComponent<RandomSound>().PlayRandom1();
             ChangeState(Dashing);
             currentDashPower = maxDashingPower;
             trailRenderer.emitting = true;
