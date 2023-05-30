@@ -15,6 +15,7 @@ namespace Enemies
         RavenDrawPath ravenDrawPath; 
         private float dashRange;
         private static readonly int IsDashing = Animator.StringToHash("isDashing");
+        public GameObject wingSound;
 
         protected void Start(){
             base.StartUp();
@@ -33,6 +34,10 @@ namespace Enemies
                 transform.localScale = target.position.x < transform.position.x ? new Vector3(1f*invert, 1f, 1f) : new Vector3(-1f*invert, 1f, 1f);
             }
             NextMove();
+        }
+        public void WingSounds()
+        {
+            wingSound.GetComponent<RandomSound>().PlayRandom1();
         }
         void OnTriggerEnter2D(Collider2D other)
         {//if Attacking detect collisions
