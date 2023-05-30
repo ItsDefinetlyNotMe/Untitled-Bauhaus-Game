@@ -15,7 +15,11 @@ namespace Enemies
         RavenDrawPath ravenDrawPath; 
         private float dashRange;
         private static readonly int IsDashing = Animator.StringToHash("isDashing");
+
+        //Sounds
         public GameObject wingSound;
+        public GameObject RavenSings;
+        public GameObject RavenAttackSound;
 
         protected void Start(){
             base.StartUp();
@@ -50,6 +54,7 @@ namespace Enemies
                     ChangeState(EnemyState.Recharging);
                     rb.velocity = new Vector2(0f,0f);
                     animator.SetBool(IsDashing,false);
+                    RavenSings.GetComponent<RandomSound>().PlayRandom1();
                 }
             }
         }
@@ -94,9 +99,11 @@ namespace Enemies
                 case EnemyState.Attacking:
                     col.isTrigger = true;
                     rb.isKinematic = true;
+                    RavenAttackSound.GetComponent<RandomSound>().PlayRandom1();
                     break;
                 case EnemyState.ChargingAttack:
                     StopTargeting();
+                    RavenSings.GetComponent<RandomSound>().PlayRandom1();
                     break;
                 case EnemyState.Moving:
                     col.isTrigger = false;
@@ -105,6 +112,7 @@ namespace Enemies
                     break;
                 case EnemyState.Fleeing:
                     col.isTrigger = false;
+                    RavenAttackSound.GetComponent<RandomSound>().PlayRandom1();
                     StopTargeting();
                     break;
             }
