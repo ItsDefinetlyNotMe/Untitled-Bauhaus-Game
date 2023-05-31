@@ -1,3 +1,4 @@
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Serialization;
@@ -68,6 +69,51 @@ public class PlayerAnimator : MonoBehaviour
         //Debug.Log(localAttackDirection);
         animator.Play(localAttackDirection);
     }
+
+    public void PlayHeavyAttackAnimation(Structs.Direction attackDirection)
+    {
+        string localAttackDirection = "";
+        switch(attackDirection)
+        {
+            case Left:
+                localAttackDirection = "AxeHeavyAttackLeft";
+                break;
+            case Up:
+                localAttackDirection = "AxeHeavyAttackUp";
+                break;
+            case Right:
+                localAttackDirection = "AxeHeavyAttackRight";
+                break;
+            case Down:
+                localAttackDirection = "AxeHeavyAttackDown";
+                break;
+        }
+        animator.Play(localAttackDirection);
+    }
+
+    public void SetDirection(Structs.Direction direction)
+    {
+        animator.SetBool("Left", false);
+        animator.SetBool("Up", false);
+        animator.SetBool("Right", false);
+        animator.SetBool("Down", false);
+        switch (direction)
+        {
+            case Left:
+                animator.SetBool("Left", true);
+                break;
+            case Up:
+                animator.SetBool("Up", true);
+                break;
+            case Right:
+                animator.SetBool("Right", true);
+                break;
+            case Down:
+                animator.SetBool("Down", true);
+                break;
+        }
+    }
+
 
 
     private void PlayFootStepSound()

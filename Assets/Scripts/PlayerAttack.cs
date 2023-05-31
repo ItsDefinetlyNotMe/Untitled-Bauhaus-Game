@@ -11,12 +11,15 @@ public class PlayerAttack : MonoBehaviour
     private readonly float damageMultiplier = 1f;
     float knockbackMultiplier = 5f;//TODO sollte mit der waffe importiert werden also dmg aswell
 
+    private Animator animator;
+
     private float heavyAttackTimer; 
 
     private int whileLoopTracker = 0;
 
     private void Start()
     {
+        animator = GetComponent<Animator>();
         playerMovement = GetComponent<PlayerMovement>();
         weaponScript = GetComponentInChildren<WeaponScript>();
         inputBuffer = GetComponent<InputBuffer>();
@@ -55,13 +58,33 @@ public class PlayerAttack : MonoBehaviour
 
     public void HeavyAttacK()
     {
+        
+        
         float chargedTime = Mathf.Min(2f, Time.time - heavyAttackTimer);
-        Debug.Log(chargedTime);
+        //ANIMATION START
+        animator.SetBool("Charging",false);
+        StartCoroutine(weaponScript.HeavyAttack((enemiesHit, weaponDamage) =>
+        {
+            foreach (Collider2D enemy in enemiesHit)
+            {
+                enemy.GetComponent<HittableObject>().GetHit((int)(weaponDamage * damageMultiplier * chargedTime), transform.position, knockbackMultiplier, gameObject);
+
+            }
+        }));
         //HevyAttack(dmg);
     }
     public void ChargeHeavyAttacK()
     {
+        if (weaponScript == null)
+            return;
+        if (playerMovement.currentState != Structs.PlayerState.Moving)
+            return; 
+        
+        PlayerAnimator pA = GetComponent<PlayerAnimator>();
+        pA.SetDirection(weaponScript.DetermineAttackDirection());
+        playerMovement.currentState = Structs.PlayerState.Charging;
         heavyAttackTimer = Time.time;
+        animator.SetTrigger("Charging");
         //play animation
     }
 }

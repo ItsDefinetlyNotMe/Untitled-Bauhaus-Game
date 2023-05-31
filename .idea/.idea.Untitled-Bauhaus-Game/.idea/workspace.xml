@@ -6,20 +6,17 @@
   <component name="ChangeListManager">
     <list default="true" id="df972bb7-6a35-41d5-ab18-c81111b77aa5" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Untitled-Bauhaus-Game/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Untitled-Bauhaus-Game/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Misc/InputActions.inputactions" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Misc/InputActions.inputactions" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/CameraShake.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/CameraShake.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/InputHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/InputHandler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/SimonTestScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/SimonTestScene.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/PlayerAnimator.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/PlayerAnimator.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/PlayerAttack.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/PlayerAttack.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Player/AttackTree/AttackDown/AxeAttackDownAnimation1.anim" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/Player/AttackTree/AttackDown/AxeAttackDownAnimation1.anim" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Player/AttackTree/AttackDown/AxeAttackDownAnimation2.anim" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/Player/AttackTree/AttackDown/AxeAttackDownAnimation2.anim" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Player/AttackTree/AttackDown/AxeAttackDownAnimation3.anim" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/Player/AttackTree/AttackDown/AxeAttackDownAnimation3.anim" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Player/AttackTree/AttackLeft/Attack2/AttackLeftAnimation3.anim" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/Player/AttackTree/AttackLeft/Attack2/AttackLeftAnimation3.anim" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Player/AttackTree/AttackRight/AxeAttackRightAnimation.anim" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/Player/AttackTree/AttackRight/AxeAttackRightAnimation.anim" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Player/AttackTree/AttackRight/AxeAttackRightAnimation2.anim" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/Player/AttackTree/AttackRight/AxeAttackRightAnimation2.anim" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Player/AttackTree/AttackRight/AxeAttackRightAnimation3.anim" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/Player/AttackTree/AttackRight/AxeAttackRightAnimation3.anim" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Player/AttackTree/AttackUp/AxeAttackUpAnimation1.anim" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/Player/AttackTree/AttackUp/AxeAttackUpAnimation1.anim" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Player/AttackTree/AttackUp/AxeAttackUpAnimation2.anim" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/Player/AttackTree/AttackUp/AxeAttackUpAnimation2.anim" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Player/AttackTree/AttackUp/AxeAttackUpAnimation3.anim" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/Player/AttackTree/AttackUp/AxeAttackUpAnimation3.anim" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Structs.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Structs.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Sword.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Sword.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/TestRandomWorldGeneration/CreateRandomRoomLayout.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/TestRandomWorldGeneration/CreateRandomRoomLayout.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/WeaponScript.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/WeaponScript.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Player/AttackTree/AttackDown/AxeSpecialAttackDown.anim" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/Player/AttackTree/AttackDown/AxeSpecialAttackDown.anim" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Player/AttackTree/AttackLeft/AxeSpecialAttackLeft.anim" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/Player/AttackTree/AttackLeft/AxeSpecialAttackLeft.anim" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Player/AttackTree/AttackRight/AxeSpecialAttackRight.anim" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/Player/AttackTree/AttackRight/AxeSpecialAttackRight.anim" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Player/AttackTree/AttackUp/AxeSpecialAttackUp.anim" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/Player/AttackTree/AttackUp/AxeSpecialAttackUp.anim" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Sprites/Player/PlayerAnimatorController.controller" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/Player/PlayerAnimatorController.controller" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -123,6 +120,9 @@
       <workItem from="1685085971073" duration="2147000" />
       <workItem from="1685098926887" duration="616000" />
       <workItem from="1685439209212" duration="3792000" />
+      <workItem from="1685456201876" duration="4900000" />
+      <workItem from="1685529509987" duration="1086000" />
+      <workItem from="1685532718833" duration="248000" />
     </task>
     <servers />
   </component>

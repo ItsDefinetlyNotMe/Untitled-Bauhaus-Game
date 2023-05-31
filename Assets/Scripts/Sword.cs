@@ -1,7 +1,7 @@
 
 public class Sword : WeaponScript
 {
-    public override void LeftTriggerAttack()
+    public override void HeavyAttack()
     {
 
     }

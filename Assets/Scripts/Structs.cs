@@ -8,7 +8,7 @@ public class Structs : MonoBehaviour
         Left, Up, Right, Down
     }
     public enum PlayerState{
-        Moving,Dashing,Attacking
+        Moving,Dashing,Attacking,Charging
     }
     public enum EnemyState{
         ChargingAttack,Attacking,Recharging,Moving,Fleeing,Idle
