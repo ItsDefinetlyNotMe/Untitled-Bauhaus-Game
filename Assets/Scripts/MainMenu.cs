@@ -4,20 +4,16 @@ using UnityEngine;
 
 public class MainMenu : MonoBehaviour
 {
-    private bool isLoading;
 
-    public void NewGame()
+    public void Play()
     {
-        isLoading = false;
         transform.GetChild(0).gameObject.SetActive(false);
         transform.GetChild(1).gameObject.SetActive(true);
     }
 
-    public void LoadGame()
+    public void Settings()
     {
-        isLoading = true;
-        transform.GetChild(0).gameObject.SetActive(false);
-        transform.GetChild(1).gameObject.SetActive(true);
+        
     }
 
     public void BackToMainMenu()
