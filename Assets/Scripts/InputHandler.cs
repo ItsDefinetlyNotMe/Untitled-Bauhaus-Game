@@ -116,6 +116,26 @@ public class InputHandler : MonoBehaviour
         }
     }
 
+    private void OnBack(InputValue input)
+    {
+        if (isOnUpgrade)
+        {
+            while (upgradeWindow == null)
+            {
+                if (whileLoopTracker > 10)
+                    return;
+
+                OnSceneLoaded(SceneManager.GetActiveScene(), LoadSceneMode.Single);
+
+                whileLoopTracker++;
+            }
+
+            upgradeWindow.Back();
+
+            whileLoopTracker = 0;
+        }
+    }
+
     private void OnDestroy()
     {
         SceneManager.sceneLoaded -= OnSceneLoaded;

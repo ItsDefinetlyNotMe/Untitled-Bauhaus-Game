@@ -7,16 +7,24 @@ public class UpgradeWindow : MonoBehaviour
 {
     private PlayerInput playerInput;
     private InputHandler inputHandler;
+    private GameObject upgradeWindow;
 
     public void Interact()
     {
-        print("Interact");
+        upgradeWindow.SetActive(true);
+    }
+
+    public void Back()
+    {
+        upgradeWindow.SetActive(false);
     }
 
     private void Start()
     {
         inputHandler = FindObjectOfType<InputHandler>();
         playerInput = FindObjectOfType<PlayerInput>();
+
+        upgradeWindow = transform.GetChild(0).gameObject;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -36,6 +44,8 @@ public class UpgradeWindow : MonoBehaviour
         {
             playerInput.actions.FindActionMap("UI").Disable();
             playerInput.actions.FindActionMap("Fighting").Enable();
+
+            Back();
 
             inputHandler.isOnUpgrade = false;
         }

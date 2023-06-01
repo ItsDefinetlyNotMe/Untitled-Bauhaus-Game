@@ -20,6 +20,11 @@ public class MainMenu : MonoBehaviour
         transform.GetChild(1).gameObject.SetActive(true);
     }
 
+    public void BackToMainMenu()
+    {
+        transform.GetChild(0).gameObject.SetActive(true);
+        transform.GetChild(1).gameObject.SetActive(false);
+    }
 
     public void QuitGame()
     {
