@@ -96,7 +96,7 @@ public class InputHandler : MonoBehaviour
         whileLoopTracker = 0;
     }
 
-    private void OnInteract(InputValue input)
+    private void OnStart(InputValue input)
     {
         if (isOnUpgrade)
         {
@@ -116,7 +116,7 @@ public class InputHandler : MonoBehaviour
         }
     }
 
-    private void OnBack(InputValue input)
+    private void OnCancel(InputValue input)
     {
         if (isOnUpgrade)
         {
