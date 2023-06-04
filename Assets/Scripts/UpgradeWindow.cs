@@ -12,11 +12,15 @@ public class UpgradeWindow : MonoBehaviour
     public void Interact()
     {
         upgradeWindow.SetActive(true);
+
+        playerInput.actions.FindActionMap("Movement").Disable();
     }
 
     public void Back()
     {
         upgradeWindow.SetActive(false);
+
+        playerInput.actions.FindActionMap("Movement").Enable();
     }
 
     private void Start()
@@ -42,10 +46,8 @@ public class UpgradeWindow : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            playerInput.actions.FindActionMap("UI").Disable();
             playerInput.actions.FindActionMap("Fighting").Enable();
-
-            Back();
+            playerInput.actions.FindActionMap("UI").Disable();
 
             inputHandler.isOnUpgrade = false;
         }

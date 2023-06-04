@@ -27,7 +27,7 @@ public class InputHandler : MonoBehaviour
         {
 
         }
-        
+
         else if (scene.name == "HUB")
         {
             playerMovement = FindObjectOfType<PlayerMovement>();
@@ -40,7 +40,7 @@ public class InputHandler : MonoBehaviour
         else if (scene.name == "Valhalla")
         {
             playerMovement = FindObjectOfType<PlayerMovement>();
-            playerAnimator= FindObjectOfType<PlayerAnimator>();
+            playerAnimator = FindObjectOfType<PlayerAnimator>();
             playerAttack = FindObjectOfType<PlayerAttack>();
         }
     }
@@ -96,7 +96,7 @@ public class InputHandler : MonoBehaviour
         whileLoopTracker = 0;
     }
 
-    private void OnInteract(InputValue input)
+    private void OnStart(InputValue input)
     {
         if (isOnUpgrade)
         {
@@ -116,7 +116,7 @@ public class InputHandler : MonoBehaviour
         }
     }
 
-    private void OnBack(InputValue input)
+    private void OnCancel(InputValue input)
     {
         if (isOnUpgrade)
         {
@@ -163,8 +163,8 @@ public class InputHandler : MonoBehaviour
         else
         {
             sp = false;
-            playerAttack.HeavyAttacK();            
+            playerAttack.HeavyAttacK();
         }
-        
+
     }
 }
