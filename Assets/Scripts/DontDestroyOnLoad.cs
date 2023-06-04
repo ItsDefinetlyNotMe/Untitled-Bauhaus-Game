@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using TestRandomWorldGeneration;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class DontDestroyOnLoad : MonoBehaviour
 {
@@ -8,6 +10,7 @@ public class DontDestroyOnLoad : MonoBehaviour
     {
         DontDestroyOnLoad(this);
 
+        SceneManager.sceneLoaded += OnSceneLoaded;
 
         // Find all objects with the same name in the scene
         GameObject[] objectsWithSameName = GameObject.FindGameObjectsWithTag(gameObject.tag);
@@ -35,5 +38,20 @@ public class DontDestroyOnLoad : MonoBehaviour
             }
             Destroy(gameObject);
         }
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        if (scene.name == "MainMenu")
+        {
+            if (CompareTag("MainCamera")) //Here we have to put everything that can be in the Main Menu
+                return;
+                    //Destroy(gameObject);
+        }
+    }
+
+    private void OnDestroy()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 }

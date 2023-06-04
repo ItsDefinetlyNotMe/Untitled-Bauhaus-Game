@@ -19,7 +19,6 @@ public class UpgradeWindow : MonoBehaviour
     private int maxHealthBasePrice = 0;
 
     private bool isFirstCall = true;
-    private int whileLoopTracker = 0;
 
     public void Interact()
     {

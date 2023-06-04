@@ -32,6 +32,12 @@ public class UIButton : MonoBehaviour
         SceneManager.LoadScene("HUB");
     }
 
+    public void BackToMainMenu()
+    {
+        gameObject.SetActive(false);
+        SceneManager.LoadScene("MainMenu");
+    }
+
     private void OnEnable()
     {
         string sceneName = SceneManager.GetActiveScene().name;

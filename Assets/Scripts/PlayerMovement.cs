@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine.InputSystem;
 using UnityEngine;
 using static Structs.PlayerState;
+using UnityEngine.SceneManagement;
 // ReSharper disable Unity.InefficientPropertyAccess
 public class PlayerMovement : MonoBehaviour
 {
@@ -37,6 +38,8 @@ public class PlayerMovement : MonoBehaviour
     private void Awake()
     {
         HitablePlayer.onPlayerDeath += DisableMovement;
+        SceneManager.sceneLoaded += OnSceneLoaded;
+
         trailRenderer = GetComponent<TrailRenderer>();
         trailRenderer.emitting = false;
         rb = GetComponent<Rigidbody2D>();
@@ -116,6 +119,14 @@ public class PlayerMovement : MonoBehaviour
         currentState = nextState;
     }
 
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        if (scene.name == "HUB")
+        {
+            transform.position = new Vector3(-4.65f, -2.1f, 0);
+        }
+    }
+
     private void DisableMovement()
     {
         //playerInput.DeactivateInput(); TODO delete this function and unsubscribe event if unused
@@ -124,5 +135,6 @@ public class PlayerMovement : MonoBehaviour
     private void OnDestroy()
     {
         HitablePlayer.onPlayerDeath -= DisableMovement;
+        SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 }

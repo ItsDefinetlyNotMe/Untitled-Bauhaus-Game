@@ -171,4 +171,10 @@ public class InputHandler : MonoBehaviour
         }
 
     }
+
+    private void OnPause()
+    {
+        GameObject pauseCanvas = GameObject.Find("PauseMenuCanvas").transform.GetChild(0).gameObject;
+        pauseCanvas.SetActive(!pauseCanvas.activeSelf);
+    }
 }

@@ -9,6 +9,7 @@ TagManager:
   - Enemy
   - GameManager
   - InputHandler
+  - PauseMenuCanvas
   layers:
   - Default
   - TransparentFX

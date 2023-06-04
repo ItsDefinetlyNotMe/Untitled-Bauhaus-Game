@@ -7,8 +7,8 @@ public class MainMenu : MonoBehaviour
 
     public void Play()
     {
-        transform.GetChild(0).gameObject.SetActive(false);
-        transform.GetChild(1).gameObject.SetActive(true);
+        transform.GetChild(1).gameObject.SetActive(false);
+        transform.GetChild(2).gameObject.SetActive(true);
     }
 
     public void Settings()
@@ -18,8 +18,8 @@ public class MainMenu : MonoBehaviour
 
     public void BackToMainMenu()
     {
-        transform.GetChild(0).gameObject.SetActive(true);
-        transform.GetChild(1).gameObject.SetActive(false);
+        transform.GetChild(1).gameObject.SetActive(true);
+        transform.GetChild(2).gameObject.SetActive(false);
     }
 
     public void QuitGame()
