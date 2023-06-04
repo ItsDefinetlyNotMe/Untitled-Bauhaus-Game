@@ -10,6 +10,8 @@ public class GameManager : MonoBehaviour
     private Canvas gameOverCanvas;
     private GameObject roomTransitionScreen;
 
+    public int saveSlot;
+
     private void Awake()
     {
         SceneManager.sceneLoaded += OnSceneLoaded;

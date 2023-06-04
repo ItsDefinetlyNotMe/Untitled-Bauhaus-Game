@@ -12,8 +12,9 @@ public class HitablePlayer : HittableObject
     private Slider healthSlider;
     private TMP_Text healthText;
 
-    Rigidbody2D rb;
-    SpriteRenderer spriteRenderer;
+    private Rigidbody2D rb;
+    private SpriteRenderer spriteRenderer;
+    private PlayerStats stats;
     public delegate void PlayerDeathDelegate();
     public static PlayerDeathDelegate onPlayerDeath;
 
@@ -30,6 +31,10 @@ public class HitablePlayer : HittableObject
 
         rb = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        stats = GetComponent<PlayerStats>();
+
+        maxHealth = stats.getMaxHealth();
+        currentHealth = maxHealth;
     }
     public override void GetHit(int damage, Vector2 damageSourcePosition, float knockbackMultiplier,GameObject damageSource)
     {
@@ -102,6 +107,11 @@ public class HitablePlayer : HittableObject
 
         //base.Die(); TODO talk about correct resetting of player on death
         //gameObject.SetActive(false);
+    }
+
+    public void LoadStats()
+    {
+        maxHealth = stats.getMaxHealth();
     }
 
     private void OnDisable()
