@@ -37,19 +37,12 @@ public class UpgradeWindow : MonoBehaviour
 
     public void IncreaseMaxHealth()
     {
-        if (Input.GetJoystickNames().Count() > 0)
+        //TODO: fix bug that clicks button instantly when activating the upgradeWindow
+        if (isFirstCall)
         {
-            foreach (var kvp in Input.GetJoystickNames())
-                print(kvp);
-
-            if (isFirstCall)
-            {
-                isFirstCall = false;
-                return;
-            }
+            isFirstCall = false;
+            return;
         }
-
-        print("Increase Health");
 
         maxHealthBonus = PlayerPrefs.GetInt("maxHealth" + gameManager.saveSlot) + maxHealthUpgrade; //Get value and add new bonus
         PlayerPrefs.SetInt("maxHealth" + gameManager.saveSlot, maxHealthBonus); //Set new value
@@ -62,11 +55,11 @@ public class UpgradeWindow : MonoBehaviour
     private void updateMaxHealth()
     {
         Transform maxHealthDisplay = transform.GetChild(0).GetChild(1);
-        maxHealthDisplay.GetChild(1).GetComponent<TMP_Text>().text = maxHealthBonus.ToString();
+        maxHealthDisplay.GetChild(1).GetComponent<TMP_Text>().text = PlayerPrefs.GetInt("maxHealth" + gameManager.saveSlot).ToString();
         TMP_Text text = maxHealthDisplay.GetChild(2).GetChild(0).GetComponent<TMP_Text>();
 
         int newPrice = maxHealthBasePrice;
-        for (int i = 0; i < maxHealthBonus / 10; i++)
+        for (int i = 0; i < PlayerPrefs.GetInt("maxHealth" + gameManager.saveSlot) / 10; i++)
         {
             newPrice = (int)(newPrice * 1.1);
         }

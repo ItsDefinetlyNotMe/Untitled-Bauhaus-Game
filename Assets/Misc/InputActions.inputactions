@@ -633,39 +633,6 @@
                 },
                 {
                     "name": "",
-                    "id": "88d6af7a-42b6-4873-a1a7-6435286667b0",
-                    "path": "<Pen>/tip",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";Keyboard&Mouse",
-                    "action": "Click",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "a345f037-9bd3-4f42-ba96-d0e88271b357",
-                    "path": "<Touchscreen>/touch*/press",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Touch",
-                    "action": "Click",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "d5143a3b-5e2b-489f-b6c1-5ab589943c8b",
-                    "path": "<XRController>/trigger",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "XR",
-                    "action": "Click",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "7eb3728f-26d1-4e77-9737-fd15e07ca01f",
                     "path": "<Mouse>/scroll",
                     "interactions": "",
@@ -732,7 +699,7 @@
                 },
                 {
                     "name": "",
-                    "id": "026453e4-d96d-4fab-a848-e96752691d0f",
+                    "id": "f70a5c49-6b80-4216-8652-9126cfc66fdc",
                     "path": "<Gamepad>/buttonSouth",
                     "interactions": "",
                     "processors": "",

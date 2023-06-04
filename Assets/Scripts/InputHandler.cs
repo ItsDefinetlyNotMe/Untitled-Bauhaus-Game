@@ -97,7 +97,7 @@ public class InputHandler : MonoBehaviour
     }
 
     private void OnStart(InputValue input)
-    {
+    {   
         if (isOnUpgrade)
         {
             while (upgradeWindow == null)
@@ -110,7 +110,11 @@ public class InputHandler : MonoBehaviour
                 whileLoopTracker++;
             }
 
-            upgradeWindow.Interact();
+            if (GameObject.Find("/Upgrader").transform.GetChild(0).gameObject.activeSelf == false)
+            {
+                upgradeWindow.Interact();
+            }
+                
 
             whileLoopTracker = 0;
         }

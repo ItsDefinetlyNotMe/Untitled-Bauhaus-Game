@@ -67,13 +67,11 @@ public class HitablePlayer : HittableObject
         if (isAlreadyDestroyed)
             return;
 
-        if (scene.name == "HUB")
-        {
-            currentHealth = maxHealth;
-        }
-
         if (scene.name == "Valhalla")
         {
+            maxHealth = stats.getMaxHealth();
+            currentHealth = maxHealth;
+
             healthBar = GameObject.Find("/InGameCanvas/HealthBar");
 
             healthSlider = healthBar.GetComponent<Slider>();
