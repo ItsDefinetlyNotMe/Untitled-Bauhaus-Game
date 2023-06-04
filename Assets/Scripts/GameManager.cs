@@ -10,6 +10,8 @@ public class GameManager : MonoBehaviour
     private Canvas gameOverCanvas;
     private GameObject roomTransitionScreen;
 
+    public bool isAlreadyDestroyed { private get; set; } = false;
+
     public int saveSlot;
 
     private void Awake()
@@ -25,6 +27,9 @@ public class GameManager : MonoBehaviour
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
+        if (isAlreadyDestroyed)
+            return;
+
         if (scene.name == "Valhalla")
         {
             randomRoomLayout = FindObjectOfType<CreateRandomRoomLayout>();

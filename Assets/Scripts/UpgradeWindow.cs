@@ -5,6 +5,7 @@ using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class UpgradeWindow : MonoBehaviour
 {
@@ -18,6 +19,7 @@ public class UpgradeWindow : MonoBehaviour
     private int maxHealthBasePrice = 0;
 
     private bool isFirstCall = true;
+    private int whileLoopTracker = 0;
 
     public void Interact()
     {
@@ -26,6 +28,8 @@ public class UpgradeWindow : MonoBehaviour
         upgradeWindow.SetActive(true);
 
         isFirstCall = true;
+
+        updateMaxHealth();
     }
 
     public void Back()
@@ -44,6 +48,14 @@ public class UpgradeWindow : MonoBehaviour
             return;
         }
 
+        if (FindObjectsByType<GameManager>(FindObjectsSortMode.InstanceID).Length > 1)
+        {
+            print("ERROR: Too many gameManagers");
+            return;
+        }
+
+        gameManager = FindObjectsByType<GameManager>(FindObjectsSortMode.InstanceID)[0];
+
         maxHealthBonus = PlayerPrefs.GetInt("maxHealth" + gameManager.saveSlot) + maxHealthUpgrade; //Get value and add new bonus
         PlayerPrefs.SetInt("maxHealth" + gameManager.saveSlot, maxHealthBonus); //Set new value
 
@@ -54,6 +66,14 @@ public class UpgradeWindow : MonoBehaviour
 
     private void updateMaxHealth()
     {
+        if (FindObjectsByType<GameManager>(FindObjectsSortMode.InstanceID).Length > 1)
+        {
+            print("ERROR: Too many gameManagers");
+            return;
+        }
+
+        gameManager = FindObjectsByType<GameManager>(FindObjectsSortMode.InstanceID)[0];
+
         Transform maxHealthDisplay = transform.GetChild(0).GetChild(1);
         maxHealthDisplay.GetChild(1).GetComponent<TMP_Text>().text = PlayerPrefs.GetInt("maxHealth" + gameManager.saveSlot).ToString();
         TMP_Text text = maxHealthDisplay.GetChild(2).GetChild(0).GetComponent<TMP_Text>();
@@ -84,8 +104,6 @@ public class UpgradeWindow : MonoBehaviour
         gameManager = FindObjectOfType<GameManager>();
 
         upgradeWindow = transform.GetChild(0).gameObject;
-
-        updateMaxHealth();
 
         //PlayerPrefs.SetInt("maxHealth" + gameManager.saveSlot, 0);
     }

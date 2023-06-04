@@ -1,11 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
+using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class UIButton : MonoBehaviour
 {
     private UpgradeWindow upgradeWindow;
+    private GameManager gameManager;
 
     public void SelectThisButton()
     {
@@ -22,8 +26,24 @@ public class UIButton : MonoBehaviour
         upgradeWindow.IncreaseDamageMultiplier();
     }
 
-    private void Awake()
+    public void LoadSave(int slotNumber)
     {
-        upgradeWindow = FindObjectOfType<UpgradeWindow>();
+        gameManager.saveSlot = slotNumber;
+        SceneManager.LoadScene("HUB");
+    }
+
+    private void OnEnable()
+    {
+        string sceneName = SceneManager.GetActiveScene().name;
+
+        if (sceneName == "MainMenu")
+        {
+            gameManager = GameObject.Find("/GameManager").GetComponent<GameManager>();
+        }
+
+        else if (sceneName == "HUB")
+        {
+            upgradeWindow = FindObjectOfType<UpgradeWindow>();
+        }
     }
 }

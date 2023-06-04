@@ -27,6 +27,12 @@ public class DontDestroyOnLoad : MonoBehaviour
                 CameraShake cameraShake = GetComponentInChildren<CameraShake>();
                 cameraShake.isAlreadyDestroyed = true;
             }
+            
+            else if (CompareTag("GameManager"))
+            {
+                GameManager gameManager = GetComponent<GameManager>();
+                gameManager.isAlreadyDestroyed = true;
+            }
             Destroy(gameObject);
         }
     }

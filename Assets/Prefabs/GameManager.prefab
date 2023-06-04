@@ -45,9 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0fe4e7d27716ed349bc90f12fe207b1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  randomRoomLayout: {fileID: 0}
-  canvas: {fileID: 0}
-  roomTransitionScreen: {fileID: 0}
+  saveSlot: 0
 --- !u!114 &4850407855480294269
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -60,4 +58,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9b0be182ff7ef54982cf4d600623867, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isOriginal: 0
