@@ -6,7 +6,6 @@ public class OrderLayer : MonoBehaviour
     private SpriteRenderer render;
     [FormerlySerializedAs("DestinationRoot")] [SerializeField] private GameObject destinationRoot;
     [SerializeField] private bool moveable;
-    private float layer;
     void Start()
     {
         render = GetComponent<SpriteRenderer>();
@@ -20,7 +19,6 @@ public class OrderLayer : MonoBehaviour
 
     void Update()
     {
-        layer = render.sortingOrder; 
         render.sortingOrder = -(int)(destinationRoot.transform.position.y * 10);
     }
 }
