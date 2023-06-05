@@ -1,0 +1,18 @@
+get script on scene load 
+find player on scene load 
+start room generation on scene load 
+matrix generation finished 
+floor instantiated 
+walls instantiated 
+room layout finshed 
+markBorderTiles finished 
+CreateInterior finished 
+interior design finished 
+start enemy generation 
+first do while loop 
+second do while loop 
+third do while loop 
+enemy list generated 
+first wave instantiated 
+room completely generated 
+onRoomGenerated event invoked 

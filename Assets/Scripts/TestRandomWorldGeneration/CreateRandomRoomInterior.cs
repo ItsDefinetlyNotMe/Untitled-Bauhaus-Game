@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using System.IO;
 
 namespace TestRandomWorldGeneration
 {
@@ -34,7 +35,7 @@ namespace TestRandomWorldGeneration
             tileMatrix = newTileMatrix;
             floorTileCount = newFloorTileCount;
             ResetEverything();
-            MarkBorderTiles();
+            MarkBorderTiles();            
             CreateInterior();
 
             AstarPath.active.Scan();
@@ -74,9 +75,18 @@ namespace TestRandomWorldGeneration
 
             //Choose main furniture and fill up ~70% of the space you want to fill
             //Then choose remaining random from remaining possible objects
+
+            int whileLoopCounter = 0;
             do
             {
                 indexOfMainObject = UnityEngine.Random.Range(0, interiorObjects.Length);
+
+                whileLoopCounter++;
+                if (whileLoopCounter > 100)
+                {
+                    Debug.LogError("ERROR: Endless do while loop");
+                    break;
+                }
 
             } while (!interiorObjects[indexOfMainObject].possibleMainObject);
 
@@ -84,6 +94,7 @@ namespace TestRandomWorldGeneration
 
             int sizeOfMainObject = interiorObjects[indexOfMainObject].size.x * interiorObjects[indexOfMainObject].size.y;
 
+            whileLoopCounter = 0;
             //instantiate main object
             do
             {
@@ -93,10 +104,18 @@ namespace TestRandomWorldGeneration
                     InstantiateSmallObject(interiorObjects[indexOfMainObject]);
                 alreadyFilledSpace += sizeOfMainObject;
 
+                whileLoopCounter++;
+                if (whileLoopCounter > 100)
+                {
+                    Debug.LogError("ERROR: Endless do while loop");
+                    break;
+                }
+
             } while (alreadyFilledSpace < spaceToFillWithMainObject);
 
             int indexOfSideObject;
 
+            whileLoopCounter = 0;
             //instantiate different side objects
             do
             {
@@ -113,6 +132,13 @@ namespace TestRandomWorldGeneration
                         InstantiateSmallObject(interiorObjects[indexOfSideObject]);
                     
                     alreadyFilledSpace += sizeOfSideObject;
+                }
+
+                whileLoopCounter++;
+                if (whileLoopCounter > 100)
+                {
+                    Debug.LogError("ERROR: Endless do while loop");
+                    break;
                 }
             } while (alreadyFilledSpace != spaceToFill);
         }
@@ -203,16 +229,16 @@ namespace TestRandomWorldGeneration
                         bool leftEmpty = true;
 
 
-                        if (y != floorTileCount - 1)                    
+                        if (y < floorTileCount - 1)                    
                             upEmpty = tileMatrix[x + 0, y + 1] < 1;
 
-                        if (x != floorTileCount - 1)
+                        if (x < floorTileCount - 1)
                             rightEmpty = tileMatrix[x + 1, y + 0] < 1;
 
-                        if (y != 0)
+                        if (y > 0)
                             downEmpty = tileMatrix[x + 0, y - 1] < 1;
 
-                        if (x != 0)
+                        if (x > 0)
                             leftEmpty = tileMatrix[x - 1, y + 0] < 1;
 
                         if (upEmpty || rightEmpty || downEmpty || leftEmpty)

@@ -1,7 +1,9 @@
 using Enemies;
 using System.Collections;
 using System.Collections.Generic;
+using System.Drawing;
 using UnityEngine;
+using System.IO;
 using static Structs;
 
 namespace TestRandomWorldGeneration {
@@ -23,9 +25,11 @@ namespace TestRandomWorldGeneration {
 
         [SerializeField] GameObject spawnIndicator;
 
+        private CreateRandomRoomLayout createRandomRoomLayout;
+
         private int floorTileCount;
         private int spaceToFill;
-        private int difficulty = 10;
+        private int livingEnemyCounter = 0;
 
         private bool isFirstWave = true;
 
@@ -45,11 +49,14 @@ namespace TestRandomWorldGeneration {
         private void Awake()
         {
             HittableEnemy.onEnemyDeath += SpawnOneEnemy;
+            createRandomRoomLayout = FindObjectOfType<CreateRandomRoomLayout>();
         }
 
         private void InstantiateFirstWave()
         {
             int spaceFilled = 0;
+
+            int whileLoopCounter = 0;
             do
             {
                 int index = UnityEngine.Random.Range(0, enemiesToSpawn.Count);
@@ -68,13 +75,34 @@ namespace TestRandomWorldGeneration {
                 if (enemiesToSpawn.Count == 0)
                     spaceFilled = spaceToFill;
 
+                whileLoopCounter++;
+                if (whileLoopCounter > 100)
+                {
+                    Debug.LogError("ERROR: Endless do while loop");
+                    break;
+                }
+
             } while (spaceFilled < spaceToFill);
 
             isFirstWave = false;
+
+            //iterate over every tile in matrix
+            for (int x = 0; x < floorTileCount; x++)
+                for (int y = 0; y < floorTileCount; y++)
+                    if (tileMatrix[x, y] == 6)
+                        tileMatrix[x, y] = 1;
         }
 
         private void SpawnOneEnemy()
         {
+            livingEnemyCounter--;
+
+            if (livingEnemyCounter <= 0)
+            {
+                createRandomRoomLayout.OpenDoors();
+                livingEnemyCounter = 0;
+            }
+
             if (enemiesToSpawn.Count == 0)
                 return;
 
@@ -89,7 +117,6 @@ namespace TestRandomWorldGeneration {
 
             enemiesToSpawn.RemoveRange(index, 1);
         }
-
 
         /// <summary>
         /// Instantiate enemies of size 1x1
@@ -147,21 +174,40 @@ namespace TestRandomWorldGeneration {
         {
             int indexOfMainEnemy;
             int currentRoomDifficulty = 0;
+
+            int whileLoopCounter = 0;
             do
             {
                 indexOfMainEnemy = UnityEngine.Random.Range(0, enemyPrefabs.Length);
                 mainEnemy = enemyPrefabs[indexOfMainEnemy];
 
+                whileLoopCounter++;
+                if (whileLoopCounter > 100)
+                {
+                    Debug.LogError("ERROR: No enemy fitted in the room");
+                    break;
+                }
+
             } while (!DoesEnemyFitInRoom(mainEnemy.size));
 
-            int strengthToFillWithMainEnemy = (int)(difficulty * percentageOfMainEnemy);
+            int strengthToFillWithMainEnemy = (int)(difficulties[0].difficulty * percentageOfMainEnemy);
 
+            whileLoopCounter = 0;
             do
             {
                 enemiesToSpawn.Add(mainEnemy);
                 currentRoomDifficulty += mainEnemy.strength;
+
+                whileLoopCounter++;
+                if (whileLoopCounter > 100)
+                {
+                    Debug.LogError("ERROR: Endless do while loop");
+                    break;
+                }
+
             } while (currentRoomDifficulty < strengthToFillWithMainEnemy);
 
+            whileLoopCounter = 0;
             do
             {
                 int indexOfSideEnemy = UnityEngine.Random.Range(0, enemyPrefabs.Length);
@@ -170,7 +216,7 @@ namespace TestRandomWorldGeneration {
 
                 Structs.EnemyPrefab sideEnemy = enemyPrefabs[indexOfSideEnemy];
 
-                if (currentRoomDifficulty + sideEnemy.strength <= difficulty)
+                if (currentRoomDifficulty + sideEnemy.strength <= difficulties[0].difficulty)
                 {
                     if (DoesEnemyFitInRoom(sideEnemy.size))
                     {
@@ -178,7 +224,17 @@ namespace TestRandomWorldGeneration {
                         currentRoomDifficulty += sideEnemy.strength;
                     }
                 }
-            } while (currentRoomDifficulty != difficulty);
+
+                whileLoopCounter++;
+                if (whileLoopCounter > 500)
+                {
+                    Debug.LogError("ERROR: There is no small enough enemy left"); //To fulfill the enemy difficulty perfectly you need one possible side enemy with strength == 1
+                    break;
+                }
+
+            } while (currentRoomDifficulty != difficulties[0].difficulty);
+
+            livingEnemyCounter = enemiesToSpawn.Count;
         }
 
         /// <summary>
