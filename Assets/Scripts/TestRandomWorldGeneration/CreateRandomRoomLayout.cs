@@ -4,6 +4,7 @@ using Unity.Mathematics;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System.IO;
 using static Structs;
 
 namespace TestRandomWorldGeneration
@@ -53,20 +54,14 @@ namespace TestRandomWorldGeneration
         [Header("Door")]
         private List<GameObject> exitDoors = new List<GameObject>();
 
+        public delegate void onRoomGeneratedDelegate();
+        public static onRoomGeneratedDelegate onRoomGenerated;
+
         private void Awake()
         {
             SceneManager.sceneLoaded += OnSceneLoaded;
         }
 
-        private void Start()
-        {
-            
-
-            //StartRoomGeneration(Direction.Up); //TODO delete this line when object is in normal scene with doors
-        }
-
-        public delegate void onRoomGeneratedDelegate();
-        public static onRoomGeneratedDelegate onRoomGenerated;
         /// <summary>
         /// Funtion to make complete room generation
         /// </summary>
@@ -79,19 +74,24 @@ namespace TestRandomWorldGeneration
             tileMatrix = new float[numberOfMaxTiles, numberOfMaxTiles];
 
             GenerateMatrix();
-
             InstantiateFloor();
             InstantiateWalls();
 
             SetDoorDirections(doorDirection);
-            onRoomGenerated?.Invoke();
-            
-            //activate doors
-            foreach(GameObject door in exitDoors)
-                door.GetComponent<Door>().ActivateDoor();//TODO after enemies are gone
 
             //create room interior
             createRandomRoomInterior.SetInteriorVariables(ref tileMatrix, numberOfMaxTiles);
+
+            onRoomGenerated?.Invoke();
+        }
+
+        public void OpenDoors()
+        {
+            print("OpenDoors");
+
+            //activate doors
+            foreach (GameObject door in exitDoors)
+                door.GetComponent<Door>().ActivateDoor();
         }
 
         private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
@@ -267,10 +267,18 @@ namespace TestRandomWorldGeneration
             tileMatrix[x, y] = 1;
             newTiles.Add(new Tuple<int, int>(x, y));
 
+            int whileLoopCounter = 0;
             do
             {
                 UpdateProbabilities();
                 newTiles.Clear();
+
+                whileLoopCounter++;
+                if (whileLoopCounter > 100)
+                {
+                    Debug.LogError("ERROR: Endless do while loop");
+                    break;
+                }
             }
             while (!AddTiles());
         }
@@ -329,22 +337,31 @@ namespace TestRandomWorldGeneration
         /// </summary>
         private void CalculateProbability(int x, int y)
         {
-            if ((int)tileMatrix[x, y] != 1)
-            {
-                float probability = 0;
-                probability += tileMatrix[x - 1, y];
-                probability += tileMatrix[x + 1, y];
-                probability += tileMatrix[x, y - 1];
-                probability += tileMatrix[x, y + 1];
-                probability /= 4;
-            
-                //set chance for holes and make sure to not implicitly add floor tile
-                if (probability >= 0.9f)
+            if (x >= 0 && x < numberOfMaxTiles && y >= 0 && y < numberOfMaxTiles)
+                if ((int)tileMatrix[x, y] != 1)
                 {
-                    probability = 0.9f;
+                    float probability = 0;
+                    if (x > 0)
+                        probability += tileMatrix[x - 1, y];
+
+                    if (x < numberOfMaxTiles - 1)
+                        probability += tileMatrix[x + 1, y];
+
+                    if (y > 0)
+                        probability += tileMatrix[x, y - 1];
+
+                    if (y < numberOfMaxTiles - 1)
+                        probability += tileMatrix[x, y + 1];
+
+                    probability /= 4;
+            
+                    //set chance for holes and make sure to not implicitly add floor tile
+                    if (probability >= 0.9f)
+                    {
+                        probability = 0.9f;
+                    }
+                    tileMatrix[x, y] = probability;
                 }
-                tileMatrix[x, y] = probability;
-            }
         }
 
     
@@ -430,15 +447,40 @@ namespace TestRandomWorldGeneration
                         //reposition to the center of the scene
                         float worldX = x - numberOfMaxTiles / 2;
                         float worldY = y - numberOfMaxTiles / 2;
-                    
-                        bool upEmpty = (int)tileMatrix[x + 0, y + 1] != 1;
-                        bool upRightEmpty = (int)tileMatrix[x + 1, y + 1] != 1;
-                        bool rightEmpty = (int)tileMatrix[x + 1, y + 0] != 1;
-                        bool downRightEmpty = (int)tileMatrix[x + 1, y - 1] != 1;
-                        bool downEmpty = (int)tileMatrix[x + 0, y - 1] != 1;
-                        bool downLeftEmpty = (int)tileMatrix[x - 1, y - 1] != 1;
-                        bool leftEmpty = (int)tileMatrix[x - 1, y + 0] != 1;
-                        bool upLeftEmpty = (int)tileMatrix[x - 1, y + 1] != 1;
+
+                        bool upEmpty = true;
+                        bool upRightEmpty = true;
+                        bool rightEmpty = true;
+                        bool downRightEmpty = true;
+                        bool downEmpty = true;
+                        bool downLeftEmpty = true;
+                        bool leftEmpty = true;
+                        bool upLeftEmpty = true;
+
+
+                        if (y < numberOfMaxTiles - 1)
+                            upEmpty = (int)tileMatrix[x + 0, y + 1] != 1;
+
+                        if (x < numberOfMaxTiles - 1 && y < numberOfMaxTiles - 1)
+                            upRightEmpty = (int)tileMatrix[x + 1, y + 1] != 1;
+
+                        if (x < numberOfMaxTiles - 1)
+                            rightEmpty = (int)tileMatrix[x + 1, y + 0] != 1;
+
+                        if (x < numberOfMaxTiles - 1 && y > 0)
+                            downRightEmpty = (int)tileMatrix[x + 1, y - 1] != 1;
+
+                        if (y > 0)
+                            downEmpty = (int)tileMatrix[x + 0, y - 1] != 1;
+
+                        if (x > 0 && y > 0)
+                            downLeftEmpty = (int)tileMatrix[x - 1, y - 1] != 1;
+
+                        if (x > 0)
+                            leftEmpty = (int)tileMatrix[x - 1, y + 0] != 1;
+
+                        if (x > 0 && y < numberOfMaxTiles - 1)
+                            upLeftEmpty = (int)tileMatrix[x - 1, y + 1] != 1;
 
                         //choose where to put wall prefabs
                         if (upEmpty)

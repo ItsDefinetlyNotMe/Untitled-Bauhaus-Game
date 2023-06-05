@@ -56,7 +56,7 @@ namespace Enemies
             DeathHitSound.GetComponent<RandomSound>().PlayRandom1();
             onEnemyDeath?.Invoke();
             base.Die(damageSource);
-            gameObject.SetActive(false);
+            Destroy(gameObject); //TODO: Disable, play death animation and then destroy gameObject
         }
     }
 }

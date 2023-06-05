@@ -18,15 +18,11 @@ public class UpgradeWindow : MonoBehaviour
     private int maxHealthBonus = 0;
     private int maxHealthBasePrice = 0;
 
-    private bool isFirstCall = true;
-
     public void Interact()
     {
         playerInput.actions.FindActionMap("Movement").Disable();
 
         upgradeWindow.SetActive(true);
-
-        isFirstCall = true;
 
         updateMaxHealth();
     }
