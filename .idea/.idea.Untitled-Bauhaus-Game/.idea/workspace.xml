@@ -5,8 +5,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="df972bb7-6a35-41d5-ab18-c81111b77aa5" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Room/Interior/VasenPrefabs/Vase2.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Room/Interior/VasenPrefabs/Vase2.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Room/Interior/VasenPrefabs/Vase4.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Room/Interior/VasenPrefabs/Vase4.prefab" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Enemies/ThrowHeadEnemy.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Enemies/ThrowHeadEnemy.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.Untitled-Bauhaus-Game/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Untitled-Bauhaus-Game/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Enemies/ThrowingEnemy/throwing_enemy.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Enemies/ThrowingEnemy/throwing_enemy.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/SimonTestScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/SimonTestScene.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/OrderLayer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/OrderLayer.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Enemy/ThrowingHeadSoldier/run_down/WalkBackThrowingEnemyRun.anim" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Enemy/ThrowingHeadSoldier/run_down/WalkBackThrowingEnemyRun.anim.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Enemy/ThrowingHeadSoldier/run_down/WalkLeftThrowingEnemyRun.anim" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Enemy/ThrowingHeadSoldier/run_down/WalkLeftThrowingEnemyRun.anim.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Enemy/ThrowingHeadSoldier/run_down/WalkRightThrowingEnemyRun.anim" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Enemy/ThrowingHeadSoldier/run_down/WalkRightThrowingEnemyRun.anim.meta" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -15,6 +25,7 @@
   </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/CameraShake.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Enemies/ThrowHeadEnemy.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/GameOverScript.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/InputBuffer.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Structs.cs" root0="FORCE_HIGHLIGHTING" />
@@ -112,7 +123,8 @@
       <workItem from="1685456201876" duration="4900000" />
       <workItem from="1685529509987" duration="1086000" />
       <workItem from="1685532718833" duration="248000" />
-      <workItem from="1685949284992" duration="4768000" />
+      <workItem from="1685949284992" duration="5581000" />
+      <workItem from="1685958717962" duration="4308000" />
     </task>
     <servers />
   </component>

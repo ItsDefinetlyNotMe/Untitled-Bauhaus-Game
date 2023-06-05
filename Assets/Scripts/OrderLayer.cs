@@ -12,9 +12,12 @@ public class OrderLayer : MonoBehaviour
 
         //Set default Layer
         render.sortingOrder = -(int)(destinationRoot.transform.position.y * 10);
-        
-        if(!moveable)
+
+        if (!moveable)
+        {
+            Destroy(destinationRoot);
             Destroy(this);
+        }
     }
 
     void Update()
