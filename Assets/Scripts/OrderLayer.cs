@@ -3,29 +3,24 @@ using UnityEngine.Serialization;
 
 public class OrderLayer : MonoBehaviour
 {
-    private int biglayer = 6;
-    private int smalllayer = 1;
     private SpriteRenderer render;
-    private GameObject character;
     [FormerlySerializedAs("DestinationRoot")] [SerializeField] private GameObject destinationRoot;
-    private float characterPosition;
-
+    [SerializeField] private bool moveable;
+    private float layer;
     void Start()
     {
         render = GetComponent<SpriteRenderer>();
-        character = GameObject.FindGameObjectWithTag("Player");
+
+        //Set default Layer
+        render.sortingOrder = -(int)(destinationRoot.transform.position.y * 10);
+        
+        /*if(!moveable)
+            Destroy(this);*/
     }
 
     void Update()
     {
-        if (character.transform.position.y + characterPosition > destinationRoot.transform.position.y)
-        {
-            render.sortingOrder = biglayer;
-        }
-
-        if (character.transform.position.y <= destinationRoot.transform.position.y)
-        {
-            render.sortingOrder = smalllayer;
-        }
+        layer = render.sortingOrder; 
+        render.sortingOrder = -(int)(destinationRoot.transform.position.y * 10);
     }
 }
