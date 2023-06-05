@@ -60,7 +60,7 @@ public class PlayerAttack : MonoBehaviour
     {
         
         
-        float chargedTime = Mathf.Min(2f, Time.time - heavyAttackTimer);
+        float chargedTime = Mathf.Min(3f, Time.time - heavyAttackTimer + 1);
         //ANIMATION START
         animator.SetBool("Charging",false);
         StartCoroutine(weaponScript.HeavyAttack((enemiesHit, weaponDamage) =>
