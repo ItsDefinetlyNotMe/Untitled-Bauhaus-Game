@@ -721,7 +721,7 @@
                     "name": "",
                     "id": "f70a5c49-6b80-4216-8652-9126cfc66fdc",
                     "path": "<Gamepad>/buttonSouth",
-                    "interactions": "",
+                    "interactions": "Press(behavior=1)",
                     "processors": "",
                     "groups": "",
                     "action": "Start",

@@ -40,13 +40,6 @@ public class UpgradeWindow : MonoBehaviour
 
     public void IncreaseMaxHealth()
     {
-        //TODO: fix bug that clicks button instantly when activating the upgradeWindow
-        if (isFirstCall)
-        {
-            isFirstCall = false;
-            return;
-        }
-
         if (FindObjectsByType<GameManager>(FindObjectsSortMode.InstanceID).Length > 1)
         {
             print("ERROR: Too many gameManagers");
