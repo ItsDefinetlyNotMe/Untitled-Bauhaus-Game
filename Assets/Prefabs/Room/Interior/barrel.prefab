@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 4117696239075510238}
   - component: {fileID: 4117696239075510239}
   - component: {fileID: 1471078968982484248}
+  - component: {fileID: 5661930852605893914}
   m_Layer: 7
   m_Name: barrel
   m_TagString: Untagged
@@ -116,7 +117,7 @@ MonoBehaviour:
   - {x: 0.48999977, y: -0.64, z: 0}
   m_ShapePathHash: 0
   m_Mesh: {fileID: 0}
-  m_InstanceId: 78216
+  m_InstanceId: 37342
   m_LocalBounds:
     m_Center: {x: 0, y: 0, z: 0}
     m_Extent: {x: 0.48999977, y: 0.64, z: 0}
@@ -174,10 +175,31 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 70
   size: 0
-  destroyedFirstSprite: {fileID: 21300000, guid: 63586a4ee33fe69418d28ea7a5994b12, type: 3}
+  destroyedFirstSprite: {fileID: 21300000, guid: 8ea40b6f995612049b1782d477b72512, type: 3}
   destroyedSecondSprite: {fileID: 21300000, guid: 63586a4ee33fe69418d28ea7a5994b12, type: 3}
-  destroyedThirdSprite: {fileID: 21300000, guid: cd26e69855c56624ea3a320b92faccda, type: 3}
+  destroyedThirdSprite: {fileID: 21300000, guid: d5d9728969f9d624db448a9a7155cbff, type: 3}
   sound: {fileID: 4717458956184268311}
+--- !u!95 &5661930852605893914
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4117696239075510226}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 1b9877aa91260fe4780219a5eb089b83, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &4117696240087755710
 GameObject:
   m_ObjectHideFlags: 0
