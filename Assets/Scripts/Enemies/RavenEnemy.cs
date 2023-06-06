@@ -121,6 +121,6 @@ namespace Enemies
                 rb.isKinematic = false;
             }
             currentEnemyState = nextState;
-        }   
+        }
     }
 }

@@ -11,7 +11,7 @@ namespace Enemies
         protected Collider2D col;
 
         [Header("Movement")]
-        protected readonly float movementSpeed = 1f;
+        public float movementSpeed = 1f;
     
         [Header("Pathfinding")]
         Path path;
@@ -93,6 +93,11 @@ namespace Enemies
             if (player != null)
                 target = player;
             CancelInvoke(nameof(FindPlayer));
+        }
+        virtual public void OnDeath()
+        {
+            movementSpeed = 0;
+            rb.velocity = new Vector3(0f,0f,0f);
         }
     }
 }

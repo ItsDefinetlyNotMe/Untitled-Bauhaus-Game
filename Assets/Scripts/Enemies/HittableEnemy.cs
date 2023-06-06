@@ -6,12 +6,16 @@ namespace Enemies
 {
     public class HittableEnemy : HittableObject
     {
+        private Animator animator;
         private SpriteRenderer spriteRenderer;
         private Rigidbody2D rb;
 
         public GameObject HitSound;
         public GameObject DeathHitSound;
 
+        private EnemyMovement enemyMovement;
+        //called on deathanimation
+        public bool dying;
         
         public delegate void EnemyDeathDelegate();
         public static EnemyDeathDelegate onEnemyDeath;
@@ -20,6 +24,8 @@ namespace Enemies
             base.Start();
             spriteRenderer = GetComponent<SpriteRenderer>();
             rb = GetComponent<Rigidbody2D>();
+            animator = GetComponent<Animator>();
+            enemyMovement = GetComponent<EnemyMovement>();
         }
         public override void GetHit(int damage, Vector2 damageSourcePosition, float knockbackMultiplier,GameObject damageSource)
         {
@@ -55,8 +61,19 @@ namespace Enemies
         {
             DeathHitSound.GetComponent<RandomSound>().PlayRandom1();
             onEnemyDeath?.Invoke();
+            enemyMovement.OnDeath();
+            StartCoroutine(DeathAnim());
             base.Die(damageSource);
-            Destroy(gameObject); //TODO: Disable, play death animation and then destroy gameObject
+            //TODO: Disable, play death animation and then destroy gameObject
+        }
+
+        private IEnumerator DeathAnim()
+        {
+            animator.SetTrigger("OnDeath");
+            yield return new WaitUntil(() => dying);
+            Debug.Log("Ohhh no");
+            yield return new WaitUntil(() => !dying);
+            Destroy(gameObject);
         }
     }
 }
