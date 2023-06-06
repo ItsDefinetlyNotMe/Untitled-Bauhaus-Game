@@ -91,7 +91,10 @@ namespace TestRandomWorldGeneration
 
             //activate doors
             foreach (GameObject door in exitDoors)
+            {
+                door.GetComponent<Animator>().SetTrigger("open");
                 door.GetComponent<Door>().ActivateDoor();
+            }
         }
 
         private void OnSceneLoaded(Scene scene, LoadSceneMode mode)

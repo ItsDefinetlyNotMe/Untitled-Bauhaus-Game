@@ -61,7 +61,8 @@ namespace Enemies
         {
             DeathHitSound.GetComponent<RandomSound>().PlayRandom1();
             onEnemyDeath?.Invoke();
-            enemyMovement.OnDeath();
+            if(enemyMovement != null)
+                enemyMovement.OnDeath();
             StartCoroutine(DeathAnim());
             base.Die(damageSource);
             //TODO: Disable, play death animation and then destroy gameObject
@@ -69,10 +70,13 @@ namespace Enemies
 
         private IEnumerator DeathAnim()
         {
-            animator.SetTrigger("OnDeath");
-            yield return new WaitUntil(() => dying);
-            Debug.Log("Ohhh no");
-            yield return new WaitUntil(() => !dying);
+            if (animator != null)
+            {
+                animator.SetTrigger("OnDeath");
+                yield return new WaitUntil(() => dying);
+                yield return new WaitUntil(() => !dying);
+            }
+
             Destroy(gameObject);
         }
     }

@@ -6,7 +6,7 @@ public class CameraShake : MonoBehaviour
 {
     public static CameraShake Instance { get; private set; }
     private float timeToShake;
-    private bool isShaking = false;
+    // private bool isShaking = false;
     private float intensity_;
     private float shakeTime_;
     private CinemachineBasicMultiChannelPerlin cinemachineBasicMultiChannelPerlin;
