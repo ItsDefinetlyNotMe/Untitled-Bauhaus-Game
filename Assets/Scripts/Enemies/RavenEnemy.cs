@@ -77,7 +77,7 @@ namespace Enemies
             //start animation
             animator.SetBool(IsDashing,true);
             //disable rb collisions and 
-            rb.velocity = (chargePoint - position).normalized * dashingPower;
+            rb.velocity = (chargePoint - position).normalized * (dashingPower * Mathf.Min(movementSpeed,1f));
             yield return new WaitForSeconds(dashingTime);
         
             //End dash / recharging

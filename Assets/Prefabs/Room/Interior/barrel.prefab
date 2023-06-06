@@ -13,8 +13,8 @@ GameObject:
   - component: {fileID: 4117696239075510225}
   - component: {fileID: 4117696239075510238}
   - component: {fileID: 4117696239075510239}
-  - component: {fileID: 1471078968982484248}
   - component: {fileID: 5661930852605893914}
+  - component: {fileID: 1471078968982484248}
   m_Layer: 7
   m_Name: barrel
   m_TagString: Untagged
@@ -117,7 +117,7 @@ MonoBehaviour:
   - {x: 0.48999977, y: -0.64, z: 0}
   m_ShapePathHash: 0
   m_Mesh: {fileID: 0}
-  m_InstanceId: 37342
+  m_InstanceId: 93236
   m_LocalBounds:
     m_Center: {x: 0, y: 0, z: 0}
     m_Extent: {x: 0.48999977, y: 0.64, z: 0}
@@ -161,24 +161,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   destinationRoot: {fileID: 4117696240087755710}
   moveable: 0
---- !u!114 &1471078968982484248
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4117696239075510226}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 95820bc7db3cfd542b70e5dec00222e5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxHealth: 70
-  size: 0
-  destroyedFirstSprite: {fileID: 21300000, guid: 8ea40b6f995612049b1782d477b72512, type: 3}
-  destroyedSecondSprite: {fileID: 21300000, guid: 63586a4ee33fe69418d28ea7a5994b12, type: 3}
-  destroyedThirdSprite: {fileID: 21300000, guid: d5d9728969f9d624db448a9a7155cbff, type: 3}
-  sound: {fileID: 4717458956184268311}
 --- !u!95 &5661930852605893914
 Animator:
   serializedVersion: 5
@@ -200,6 +182,24 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &1471078968982484248
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4117696239075510226}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95820bc7db3cfd542b70e5dec00222e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 70
+  size: 0
+  destroyedFirstSprite: {fileID: 21300000, guid: 8ea40b6f995612049b1782d477b72512, type: 3}
+  destroyedSecondSprite: {fileID: 21300000, guid: 63586a4ee33fe69418d28ea7a5994b12, type: 3}
+  destroyedThirdSprite: {fileID: 21300000, guid: d5d9728969f9d624db448a9a7155cbff, type: 3}
+  sound: {fileID: 4717458956184268311}
 --- !u!1 &4117696240087755710
 GameObject:
   m_ObjectHideFlags: 0
