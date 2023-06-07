@@ -6,9 +6,11 @@
   <component name="ChangeListManager">
     <list default="true" id="df972bb7-6a35-41d5-ab18-c81111b77aa5" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Untitled-Bauhaus-Game/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Untitled-Bauhaus-Game/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/CameraShake.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/CameraShake.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Enemies/HittableEnemy.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Enemies/HittableEnemy.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/TestRandomWorldGeneration/CreateRandomRoomLayout.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/TestRandomWorldGeneration/CreateRandomRoomLayout.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Room/Interior/fireplace.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Room/Interior/fireplace.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/HittableFireplace.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/HittableFireplace.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Tilemap/World 1/Details/Saufen/barrel.controller" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/Tilemap/World 1/Details/Saufen/barrel.controller" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Tilemap/World 1/Ground/Feuerstelle/Cracks/FirePlaceDestroyed.anim" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/Tilemap/World 1/Ground/Feuerstelle/Cracks/FirePlaceDestroyed.anim" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Tilemap/World 1/Ground/Feuerstelle/Feuerstelle 20000.controller" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/Tilemap/World 1/Ground/Feuerstelle/Feuerstelle 20000.controller" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -118,6 +120,7 @@
       <workItem from="1685949284992" duration="5581000" />
       <workItem from="1685958717962" duration="4402000" />
       <workItem from="1686078116963" duration="4274000" />
+      <workItem from="1686127403874" duration="2112000" />
     </task>
     <servers />
   </component>
