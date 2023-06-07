@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
 using UnityEngine.Serialization;
@@ -11,6 +12,7 @@ public class HittableFireplace : HittableObject
     private int stage;
     private Transform layerRoot;
     [SerializeField] private Light2D light2D;
+    public bool dying; 
     
 
     protected override void Start()
@@ -43,10 +45,27 @@ public class HittableFireplace : HittableObject
     {
         //change sprite
         //spriteRenderer.sprite = destroyedSprite;
-        animator.SetTrigger("nextStage");
-        light2D.intensity = 0f;
+        StartCoroutine(LightDown());
+        //light2D.intensity = 0f;
         //layerRoot.position += Vector3.up * 0.3f;
         base.Die(damageSource);
+    }
+
+    IEnumerator LightDown()
+    {
+        animator.SetTrigger("nextStage");
+        yield return new WaitWhile(() => !dying);
+        float startintensity = light2D.intensity;
+        float duration = 0.02f; 
+        float t = 0f;
+       
+        while (dying) 
+        {
+            t += Time.deltaTime / duration;
+            light2D.intensity = Mathf.Lerp(startintensity,0, t);
+            Debug.Log(Mathf.Lerp(startintensity,0, t)); 
+            yield return new WaitForSeconds(0.1f);
+        }
     }
     //protected override void TakeDamage(int damage)
     //{
