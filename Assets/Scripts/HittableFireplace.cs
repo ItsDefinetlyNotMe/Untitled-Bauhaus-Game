@@ -15,10 +15,12 @@ public class HittableFireplace : HittableObject
     private Transform layerRoot;
     [SerializeField] private Light2D light2D;
     public bool dying;
+    private bool dead;
 
     public float speed = 4f;
-    public float noiseScale = 0.5f;
+    public float noiseScale = 0.1f;
     private float noiseOffset = 0.6f;
+    private float baseLightintensity; 
     private float maxValue = 0.8f;
     private float minValue = 0.6f;
     
@@ -30,15 +32,16 @@ public class HittableFireplace : HittableObject
         spriteRenderer = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
         noiseOffset = Random.Range(0f, 100f);
+        baseLightintensity = light2D.intensity;
     }
 
     private void Update()
     {
-       /* float noiseValue = Mathf.PerlinNoise(Time.time * speed, noiseOffset) * noiseScale;
-
-        noiseValue = Mathf.Min(maxValue, noiseValue);
-        noiseValue = Mathf.Max(minValue,noiseValue);
-        light2D.intensity = noiseValue;*/
+        if (!dead)
+        {
+            float noiseValue = Mathf.PerlinNoise(Time.time * speed, noiseOffset) * noiseScale;
+            light2D.intensity = baseLightintensity + noiseValue - noiseScale / 2;
+        }
     }
 
     protected override void TakeDamage(int damage,GameObject damageSource)
@@ -70,6 +73,7 @@ public class HittableFireplace : HittableObject
 
     IEnumerator LightDown()
     {
+        dead = true;
         animator.SetTrigger("nextStage");
         yield return new WaitWhile(() => !dying);
         float startintensity = light2D.intensity;
