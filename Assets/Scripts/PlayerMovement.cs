@@ -10,6 +10,8 @@ public class PlayerMovement : MonoBehaviour
 {
     [Header("Movement")]
     [SerializeField] private float defaultMoveSpeed = 11f;
+    public bool canMove { private get; set; } = true;
+
     public Vector2 movementDirection { get; set; }
     public Structs.PlayerState currentState; //{get; private set;}
 
@@ -66,11 +68,15 @@ public class PlayerMovement : MonoBehaviour
     private void FixedUpdate()
     {
 
-        if (currentState != Attacking)
+        if (currentState != Attacking && canMove)
         {
             if (currentState == Moving)
                 inputBuffer.BufferDequeue();
-            rb.velocity = movementDirection * (defaultMoveSpeed * currentDashPower);
+            if (canMove)
+            {
+                rb.velocity = movementDirection * (defaultMoveSpeed * currentDashPower);
+
+            }
         }
         else
             rb.velocity = new Vector3(0f,0f,0f);

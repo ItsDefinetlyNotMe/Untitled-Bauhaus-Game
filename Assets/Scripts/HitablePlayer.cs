@@ -14,6 +14,7 @@ public class HitablePlayer : HittableObject
 
     private Rigidbody2D rb;
     private SpriteRenderer spriteRenderer;
+    private PlayerMovement playerMovement;
     private PlayerStats stats;
     public delegate void PlayerDeathDelegate();
     public static PlayerDeathDelegate onPlayerDeath;
@@ -32,6 +33,7 @@ public class HitablePlayer : HittableObject
 
         rb = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        playerMovement = GetComponent<PlayerMovement>();
         stats = GetComponent<PlayerStats>();
 
         maxHealth = stats.getMaxHealth();
@@ -110,11 +112,18 @@ public class HitablePlayer : HittableObject
 
     IEnumerator OnPlayerDeath()
     {
+        healthBar.SetActive(false);
         animator.SetTrigger("onDeath");
+
         yield return new WaitUntil(() => isDying);
-        //disable movement
+
+        playerMovement.canMove = false;
         objectCollider.enabled = false;
-        yield return new WaitUntil(() => !isDying); 
+
+        yield return new WaitUntil(() => !isDying);
+
+        playerMovement.canMove = true;
+        objectCollider.enabled = true;
         onPlayerDeath?.Invoke();
     }
     public void LoadStats()
