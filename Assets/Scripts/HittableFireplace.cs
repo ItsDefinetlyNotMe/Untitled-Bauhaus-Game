@@ -1,9 +1,11 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
 using UnityEngine.Serialization;
+using Random = UnityEngine.Random;
 
 public class HittableFireplace : HittableObject
 {
@@ -12,8 +14,12 @@ public class HittableFireplace : HittableObject
     private int stage;
     private Transform layerRoot;
     [SerializeField] private Light2D light2D;
-    public bool dying; 
-    
+    public bool dying;
+
+    public float speed = 4f;
+    public float noiseScale = 0.5f;
+    private float noiseOffset = 0.6f;
+    private float maxValue = 0.6f;
 
     protected override void Start()
     {
@@ -21,7 +27,16 @@ public class HittableFireplace : HittableObject
         layerRoot = transform.Find("LayerRoot");
         spriteRenderer = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
-        
+        noiseOffset = Random.Range(0f, 100f);
+    }
+
+    private void Update()
+    {
+        float noiseValue = Mathf.PerlinNoise(Time.time * speed, noiseOffset) * noiseScale;
+
+        noiseValue = Mathf.Min(0.8f, noiseValue);
+        noiseValue = Mathf.Max(maxValue,noiseValue);
+        light2D.intensity = noiseValue;
     }
 
     protected override void TakeDamage(int damage,GameObject damageSource)
@@ -58,6 +73,7 @@ public class HittableFireplace : HittableObject
         float startintensity = light2D.intensity;
         float duration = 0.02f; 
         float t = 0f;
+        noiseScale = 0f;
        
         while (dying) 
         {
