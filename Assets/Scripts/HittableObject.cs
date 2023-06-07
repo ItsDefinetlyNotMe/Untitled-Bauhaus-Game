@@ -5,10 +5,11 @@ public abstract class HittableObject : MonoBehaviour
     public delegate void ObjectDeathDelegate();
     public static ObjectDeathDelegate onObjectDeath;
 
-    private Collider2D objectCollider;
+    protected Collider2D objectCollider;
     [SerializeField] protected int maxHealth;
-    protected int currentHealth;
+    public int currentHealth;
     [SerializeField] protected float size;
+    public bool isDying;
 
     //protected virtual void Awake()
     //{

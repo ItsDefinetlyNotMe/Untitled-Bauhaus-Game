@@ -18,6 +18,7 @@ public class HitablePlayer : HittableObject
     public delegate void PlayerDeathDelegate();
     public static PlayerDeathDelegate onPlayerDeath;
 
+    private Animator animator;
     public bool isAlreadyDestroyed { private get; set; } = false;
 
     private void Awake()
@@ -35,6 +36,7 @@ public class HitablePlayer : HittableObject
 
         maxHealth = stats.getMaxHealth();
         currentHealth = maxHealth;
+        animator = GetComponent<Animator>();
     }
     public override void GetHit(int damage, Vector2 damageSourcePosition, float knockbackMultiplier,GameObject damageSource)
     {
@@ -99,14 +101,22 @@ public class HitablePlayer : HittableObject
 
     protected override void Die(GameObject damageSource)
     {
-        transform.position = new Vector3(-4.5f, -1.5f, 0);
-
-        onPlayerDeath?.Invoke();
-
+        //transform.position = new Vector3(-4.5f, -1.5f, 0);
+        StartCoroutine(OnPlayerDeath());
+        
         //base.Die(); TODO talk about correct resetting of player on death
         //gameObject.SetActive(false);
     }
 
+    IEnumerator OnPlayerDeath()
+    {
+        animator.SetTrigger("onDeath");
+        yield return new WaitUntil(() => isDying);
+        //disable movement
+        objectCollider.enabled = false;
+        yield return new WaitUntil(() => !isDying); 
+        onPlayerDeath?.Invoke();
+    }
     public void LoadStats()
     {
         maxHealth = stats.getMaxHealth();
