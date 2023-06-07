@@ -6,8 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="df972bb7-6a35-41d5-ab18-c81111b77aa5" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Untitled-Bauhaus-Game/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Untitled-Bauhaus-Game/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/HitablePlayer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/HitablePlayer.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/HittableObject.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/HittableObject.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/HittableFireplace.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/HittableFireplace.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -117,7 +116,8 @@
       <workItem from="1685949284992" duration="5581000" />
       <workItem from="1685958717962" duration="4402000" />
       <workItem from="1686078116963" duration="4274000" />
-      <workItem from="1686127403874" duration="5737000" />
+      <workItem from="1686127403874" duration="6050000" />
+      <workItem from="1686137231005" duration="303000" />
     </task>
     <servers />
   </component>

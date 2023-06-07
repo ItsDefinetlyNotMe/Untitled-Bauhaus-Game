@@ -19,7 +19,9 @@ public class HittableFireplace : HittableObject
     public float speed = 4f;
     public float noiseScale = 0.5f;
     private float noiseOffset = 0.6f;
-    private float maxValue = 0.6f;
+    private float maxValue = 0.8f;
+    private float minValue = 0.6f;
+    
 
     protected override void Start()
     {
@@ -32,11 +34,11 @@ public class HittableFireplace : HittableObject
 
     private void Update()
     {
-        float noiseValue = Mathf.PerlinNoise(Time.time * speed, noiseOffset) * noiseScale;
+       /* float noiseValue = Mathf.PerlinNoise(Time.time * speed, noiseOffset) * noiseScale;
 
-        noiseValue = Mathf.Min(0.8f, noiseValue);
-        noiseValue = Mathf.Max(maxValue,noiseValue);
-        light2D.intensity = noiseValue;
+        noiseValue = Mathf.Min(maxValue, noiseValue);
+        noiseValue = Mathf.Max(minValue,noiseValue);
+        light2D.intensity = noiseValue;*/
     }
 
     protected override void TakeDamage(int damage,GameObject damageSource)
@@ -71,7 +73,7 @@ public class HittableFireplace : HittableObject
         animator.SetTrigger("nextStage");
         yield return new WaitWhile(() => !dying);
         float startintensity = light2D.intensity;
-        float duration = 0.02f; 
+        float duration = 0.1f; 
         float t = 0f;
         noiseScale = 0f;
        
@@ -82,6 +84,8 @@ public class HittableFireplace : HittableObject
             Debug.Log(Mathf.Lerp(startintensity,0, t)); 
             yield return new WaitForSeconds(0.1f);
         }
+
+        light2D.intensity = 0f;
     }
     //protected override void TakeDamage(int damage)
     //{
