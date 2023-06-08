@@ -99,7 +99,7 @@ namespace Enemies
             switch(nextState){
                 case EnemyState.Attacking:
                     col.isTrigger = true;
-                    rb.isKinematic = true;
+                    //rb.isKinematic = true;
                     RavenAttackSound.GetComponent<RandomSound>().PlayRandom1();
                     break;
                 case EnemyState.ChargingAttack:
@@ -108,7 +108,7 @@ namespace Enemies
                     break;
                 case EnemyState.Moving:
                     col.isTrigger = false;
-                    rb.isKinematic = false;
+                    //rb.isKinematic = false;
                     StartTargeting();
                     break;
                 case EnemyState.Fleeing:
@@ -116,11 +116,14 @@ namespace Enemies
                     RavenAttackSound.GetComponent<RandomSound>().PlayRandom1();
                     StopTargeting();
                     break;
+                case EnemyState.Recharging:
+                    col.isTrigger = false;
+                    break;
             }
-            if(nextState != EnemyState.Moving)
+            /*if(nextState != EnemyState.Moving)
             {    
                 rb.isKinematic = false;
-            }
+            }*/
             currentEnemyState = nextState;
         }
     }
