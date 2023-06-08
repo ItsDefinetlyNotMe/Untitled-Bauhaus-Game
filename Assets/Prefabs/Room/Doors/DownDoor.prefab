@@ -27,14 +27,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3480475013007487713}
-  m_LocalRotation: {x: -0.1799441, y: -0.008767342, z: 0.0015420149, w: 0.9836366}
+  m_LocalRotation: {x: -0.2207169, y: -0.008555875, z: 0.0011245067, w: 0.9752998}
   m_LocalPosition: {x: 6.1248417, y: 3.08, z: 0.01}
   m_LocalScale: {x: 1.1381576, y: 1.0680898, z: 1.1381576}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: -20.73, y: -1.091, z: 0.379}
+  m_LocalEulerAnglesHint: {x: -25.5, y: -1.091, z: 0.379}
 --- !u!212 &2713367597261887259
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -104,7 +104,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.2, y: 1.4}
+    oldSize: {x: 1, y: 1}
     newSize: {x: 1.2, y: 1.4}
     adaptiveTilingThreshold: 0.5
     drawMode: 0

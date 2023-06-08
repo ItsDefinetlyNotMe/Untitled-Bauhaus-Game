@@ -168,13 +168,15 @@ namespace TestRandomWorldGeneration
 
             do
             {
-                exitDirection1 = (Direction)UnityEngine.Random.Range(0, 3);
+                exitDirection1 = (Direction)UnityEngine.Random.Range(0, 4);
             } while (exitDirection1 == entryDirection);
             
             do
             {
-                exitDirection2 = (Direction)UnityEngine.Random.Range(0, 3);
+                exitDirection2 = (Direction)UnityEngine.Random.Range(0, 4);
             } while (exitDirection2 == entryDirection || exitDirection2 == exitDirection1);
+
+            print(exitDirection1 + " " +  exitDirection2);
 
             SearchDoorSpawnPosition(entryDirection, true);
             SearchDoorSpawnPosition(exitDirection1, false);
@@ -193,7 +195,7 @@ namespace TestRandomWorldGeneration
             {
                 //search for leftmost floor tiles
                 case Direction.Left:
-                    doorOffset = new Vector3(-0.5f, 0.5f, 0);
+                    doorOffset = new Vector3(-1, 0, 0);
                     doorPrefab = leftDoor;
                     
                     for (int x = 0; x < numberOfMaxTiles; x++)
@@ -213,9 +215,9 @@ namespace TestRandomWorldGeneration
 
                 case Direction.Up:
                     doorPrefab = upDoor;
-                    doorOffset = new Vector3(0, 0.2f, 0);
+                    doorOffset = new Vector3(0, 1, 0);
 
-                    for (int y = 0; y < numberOfMaxTiles; y++)
+                    for (int y = numberOfMaxTiles - 1; y >= 0; y--)
                     {
                         for (int x = 0; x < numberOfMaxTiles; x++)
                         {
@@ -231,7 +233,7 @@ namespace TestRandomWorldGeneration
                     break;
 
                 case Direction.Right:
-                    doorOffset = new Vector3(0.5f, 0.5f, 0);
+                    doorOffset = new Vector3(1, 0, 0);
                     doorPrefab = rightDoor;
                     
                     for (int x = numberOfMaxTiles - 1; x >= 0; x--)
@@ -250,10 +252,10 @@ namespace TestRandomWorldGeneration
                     break;
 
                 case Direction.Down:
-                    doorOffset = new Vector3(0, 1.1f, 0);
+                    doorOffset = new Vector3(0, 0, 0);
                     doorPrefab = downDoor;
-                    
-                    for (int y = numberOfMaxTiles - 1; y >= 0; y--)
+
+                    for (int y = 0; y < numberOfMaxTiles; y++)
                     {
                         for (int x = 0; x < numberOfMaxTiles; x++)
                         {
@@ -268,7 +270,6 @@ namespace TestRandomWorldGeneration
                     }
                     break;
             }
-            
 
             int randomDoorIndex = UnityEngine.Random.Range(0, possibleDoorPositions.Count);
             Vector2Int matDoorPos = possibleDoorPositions[randomDoorIndex];
