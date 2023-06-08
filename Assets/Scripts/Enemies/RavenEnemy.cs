@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 using static Structs;
@@ -59,7 +60,7 @@ namespace Enemies
             }
         }
         /// <summary> Raven Attacks Dashing into the enemy, Pattern: charging attack, dashing as attack, Recovering from attack</summary>
-        protected override IEnumerator Attack()
+        protected override IEnumerator Attack(Action<bool> callback)
         {//channeling Dash & Dashing & recovering 
             //charging Attack
             //set state to charging
@@ -89,7 +90,7 @@ namespace Enemies
             yield return new WaitForSeconds(rechargingTime);
         
             //move 
-            ChangeState(EnemyState.Moving);
+            callback(true);
         }
         /// <summary>Changing State into parameter </summary> <param name="nextState"></param>
         protected override void ChangeState(EnemyState nextState)

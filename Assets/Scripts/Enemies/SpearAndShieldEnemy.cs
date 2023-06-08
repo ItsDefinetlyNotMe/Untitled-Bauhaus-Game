@@ -19,10 +19,11 @@ public class SpearAndShieldEnemy : MeleeEnemy
     {
         if (currentEnemyState == EnemyState.Moving || currentEnemyState == EnemyState.Idle)
         {
+            Vector2 dir = GetDirection();
+            animator.SetFloat("x",dir.x);
+            animator.SetFloat("y",dir.y);
             animator.SetBool("isWalking",rb.velocity.magnitude > 0.1f);
-            //For some reason the rb stops every now and then
-            animator.SetFloat("x",direction.x);
-            animator.SetFloat("y",direction.y);
+
         }
         NextMove();
     }

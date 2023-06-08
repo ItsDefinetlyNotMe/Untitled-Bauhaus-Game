@@ -199,7 +199,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
+  movementSpeed: 1
   nextWayPointDistance: 3
+  currentEnemyState: 0
   projectileLayer:
     serializedVersion: 2
     m_Bits: 0
@@ -213,10 +215,12 @@ MonoBehaviour:
   maximumRange: 50
   chargeAttackTime: 0.6
   rechargingTime: 1
+  projectileSpeed: 1
   debug: 0
   debugRanges: 0
   debugRaycast: 0
   debugState: 0
+  attackDamage: 0
 --- !u!50 &1743997600758539531
 Rigidbody2D:
   serializedVersion: 4
@@ -276,6 +280,7 @@ GameObject:
   - component: {fileID: 5208049648646782616}
   - component: {fileID: 5208049648646782623}
   - component: {fileID: 2521465395713735914}
+  - component: {fileID: 4638173576031547908}
   m_Layer: 0
   m_Name: throwing_head
   m_TagString: Untagged
@@ -387,3 +392,24 @@ CircleCollider2D:
   m_Offset: {x: -0.018152714, y: 0}
   serializedVersion: 2
   m_Radius: 0.1243577
+--- !u!50 &4638173576031547908
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5208049648646782622}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0

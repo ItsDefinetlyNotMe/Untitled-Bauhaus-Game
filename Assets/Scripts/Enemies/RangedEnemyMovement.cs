@@ -1,5 +1,8 @@
+using System;
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Serialization;
 using static Structs;
 
 namespace Enemies
@@ -9,7 +12,7 @@ namespace Enemies
         [Header("Movement")]
     
         [Header("States")]
-        protected EnemyState currentEnemyState;
+        public EnemyState currentEnemyState;
     
         [Header("Layer")]
         [SerializeField] protected LayerMask projectileLayer;//all layers that are relevant / hitable
@@ -33,6 +36,8 @@ namespace Enemies
         [Header("AttackTime")]
         [SerializeField] protected float chargeAttackTime = .6f;
         [SerializeField] protected float rechargingTime = 1f;
+        [SerializeField] protected float projectileSpeed = 1f;
+        private bool attackReady = true;
     
         [Header("Debug",order = 2)]
         public bool debug;
@@ -64,8 +69,13 @@ namespace Enemies
                 }
             }
             if(currentEnemyState == EnemyState.Moving){
-                if(distance <= maximumRange && distance > minimumRange)
-                    StartAttack();
+                if (distance <= maximumRange && distance > minimumRange)
+                {
+                    if (attackReady)
+                    {
+                        StartAttack();
+                    }
+                }
                 else if(distance <= minimumRange)
                 {
                     //Debug.Log("Fleee you fool");
@@ -94,7 +104,12 @@ namespace Enemies
                 }
                 else if(results[i].transform.CompareTag("Player"))//Attack if player is hittable
                 {
-                    StartCoroutine(Attack());
+                    attackReady = false;
+                    StartCoroutine(Attack((attackReady)=>
+                    {
+                        this.attackReady = true;
+                        ChangeState(EnemyState.Moving);
+                    }));
                 }
             }
         }
@@ -111,7 +126,10 @@ namespace Enemies
             if(distance <= minimumRange/2 && distance > 0)
             {
                 //if in a corner just Attack in desperation
-                StartAttack();
+                if (attackReady)
+                {
+                    StartAttack();
+                }
             }else
             {//flee 
                 rb.velocity = direction * (movementSpeed * fleeingMovementSpeedMultiplier);
@@ -124,7 +142,7 @@ namespace Enemies
             currentEnemyState = nextState;
         }
         /// <summary> Needs to be overriden, implements The Attack  </summary>
-        protected abstract IEnumerator Attack();
+        protected abstract IEnumerator Attack(Action<bool> calback);
         private void OnDrawGizmosSelected() {
             if(debug)
             {

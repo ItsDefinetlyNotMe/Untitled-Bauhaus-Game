@@ -1,56 +1,129 @@
+using System;
 using System.Collections;
-using System.Collections.Generic;
-using Enemies;
 using UnityEngine;
 
-public class ThrowHeadEnemy : RangedEnemyMovement
+namespace Enemies
 {
-    // Start is called before the first frame update
-    void Start()
+    public class ThrowHeadEnemy : RangedEnemyMovement
     {
-        base.StartUp();
-        StartTargeting();
-    }
+        // Start is called before the first frame update
+        private Transform head;
+        private SpriteRenderer spriteRenderer;
+        private Rigidbody2D headRb;
+        [SerializeField] private float attackDamage;
+        private static readonly int OnAttack = Animator.StringToHash("onAttack");
+        private static readonly int X = Animator.StringToHash("X");
+        private static readonly int Y = Animator.StringToHash("Y");
+        private static readonly int Moving = Animator.StringToHash("Moving");
+        private static readonly int OnRespawn = Animator.StringToHash("onRespawn");
 
-    // Update is called once per frame
-    void Update()
-    {
-        base.NextMove();
-    }
-
-    override protected IEnumerator Attack()
-    {
-        StopTargeting();
-        ChangeState(Structs.EnemyState.Attacking);
-        Debug.Log("Scream");
-        yield return new WaitForSeconds(1);
-        ChangeState(Structs.EnemyState.Moving);
-    }
-
-    protected override void ChangeState(Structs.EnemyState nextState)
-    {
-        //Changing state and if necessary change some other parameters
-        switch (nextState)
+        void Start()
         {
-            case Structs.EnemyState.Attacking:
-                break;
-            case Structs.EnemyState.ChargingAttack:
-                StopTargeting();
-                break;
-            case Structs.EnemyState.Moving:
-                StartTargeting();
-                break;
-            case Structs.EnemyState.Fleeing:
-                StopTargeting();
-                break;
+            base.StartUp();
+            head = transform.Find("throwing_head");
+            headRb = head.gameObject.GetComponent<Rigidbody2D>();
+            StartTargeting();
+            spriteRenderer = GetComponent<SpriteRenderer>();
         }
 
-        if (nextState != Structs.EnemyState.Moving)
+        // Update is called once per frame
+        void Update()
         {
-            rb.isKinematic = false;
+            NextMove();
+            //regulate Animation
+            if (currentEnemyState == Structs.EnemyState.Moving || currentEnemyState == Structs.EnemyState.Idle)
+            {
+                Vector2 dir = GetDirection();
+                animator.SetFloat(X,dir.x);
+                animator.SetFloat(Y,dir.y);
+                animator.SetBool(Moving,rb.velocity.magnitude > 0.1f);
+                if(currentEnemyState == Structs.EnemyState.Idle && rb.velocity.magnitude > 0.1f)
+                    ChangeState(Structs.EnemyState.Moving);
+                else if(rb.velocity.magnitude <=0.1)
+                    ChangeState(Structs.EnemyState.Idle);
+            }
+
+            if (currentEnemyState == Structs.EnemyState.Fleeing)
+            {
+                Vector2 dir = (-target.position + transform.position).normalized;
+                animator.SetFloat(X,dir.x);
+                animator.SetFloat(Y,dir.y);
+                animator.SetBool(Moving,rb.velocity.magnitude > 0.1f);
+            }
         }
 
-        currentEnemyState = nextState;
+        protected override IEnumerator Attack(Action<bool> callback)
+        {
+            StopTargeting();
+            rb.velocity = new Vector2(0, 0);
+            animator.SetTrigger(OnAttack);
+            head.transform.position = transform.position;
+            yield return new WaitWhile(()=>currentEnemyState != Structs.EnemyState.ChargingAttack);
+            yield return new WaitUntil(()=>head.gameObject.activeSelf);
+            ChangeState(Structs.EnemyState.Attacking);
+            spriteRenderer.enabled = false;
+            //dash head
+            //disable rb collisions and 
+            //yield return new WaitForSeconds();
+            headRb.velocity = (target.position-transform.position).normalized * projectileSpeed;
+            yield return new WaitForSeconds(2);
+            //stop head as new function
+            StopHead();
+            yield return new WaitWhile(()=>currentEnemyState != Structs.EnemyState.Recharging);
+            spriteRenderer.enabled = true;
+            head.gameObject.SetActive(false);
+            yield return new WaitWhile(()=>currentEnemyState == Structs.EnemyState.Recharging);
+            ChangeState(Structs.EnemyState.Moving);
+            callback(true);
+        }
+
+        protected override void ChangeState(Structs.EnemyState nextState)
+        {
+            //Changing state and if necessary change some other parameters
+            switch (nextState)
+            {
+                case Structs.EnemyState.Attacking:
+                    break;
+                case Structs.EnemyState.ChargingAttack:
+                    StopTargeting();
+                    break;
+                case Structs.EnemyState.Moving:
+                    StartTargeting();
+                    break;
+                case Structs.EnemyState.Fleeing:
+                    StopTargeting();
+                    break;
+            }
+            currentEnemyState = nextState;
+        }
+
+        public void ActivateHead()
+        {//called in animation
+            head.gameObject.SetActive(true);
+        }
+
+        public void AttackHit(Collider2D other)
+        {
+            if(other.CompareTag("Player"))
+                other.GetComponent<HitablePlayer>().GetHit((int)attackDamage,transform.position,5,gameObject);
+            else if(projectileLayer == (projectileLayer | (1 << other.gameObject.layer)))
+            {
+                StopHead();
+            }
+        }
+
+        private void StopHead()
+        {   
+            Debug.Log("STOOOOP");
+            headRb.velocity = Vector3.zero;
+            animator.SetTrigger(OnRespawn);
+            rb.position = headRb.position;
+        }
+        private void OnCollisionEnter2D(Collision2D collision2D)
+        {
+            Debug.Log(collision2D);
+            //throwHeadEnemy.AttackHit(other);
+        }
     }
 }
 
