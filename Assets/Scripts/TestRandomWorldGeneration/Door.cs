@@ -12,9 +12,9 @@ namespace TestRandomWorldGeneration
         public static DoorEnterDelegate onDoorEnter;
         private Collider2D col;
         public string loot { private get; set; }
-    
+
         //public 
-        public Direction direction { get; private set; }
+        [SerializeField] public Direction direction;
 
         [SerializeField] private bool isOpen = false;
         private void Awake()

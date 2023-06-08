@@ -191,7 +191,7 @@ namespace TestRandomWorldGeneration
 
             switch (doorDirection)
             {
-                //search for upmost floor tiles
+                //search for leftmost floor tiles
                 case Direction.Left:
                     doorOffset = new Vector3(-0.5f, 0.5f, 0);
                     doorPrefab = leftDoor;
