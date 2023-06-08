@@ -20,9 +20,7 @@ public class HittableFireplace : HittableObject
     public float speed = 4f;
     public float noiseScale = 0.1f;
     private float noiseOffset = 0.6f;
-    private float baseLightintensity; 
-    private float maxValue = 0.8f;
-    private float minValue = 0.6f;
+    private float baseLightintensity;
     
 
     protected override void Start()

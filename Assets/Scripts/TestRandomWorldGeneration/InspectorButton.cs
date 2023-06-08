@@ -1,3 +1,5 @@
+#if (UNITY_EDITOR) 
+
 using TestRandomWorldGeneration;
 using UnityEngine;
 using UnityEditor;
@@ -16,3 +18,5 @@ public class InspectorButton : Editor
         }
     }
 }
+
+#endif
