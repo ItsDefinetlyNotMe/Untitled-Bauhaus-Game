@@ -32,6 +32,12 @@ namespace TestRandomWorldGeneration
         [SerializeField] private GameObject rightDoor;
         [SerializeField] private GameObject downDoor;
 
+        [Header("Collectables")]
+        [SerializeField] private List<GameObject> collectables;
+        //[SerializeField] private GameObject maxHealthUp;
+        //[SerializeField] private GameObject heal;
+        //[SerializeField] private GameObject damageUp;
+
         [Header("Matrix")]
         [SerializeField] private int minNumberOfTiles;
         [SerializeField] private int maxNumberOfTiles;
@@ -50,6 +56,8 @@ namespace TestRandomWorldGeneration
 
         private CreateRandomRoomInterior createRandomRoomInterior;
         private GameObject player;
+
+        public string loot { private get; set; }
         
         [Header("Door")]
         private List<GameObject> exitDoors = new List<GameObject>();
@@ -79,6 +87,8 @@ namespace TestRandomWorldGeneration
 
             SetDoorDirections(doorDirection);
 
+            SetLootForNextRoom();
+
             //create room interior
             createRandomRoomInterior.SetInteriorVariables(ref tileMatrix, numberOfMaxTiles);
 
@@ -87,7 +97,28 @@ namespace TestRandomWorldGeneration
 
         public void OpenDoors()
         {
-            print("OpenDoors");
+            foreach (GameObject collectable in collectables)
+            {
+                if (collectable.name == loot)
+                {
+                    Instantiate(collectable, new Vector2(numberOfMaxTiles / 2, numberOfMaxTiles / 2), Quaternion.identity);
+                }
+
+                //switch (collectable.name)
+                //{
+                //    case "MaxHealthUp":
+
+                //        break;
+                    
+                //    case "Heal":
+
+                //        break;
+                    
+                //    case "DamageUp":
+
+                //        break;
+                //}
+            }
 
             //activate doors
             foreach (GameObject door in exitDoors)
@@ -101,6 +132,8 @@ namespace TestRandomWorldGeneration
         {
             if (scene.name == "Valhalla")
             {
+                loot = collectables[UnityEngine.Random.Range(0, collectables.Count)].name;
+
                 createRandomRoomInterior = gameObject.GetComponent<CreateRandomRoomInterior>();
 
                 player = GameObject.Find("/Character");
@@ -259,6 +292,44 @@ namespace TestRandomWorldGeneration
             else
             {
                 exitDoors.Add(newDoor);
+            }
+        }
+
+        private void SetLootForNextRoom()
+        {
+            foreach (GameObject door in exitDoors)
+            {
+                Door doorScript = door.GetComponent<Door>();
+                GameObject collectable = collectables[UnityEngine.Random.Range(0, collectables.Count)];
+                doorScript.loot = collectable.name;
+
+                //Vector2 doorPos = door.transform.position;
+
+                //Vector2 spawnPos = Vector2.zero;
+
+                //switch (doorScript.direction)
+                //{
+                //    case Direction.Left:
+                //        spawnPos = new Vector2(doorPos.x - 1, doorPos.y);
+                //        break;
+
+                //    case Direction.Up:
+                //        spawnPos = new Vector2(doorPos.x, doorPos.y + 1);
+                //        break;
+
+                //    case Direction.Right:
+                //        spawnPos = new Vector2(doorPos.x + 1, doorPos.y);
+                //        break;
+
+                //    case Direction.Down:
+                //        spawnPos = new Vector2(doorPos.x, doorPos.y - 1);
+                //        break;
+                //}
+
+                collectable = Instantiate(collectable, door.transform.position, Quaternion.identity);
+                collectable.transform.parent = gameObject.transform;
+
+                collectables.Remove(collectable);
             }
         }
 

@@ -8,12 +8,14 @@ namespace TestRandomWorldGeneration
 {
     public class Door : MonoBehaviour
     { 
-        public delegate void DoorEnterDelegate(Direction direction);
+        public delegate void DoorEnterDelegate(Direction direction, string loot);
         public static DoorEnterDelegate onDoorEnter;
         private Collider2D col;
+        public string loot { private get; set; }
     
         //public 
-        [SerializeField] private Direction direction;
+        public Direction direction { get; private set; }
+
         [SerializeField] private bool isOpen = false;
         private void Awake()
         {
@@ -36,7 +38,7 @@ namespace TestRandomWorldGeneration
                 return;
 
             col.enabled = false;
-            onDoorEnter?.Invoke(direction);
+            onDoorEnter?.Invoke(direction, loot);
             Destroy(this);
         }
     }

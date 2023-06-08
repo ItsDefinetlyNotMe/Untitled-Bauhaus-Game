@@ -38,9 +38,10 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private void StartRoomTransition(Structs.Direction direction)
+    private void StartRoomTransition(Structs.Direction direction, string loot)
     {
         roomTransitionScreen.SetActive(true);
+        randomRoomLayout.loot = loot;
         randomRoomLayout.StartRoomGeneration(direction);
     }
 
