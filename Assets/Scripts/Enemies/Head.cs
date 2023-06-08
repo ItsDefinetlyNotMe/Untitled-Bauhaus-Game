@@ -16,7 +16,6 @@ public class Head : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision2D)
     {
-        Debug.Log(collision2D);
-        //throwHeadEnemy.AttackHit(other);
+        throwHeadEnemy.AttackHit(collision2D);
     }
 }

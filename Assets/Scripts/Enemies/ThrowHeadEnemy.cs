@@ -10,6 +10,7 @@ namespace Enemies
         private Transform head;
         private SpriteRenderer spriteRenderer;
         private Rigidbody2D headRb;
+        [Header("Attack")]
         [SerializeField] private float attackDamage;
         private static readonly int OnAttack = Animator.StringToHash("onAttack");
         private static readonly int X = Animator.StringToHash("X");
@@ -102,27 +103,23 @@ namespace Enemies
             head.gameObject.SetActive(true);
         }
 
-        public void AttackHit(Collider2D other)
+        public void AttackHit(Collision2D collision)
         {
+            Collider2D other = collision.rigidbody.GetComponent<Collider2D>();
+            print(other);
             if(other.CompareTag("Player"))
                 other.GetComponent<HitablePlayer>().GetHit((int)attackDamage,transform.position,5,gameObject);
-            else if(projectileLayer == (projectileLayer | (1 << other.gameObject.layer)))
+            /*else if(projectileLayer == (projectileLayer | (1 << other.gameObject.layer)))
             {
                 StopHead();
-            }
+            }*/
         }
 
         private void StopHead()
         {   
-            Debug.Log("STOOOOP");
             headRb.velocity = Vector3.zero;
             animator.SetTrigger(OnRespawn);
             rb.position = headRb.position;
-        }
-        private void OnCollisionEnter2D(Collision2D collision2D)
-        {
-            Debug.Log(collision2D);
-            //throwHeadEnemy.AttackHit(other);
         }
     }
 }

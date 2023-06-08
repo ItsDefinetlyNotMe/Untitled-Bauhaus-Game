@@ -6,24 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="df972bb7-6a35-41d5-ab18-c81111b77aa5" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Untitled-Bauhaus-Game/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Untitled-Bauhaus-Game/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Enemies/ThrowingEnemy/ThrowingUpThrowingEnemy.anim" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Enemies/ThrowingEnemy/ThrowingUpThrowingEnemy.anim" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Enemies/ThrowingEnemy/throwing_enemy.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Enemies/ThrowingEnemy/throwing_enemy.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/SimonTestScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/SimonTestScene.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Arrow.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Arrow.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/CrossBowShoot.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/CrossBowShoot.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Enemies/EnemyMovement.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Enemies/EnemyMovement.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Enemies/RangedEnemyMovement.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Enemies/RangedEnemyMovement.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Enemies/RavenEnemy.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Enemies/RavenEnemy.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Enemies/SpearAndShieldEnemy.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Enemies/SpearAndShieldEnemy.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Enemies/Head.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Enemies/Head.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Enemies/ThrowHeadEnemy.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Enemies/ThrowHeadEnemy.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Enemy/ThrowingHeadSoldier/Respawn/Respawn.anim" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/Enemy/ThrowingHeadSoldier/Respawn/Respawn.anim" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Enemy/ThrowingHeadSoldier/run_down/throwing_enemy_run_front1.controller" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/Enemy/ThrowingHeadSoldier/run_down/throwing_enemy_run_front1.controller" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Enemy/ThrowingHeadSoldier/throwing_down/ThrowingDownThrowingEnemyRun.anim" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/Enemy/ThrowingHeadSoldier/throwing_down/ThrowingDownThrowingEnemyRun.anim" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Enemy/ThrowingHeadSoldier/throwing_left/ThrowingLeftThrowingEnemyRun.anim" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/Enemy/ThrowingHeadSoldier/throwing_left/ThrowingLeftThrowingEnemyRun.anim" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Enemy/ThrowingHeadSoldier/throwing_right/ThrowingRightThrowingEnemyRun.anim" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/Enemy/ThrowingHeadSoldier/throwing_right/ThrowingRightThrowingEnemyRun.anim" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Tilemap/World 1/Samples/2D Pixel Perfect/5.0.3/Sample Scenes and Extras/Scenes/Physics2D Materials/Bouncy.physicsMaterial2D" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/Tilemap/World 1/Samples/2D Pixel Perfect/5.0.3/Sample Scenes and Extras/Scenes/Physics2D Materials/Bouncy.physicsMaterial2D" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -141,7 +126,7 @@
       <workItem from="1686157280533" duration="1711000" />
       <workItem from="1686161170407" duration="1842000" />
       <workItem from="1686225277183" duration="9089000" />
-      <workItem from="1686234946180" duration="2813000" />
+      <workItem from="1686234946180" duration="4055000" />
     </task>
     <servers />
   </component>
