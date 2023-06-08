@@ -109,10 +109,6 @@ namespace Enemies
             print(other);
             if(other.CompareTag("Player"))
                 other.GetComponent<HitablePlayer>().GetHit((int)attackDamage,transform.position,5,gameObject);
-            /*else if(projectileLayer == (projectileLayer | (1 << other.gameObject.layer)))
-            {
-                StopHead();
-            }*/
         }
 
         private void StopHead()
