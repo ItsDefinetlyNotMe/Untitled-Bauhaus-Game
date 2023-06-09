@@ -34,10 +34,7 @@ namespace Enemies
             //regulate Animation
             if (currentEnemyState == Structs.EnemyState.Moving || currentEnemyState == Structs.EnemyState.Idle)
             {
-                Vector2 dir = GetDirection();
-                animator.SetFloat(X,dir.x);
-                animator.SetFloat(Y,dir.y);
-                animator.SetBool(Moving,rb.velocity.magnitude > 0.1f);
+                SetAnimator(GetDirection(),rb.velocity.magnitude > 0.1f);
                 if(currentEnemyState == Structs.EnemyState.Idle && rb.velocity.magnitude > 0.1f)
                     ChangeState(Structs.EnemyState.Moving);
                 else if(rb.velocity.magnitude <=0.1)
@@ -47,9 +44,7 @@ namespace Enemies
             if (currentEnemyState == Structs.EnemyState.Fleeing)
             {
                 Vector2 dir = (-target.position + transform.position).normalized;
-                animator.SetFloat(X,dir.x);
-                animator.SetFloat(Y,dir.y);
-                animator.SetBool(Moving,rb.velocity.magnitude > 0.1f);
+                SetAnimator(dir,rb.velocity.magnitude > 0.1f);
             }
         }
 
@@ -57,6 +52,7 @@ namespace Enemies
         {
             StopTargeting();
             rb.velocity = new Vector2(0, 0);
+            SetAnimator((target.position-transform.position).normalized,true);
             animator.SetTrigger(OnAttack);
             head.transform.position = transform.position;
             yield return new WaitWhile(()=>currentEnemyState != Structs.EnemyState.ChargingAttack);
@@ -116,6 +112,13 @@ namespace Enemies
             headRb.velocity = Vector3.zero;
             animator.SetTrigger(OnRespawn);
             rb.position = headRb.position;
+        }
+
+        private void SetAnimator(Vector2 dir, bool isMoving)
+        {
+            animator.SetFloat(X,dir.x);
+            animator.SetFloat(Y,dir.y);
+            animator.SetBool(Moving,isMoving);
         }
     }
 }
