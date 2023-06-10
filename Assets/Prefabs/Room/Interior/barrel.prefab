@@ -31,8 +31,8 @@ Transform:
   m_GameObject: {fileID: 4117696239075510226}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -7.16, y: 0.485, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.91, y: 0.91, z: 0.91}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 4117696240087755711}
   - {fileID: 2749832326419422199}
@@ -195,7 +195,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 70
+  currentHealth: 0
   size: 0
+  isDying: 0
   destroyedFirstSprite: {fileID: 21300000, guid: 8ea40b6f995612049b1782d477b72512, type: 3}
   destroyedSecondSprite: {fileID: 21300000, guid: 63586a4ee33fe69418d28ea7a5994b12, type: 3}
   destroyedThirdSprite: {fileID: 21300000, guid: d5d9728969f9d624db448a9a7155cbff, type: 3}
