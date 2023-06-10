@@ -12,6 +12,8 @@ public class HitablePlayer : HittableObject
     private Slider healthSlider;
     private TMP_Text healthText;
 
+    private Vector3 scale;
+
     private Rigidbody2D rb;
     private SpriteRenderer spriteRenderer;
     private PlayerMovement playerMovement;
@@ -30,7 +32,7 @@ public class HitablePlayer : HittableObject
     protected override void Start()
     {
         base.Start();
-
+        scale = transform.localScale;
         rb = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         playerMovement = GetComponent<PlayerMovement>();
@@ -93,11 +95,10 @@ public class HitablePlayer : HittableObject
         healthText.text = currentHealth.ToString() + " / " + maxHealth.ToString();
     }
     private IEnumerator HitFeedback(){
-        Vector3 t = transform.localScale;
-        transform.localScale *= 1.05f;
+        transform.localScale *= 1.1f;
         spriteRenderer.color = new Color(255,0,0,255);
         yield return new WaitForSeconds(.1f);
-        transform.localScale = t;
+        transform.localScale = scale;
         spriteRenderer.color = new Color(255,255,255,255);
     }
 
