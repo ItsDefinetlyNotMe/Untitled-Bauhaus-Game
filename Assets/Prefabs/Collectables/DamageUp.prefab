@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6441377059907717077}
   - component: {fileID: 4248414460336198556}
   - component: {fileID: 2220467975646320459}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: DamageUp
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -72,10 +72,10 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 1745256251
-  m_SortingLayer: 5
+  m_SortingLayerID: -1042069703
+  m_SortingLayer: 7
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: c46ead6ab1b5b694e82994fba1edd1d3, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 62e2f13fb689ab14aac064debc3ffef4, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -108,7 +108,7 @@ CircleCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}

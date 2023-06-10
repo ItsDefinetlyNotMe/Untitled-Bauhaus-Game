@@ -304,30 +304,30 @@ namespace TestRandomWorldGeneration
                 GameObject collectable = collectables[UnityEngine.Random.Range(0, collectables.Count)];
                 doorScript.loot = collectable.name;
 
-                //Vector2 doorPos = door.transform.position;
+                Vector2 doorPos = door.transform.position;
 
-                //Vector2 spawnPos = Vector2.zero;
+                Vector2 spawnPos = Vector2.zero;
 
-                //switch (doorScript.direction)
-                //{
-                //    case Direction.Left:
-                //        spawnPos = new Vector2(doorPos.x - 1, doorPos.y);
-                //        break;
+                switch (doorScript.direction)
+                {
+                    case Direction.Left:
+                        spawnPos = new Vector2(doorPos.x + 0.365f, doorPos.y + 0.7f);
+                        break;
 
-                //    case Direction.Up:
-                //        spawnPos = new Vector2(doorPos.x, doorPos.y + 1);
-                //        break;
+                    case Direction.Up:
+                        spawnPos = new Vector2(doorPos.x, doorPos.y + 0.7f);
+                        break;
 
-                //    case Direction.Right:
-                //        spawnPos = new Vector2(doorPos.x + 1, doorPos.y);
-                //        break;
+                    case Direction.Right:
+                        spawnPos = new Vector2(doorPos.x - 0.365f, doorPos.y + 0.7f);
+                        break;
 
-                //    case Direction.Down:
-                //        spawnPos = new Vector2(doorPos.x, doorPos.y - 1);
-                //        break;
-                //}
+                    case Direction.Down:
+                        spawnPos = new Vector2(doorPos.x, doorPos.y + 0.7f);
+                        break;
+                }
 
-                collectable = Instantiate(collectable, door.transform.position, Quaternion.identity);
+                collectable = Instantiate(collectable, spawnPos, Quaternion.identity);
                 collectable.transform.parent = gameObject.transform;
 
                 collectables.Remove(collectable);
