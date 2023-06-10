@@ -785,10 +785,14 @@ MonoBehaviour:
     strength: 1
     size: {x: 0, y: 0}
     type: 0
+  - prefab: {fileID: 2933741786661934001, guid: b5266d5109119f9469afa7274aed749e, type: 3}
+    strength: 1
+    size: {x: 1, y: 1}
+    type: 0
   percentageOfMainEnemy: 0.7
   difficulties:
   - difficultyType: 0
-    difficulty: 2
+    difficulty: 10
   - difficultyType: 1
     difficulty: 70
   spawnIndicator: {fileID: 4845491521085197880, guid: 92214db89e2ec6f4aa8d4b452ecde8d3, type: 3}
@@ -1270,7 +1274,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!43 &1768880031
+--- !u!43 &1731279163
 Mesh:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1434,7 +1438,7 @@ Mesh:
     offset: 0
     size: 0
     path: 
---- !u!43 &1798065795
+--- !u!43 &1768880031
 Mesh:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
