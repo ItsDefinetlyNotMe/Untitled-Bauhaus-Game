@@ -11,7 +11,7 @@ abstract public class MeleeEnemy : EnemyMovement
        [Header("Movement")]
     
         [Header("States")]
-        public EnemyState currentEnemyState;
+        protected EnemyState currentEnemyState;
     
         [Header("Layer")]
         [SerializeField] protected LayerMask attackLayer;
@@ -21,7 +21,7 @@ abstract public class MeleeEnemy : EnemyMovement
         protected Animator animator; 
 
         [Header("AttackRanges")]
-        [SerializeField]protected float attackRange = 1f;
+        [SerializeField] protected float attackRange = 1f;
         [SerializeField] protected float aggroRange = 50f;
     
         [Header("AttackTime")]
@@ -41,13 +41,14 @@ abstract public class MeleeEnemy : EnemyMovement
             float distance = Vector2.Distance(transform.position, target.position - new Vector3(0f,0.5f,0f));
             if (currentEnemyState != EnemyState.Attacking)
             {
+                SetAnimator(target.position - transform.position,true);
                 if (distance <= attackRange * 0.8f)
                 {
                     StartAttack();
                 }
             }
 
-            if (distance > aggroRange)
+            /*if (distance > aggroRange)
             {
                 StopTargeting();
                 ChangeState(EnemyState.Idle);
@@ -55,37 +56,36 @@ abstract public class MeleeEnemy : EnemyMovement
             else if(currentEnemyState == EnemyState.Idle)
             {
                 StartTargeting();
-            }
+            }*/
         }
         private void StartAttack()
         {
             if(!readyToAttack)
                 return;
+            Direction attackDirection = Direction.Up;
             //Ray to look wether there is an obstacle between u and player
             Vector2 raydirection = (target.position - transform.position).normalized;
             RaycastHit2D hit = Physics2D.Raycast(transform.position, raydirection, attackRange);
             if(hit)
                 if(!hit.transform.CompareTag("Player"))
                     return;
-            bool notused;
+            if (raydirection.y > 0 && Mathf.Abs(raydirection.x) <= raydirection.y)
+                attackDirection = Direction.Up;
+            else if(Mathf.Abs(raydirection.x) <= Mathf.Abs(raydirection.y))
+                attackDirection = Direction.Down;
+            else if (raydirection.x > 0)
+                attackDirection = Direction.Right;
+            else
+                attackDirection = Direction.Left;
+            bool notused = true;
             readyToAttack = false;
-            StartCoroutine(Attack(Direction.Up,(notused =>
+            StartCoroutine(Attack(attackDirection,(notused =>
             {
                 readyToAttack = true;
             } )));
             
-/*
-            //figure out direction
-            if(raydirection.x > raydirection.y)
-                Attack(Direction.Down);
-            else if (raydirection.x < raydirection.y)
-            {
-                
-            }
-            else if (Mathf.Abs(raydirection.x) > raydirection.y)
-            {
-                
-            }*/
+
+            
         }
 
         protected virtual void ChangeState(EnemyState nextState)
@@ -94,5 +94,7 @@ abstract public class MeleeEnemy : EnemyMovement
         }
         /// <summary> Needs to be overriden, implements The Attack  </summary>
         protected abstract IEnumerator Attack(Direction direction,Action<bool> callback);
-        
+
+        protected abstract void SetAnimator(Vector2 dir,bool isWalking);
+
 }

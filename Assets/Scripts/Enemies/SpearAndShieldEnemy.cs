@@ -16,7 +16,8 @@ public class SpearAndShieldEnemy : MeleeEnemy
     private static readonly int onAttack = Animator.StringToHash("onAttack");
     private static readonly int AttackDirection = Animator.StringToHash("AttackDirection");
     private static readonly int AttackSmallDirection = Animator.StringToHash("AttackSmallDirection");
-    
+    private static readonly int Idle = Animator.StringToHash("Idle");
+
     private void Start()
     {
         base.StartUp();
@@ -28,12 +29,13 @@ public class SpearAndShieldEnemy : MeleeEnemy
         NextMove();
         if (currentEnemyState == EnemyState.Moving || currentEnemyState == EnemyState.Idle)
         {
-            SetAnimator(GetDirection(),rb.velocity.magnitude > 0.1f);
+             SetAnimator(GetDirection(),rb.velocity.magnitude > 0.05f);
         }
     }
 
     protected override IEnumerator Attack(Direction direction,Action<bool> callback)
     {
+        StopTargeting();
         rb.velocity = Vector2.zero;
         ChangeState(EnemyState.ChargingAttack);
         int[] attackdirection = new int[3];
@@ -50,21 +52,31 @@ public class SpearAndShieldEnemy : MeleeEnemy
             animator.SetInteger(AttackSmallDirection,i);
             yield return new WaitUntil(() => currentEnemyState == EnemyState.Attacking);
             //set enemy not attacking on the end of the animation 
-            
-            yield return new WaitUntil(() => currentEnemyState == EnemyState.ChargingAttack);
+            yield return new WaitUntil(() => currentEnemyState != EnemyState.Attacking);
         }
         //animator.SetBool(IsAttacking,false);
         //play animation
-        yield return new WaitForSeconds(rechargingTime);
-        
+        ChangeState(EnemyState.Idle);
+        animator.SetTrigger(Idle);
+        //yield return new WaitForSeconds(rechargingTime);
         callback(true);
     }
 
-    private void SetAnimator(Vector2 dir,bool isWalking)
+    protected override void SetAnimator(Vector2 dir, bool isWalking)
     {
-        animator.SetFloat(X,dir.x);
-        animator.SetFloat(Y,dir.y);
-        animator.SetBool(IsWalking,isWalking);
+        float distance = Vector2.Distance(transform.position, target.position - new Vector3(0f, 0.5f, 0f));
+        if (distance < attackRange)
+        {
+            Vector2 direction = (target.position - transform.position).normalized;
+            animator.SetFloat(X, direction.x);
+            animator.SetFloat(Y,direction.y);
+        }
+        else
+        {
+            animator.SetFloat(X, dir.x);
+            animator.SetFloat(Y, dir.y);
+        }
+        animator.SetBool(IsWalking, isWalking);
     }
     private void OnDrawGizmos()
     {
@@ -75,5 +87,9 @@ public class SpearAndShieldEnemy : MeleeEnemy
     public void EndSmallAttack()
     {
         ChangeState(EnemyState.ChargingAttack);
+    }
+    public void StartSmallAttack()
+    {
+        ChangeState(EnemyState.Attacking);
     }
 }

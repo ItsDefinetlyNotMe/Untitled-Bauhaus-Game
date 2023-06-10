@@ -6,6 +6,15 @@
   <component name="ChangeListManager">
     <list default="true" id="df972bb7-6a35-41d5-ab18-c81111b77aa5" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Untitled-Bauhaus-Game/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Untitled-Bauhaus-Game/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Enemies/ThrowingEnemy/throwing_enemy 1.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Enemies/ThrowingEnemy/throwing_enemy 1.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Enemies/HittableEnemy.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Enemies/HittableEnemy.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Enemies/MeleeEnemy.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Enemies/MeleeEnemy.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Enemies/SpearAndShieldEnemy.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Enemies/SpearAndShieldEnemy.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Enemy/SpeerAndShieldSoldier/Down/IdleDown/SpeerAndShieldSoldierIDLE0000.controller" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/Enemy/SpeerAndShieldSoldier/Down/IdleDown/SpeerAndShieldSoldierIDLE0000.controller" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Enemy/SpeerAndShieldSoldier/Down/PreAttackDown/PreAttackDownSpeerAndShieldSoldier.anim" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/Enemy/SpeerAndShieldSoldier/Down/PreAttackDown/PreAttackDownSpeerAndShieldSoldier.anim" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Enemy/SpeerAndShieldSoldier/Up/AttackUp/AttackUpLeftSpeerAndShieldSoldier.anim" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/Enemy/SpeerAndShieldSoldier/Up/AttackUp/AttackUpLeftSpeerAndShieldSoldier.anim" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Enemy/SpeerAndShieldSoldier/Up/AttackUp/AttackUpRightSpeerAndShieldSoldier.anim" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/Enemy/SpeerAndShieldSoldier/Up/AttackUp/AttackUpRightSpeerAndShieldSoldier.anim" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Enemy/SpeerAndShieldSoldier/Up/AttackUp/AttackUpSpeerAndShieldSoldier.anim" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/Enemy/SpeerAndShieldSoldier/Up/AttackUp/AttackUpSpeerAndShieldSoldier.anim" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -14,6 +23,7 @@
   </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/5a41d6b7189842eca409fd0b1c3e3dcf17bf78/35/c1d4fe1f/Action`1.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/ba783288ca164d3099898a8819fcec1c159e00/05/7299a542/Debug.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/CameraShake.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Enemies/Head.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Enemies/HittableHead.cs" root0="FORCE_HIGHLIGHTING" />
@@ -127,7 +137,7 @@
       <workItem from="1686234946180" duration="4362000" />
       <workItem from="1686295897840" duration="4036000" />
       <workItem from="1686305781098" duration="2292000" />
-      <workItem from="1686383364170" duration="3402000" />
+      <workItem from="1686383364170" duration="11806000" />
     </task>
     <servers />
   </component>

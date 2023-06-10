@@ -29,7 +29,7 @@ namespace Enemies
         }
         public override void GetHit(int damage, Vector2 damageSourcePosition, float knockbackMultiplier,GameObject damageSource)
         {
-            //Debug.Log("Ohh no it hurts, Oh no pls stop");
+            
             //visual Feedback
             StartCoroutine(HitFeedback());
             HitSound.GetComponent<RandomSound>().PlayRandom1();
@@ -46,15 +46,16 @@ namespace Enemies
             }
             Vector2 knockbackDirection = new Vector2(transform.position.x,transform.position.y) - damageSourcePosition;
             rb.velocity = knockbackDirection.normalized * (sizeMultiplier * knockbackMultiplier);
-
         }
         private IEnumerator HitFeedback(){
             Vector3 t = transform.localScale;
             transform.localScale *= 1.05f;
-            spriteRenderer.color = new Color(255,0,0,255);
+            if (spriteRenderer.enabled)
+                spriteRenderer.color = new Color(255,0,0,255);
             yield return new WaitForSeconds(.1f);
             transform.localScale = t;
-            spriteRenderer.color = new Color(255,255,255,255);
+            if(spriteRenderer.enabled)
+                spriteRenderer.color = new Color(255,255,255,255);
         }
 
         protected override void Die(GameObject damageSource)
