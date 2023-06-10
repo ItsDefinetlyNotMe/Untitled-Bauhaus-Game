@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -32,29 +33,36 @@ public class Collectable : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        switch (name)
+        if (collision.gameObject.CompareTag("Player"))
         {
-            case "CollectableMaxHealthUp":
-                print("HealthUp");
-                playerStats.SetMaxHealthRunBonus(maxHealthValue);
-                collision.gameObject.GetComponent<HitablePlayer>().currentHealth += maxHealthValue;
-                break;
+            HitablePlayer hitablePlayer = collision.gameObject.GetComponent<HitablePlayer>();
+            PlayerAttack playerAttack = collision.gameObject.GetComponent<PlayerAttack>();
 
-            case "CollectableHeal":
-                print("Heal");
-                collision.gameObject.GetComponent<HitablePlayer>().HealByPercentage(healPercentage);
-                break;
+            switch (Regex.Replace(gameObject.name, "\\(Clone\\)", ""))
+            {
+                case "CollectableMaxHealthUp":
+                    playerStats.SetMaxHealthRunBonus(maxHealthValue);                    
+                    hitablePlayer.currentHealth += maxHealthValue;
+                    hitablePlayer.LoadStats();
+                    break;
 
-            case "CollectableMynt":
-                print("GetRich");
-                playerStats.AddMoney(moneyValue);
-                break;
+                case "CollectableHeal":
+                    hitablePlayer.HealByPercentage(healPercentage);
+                    hitablePlayer.LoadStats();
+                    break;
 
-            case "CollectableDamageUp":
-                print("DamageUp");
-                playerStats.SetdamageMultiplierRunBonus(damageMultiplierValue);
-                break;
+                case "CollectableMynt":
+                    playerStats.AddMoney(moneyValue);
+                    break;
+
+                case "CollectableDamageUp":
+                    playerStats.SetdamageMultiplierRunBonus(damageMultiplierValue);
+                    playerAttack.LoadStats();
+                    break;
+            }
+
+            Destroy(gameObject);
         }
-        Destroy(gameObject);
+
     }
 }

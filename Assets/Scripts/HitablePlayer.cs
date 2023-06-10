@@ -130,6 +130,8 @@ public class HitablePlayer : HittableObject
     public void LoadStats()
     {
         maxHealth = stats.getMaxHealth();
+
+        UpdateHealthBar();
     }
 
     public void HealByPercentage(float percentage)

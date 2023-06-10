@@ -9,7 +9,7 @@ public class PlayerStats : MonoBehaviour
 
     public int money { get; private set; }
     private int maxHealthRunBonus;
-    private float damageMultiplierRunBonus;
+    private float damageMultiplierRunBonus = 1;
 
     private HitablePlayer hitablePlayer;
     private PlayerAttack playerAttack;
@@ -38,8 +38,6 @@ public class PlayerStats : MonoBehaviour
     public void SetMaxHealthRunBonus(int bonus)
     {
         maxHealthRunBonus += bonus;
-
-        hitablePlayer.LoadStats();
     }
 
     public int getMaxHealth()
@@ -50,8 +48,6 @@ public class PlayerStats : MonoBehaviour
     public void SetdamageMultiplierRunBonus(float bonus)
     {
         damageMultiplierRunBonus += bonus;
-
-        playerAttack.LoadStats();
     }
 
     public float getDamageMultiplier()

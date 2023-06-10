@@ -104,7 +104,8 @@ namespace TestRandomWorldGeneration
             {
                 if (collectable.name == loot)
                 {
-                    Instantiate(collectable, Vector2.zero, Quaternion.identity);
+                    GameObject newItem = Instantiate(collectable, Vector2.zero, Quaternion.identity);
+                    newItem.transform.parent = gameObject.transform;
                     break;
                 }
             }
@@ -285,10 +286,35 @@ namespace TestRandomWorldGeneration
 
         private void SetLootForNextRoom()
         {
+            string firstCollectable = null;
+            bool isFirstDoor = true;
+
             foreach (GameObject door in exitDoors)
             {
                 Door doorScript = door.GetComponent<Door>();
-                GameObject collectable = UICollectables[UnityEngine.Random.Range(0, UICollectables.Count)];
+
+                GameObject collectable = null;
+
+                if (isFirstDoor)
+                {
+                    isFirstDoor = false;
+                    collectable = UICollectables[UnityEngine.Random.Range(0, UICollectables.Count)];
+                    firstCollectable = collectable.name;
+                }
+
+                else
+                {
+                    int whileLoopCounter = 0;
+                    do
+                    {
+                        whileLoopCounter++;
+                        if (whileLoopCounter > 100)
+                            break;
+
+                        collectable = UICollectables[UnityEngine.Random.Range(0, UICollectables.Count)];
+                    } while (collectable.name == firstCollectable);
+                }
+
                 doorScript.loot = Regex.Replace(collectable.name, "UI", "Collectable");
 
                 Vector2 doorPos = door.transform.position;
