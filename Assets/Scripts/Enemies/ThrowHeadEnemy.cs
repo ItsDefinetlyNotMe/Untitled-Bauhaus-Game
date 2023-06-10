@@ -101,10 +101,16 @@ namespace Enemies
 
         public void AttackHit(Collision2D collision)
         {
-            Collider2D other = collision.rigidbody.GetComponent<Collider2D>();
-            print(other);
-            if(other.CompareTag("Player"))
-                other.GetComponent<HitablePlayer>().GetHit((int)attackDamage,transform.position,5,gameObject);
+            Rigidbody2D rb = collision.rigidbody;
+            if(rb != null)
+            {
+                Collider2D other;
+                other = rb.GetComponent<Collider2D>();
+                Debug.Log(other);
+                if(other.CompareTag("Player"))
+                    other.GetComponent<HitablePlayer>().GetHit((int)attackDamage,transform.position,5,gameObject);
+            }
+
         }
 
         private void StopHead()

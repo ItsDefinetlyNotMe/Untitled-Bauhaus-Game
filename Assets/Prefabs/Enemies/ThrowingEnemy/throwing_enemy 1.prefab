@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 1649321936033663695}
   - component: {fileID: 8702053444927784501}
   - component: {fileID: 481421302982444207}
+  - component: {fileID: -7315041034253847784}
   m_Layer: 8
   m_Name: throwing_enemy 1
   m_TagString: Untagged
@@ -237,6 +238,25 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.21952248, y: 0.14777529}
   m_EdgeRadius: 0
+--- !u!114 &-7315041034253847784
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2933741786661934001}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e64a1af6162e8e94d92b3b113b546805, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 100
+  currentHealth: 0
+  size: 0
+  isDying: 0
+  HitSound: {fileID: 0}
+  DeathHitSound: {fileID: 0}
+  dying: 0
 --- !u!1 &2933741787640651168
 GameObject:
   m_ObjectHideFlags: 0
@@ -379,7 +399,7 @@ Rigidbody2D:
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 0
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 552718e596d0e408295d5ae742cc4097, type: 2}
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 1

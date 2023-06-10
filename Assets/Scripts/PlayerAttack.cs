@@ -51,7 +51,6 @@ public class PlayerAttack : MonoBehaviour
             foreach (Collider2D enemy in enemiesHit)
             {
                 enemy.GetComponent<HittableObject>().GetHit((int)(weaponDamage * damageMultiplier), transform.position, knockbackMultiplier, gameObject);
-
             }
         }));
     }
