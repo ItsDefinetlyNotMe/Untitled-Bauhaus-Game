@@ -6,6 +6,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.IO;
 using static Structs;
+using System.Text.RegularExpressions;
 
 namespace TestRandomWorldGeneration
 {
@@ -33,6 +34,7 @@ namespace TestRandomWorldGeneration
         [SerializeField] private GameObject downDoor;
 
         [Header("Collectables")]
+        [SerializeField] private List<GameObject> UICollectables;
         [SerializeField] private List<GameObject> collectables;
         //[SerializeField] private GameObject maxHealthUp;
         //[SerializeField] private GameObject heal;
@@ -80,6 +82,7 @@ namespace TestRandomWorldGeneration
             //Create matrix
             numberOfMaxTiles = UnityEngine.Random.Range(minNumberOfTiles, maxNumberOfTiles + 1);
             tileMatrix = new float[numberOfMaxTiles, numberOfMaxTiles];
+            tileMatrix[(int)numberOfMaxTiles / 2, (int)numberOfMaxTiles / 2] = 7;
 
             GenerateMatrix();
             InstantiateFloor();
@@ -101,23 +104,9 @@ namespace TestRandomWorldGeneration
             {
                 if (collectable.name == loot)
                 {
-                    Instantiate(collectable, new Vector2(numberOfMaxTiles / 2, numberOfMaxTiles / 2), Quaternion.identity);
+                    Instantiate(collectable, Vector2.zero, Quaternion.identity);
+                    break;
                 }
-
-                //switch (collectable.name)
-                //{
-                //    case "MaxHealthUp":
-
-                //        break;
-                    
-                //    case "Heal":
-
-                //        break;
-                    
-                //    case "DamageUp":
-
-                //        break;
-                //}
             }
 
             //activate doors
@@ -132,7 +121,7 @@ namespace TestRandomWorldGeneration
         {
             if (scene.name == "Valhalla")
             {
-                loot = collectables[UnityEngine.Random.Range(0, collectables.Count)].name;
+                loot = Regex.Replace(UICollectables[UnityEngine.Random.Range(0, UICollectables.Count)].name, "UI", "Collectable");
 
                 createRandomRoomInterior = gameObject.GetComponent<CreateRandomRoomInterior>();
 
@@ -175,8 +164,6 @@ namespace TestRandomWorldGeneration
             {
                 exitDirection2 = (Direction)UnityEngine.Random.Range(0, 4);
             } while (exitDirection2 == entryDirection || exitDirection2 == exitDirection1);
-
-            print(exitDirection1 + " " +  exitDirection2);
 
             SearchDoorSpawnPosition(entryDirection, true);
             SearchDoorSpawnPosition(exitDirection1, false);
@@ -301,8 +288,8 @@ namespace TestRandomWorldGeneration
             foreach (GameObject door in exitDoors)
             {
                 Door doorScript = door.GetComponent<Door>();
-                GameObject collectable = collectables[UnityEngine.Random.Range(0, collectables.Count)];
-                doorScript.loot = collectable.name;
+                GameObject collectable = UICollectables[UnityEngine.Random.Range(0, UICollectables.Count)];
+                doorScript.loot = Regex.Replace(collectable.name, "UI", "Collectable");
 
                 Vector2 doorPos = door.transform.position;
 
@@ -330,7 +317,7 @@ namespace TestRandomWorldGeneration
                 collectable = Instantiate(collectable, spawnPos, Quaternion.identity);
                 collectable.transform.parent = gameObject.transform;
 
-                collectables.Remove(collectable);
+                UICollectables.Remove(collectable);
             }
         }
 

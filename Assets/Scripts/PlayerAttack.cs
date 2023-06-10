@@ -8,7 +8,8 @@ public class PlayerAttack : MonoBehaviour
     private InputBuffer inputBuffer;
     private WeaponScript weaponScript;
     private PlayerMovement playerMovement;
-    private readonly float damageMultiplier = 1f;
+    private PlayerStats stats;
+    private float damageMultiplier = 1f;
     float knockbackMultiplier = 5f;//TODO sollte mit der waffe importiert werden also dmg aswell
 
     private Animator animator;
@@ -23,6 +24,7 @@ public class PlayerAttack : MonoBehaviour
         playerMovement = GetComponent<PlayerMovement>();
         weaponScript = GetComponentInChildren<WeaponScript>();
         inputBuffer = GetComponent<InputBuffer>();
+        stats = GetComponent<PlayerStats>();
 
         PlayerInput playerInput = null;
 
@@ -85,5 +87,10 @@ public class PlayerAttack : MonoBehaviour
         heavyAttackTimer = Time.time;
         animator.SetTrigger("Charging");
         //play animation
+    }
+
+    public void LoadStats()
+    {
+        damageMultiplier = stats.getDamageMultiplier();
     }
 }

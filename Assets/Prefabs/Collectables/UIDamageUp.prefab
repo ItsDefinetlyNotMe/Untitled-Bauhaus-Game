@@ -10,10 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 3939968614075075448}
   - component: {fileID: 6441377059907717077}
-  - component: {fileID: 4248414460336198556}
   - component: {fileID: 2220467975646320459}
   m_Layer: 5
-  m_Name: DamageUp
+  m_Name: UIDamageUp
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -86,18 +85,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &4248414460336198556
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4643108481026562398}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d3b63f5019547054ba2872be78e222ee, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!58 &2220467975646320459
 CircleCollider2D:
   m_ObjectHideFlags: 0

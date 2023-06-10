@@ -132,6 +132,13 @@ public class HitablePlayer : HittableObject
         maxHealth = stats.getMaxHealth();
     }
 
+    public void HealByPercentage(float percentage)
+    {
+        currentHealth += (int)(maxHealth * percentage);
+        if (currentHealth > maxHealth)
+            currentHealth = maxHealth;
+    }
+
     private void OnDisable()
     {
         SceneManager.sceneLoaded -= OnSceneLoaded;
