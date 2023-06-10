@@ -6,8 +6,9 @@ using UnityEngine;
 public class HittableHead : HittableEnemy
 {
     private HittableEnemy bodyHittableEnemy; 
-    void Start()
+    protected override void Start()
     {
+        base.Start();
         bodyHittableEnemy = GetComponentInParent<HittableEnemy>();
     }
 

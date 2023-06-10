@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using static Structs;
@@ -10,7 +11,7 @@ abstract public class MeleeEnemy : EnemyMovement
        [Header("Movement")]
     
         [Header("States")]
-        protected EnemyState currentEnemyState;
+        public EnemyState currentEnemyState;
     
         [Header("Layer")]
         [SerializeField] protected LayerMask attackLayer;
@@ -26,6 +27,7 @@ abstract public class MeleeEnemy : EnemyMovement
         [Header("AttackTime")]
         [SerializeField] protected float chargeAttackTime = .6f;
         [SerializeField] protected float rechargingTime = 1f;
+        protected bool readyToAttack = true;
         
         protected override void StartUp() 
         {
@@ -57,15 +59,20 @@ abstract public class MeleeEnemy : EnemyMovement
         }
         private void StartAttack()
         {
-
+            if(!readyToAttack)
+                return;
             //Ray to look wether there is an obstacle between u and player
             Vector2 raydirection = (target.position - transform.position).normalized;
             RaycastHit2D hit = Physics2D.Raycast(transform.position, raydirection, attackRange);
             if(hit)
                 if(!hit.transform.CompareTag("Player"))
                     return;
-
-            Attack(Direction.Down);
+            bool b;
+            readyToAttack = false;
+            StartCoroutine(Attack(Direction.Up,(b =>
+            {
+                readyToAttack = true;
+            } )));
             
 /*
             //figure out direction
@@ -86,6 +93,6 @@ abstract public class MeleeEnemy : EnemyMovement
             currentEnemyState = nextState;
         }
         /// <summary> Needs to be overriden, implements The Attack  </summary>
-        protected abstract IEnumerator Attack(Direction direction);
+        protected abstract IEnumerator Attack(Direction direction,Action<bool> callback);
         
 }

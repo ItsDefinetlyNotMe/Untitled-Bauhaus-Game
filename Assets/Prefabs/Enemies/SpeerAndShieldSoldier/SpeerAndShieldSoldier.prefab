@@ -43,6 +43,10 @@ GameObject:
   - component: {fileID: 3168918631007937126}
   - component: {fileID: 3168918631007937127}
   - component: {fileID: 304845753534137446}
+  - component: {fileID: 7381506404192647285}
+  - component: {fileID: 6965415172700874937}
+  - component: {fileID: 8323642154786869817}
+  - component: {fileID: 5819144041988894667}
   m_Layer: 0
   m_Name: SpeerAndShieldSoldier
   m_TagString: Untagged
@@ -154,6 +158,97 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   destinationRoot: {fileID: 2509505692907966025}
   moveable: 1
+--- !u!50 &7381506404192647285
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3168918631007937124}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 4
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 4
+--- !u!58 &6965415172700874937
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3168918631007937124}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: -0.27317256}
+  serializedVersion: 2
+  m_Radius: 0.22682744
+--- !u!114 &8323642154786869817
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3168918631007937124}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef70e8f43d09d034d829867904955935, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 0}
+  movementSpeed: 1
+  nextWayPointDistance: 3
+  currentEnemyState: 0
+  attackLayer:
+    serializedVersion: 2
+    m_Bits: 448
+  enemyObstacleLayer:
+    serializedVersion: 2
+    m_Bits: 704
+  attackRange: 1
+  aggroRange: 10
+  chargeAttackTime: 0.6
+  rechargingTime: 1
+--- !u!114 &5819144041988894667
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3168918631007937124}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 373b52eb9bf8c40f785bb6947a1aee66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 1
+  drawGizmos: 1
+  detailedGizmos: 0
+  startEndModifier:
+    addPoints: 0
+    exactStartPoint: 3
+    exactEndPoint: 3
+    useRaycasting: 0
+    mask:
+      serializedVersion: 2
+      m_Bits: 4294967295
+    useGraphRaycasting: 0
+  traversableTags: -1
+  tagPenalties: 0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+  graphMask:
+    value: -1
 --- !u!1 &3168918631648191639
 GameObject:
   m_ObjectHideFlags: 0
