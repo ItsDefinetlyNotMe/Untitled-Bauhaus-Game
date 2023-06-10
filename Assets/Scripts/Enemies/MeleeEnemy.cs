@@ -67,9 +67,9 @@ abstract public class MeleeEnemy : EnemyMovement
             if(hit)
                 if(!hit.transform.CompareTag("Player"))
                     return;
-            bool b;
+            bool notused;
             readyToAttack = false;
-            StartCoroutine(Attack(Direction.Up,(b =>
+            StartCoroutine(Attack(Direction.Up,(notused =>
             {
                 readyToAttack = true;
             } )));

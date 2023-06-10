@@ -383,7 +383,7 @@ MonoBehaviour:
   light2D: {fileID: 755974263772923208}
   dying: 0
   speed: 1
-  noiseScale: 0.005
+  noiseScale: 0.3
 --- !u!1 &755974263182646821
 GameObject:
   m_ObjectHideFlags: 0

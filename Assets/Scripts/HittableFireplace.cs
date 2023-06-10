@@ -83,7 +83,6 @@ public class HittableFireplace : HittableObject
         {
             t += Time.deltaTime / duration;
             light2D.intensity = Mathf.Lerp(startintensity,0, t);
-            Debug.Log(Mathf.Lerp(startintensity,0, t)); 
             yield return new WaitForSeconds(0.1f);
         }
 
