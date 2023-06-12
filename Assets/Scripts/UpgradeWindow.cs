@@ -24,7 +24,7 @@ public class UpgradeWindow : MonoBehaviour
 
         upgradeWindow.SetActive(true);
 
-        updateMaxHealth();
+        UpdateMaxHealth();
     }
 
     public void Back()
@@ -44,15 +44,21 @@ public class UpgradeWindow : MonoBehaviour
 
         gameManager = FindObjectsByType<GameManager>(FindObjectsSortMode.InstanceID)[0];
 
+        int price = int.Parse(transform.GetChild(0).GetChild(1).GetChild(2).GetChild(0).GetComponent<TMP_Text>().text);
+        PlayerStats stats = FindObjectOfType<PlayerStats>();
+
+        if (!stats.AddMoney(-price))
+            return;
+
         maxHealthBonus = PlayerPrefs.GetInt("maxHealth" + gameManager.saveSlot) + maxHealthUpgrade; //Get value and add new bonus
         PlayerPrefs.SetInt("maxHealth" + gameManager.saveSlot, maxHealthBonus); //Set new value
 
         PlayerPrefs.Save(); //Save changes in playerPrefs
 
-        updateMaxHealth();
+        UpdateMaxHealth();
     }
 
-    private void updateMaxHealth()
+    private void UpdateMaxHealth()
     {
         if (FindObjectsByType<GameManager>(FindObjectsSortMode.InstanceID).Length > 1)
         {
@@ -77,6 +83,12 @@ public class UpgradeWindow : MonoBehaviour
 
     public void IncreaseDamageMultiplier()
     {
+        int price = int.Parse(transform.GetChild(0).GetChild(2).GetChild(2).GetChild(0).GetComponent<TMP_Text>().text);
+        PlayerStats stats = FindObjectOfType<PlayerStats>();
+
+        if (!stats.AddMoney(-price))
+            return;
+
         print("Increase Damage Multiplier");
     }
 

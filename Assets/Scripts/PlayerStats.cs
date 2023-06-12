@@ -10,6 +10,7 @@ public class PlayerStats : MonoBehaviour
     public int money { get; private set; }
     private int maxHealthRunBonus;
     private float damageMultiplierRunBonus = 1;
+    public int runMoney { get; private set; } = 0;
 
     private HitablePlayer hitablePlayer;
     private PlayerAttack playerAttack;
@@ -21,18 +22,31 @@ public class PlayerStats : MonoBehaviour
 
         hitablePlayer = GetComponent<HitablePlayer>();
         playerAttack = GetComponent<PlayerAttack>();
-        gameManager = FindObjectOfType<GameManager>();
     }
 
-    public void AddMoney(int amount)
+    public bool AddMoney(int amount)
     {
+        gameManager = FindObjectsByType<GameManager>(FindObjectsSortMode.InstanceID)[0];
+
+        if (SceneManager.GetActiveScene().name != "HUB")
+            runMoney += amount;
+
         int oldMoney = PlayerPrefs.GetInt("money" + gameManager.saveSlot);
+
+        if (-oldMoney > amount)
+        {
+            return false;
+        }
+
         PlayerPrefs.SetInt("money" + gameManager.saveSlot, oldMoney + amount);
 
         PlayerPrefs.Save(); //Save changes in playerPrefs
 
 
-        //TODO: call money UI refresh
+        MoneyUI moneyUI = FindObjectOfType<MoneyUI>();
+        moneyUI.LoadMoney();
+
+        return true;
     }
 
     public void SetMaxHealthRunBonus(int bonus)
@@ -42,6 +56,7 @@ public class PlayerStats : MonoBehaviour
 
     public int getMaxHealth()
     {
+        gameManager = FindObjectsByType<GameManager>(FindObjectsSortMode.InstanceID)[0];
         return baseMaxHealth + PlayerPrefs.GetInt("maxHealth" + gameManager.saveSlot) + maxHealthRunBonus;
     }
 
@@ -52,6 +67,7 @@ public class PlayerStats : MonoBehaviour
 
     public float getDamageMultiplier()
     {
+        gameManager = FindObjectsByType<GameManager>(FindObjectsSortMode.InstanceID)[0];
         return PlayerPrefs.GetInt("damageMultiplier" + gameManager.saveSlot) + damageMultiplierRunBonus;
     }
 
@@ -61,6 +77,7 @@ public class PlayerStats : MonoBehaviour
         {
             maxHealthRunBonus = 0;
             damageMultiplierRunBonus = 1;
+            runMoney = 0;
         }
     }
 
