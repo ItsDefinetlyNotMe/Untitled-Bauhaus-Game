@@ -10,8 +10,6 @@ using UnityEngine.SceneManagement;
 public class UpgradeWindow : MonoBehaviour
 {
     private GameManager gameManager;
-    private PlayerInput playerInput;
-    private InputHandler inputHandler;
     private GameObject upgradeWindow;
 
     private int maxHealthUpgrade = 10;
@@ -20,6 +18,7 @@ public class UpgradeWindow : MonoBehaviour
 
     public void Interact()
     {
+        PlayerInput playerInput = FindObjectOfType<PlayerInput>();
         playerInput.actions.FindActionMap("Movement").Disable();
 
         upgradeWindow.SetActive(true);
@@ -31,6 +30,7 @@ public class UpgradeWindow : MonoBehaviour
     {
         upgradeWindow.SetActive(false);
 
+        PlayerInput playerInput = FindObjectOfType<PlayerInput>();
         playerInput.actions.FindActionMap("Movement").Enable();
     }
 
@@ -99,8 +99,6 @@ public class UpgradeWindow : MonoBehaviour
 
     private void Start()
     {
-        inputHandler = FindObjectOfType<InputHandler>();
-        playerInput = FindObjectOfType<PlayerInput>();
         gameManager = FindObjectOfType<GameManager>();
 
         upgradeWindow = transform.GetChild(0).gameObject;
@@ -112,9 +110,11 @@ public class UpgradeWindow : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
+            PlayerInput playerInput = FindObjectOfType<PlayerInput>();
             playerInput.actions.FindActionMap("Fighting").Disable();
             playerInput.actions.FindActionMap("UI").Enable();
 
+            InputHandler inputHandler = FindObjectOfType<InputHandler>();
             inputHandler.isOnUpgrade = true;
         }
     }
@@ -123,9 +123,11 @@ public class UpgradeWindow : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
+            PlayerInput playerInput = FindObjectOfType<PlayerInput>();
             playerInput.actions.FindActionMap("Fighting").Enable();
             playerInput.actions.FindActionMap("UI").Disable();
 
+            InputHandler inputHandler = FindObjectOfType<InputHandler>();
             inputHandler.isOnUpgrade = false;
         }
     }

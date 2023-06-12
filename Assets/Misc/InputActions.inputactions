@@ -620,6 +620,17 @@
                 },
                 {
                     "name": "",
+                    "id": "d612e2b8-fcf1-4b3c-aac2-2d72f77d6f30",
+                    "path": "<Gamepad>/start",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Cancel",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "4c9e31be-667e-41f0-98ca-64fbab985e52",
                     "path": "<Mouse>/position",
                     "interactions": "",
@@ -655,9 +666,20 @@
                     "name": "",
                     "id": "2012bb10-a013-480d-819a-cb31bdf8d97d",
                     "path": "<Mouse>/leftButton",
-                    "interactions": "",
+                    "interactions": "Press(behavior=1)",
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
+                    "action": "Click",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "b7e3198a-ee72-4533-907e-431665e0caf4",
+                    "path": "<Gamepad>/buttonSouth",
+                    "interactions": "Press(behavior=1)",
+                    "processors": "",
+                    "groups": "",
                     "action": "Click",
                     "isComposite": false,
                     "isPartOfComposite": false

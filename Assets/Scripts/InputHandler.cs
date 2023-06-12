@@ -15,6 +15,7 @@ public class InputHandler : MonoBehaviour
     private int whileLoopTracker = 0;
 
     public bool isOnUpgrade { private get; set; } = false;
+    public bool isInPauseMenu { private get; set; } = false;
 
     private void Awake()
     {
@@ -25,11 +26,13 @@ public class InputHandler : MonoBehaviour
     {
         if (scene.name == "MainMenu")
         {
-
+            StartCoroutine(ActivateUI());
         }
 
         else if (scene.name == "HUB")
         {
+            StartCoroutine(DeactivateUI());
+
             playerMovement = FindObjectOfType<PlayerMovement>();
             playerAnimator = FindObjectOfType<PlayerAnimator>();
             playerAttack = FindObjectOfType<PlayerAttack>();
@@ -39,6 +42,8 @@ public class InputHandler : MonoBehaviour
 
         else if (scene.name == "Valhalla")
         {
+            StartCoroutine(DeactivateUI());
+
             playerMovement = FindObjectOfType<PlayerMovement>();
             playerAnimator = FindObjectOfType<PlayerAnimator>();
             playerAttack = FindObjectOfType<PlayerAttack>();
@@ -97,7 +102,7 @@ public class InputHandler : MonoBehaviour
     }
 
     private void OnStart(InputValue input)
-    {   
+    {
         if (isOnUpgrade)
         {
             while (upgradeWindow == null)
@@ -138,6 +143,23 @@ public class InputHandler : MonoBehaviour
 
             whileLoopTracker = 0;
         }
+
+        else if (isInPauseMenu)
+        {
+            StartCoroutine(DeactivateUI());
+
+            isInPauseMenu = false;
+
+            GameObject pauseCanvas = GameObject.Find("PauseMenuCanvas").transform.GetChild(0).gameObject;
+            pauseCanvas.SetActive(false);
+        }
+
+        else if (SceneManager.GetActiveScene().name == "MainMenu")
+        {
+            GameObject.Find("/Canvas/MainMenu/StartButtons").SetActive(true);
+            GameObject.Find("/Canvas/MainMenu/Slots").SetActive(false);
+        }
+
     }
 
     private void OnDestroy()
@@ -174,7 +196,34 @@ public class InputHandler : MonoBehaviour
 
     private void OnPause()
     {
+        PlayerInput playerInput = FindObjectOfType<PlayerInput>();
+        playerInput.actions.FindActionMap("Fighting").Disable();
+        playerInput.actions.FindActionMap("Movement").Disable();
+        playerInput.actions.FindActionMap("UI").Enable();
+
         GameObject pauseCanvas = GameObject.Find("PauseMenuCanvas").transform.GetChild(0).gameObject;
-        pauseCanvas.SetActive(!pauseCanvas.activeSelf);
+        pauseCanvas.SetActive(true);
+
+        isInPauseMenu = true;
+    }
+
+    private IEnumerator ActivateUI()
+    {
+        yield return new WaitForEndOfFrame();
+
+        PlayerInput playerInput = FindObjectOfType<PlayerInput>();
+        playerInput.actions.FindActionMap("Fighting").Disable();
+        playerInput.actions.FindActionMap("Movement").Disable();
+        playerInput.actions.FindActionMap("UI").Enable();
+    }
+
+    private IEnumerator DeactivateUI()
+    {
+        yield return new WaitForEndOfFrame();
+
+        PlayerInput playerInput = FindObjectOfType<PlayerInput>();
+        playerInput.actions.FindActionMap("Fighting").Enable();
+        playerInput.actions.FindActionMap("Movement").Enable();
+        playerInput.actions.FindActionMap("UI").Disable();
     }
 }

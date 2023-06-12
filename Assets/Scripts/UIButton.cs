@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -34,6 +35,13 @@ public class UIButton : MonoBehaviour
 
     public void BackToMainMenu()
     {
+        PlayerInput playerInput = FindObjectOfType<PlayerInput>();
+        playerInput.actions.FindActionMap("Fighting").Enable();
+        playerInput.actions.FindActionMap("Movement").Enable();
+        playerInput.actions.FindActionMap("UI").Disable();
+
+        FindObjectOfType<InputHandler>().isInPauseMenu = false;
+
         gameObject.SetActive(false);
         SceneManager.LoadScene("MainMenu");
     }
