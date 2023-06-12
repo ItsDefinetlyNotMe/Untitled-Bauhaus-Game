@@ -82,11 +82,12 @@ namespace TestRandomWorldGeneration
             //Create matrix
             numberOfMaxTiles = UnityEngine.Random.Range(minNumberOfTiles, maxNumberOfTiles + 1);
             tileMatrix = new float[numberOfMaxTiles, numberOfMaxTiles];
-            tileMatrix[(int)numberOfMaxTiles / 2, (int)numberOfMaxTiles / 2] = 7;
 
             GenerateMatrix();
             InstantiateFloor();
             InstantiateWalls();
+
+            tileMatrix[(int)numberOfMaxTiles / 2, (int)numberOfMaxTiles / 2] = 7;
 
             SetDoorDirections(doorDirection);
 
