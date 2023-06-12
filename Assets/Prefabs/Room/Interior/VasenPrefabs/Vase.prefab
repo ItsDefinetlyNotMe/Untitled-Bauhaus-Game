@@ -134,7 +134,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 1
+  currentHealth: 0
   size: 0
+  isDying: 0
   destroyedSprite: {fileID: 21300000, guid: c76c69aa5986f5045bbaeacbcd13076d, type: 3}
   sound: {fileID: 4777662170776298862}
 --- !u!61 &4777662169212377174
@@ -189,7 +191,7 @@ MonoBehaviour:
   - {x: 0.04459524, y: -0.2630636, z: 0}
   m_ShapePathHash: -1374016775
   m_Mesh: {fileID: 0}
-  m_InstanceId: 116500
+  m_InstanceId: 66044
   m_LocalBounds:
     m_Center: {x: -0.002282381, y: -0.1711706, z: 0}
     m_Extent: {x: 0.051441908, y: 0.09189303, z: 0}
@@ -252,7 +254,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: -4665057645690639522, guid: 24a0e533ce68e9a499b8cb5d33a8edcb, type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 0.684
+  m_Volume: 0.4
   m_Pitch: 1
   Loop: 0
   Mute: 0
