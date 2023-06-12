@@ -7,7 +7,7 @@ using UnityEngine;
 public class HittableSpearAndShieldSoldierEnemy : HittableEnemy
 {
     private SpearAndShieldEnemy spearAndShieldEnemy;
-    [SerializeField] private float knockbackDuration = 10f;
+    [SerializeField] private float knockbackDuration = 0.05f;
     private void Start()
     {
         spearAndShieldEnemy = GetComponent<SpearAndShieldEnemy>();

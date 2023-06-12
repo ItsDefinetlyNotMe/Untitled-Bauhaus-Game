@@ -42,7 +42,7 @@ namespace Enemies
 
             base.GetHit(damage,damageSourcePosition, knockbackMultiplier,damageSource,heavy);
         
-            Knockback(10f,damageSourcePosition,knockbackMultiplier);//TODO duration
+            Knockback(0.05f,damageSourcePosition,knockbackMultiplier);//TODO duration
         }
         private IEnumerator HitFeedback(){
             Vector3 t = transform.localScale;
@@ -81,14 +81,12 @@ namespace Enemies
         public void Knockback(float duration,Vector2 damageSourcePosition,float knockbackMultiplier)
         {
             
-            float sizeMultiplier = 0;
-            if(size!=0)
+            if(size==0)
             {
-                sizeMultiplier = 1 / size;
+                return;
             }
-
+            float sizeMultiplier = 1 / size;
             float knockbackStrength = knockbackMultiplier * sizeMultiplier;
-            Debug.Log(knockbackStrength);
             if(enemyMovement != null)
                 enemyMovement.Knockback(duration,damageSourcePosition,knockbackStrength);
             else

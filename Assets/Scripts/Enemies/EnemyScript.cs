@@ -22,6 +22,8 @@ namespace Enemies
         Vector3 lastTargetPosition;
         [SerializeField] Transform target;
         public bool targeting;
+        private bool isStunned;
+        private float stunnedTimeStamp;
 
         void Start()
         {
@@ -49,6 +51,7 @@ namespace Enemies
         }
         void FixedUpdate()
         {
+            if (isStunned) return;
             if(path == null)
                 return;
             if(currentWaypoint >= path.vectorPath.Count)

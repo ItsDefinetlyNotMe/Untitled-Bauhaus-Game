@@ -64,8 +64,13 @@ namespace Enemies
         {
             if (isStunned)
             {
-                if(stunnedTimeStamp > Time.time)
+                if (stunnedTimeStamp > Time.time)
+                {
                     return;
+                }
+
+                Debug.Log("NOW UNSTUNNED");
+                StartTargeting();   
                 isStunned = false;
             }
             if(path == null)
@@ -119,10 +124,11 @@ namespace Enemies
             return lastDirection;
             //For some reason the rb stops every now and then
         }
-
+        
         public virtual void Stun(float duration)
         {
             isStunned = true;
+            StopTargeting();
             rb.velocity = Vector2.zero;
             stunnedTimeStamp = Time.time + duration;
         }
@@ -132,6 +138,7 @@ namespace Enemies
             Stun(duration);
             //knockback enemy
             Vector2 knockbackDirection = new Vector2(transform.position.x,transform.position.y) - damageSourcePosition;
+            //Debug.Log( knockbackDirection.normalized * knockbackStrength);
             rb.AddForce( knockbackDirection.normalized * knockbackStrength);
         }
     }

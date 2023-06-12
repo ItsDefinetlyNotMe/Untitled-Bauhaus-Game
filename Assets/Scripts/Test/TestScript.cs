@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Enemies;
 using Unity.VisualScripting;
 using UnityEngine;
+using System.Reflection;
 using Update = UnityEngine.PlayerLoop.Update;
 
 public class TestScript : MonoBehaviour
@@ -30,7 +31,7 @@ public class TestScript : MonoBehaviour
     {
         HittableObject hit = GetVictim();
         if(hit !=null)
-            hit.GetHit(damage,position,2,gameObject,heavy);
+            hit.GetHit(damage,position,knockback,gameObject,heavy);
         else
         {
             Debug.Log("No Enemy Given");
@@ -51,11 +52,38 @@ public class TestScript : MonoBehaviour
         }
     }
 
+    public void Stun()
+    {
+        var en = victim.GetComponent<EnemyMovement>();
+        MethodInfo methodInfo = typeof(EnemyMovement).GetMethod("Stun", BindingFlags.NonPublic | BindingFlags.Instance);
+        object[] args = new object[] { duration};
+        if(methodInfo != null)
+            methodInfo.Invoke(en,args);
+    }
+
     public void StopTargeting()
     {
         var en = victim.GetComponent<EnemyMovement>();
-        //en.StopTargeting();
+        MethodInfo methodInfo = typeof(EnemyMovement).GetMethod("StopTargeting", BindingFlags.NonPublic | BindingFlags.Instance);
+        //object[] args = new object[] { duration, position, knockback };
+        if(methodInfo != null)
+            methodInfo.Invoke(en,null );
     }
+
+    public void StartTargeting()
+    {
+        var en = victim.GetComponent<EnemyMovement>();
+        MethodInfo methodInfo = typeof(EnemyMovement).GetMethod("StartTargeting", BindingFlags.NonPublic | BindingFlags.Instance);
+        //object[] args = new object[] { duration, position, knockback };
+        if(methodInfo != null)
+            methodInfo.Invoke(en,null );
+    }
+    /*
+     * MethodInfo methodInfo = typeof(EnemyMovement).GetMethod("StopTargeting", BindingFlags.NonPublic | BindingFlags.Instance);
+        //object[] args = new object[] { duration, position, knockback };
+        if(methodInfo != null)
+            methodInfo.Invoke(this,null );
+     */
 
     private HittableObject GetVictim()
     {
