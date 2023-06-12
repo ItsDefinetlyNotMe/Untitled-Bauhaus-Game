@@ -13,9 +13,9 @@ public class HittableHead : HittableEnemy
         bodyHittableEnemy = GetComponentInParent<HittableEnemy>();
     }
 
-    public override void GetHit(int damage, Vector2 damageSourcePosition, float knockbackMultiplier, GameObject damageSource)
+    public override void GetHit(int damage, Vector2 damageSourcePosition, float knockbackMultiplier, GameObject damageSource,bool heavy)
     {
-        base.GetHit(damage,damageSourcePosition, knockbackMultiplier, damageSource);
+        base.GetHit(damage,damageSourcePosition, knockbackMultiplier, damageSource,heavy);
         //bodyHittableEnemy.TakeDamage(damage, damageSourcePosition,0, damageSource);
         object[] parameters = new object[] { damage , damageSource  };
         MethodInfo methodInfo = typeof(HittableEnemy).GetMethod("TakeDamage", BindingFlags.NonPublic | BindingFlags.Instance);

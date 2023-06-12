@@ -17,6 +17,7 @@ public class PlayerAttack : MonoBehaviour
     private float heavyAttackTimer; 
 
     private int whileLoopTracker = 0;
+    private static readonly int Charging = Animator.StringToHash("Charging");
 
     private void Start()
     {
@@ -52,15 +53,13 @@ public class PlayerAttack : MonoBehaviour
         {
             foreach (Collider2D enemy in enemiesHit)
             {
-                enemy.GetComponent<HittableObject>().GetHit((int)(weaponDamage * damageMultiplier), transform.position, knockbackMultiplier, gameObject);
+                enemy.GetComponent<HittableObject>().GetHit((int)(weaponDamage * damageMultiplier), transform.position, knockbackMultiplier, gameObject,false);
             }
         }));
     }
 
     public void HeavyAttacK()
     {
-        
-        
         float chargedTime = Mathf.Min(3f, Time.time - heavyAttackTimer + 1);
         //ANIMATION START
         animator.SetBool("Charging",false);
@@ -68,7 +67,7 @@ public class PlayerAttack : MonoBehaviour
         {
             foreach (Collider2D enemy in enemiesHit)
             {
-                enemy.GetComponent<HittableObject>().GetHit((int)(weaponDamage * damageMultiplier * chargedTime), transform.position, knockbackMultiplier, gameObject);
+                enemy.GetComponent<HittableObject>().GetHit((int)(weaponDamage * damageMultiplier * chargedTime), transform.position, knockbackMultiplier, gameObject,true);
 
             }
         }));
@@ -85,7 +84,7 @@ public class PlayerAttack : MonoBehaviour
         pA.SetDirection(weaponScript.DetermineAttackDirection());
         playerMovement.currentState = Structs.PlayerState.Charging;
         heavyAttackTimer = Time.time;
-        animator.SetTrigger("Charging");
+        animator.SetTrigger(Charging);
         //play animation
     }
 

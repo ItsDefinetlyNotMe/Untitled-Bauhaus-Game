@@ -1,5 +1,9 @@
 using System.Collections;
+using System.Drawing;
+using Unity.VisualScripting;
 using UnityEngine;
+using Color = UnityEngine.Color;
+
 // ReSharper disable Unity.InefficientPropertyAccess
 
 namespace Enemies
@@ -19,6 +23,8 @@ namespace Enemies
         
         public delegate void EnemyDeathDelegate();
         public static EnemyDeathDelegate onEnemyDeath;
+        private static readonly int OnDeath = Animator.StringToHash("OnDeath");
+
         protected override void Start()
         {
             base.Start();
@@ -27,25 +33,16 @@ namespace Enemies
             animator = GetComponent<Animator>();
             enemyMovement = GetComponent<EnemyMovement>();
         }
-        public override void GetHit(int damage, Vector2 damageSourcePosition, float knockbackMultiplier,GameObject damageSource)
+        public override void GetHit(int damage, Vector2 damageSourcePosition, float knockbackMultiplier,GameObject damageSource,bool heavy)
         {
             
             //visual Feedback
             StartCoroutine(HitFeedback());
-            HitSound.GetComponent<RandomSound>().PlayRandom1();
+            //HitSound.GetComponent<RandomSound>().PlayRandom1();
 
-            base.GetHit(damage,damageSourcePosition, knockbackMultiplier,damageSource);
+            base.GetHit(damage,damageSourcePosition, knockbackMultiplier,damageSource,heavy);
         
-            //knockback
-            float sizeMultiplier;
-            //knockback enemy
-            if(size == 0){//imoveable object
-                sizeMultiplier = 0;
-            }else{
-                sizeMultiplier = 1 / size;
-            }
-            Vector2 knockbackDirection = new Vector2(transform.position.x,transform.position.y) - damageSourcePosition;
-            rb.velocity = knockbackDirection.normalized * (sizeMultiplier * knockbackMultiplier);
+            Knockback(10f,damageSourcePosition,knockbackMultiplier);//TODO duration
         }
         private IEnumerator HitFeedback(){
             Vector3 t = transform.localScale;
@@ -60,7 +57,7 @@ namespace Enemies
 
         protected override void Die(GameObject damageSource)
         {
-            DeathHitSound.GetComponent<RandomSound>().PlayRandom1();
+            //DeathHitSound.GetComponent<RandomSound>().PlayRandom1();
             onEnemyDeath?.Invoke();
             if(enemyMovement != null)
                 enemyMovement.OnDeath();
@@ -73,12 +70,32 @@ namespace Enemies
         {
             if (animator != null)
             {
-                animator.SetTrigger("OnDeath");
+                animator.SetTrigger(OnDeath);
                 yield return new WaitUntil(() => dying);
                 yield return new WaitUntil(() => !dying);
             }
 
             Destroy(gameObject);
         }
+
+        public void Knockback(float duration,Vector2 damageSourcePosition,float knockbackMultiplier)
+        {
+            
+            float sizeMultiplier = 0;
+            if(size!=0)
+            {
+                sizeMultiplier = 1 / size;
+            }
+
+            float knockbackStrength = knockbackMultiplier * sizeMultiplier;
+            Debug.Log(knockbackStrength);
+            if(enemyMovement != null)
+                enemyMovement.Knockback(duration,damageSourcePosition,knockbackStrength);
+            else
+            {
+                Debug.Log("no Enemy Movementscript");
+            }
+        }
+
     }
 }

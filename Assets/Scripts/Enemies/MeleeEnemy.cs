@@ -11,7 +11,7 @@ abstract public class MeleeEnemy : EnemyMovement
        [Header("Movement")]
     
         [Header("States")]
-        protected EnemyState currentEnemyState;
+        public EnemyState currentEnemyState;
     
         [Header("Layer")]
         [SerializeField] protected LayerMask attackLayer;
@@ -38,6 +38,7 @@ abstract public class MeleeEnemy : EnemyMovement
         /// <summary> Figuring out what to do next based on The state Enemy is in</summary>
         protected void NextMove()
         {//figuring out what to do next called in update
+            if(isStunned)return;
             float distance = Vector2.Distance(transform.position, target.position - new Vector3(0f,0.5f,0f));
             if (currentEnemyState != EnemyState.Attacking)
             {
@@ -69,14 +70,7 @@ abstract public class MeleeEnemy : EnemyMovement
             if(hit)
                 if(!hit.transform.CompareTag("Player"))
                     return;
-            if (raydirection.y > 0 && Mathf.Abs(raydirection.x) <= raydirection.y)
-                attackDirection = Direction.Up;
-            else if(Mathf.Abs(raydirection.x) <= Mathf.Abs(raydirection.y))
-                attackDirection = Direction.Down;
-            else if (raydirection.x > 0)
-                attackDirection = Direction.Right;
-            else
-                attackDirection = Direction.Left;
+            attackDirection = GetDirection(raydirection);
             bool notused = true;
             readyToAttack = false;
             StartCoroutine(Attack(attackDirection,(notused =>
@@ -97,4 +91,15 @@ abstract public class MeleeEnemy : EnemyMovement
 
         protected abstract void SetAnimator(Vector2 dir,bool isWalking);
 
+        protected Direction GetDirection(Vector2 dir)
+        {
+            if (dir.y > 0 && Mathf.Abs(dir.x) <= dir.y)
+                return Direction.Up;
+            else if(Mathf.Abs(dir.x) <= Mathf.Abs(dir.y))
+                return Direction.Down;
+            else if (dir.x > 0)
+                return Direction.Right;
+            else
+                return Direction.Left;
+        }
 }

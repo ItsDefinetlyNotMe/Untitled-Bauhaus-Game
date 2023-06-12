@@ -107,7 +107,7 @@ namespace Enemies
                 Collider2D other;
                 other = rb.GetComponent<Collider2D>();
                 if(other.CompareTag("Player"))
-                    other.GetComponent<HitablePlayer>().GetHit((int)attackDamage,transform.position,5,gameObject);
+                    other.GetComponent<HitablePlayer>().GetHit((int)attackDamage,transform.position,5,gameObject,false);
             }
 
         }

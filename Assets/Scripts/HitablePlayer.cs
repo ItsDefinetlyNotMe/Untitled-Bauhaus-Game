@@ -42,13 +42,13 @@ public class HitablePlayer : HittableObject
         currentHealth = maxHealth;
         animator = GetComponent<Animator>();
     }
-    public override void GetHit(int damage, Vector2 damageSourcePosition, float knockbackMultiplier,GameObject damageSource)
+    public override void GetHit(int damage, Vector2 damageSourcePosition, float knockbackMultiplier,GameObject damageSource,bool heavy)
     {
         //visual Feedback
         StartCoroutine(HitFeedback());
         CameraShake.Instance.ShakeCamera(0.5f,.7f,true);
         
-        base.GetHit(damage,damageSourcePosition, knockbackMultiplier,damageSource);
+        base.GetHit(damage,damageSourcePosition, knockbackMultiplier,damageSource,heavy);
         
         //knockback
         float sizeMultiplier;

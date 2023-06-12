@@ -12,6 +12,8 @@ namespace Enemies
 
         [Header("Movement")]
         public float movementSpeed = 1f;
+        protected bool isStunned;
+        private float stunnedTimeStamp;
     
         [Header("Pathfinding")]
         Path path;
@@ -60,6 +62,12 @@ namespace Enemies
         }
         void FixedUpdate()
         {
+            if (isStunned)
+            {
+                if(stunnedTimeStamp > Time.time)
+                    return;
+                isStunned = false;
+            }
             if(path == null)
                 return;
             if(currentWaypoint >= path.vectorPath.Count)
@@ -98,19 +106,33 @@ namespace Enemies
                 target = player;
             CancelInvoke(nameof(FindPlayer));
         }
-        virtual public void OnDeath()
+        public virtual void OnDeath()
         {
             movementSpeed = 0;
             rb.velocity = new Vector3(0f,0f,0f);
         }
 
-        virtual protected Vector2 GetDirection()
+        protected virtual Vector2 GetDirection()
         {
             if (direction.magnitude > 0.1f)
                 return direction; 
             return lastDirection;
             //For some reason the rb stops every now and then
+        }
 
+        public virtual void Stun(float duration)
+        {
+            isStunned = true;
+            rb.velocity = Vector2.zero;
+            stunnedTimeStamp = Time.time + duration;
+        }
+
+        public virtual void Knockback(float duration,Vector2 damageSourcePosition,float knockbackStrength)
+        {
+            Stun(duration);
+            //knockback enemy
+            Vector2 knockbackDirection = new Vector2(transform.position.x,transform.position.y) - damageSourcePosition;
+            rb.AddForce( knockbackDirection.normalized * knockbackStrength);
         }
     }
 }

@@ -17,6 +17,8 @@ public class SpearAndShieldEnemy : MeleeEnemy
     private static readonly int AttackDirection = Animator.StringToHash("AttackDirection");
     private static readonly int AttackSmallDirection = Animator.StringToHash("AttackSmallDirection");
     private static readonly int Idle = Animator.StringToHash("Idle");
+    private static readonly int Defense = Animator.StringToHash("Defense");
+    private static readonly int DefenseBreak = Animator.StringToHash("DefenseBreak");
 
     private void Start()
     {
@@ -78,11 +80,6 @@ public class SpearAndShieldEnemy : MeleeEnemy
         }
         animator.SetBool(IsWalking, isWalking);
     }
-    private void OnDrawGizmos()
-    {
-        Gizmos.DrawWireSphere(transform.position,attackRange);
-        Gizmos.DrawLine(transform.position,transform.position);
-    }
 
     public void EndSmallAttack()
     {
@@ -91,5 +88,33 @@ public class SpearAndShieldEnemy : MeleeEnemy
     public void StartSmallAttack()
     {
         ChangeState(EnemyState.Attacking);
+    }
+
+    public void PlayBlockAnimation(Vector2 damageSourcePosition)
+    {
+        var dir = GetDirectionFromDamageSource(damageSourcePosition);
+        animator.SetInteger("BlockDirection",(int)dir);
+        animator.SetTrigger(Defense);
+    }
+    public void BlockBreak(Vector2 damageSourcePosition)
+    {
+        animator.SetTrigger(DefenseBreak);
+    }
+
+    protected Direction GetDirectionFromDamageSource(Vector2 damageSourcePosition)
+    {
+        Vector2 direction = (damageSourcePosition - (Vector2)transform.position).normalized;
+        return GetDirection(direction);
+    }
+
+    public EnemyState GetState()
+    {
+        return currentEnemyState;
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawWireSphere(transform.position,attackRange);
+        Gizmos.DrawLine(transform.position,transform.position);
     }
 }

@@ -48,6 +48,8 @@ public class HittableBarrel : HittableObject
 
             //spriteRenderer.sprite = destroyedFirstSprite;
         }
+        if(currentHealth <= 0)
+            animator.SetTrigger("onDeath");
 
     }
 }

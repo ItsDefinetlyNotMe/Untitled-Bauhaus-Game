@@ -49,7 +49,7 @@ namespace Enemies
         
             if(currentEnemyState == EnemyState.Attacking){
                 if(other.CompareTag("Player"))
-                    other.GetComponent<HitablePlayer>().GetHit((int)chargeDamage,transform.position,5,gameObject);
+                    other.GetComponent<HitablePlayer>().GetHit((int)chargeDamage,transform.position,5,gameObject,false);
                 else if(projectileLayer == (projectileLayer | (1 << other.gameObject.layer)))
                 {
                     ChangeState(EnemyState.Recharging);

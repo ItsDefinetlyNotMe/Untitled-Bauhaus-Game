@@ -30,7 +30,7 @@ public abstract class HittableObject : MonoBehaviour
             Die(damageSource);
         }
     }
-    public virtual void GetHit(int damage, Vector2 damageSourcePosition, float knockbackMultiplier,GameObject damageSource)
+    public virtual void GetHit(int damage, Vector2 damageSourcePosition, float knockbackMultiplier,GameObject damageSource,bool heavy)
     {
         TakeDamage(damage,damageSource);
     }
