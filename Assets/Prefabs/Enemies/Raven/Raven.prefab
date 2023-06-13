@@ -64,7 +64,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: -4665057645690639522, guid: 24a0e533ce68e9a499b8cb5d33a8edcb, type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.754
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -193,7 +193,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: -4665057645690639522, guid: 24a0e533ce68e9a499b8cb5d33a8edcb, type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.673
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -846,7 +846,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
+  movementSpeed: 1
   nextWayPointDistance: 3
+  currentEnemyState: 0
   projectileLayer:
     serializedVersion: 2
     m_Bits: 640
@@ -860,6 +862,7 @@ MonoBehaviour:
   maximumRange: 1
   chargeAttackTime: 0.6
   rechargingTime: 1
+  projectileSpeed: 1
   debug: 0
   debugRanges: 0
   debugRaycast: 0
@@ -883,9 +886,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 20
+  currentHealth: 0
   size: 0
+  isDying: 0
   HitSound: {fileID: 6021109344697569480}
   DeathHitSound: {fileID: 2115272221078392754}
+  dying: 0
 --- !u!50 &2208891717536921046
 Rigidbody2D:
   serializedVersion: 4
