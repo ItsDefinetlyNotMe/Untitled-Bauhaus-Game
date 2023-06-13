@@ -20,6 +20,7 @@ public class HitablePlayer : HittableObject
     private PlayerStats stats;
     public delegate void PlayerDeathDelegate();
     public static PlayerDeathDelegate onPlayerDeath;
+    public GameObject StopMusic;
 
     private Animator animator;
     public bool isAlreadyDestroyed { private get; set; } = false;
@@ -27,6 +28,11 @@ public class HitablePlayer : HittableObject
     private void Awake()
     {
         SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    public void Update()
+    {
+        StopMusic = GameObject.FindGameObjectWithTag("StopMusic");
     }
 
     protected override void Start()
@@ -115,6 +121,7 @@ public class HitablePlayer : HittableObject
     {
         healthBar.SetActive(false);
         animator.SetTrigger("onDeath");
+        Destroy(StopMusic);
 
         yield return new WaitUntil(() => isDying);
 
