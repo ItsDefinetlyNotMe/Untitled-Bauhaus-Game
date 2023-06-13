@@ -10,6 +10,7 @@ TagManager:
   - GameManager
   - InputHandler
   - PauseMenuCanvas
+  - StopMusic
   layers:
   - Default
   - TransparentFX
