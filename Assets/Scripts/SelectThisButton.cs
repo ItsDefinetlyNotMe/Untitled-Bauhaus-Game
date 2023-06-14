@@ -7,6 +7,12 @@ public class SelectThisButton : MonoBehaviour
 {
     private void OnEnable()
     {
-        GetComponent<Button>().Select();
+        Slider slider = GetComponent<Slider>();
+
+        if (slider != null)
+            slider.Select();
+
+        else
+            GetComponent<Button>().Select();
     }    
 }
