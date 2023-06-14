@@ -14,10 +14,12 @@ public class PlayerAttack : MonoBehaviour
 
     private Animator animator;
 
-    private float heavyAttackTimer; 
+    private float heavyAttackTimer;
+    private bool heavyAttackReady = true;
 
     private int whileLoopTracker = 0;
     private static readonly int Charging = Animator.StringToHash("Charging");
+    private static readonly int Release = Animator.StringToHash("Release");
 
     private void Start()
     {
@@ -58,11 +60,18 @@ public class PlayerAttack : MonoBehaviour
         }));
     }
 
-    public void HeavyAttacK()
+    public void HeavyAttackTimeOut()
     {
+        HeavyAttack();
+        heavyAttackReady = false;
+    }
+    public void HeavyAttack()
+    {
+        if(!heavyAttackReady)
+            return;
         float chargedTime = Mathf.Min(3f, Time.time - heavyAttackTimer + 1);
         //ANIMATION START
-        animator.SetBool("Charging",false);
+        animator.SetTrigger(Release);
         StartCoroutine(weaponScript.HeavyAttack((enemiesHit, weaponDamage) =>
         {
             foreach (Collider2D enemy in enemiesHit)
@@ -71,15 +80,14 @@ public class PlayerAttack : MonoBehaviour
 
             }
         }));
-        //HevyAttack(dmg);
     }
-    public void ChargeHeavyAttacK()
+    public void ChargeHeavyAttack()
     {
         if (weaponScript == null)
             return;
         if (playerMovement.currentState != Structs.PlayerState.Moving)
-            return; 
-        
+            return;
+        heavyAttackReady = true;
         PlayerAnimator pA = GetComponent<PlayerAnimator>();
         pA.SetDirection(weaponScript.DetermineAttackDirection());
         playerMovement.currentState = Structs.PlayerState.Charging;

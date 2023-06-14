@@ -312,7 +312,7 @@ MonoBehaviour:
   enemyObstacleLayer:
     serializedVersion: 2
     m_Bits: 705
-  minimumRange: 2
+  minimumRange: 1
   maximumRange: 5
   chargeAttackTime: 0.6
   rechargingTime: 1

@@ -179,17 +179,18 @@ public class InputHandler : MonoBehaviour
             whileLoopTracker++;
         }
         whileLoopTracker = 0;
-
+        
         if (!sp)
         {
             //chargeAttack
             sp = true;
-            playerAttack.ChargeHeavyAttacK();
+            playerAttack.ChargeHeavyAttack();
         }
         else
         {
+            //Attack
             sp = false;
-            playerAttack.HeavyAttacK();
+            playerAttack.HeavyAttack();
         }
 
     }

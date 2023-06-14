@@ -26,6 +26,7 @@ public class HittableBarrel : HittableObject
         sound.GetComponent<RandomSound>().PlayRandom2();
         //Play Animation
         animator.SetTrigger("nextStage");
+        animator.SetTrigger("onDeath");
         base.Die(damageSource);
     }
     protected override void TakeDamage(int damage,GameObject damageSource)
@@ -48,8 +49,5 @@ public class HittableBarrel : HittableObject
 
             //spriteRenderer.sprite = destroyedFirstSprite;
         }
-        if(currentHealth <= 0)
-            animator.SetTrigger("onDeath");
-
     }
 }
