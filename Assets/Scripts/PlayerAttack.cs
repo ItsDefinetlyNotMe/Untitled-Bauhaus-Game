@@ -47,6 +47,7 @@ public class PlayerAttack : MonoBehaviour
     }
     public void Attack(InputValue input)
     {
+        Debug.Log("Normal Attack");
         if (weaponScript == null)
             return;
         if (playerMovement.currentState != Structs.PlayerState.Moving)
@@ -62,17 +63,19 @@ public class PlayerAttack : MonoBehaviour
 
     public void HeavyAttackTimeOut()
     {
+        Debug.Log("TimeOut");
         HeavyAttack();
         heavyAttackReady = false;
     }
     public void HeavyAttack()
     {
+        Debug.Log("Heavy attack");
         if (!heavyAttackReady)
         {
             Debug.Log("NOOO");
             return;
         }
-
+        
         float chargedTime = Mathf.Min(3f, Time.time - heavyAttackTimer + 1);
         //ANIMATION START
         animator.SetTrigger(Release);
@@ -84,6 +87,7 @@ public class PlayerAttack : MonoBehaviour
 
             }
         }));
+        animator.ResetTrigger(Release);
     }
     public void ChargeHeavyAttack()
     {

@@ -132,6 +132,10 @@ public abstract class WeaponScript : MonoBehaviour
             yield return new WaitWhile(()=> movementScript.currentState == Attacking);
             //movementScript.ChangeState(MOVING);
         }
+        else
+        {
+            Debug.Log(":c");
+        }
     }
     public abstract void HeavyAttack();//special Attack based on weapon
     public Structs.Direction DetermineAttackDirection()
