@@ -21,10 +21,12 @@ public class Structs : MonoBehaviour
         public Vector2Int size;
         public bool possibleMainObject;
         public Vector2 offset;
+        public Type type;
+        public int difficulty;
     }
     public enum Type
     {
-        Enemy,
+        Interior,
         Trap
     }
 
@@ -47,6 +49,5 @@ public class Structs : MonoBehaviour
         public GameObject prefab;
         public int strength;
         public Vector2Int size;
-        public Type type;
     }
 }
