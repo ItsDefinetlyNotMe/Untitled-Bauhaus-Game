@@ -1,13 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
-public class UIButton : MonoBehaviour
+public class UIButton : MonoBehaviour, ISelectHandler
 {
     private UpgradeWindow upgradeWindow;
     private GameManager gameManager;
@@ -60,5 +62,11 @@ public class UIButton : MonoBehaviour
         {
             upgradeWindow = FindObjectOfType<UpgradeWindow>();
         }
+    }
+
+    public void OnSelect(BaseEventData eventData)
+    {
+        if (SceneManager.GetActiveScene().name == "MainMenu")
+            FindObjectOfType<MainMenu>().selectedButton = name;
     }
 }

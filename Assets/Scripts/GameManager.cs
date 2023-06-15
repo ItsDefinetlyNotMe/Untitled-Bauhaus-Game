@@ -14,6 +14,12 @@ public class GameManager : MonoBehaviour
 
     public int saveSlot;
 
+    public void DeleteSaveOfSlot(string slot)
+    {
+        PlayerPrefs.SetInt("money" + slot, 0);
+        PlayerPrefs.SetInt("maxHealth" + slot, 0);
+    }
+
     private void Awake()
     {
         SceneManager.sceneLoaded += OnSceneLoaded;
