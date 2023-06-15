@@ -92,7 +92,7 @@ public abstract class WeaponScript : MonoBehaviour
     {
         
         //tracking the attacktimer and detecting enemys in attackradius if possible to attack
-        if(Time.time >= nextAttack && movementScript.currentState == Moving){
+        if(Time.time >= nextAttack){
             //movementScript.ChangeState(ATTACKING);
             //call animation
             DetermineAttackDirection();
@@ -123,6 +123,10 @@ public abstract class WeaponScript : MonoBehaviour
 
             //giving back enemies and the attackdamage as soon as they are calculated
             //Debug.Log(enemiesHit.Count);
+            foreach (var enemy in enemiesHit)
+            {
+                Debug.Log(enemy.name);
+            }
             callback(enemiesHit,attackDamage);
             //yield return new WaitWhile(()=> isAttacking == true);
             yield return new WaitWhile(()=> movementScript.currentState == Attacking);
