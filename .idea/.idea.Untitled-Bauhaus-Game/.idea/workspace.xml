@@ -6,11 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="df972bb7-6a35-41d5-ab18-c81111b77aa5" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Untitled-Bauhaus-Game/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Untitled-Bauhaus-Game/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Enemies/ThrowingEnemy/throwing_enemy 1.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Enemies/ThrowingEnemy/throwing_enemy 1.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Valhalla.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Valhalla.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/HittableBarrel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/HittableBarrel.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/InputHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/InputHandler.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/PlayerAttack.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/PlayerAttack.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -140,7 +136,8 @@
       <workItem from="1686383364170" duration="11806000" />
       <workItem from="1686554139275" duration="11167000" />
       <workItem from="1686570107398" duration="4115000" />
-      <workItem from="1686741227820" duration="3709000" />
+      <workItem from="1686741227820" duration="3812000" />
+      <workItem from="1686832558696" duration="1352000" />
     </task>
     <servers />
   </component>

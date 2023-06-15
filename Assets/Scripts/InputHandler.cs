@@ -152,6 +152,7 @@ public class InputHandler : MonoBehaviour
 
             GameObject pauseCanvas = GameObject.Find("PauseMenuCanvas").transform.GetChild(0).gameObject;
             pauseCanvas.SetActive(false);
+            Time.timeScale = 1f;
         }
 
         else if (SceneManager.GetActiveScene().name == "MainMenu")
@@ -204,6 +205,7 @@ public class InputHandler : MonoBehaviour
 
         GameObject pauseCanvas = GameObject.Find("PauseMenuCanvas").transform.GetChild(0).gameObject;
         pauseCanvas.SetActive(true);
+        Time.timeScale = 0f;
 
         isInPauseMenu = true;
     }
