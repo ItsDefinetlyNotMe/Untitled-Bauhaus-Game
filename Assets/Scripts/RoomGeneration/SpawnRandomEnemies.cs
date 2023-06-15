@@ -12,9 +12,6 @@ namespace TestRandomWorldGeneration {
         [Header("Enemy")]
         [SerializeField] private Structs.EnemyPrefab[] enemyPrefabs;
         [SerializeField] private float percentageOfMainEnemy;
-        
-        [Header("Difficulty")]
-        [SerializeField] private Structs.DifficultyStruct[] difficulties;
 
         private List<Vector2> possibleSpawnPositions = new();
         private List<Structs.EnemyPrefab> enemiesToSpawn = new();
@@ -30,16 +27,18 @@ namespace TestRandomWorldGeneration {
         private int floorTileCount;
         private int spaceToFill;
         private int livingEnemyCounter = 0;
+        private int difficulty;
 
         private bool isFirstWave = true;
 
-        public void StartEnemySpawning(ref float[,] newTileMatrix, int newFloorTileCount, int remainingSpace)
+        public void StartEnemySpawning(ref float[,] newTileMatrix, int newFloorTileCount, int remainingSpace, int restDifficulty)
         {
             ResetEverything();
 
             tileMatrix = newTileMatrix;
             floorTileCount = newFloorTileCount;
             spaceToFill = (int)(remainingSpace * 0.5);
+            difficulty = restDifficulty;
 
             GenerateEnemyList();
             InstantiateFirstWave();
@@ -190,7 +189,7 @@ namespace TestRandomWorldGeneration {
 
             } while (!DoesEnemyFitInRoom(mainEnemy.size));
 
-            int strengthToFillWithMainEnemy = (int)(difficulties[0].difficulty * percentageOfMainEnemy);
+            int strengthToFillWithMainEnemy = (int)(difficulty * percentageOfMainEnemy);
 
             whileLoopCounter = 0;
             do
@@ -216,7 +215,7 @@ namespace TestRandomWorldGeneration {
 
                 Structs.EnemyPrefab sideEnemy = enemyPrefabs[indexOfSideEnemy];
 
-                if (currentRoomDifficulty + sideEnemy.strength <= difficulties[0].difficulty)
+                if (currentRoomDifficulty + sideEnemy.strength <= difficulty)
                 {
                     if (DoesEnemyFitInRoom(sideEnemy.size))
                     {
@@ -232,7 +231,7 @@ namespace TestRandomWorldGeneration {
                     break;
                 }
 
-            } while (currentRoomDifficulty != difficulties[0].difficulty);
+            } while (currentRoomDifficulty != difficulty);
 
             livingEnemyCounter = enemiesToSpawn.Count;
         }

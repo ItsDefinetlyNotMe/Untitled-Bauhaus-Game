@@ -12,6 +12,9 @@ namespace TestRandomWorldGeneration
         [Header("Percentage")]
         [SerializeField] private float percentageOfMainObject;
 
+        [Header("Difficulty")]
+        [SerializeField] private Structs.DifficultyStruct[] difficulties;
+
         private List<Vector2> possibleSpawnPositions = new();
 
         private SpawnRandomEnemies spawnRandomEnemies;
@@ -23,6 +26,7 @@ namespace TestRandomWorldGeneration
         private int indexOfMainObject;
         private int spaceToFill;
         private int spaceToFillWithMainObject;
+        private int restDifficulty;
 
         private int alreadyFilledSpace;
         /// <summary>
@@ -40,7 +44,7 @@ namespace TestRandomWorldGeneration
 
             AstarPath.active.Scan();
 
-            spawnRandomEnemies.StartEnemySpawning(ref tileMatrix, floorTileCount, floorTileCount - spaceToFill);
+            spawnRandomEnemies.StartEnemySpawning(ref tileMatrix, floorTileCount, floorTileCount - spaceToFill, restDifficulty);
         }
 
         private void Awake()
@@ -72,6 +76,7 @@ namespace TestRandomWorldGeneration
         {
             //Fill up 20% - 50% of the room
             spaceToFill = (int)(floorTileCount * UnityEngine.Random.Range(0.2f, 0.4f));
+            restDifficulty = difficulties[0].difficulty;
 
             //Choose main furniture and fill up ~70% of the space you want to fill
             //Then choose remaining random from remaining possible objects
@@ -98,6 +103,15 @@ namespace TestRandomWorldGeneration
             //instantiate main object
             do
             {
+                if (interiorObjects[indexOfMainObject].type == Structs.Type.Trap)
+                {
+                    if (interiorObjects[indexOfMainObject].difficulty < restDifficulty)
+                        restDifficulty -= interiorObjects[indexOfMainObject].difficulty;
+
+                    else
+                        break;
+                }
+                    
                 if (sizeOfMainObject > 1)
                     InstantiateBigObject(interiorObjects[indexOfMainObject]);
                 else
@@ -122,15 +136,25 @@ namespace TestRandomWorldGeneration
                 indexOfSideObject = UnityEngine.Random.Range(0, interiorObjects.Length);
                 if(indexOfSideObject == indexOfMainObject)
                     continue;
+
                 int sizeOfSideObject = interiorObjects[indexOfSideObject].size.x * interiorObjects[indexOfSideObject].size.y;
                
                 if (alreadyFilledSpace + sizeOfSideObject <= spaceToFill)
                 {
+                    if (interiorObjects[indexOfSideObject].type == Structs.Type.Trap)
+                    {
+                        if (interiorObjects[indexOfSideObject].difficulty < restDifficulty)
+                            restDifficulty -= interiorObjects[indexOfSideObject].difficulty;
+
+                        else
+                            continue;
+                    }
+
                     if (sizeOfSideObject > 1)
                         InstantiateBigObject(interiorObjects[indexOfSideObject]);
                     else
                         InstantiateSmallObject(interiorObjects[indexOfSideObject]);
-                    
+
                     alreadyFilledSpace += sizeOfSideObject;
                 }
 
