@@ -87,6 +87,7 @@ namespace TestRandomWorldGeneration
             InstantiateFloor();
             InstantiateWalls();
 
+            //dont spawn anything on [0, 0]
             tileMatrix[(int)numberOfMaxTiles / 2, (int)numberOfMaxTiles / 2] = 7;
 
             SetDoorDirections(doorDirection);
