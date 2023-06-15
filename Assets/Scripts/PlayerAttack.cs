@@ -67,8 +67,12 @@ public class PlayerAttack : MonoBehaviour
     }
     public void HeavyAttack()
     {
-        if(!heavyAttackReady)
+        if (!heavyAttackReady)
+        {
+            Debug.Log("NOOO");
             return;
+        }
+
         float chargedTime = Mathf.Min(3f, Time.time - heavyAttackTimer + 1);
         //ANIMATION START
         animator.SetTrigger(Release);

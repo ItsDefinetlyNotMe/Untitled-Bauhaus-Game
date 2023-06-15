@@ -57,12 +57,15 @@ namespace Enemies
         /// <summary> Figuring out what to do next based on The state Enemy is in</summary>
         protected void NextMove()
         {//figuring out what to do next called in update
+            if(isStunned)
+                return;
             float distance = Vector2.Distance(transform.position, target.position);
             if(currentEnemyState == EnemyState.Fleeing)
             {
                 if(distance > minimumRange + fleeingOffset)
                 {
                     ChangeState(EnemyState.Moving);
+                    StartTargeting();
                 }else
                 {
                     CheckFleeing();

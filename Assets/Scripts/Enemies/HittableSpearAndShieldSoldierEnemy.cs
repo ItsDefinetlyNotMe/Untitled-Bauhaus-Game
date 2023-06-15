@@ -8,7 +8,8 @@ public class HittableSpearAndShieldSoldierEnemy : HittableEnemy
 {
     private SpearAndShieldEnemy spearAndShieldEnemy;
     [SerializeField] private float knockbackDuration = 0.05f;
-    private void Start()
+
+    protected override void Start()
     {
         spearAndShieldEnemy = GetComponent<SpearAndShieldEnemy>();
         base.Start();

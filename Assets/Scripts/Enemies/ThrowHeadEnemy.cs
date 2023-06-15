@@ -10,6 +10,7 @@ namespace Enemies
         private Transform head;
         private SpriteRenderer spriteRenderer;
         private Rigidbody2D headRb;
+        
         [Header("Attack")]
         [SerializeField] private float attackDamage;
         private static readonly int OnAttack = Animator.StringToHash("onAttack");
@@ -30,6 +31,8 @@ namespace Enemies
         // Update is called once per frame
         void Update()
         {
+            if(isStunned)
+                return;
             NextMove();
             //regulate Animation
             if (currentEnemyState == Structs.EnemyState.Moving || currentEnemyState == Structs.EnemyState.Idle)
@@ -60,8 +63,6 @@ namespace Enemies
             ChangeState(Structs.EnemyState.Attacking);
             spriteRenderer.enabled = false;
             //dash head
-            //disable rb collisions and 
-            //yield return new WaitForSeconds();
             headRb.velocity = (target.position-transform.position).normalized * projectileSpeed;
             yield return new WaitForSeconds(2);
             //stop head as new function

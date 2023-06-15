@@ -1,3 +1,5 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public abstract class HittableObject : MonoBehaviour
@@ -39,10 +41,10 @@ public abstract class HittableObject : MonoBehaviour
     {
         if(damageSource.CompareTag("Player"))
             onObjectDeath?.Invoke(); //Invoke event for controller vibration
-
+        
+        Bounds myBounds = new Bounds(transform.position,new Vector3(1f,1f,1f) * 2f);
+        AstarPath.active.UpdateGraphs (myBounds);
         objectCollider.enabled = false;
-        //disable enemy
-        //gameObject.SetActive(false);
     }
     
 }

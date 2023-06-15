@@ -10,14 +10,14 @@ namespace Enemies
 {
     public class HittableEnemy : HittableObject
     {
-        private Animator animator;
-        private SpriteRenderer spriteRenderer;
-        private Rigidbody2D rb;
+        protected Animator animator;
+        protected SpriteRenderer spriteRenderer;
+        protected Rigidbody2D rb;
 
         public GameObject HitSound;
         public GameObject DeathHitSound;
 
-        private EnemyMovement enemyMovement;
+        protected EnemyMovement enemyMovement;
         //called on deathanimation
         public bool dying;
         
@@ -44,7 +44,8 @@ namespace Enemies
         
             Knockback(0.05f,damageSourcePosition,knockbackMultiplier);//TODO duration
         }
-        private IEnumerator HitFeedback(){
+
+        protected virtual IEnumerator HitFeedback(){
             Vector3 t = transform.localScale;
             transform.localScale *= 1.05f;
             if (spriteRenderer.enabled)
@@ -82,9 +83,7 @@ namespace Enemies
         {
             
             if(size==0)
-            {
                 return;
-            }
             float sizeMultiplier = 1 / size;
             float knockbackStrength = knockbackMultiplier * sizeMultiplier;
             if(enemyMovement != null)

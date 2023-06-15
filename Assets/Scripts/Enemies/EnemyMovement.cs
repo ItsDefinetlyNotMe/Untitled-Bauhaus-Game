@@ -85,6 +85,8 @@ namespace Enemies
             }
             if(!reachedEndofPath && targeting)
             {
+                if(isStunned)
+                    Debug.Log("targeting");
                 if(direction.magnitude > 0.1f)
                     lastDirection = direction;
                 direction = ((Vector2)path.vectorPath[currentWaypoint] - rb.position).normalized;
@@ -125,8 +127,9 @@ namespace Enemies
             //For some reason the rb stops every now and then
         }
         
-        public virtual void Stun(float duration)
+        protected virtual void Stun(float duration)
         {
+            Debug.Log("Stun");
             isStunned = true;
             StopTargeting();
             rb.velocity = Vector2.zero;

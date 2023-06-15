@@ -56,7 +56,7 @@ public class TestScript : MonoBehaviour
     {
         var en = victim.GetComponent<EnemyMovement>();
         MethodInfo methodInfo = typeof(EnemyMovement).GetMethod("Stun", BindingFlags.NonPublic | BindingFlags.Instance);
-        object[] args = new object[] { duration};
+        object[] args = { duration };
         if(methodInfo != null)
             methodInfo.Invoke(en,args);
     }
