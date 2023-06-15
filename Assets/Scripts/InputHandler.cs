@@ -210,6 +210,12 @@ public class InputHandler : MonoBehaviour
         isInPauseMenu = true;
     }
 
+    private void OnDelete()
+    {
+        if (SceneManager.GetActiveScene().name == "MainMenu")
+            GameObject.Find("/Canvas/MainMenu").GetComponent<MainMenu>().SlotDeletionConfirmatiion();
+    }
+
     private IEnumerator ActivateUI()
     {
         yield return new WaitForEndOfFrame();
