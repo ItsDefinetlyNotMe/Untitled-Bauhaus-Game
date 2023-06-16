@@ -2,6 +2,7 @@ using System.Collections;
 using System.Drawing;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 using Color = UnityEngine.Color;
 
 // ReSharper disable Unity.InefficientPropertyAccess
@@ -14,8 +15,9 @@ namespace Enemies
         protected SpriteRenderer spriteRenderer;
         protected Rigidbody2D rb;
 
-        public GameObject HitSound;
-        public GameObject DeathHitSound;
+        [SerializeField] private GameObject HitSound;
+        [SerializeField] private GameObject DeathHitSound;
+        [SerializeField] private Slider healthBar;
 
         protected EnemyMovement enemyMovement;
         //called on deathanimation
@@ -32,6 +34,9 @@ namespace Enemies
             rb = GetComponent<Rigidbody2D>();
             animator = GetComponent<Animator>();
             enemyMovement = GetComponent<EnemyMovement>();
+
+            healthBar.maxValue = maxHealth;
+            healthBar.value = maxHealth;
         }
         public override void GetHit(int damage, Vector2 damageSourcePosition, float knockbackMultiplier,GameObject damageSource,bool heavy)
         {
@@ -41,7 +46,8 @@ namespace Enemies
             //HitSound.GetComponent<RandomSound>().PlayRandom1();
 
             base.GetHit(damage,damageSourcePosition, knockbackMultiplier,damageSource,heavy);
-        
+
+            healthBar.value = currentHealth;
             Knockback(0.05f,damageSourcePosition,knockbackMultiplier);//TODO duration
         }
 
