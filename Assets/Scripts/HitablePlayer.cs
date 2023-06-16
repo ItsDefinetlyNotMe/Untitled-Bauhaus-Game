@@ -86,19 +86,13 @@ public class HitablePlayer : HittableObject
 
             healthBar = GameObject.Find("/InGameCanvas/HealthBar");
 
-            healthSlider = healthBar.GetComponent<Slider>();
-            healthText = healthBar.GetComponentInChildren<TMP_Text>();
-
             UpdateHealthBar();
         }
     }
 
     private void UpdateHealthBar()
     {
-        healthSlider.maxValue = maxHealth;
-        healthSlider.value = currentHealth;
-
-        healthText.text = currentHealth.ToString() + " / " + maxHealth.ToString();
+        healthBar.GetComponent<PlayerHealthBar>().UpdateHealthBar(currentHealth, maxHealth);
     }
     private IEnumerator HitFeedback(){
         transform.localScale *= 1.1f;
