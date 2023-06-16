@@ -8,18 +8,23 @@ using UnityEngine;
 
 abstract public class MeleeEnemy : EnemyMovement
 {
-       [Header("Movement")]
+        //[Header("Movement")]
     
-        [Header("States")]
-        public EnemyState currentEnemyState;
+        //[Header("States")]
+        public EnemyState currentEnemyState { get; private set; }
     
         [Header("Layer")]
         [SerializeField] protected LayerMask attackLayer;
         [SerializeField] protected LayerMask enemyObstacleLayer;
 
         [Header("Animation")]
-        protected Animator animator; 
+        protected Animator animator;
 
+        [Header("Attack")] 
+        [SerializeField] protected int damage;
+
+        [SerializeField] protected float knockback;
+        
         [Header("AttackRanges")]
         [SerializeField] protected float attackRange = 1f;
         [SerializeField] protected float aggroRange = 50f;
@@ -48,16 +53,6 @@ abstract public class MeleeEnemy : EnemyMovement
                     StartAttack();
                 }
             }
-
-            /*if (distance > aggroRange)
-            {
-                StopTargeting();
-                ChangeState(EnemyState.Idle);
-            }
-            else if(currentEnemyState == EnemyState.Idle)
-            {
-                StartTargeting();
-            }*/
         }
         private void StartAttack()
         {

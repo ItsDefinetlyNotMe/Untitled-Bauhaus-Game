@@ -196,8 +196,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 3168918631648191638}
   - {fileID: 7944521738468066455}
+  - {fileID: 3168918631648191638}
   - {fileID: 6927992199260280634}
   - {fileID: 3215549404539637982}
   - {fileID: 6546067699383948873}
@@ -343,13 +343,14 @@ MonoBehaviour:
   target: {fileID: 0}
   movementSpeed: 1
   nextWayPointDistance: 3
-  currentEnemyState: 0
   attackLayer:
     serializedVersion: 2
     m_Bits: 448
   enemyObstacleLayer:
     serializedVersion: 2
     m_Bits: 704
+  damage: 0
+  knockback: 0
   attackRange: 1
   aggroRange: 10
   chargeAttackTime: 0.6
@@ -452,7 +453,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3168918631007937121}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &3168918631648191633
 MonoBehaviour:
@@ -563,7 +564,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3168918631007937121}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 180}
 --- !u!60 &7862758786358408947
 PolygonCollider2D:
@@ -572,7 +573,7 @@ PolygonCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7011510819161513834}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0

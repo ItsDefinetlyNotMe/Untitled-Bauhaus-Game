@@ -13,17 +13,26 @@ public class SpearAndShieldEnemy : MeleeEnemy
     private static readonly int X = Animator.StringToHash("x");
     private static readonly int Y = Animator.StringToHash("y");
     private static readonly int IsWalking = Animator.StringToHash("isWalking");
-    private static readonly int onAttack = Animator.StringToHash("onAttack");
+    private static readonly int OnAttack = Animator.StringToHash("onAttack");
     private static readonly int AttackDirection = Animator.StringToHash("AttackDirection");
     private static readonly int AttackSmallDirection = Animator.StringToHash("AttackSmallDirection");
     private static readonly int Idle = Animator.StringToHash("Idle");
     private static readonly int Defense = Animator.StringToHash("Defense");
     private static readonly int DefenseBreak = Animator.StringToHash("DefenseBreak");
+    private static readonly int BlockDirection = Animator.StringToHash("BlockDirection");
+    private static readonly int OnSmallAttackEnd = Animator.StringToHash("onSmallAttackEnd");
+    private static readonly int OnAttackEnd = Animator.StringToHash("onAttackEnd");
+
+    private Collider2D weaponCol;
 
     private void Start()
     {
         base.StartUp();
+        weaponCol = transform.GetChild(0).GetComponent<Collider2D>();
+        weaponCol.enabled = false;
+        print(weaponCol.enabled);
         StartTargeting();
+        
     }
 
     private void Update()
@@ -44,22 +53,28 @@ public class SpearAndShieldEnemy : MeleeEnemy
         for (int i = 0; i < 3; ++i)
             attackdirection[i] = UnityEngine.Random.Range(0, 3);
         yield return new WaitForSeconds(chargeAttackTime);
-        animator.SetTrigger(onAttack);
+        animator.SetTrigger(OnAttack);
         animator.SetInteger(AttackDirection,(int)direction);
         // animation will change state to attacking
         foreach (int i in attackdirection)
         {
-            Debug.Log(i);
             //play animation 1..3
             animator.SetInteger(AttackSmallDirection,i);
             yield return new WaitUntil(() => currentEnemyState == EnemyState.Attacking);
+            weaponCol.enabled = true;
+            print(weaponCol.enabled);
             //set enemy not attacking on the end of the animation 
             yield return new WaitUntil(() => currentEnemyState != EnemyState.Attacking);
+            weaponCol.enabled = false;
+            print(weaponCol.enabled);
+
         }
         //animator.SetBool(IsAttacking,false);
         //play animation
+        Debug.Log("HIER");
+        StartTargeting();
         ChangeState(EnemyState.Idle);
-        animator.SetTrigger(Idle);
+        animator.Play("Idle");
         //yield return new WaitForSeconds(rechargingTime);
         callback(true);
     }
@@ -84,6 +99,7 @@ public class SpearAndShieldEnemy : MeleeEnemy
     public void EndSmallAttack()
     {
         ChangeState(EnemyState.ChargingAttack);
+        animator.SetTrigger(OnSmallAttackEnd);
     }
     public void StartSmallAttack()
     {
@@ -93,12 +109,12 @@ public class SpearAndShieldEnemy : MeleeEnemy
     public void PlayBlockAnimation(Vector2 damageSourcePosition)
     {
         var dir = GetDirectionFromDamageSource(damageSourcePosition);
-        animator.SetInteger("BlockDirection",(int)dir);
+        animator.SetInteger(BlockDirection,(int)dir);
         animator.SetTrigger(Defense);
     }
     public void BlockBreak(Vector2 damageSourcePosition)
     {   
-        Stun(1f); 
+        //Stun(1f); 
         animator.SetTrigger(DefenseBreak);
     }
 
@@ -111,6 +127,12 @@ public class SpearAndShieldEnemy : MeleeEnemy
     public EnemyState GetState()
     {
         return currentEnemyState;
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if(other.CompareTag("Player"))
+            other.GetComponent<HitablePlayer>().GetHit(damage,transform.position,knockback,gameObject,false);
     }
 
     private void OnDrawGizmos()
