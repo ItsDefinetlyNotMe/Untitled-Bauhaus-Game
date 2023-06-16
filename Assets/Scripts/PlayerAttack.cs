@@ -47,7 +47,6 @@ public class PlayerAttack : MonoBehaviour
     }
     public void Attack(InputValue input)
     {
-        Debug.Log("Normal Attack");
         if (weaponScript == null)
             return;
         if (playerMovement.currentState != Structs.PlayerState.Moving)
@@ -60,22 +59,14 @@ public class PlayerAttack : MonoBehaviour
             }
         }));
     }
-
-    public void HeavyAttackTimeOut()
-    {
-        Debug.Log("TimeOut");
-        HeavyAttack();
-        heavyAttackReady = false;
-    }
     public void HeavyAttack()
     {
-        Debug.Log("Heavy attack");
         if (!heavyAttackReady)
         {
-            Debug.Log("NOOO");
             return;
         }
-        
+
+        heavyAttackReady = false;
         float chargedTime = Mathf.Min(3f, Time.time - heavyAttackTimer + 1);
         //ANIMATION START
         animator.SetTrigger(Release);
@@ -84,7 +75,6 @@ public class PlayerAttack : MonoBehaviour
             foreach (Collider2D enemy in enemiesHit)
             {
                 enemy.GetComponent<HittableObject>().GetHit((int)(weaponDamage * damageMultiplier * chargedTime), transform.position, knockbackMultiplier, gameObject,true);
-
             }
         }));
         animator.ResetTrigger(Release);
@@ -100,6 +90,7 @@ public class PlayerAttack : MonoBehaviour
         pA.SetDirection(weaponScript.DetermineAttackDirection());
         playerMovement.currentState = Structs.PlayerState.Charging;
         heavyAttackTimer = Time.time;
+        Invoke(nameof(HeavyAttack),2f);
         animator.SetTrigger(Charging);
         //play animation
     }
@@ -108,4 +99,5 @@ public class PlayerAttack : MonoBehaviour
     {
         damageMultiplier = stats.getDamageMultiplier();
     }
+
 }

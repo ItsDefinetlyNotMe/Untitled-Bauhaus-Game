@@ -1,8 +1,8 @@
 
 public class Sword : WeaponScript
 {
-    public override void HeavyAttack()
+   /* public override void HeavyAttack()
     {
 
-    }
+    }*/
 }

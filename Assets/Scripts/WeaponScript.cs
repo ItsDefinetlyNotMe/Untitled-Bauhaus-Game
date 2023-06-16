@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
 using static Structs.Direction;
 using static Structs.PlayerState;
@@ -24,6 +25,7 @@ public abstract class WeaponScript : MonoBehaviour
 
     [Header("Physics")]
     Collider2D[] weaponHitBoxes;
+    
     
     [Header("Attack")]
     private float nextAttack;
@@ -90,11 +92,7 @@ public abstract class WeaponScript : MonoBehaviour
 
     public IEnumerator HeavyAttack(Action<List<Collider2D>,int> callback)
     {
-        
-        //tracking the attacktimer and detecting enemys in attackradius if possible to attack
-        if(Time.time >= nextAttack){
-            //movementScript.ChangeState(ATTACKING);
-            //call animation
+        //call animation
             DetermineAttackDirection();
             playerAnimator.SetDirection(attackDirection);
             playerAnimator.PlayHeavyAttackAnimation(attackDirection);
@@ -103,9 +101,8 @@ public abstract class WeaponScript : MonoBehaviour
             //Cooldown
             nextHeavyAttack = Time.time + 1f/attackSpeed;
             
-            //Wait for animation to start
-            //yield return new WaitWhile(() => isAttacking == false);
-            yield return new WaitWhile(() => movementScript.currentState != Attacking);
+            //Wait for Hitbox to be ready
+            yield return new WaitUntil(() => IsAnyHitboxEnabled());
             
             //locating enemies
             List<Collider2D> enemiesHit = new List<Collider2D>();
@@ -118,26 +115,28 @@ public abstract class WeaponScript : MonoBehaviour
                 }
                 weaponHitBox.OverlapCollider(enemyFilter, enemiesHit);
             }
-            
-            //yield return new WaitWhile(() => isAttacking == true);
 
             //giving back enemies and the attackdamage as soon as they are calculated
-            //Debug.Log(enemiesHit.Count);
-            foreach (var enemy in enemiesHit)
-            {
-                Debug.Log(enemy.name);
-            }
             callback(enemiesHit,attackDamage);
             //yield return new WaitWhile(()=> isAttacking == true);
             yield return new WaitWhile(()=> movementScript.currentState == Attacking);
             //movementScript.ChangeState(MOVING);
-        }
-        else
+        //}
+        /*else
         {
             Debug.Log(":c");
-        }
+        }*/
     }
-    public abstract void HeavyAttack();//special Attack based on weapon
+    private bool IsAnyHitboxEnabled()
+    {
+        foreach (Collider2D hitbox in weaponHitBoxes)
+        {
+            if (hitbox.enabled)
+                return true; 
+        }
+        return false;
+    }
+    //public abstract void HeavyAttack();//special Attack based on weapon
     public Structs.Direction DetermineAttackDirection()
     {
         Structs.Direction newAttackDirection;
@@ -172,4 +171,5 @@ public abstract class WeaponScript : MonoBehaviour
         attackNumber = (attackNumber + 1) % 3;
         attackNumberTimeStamp = attackNumberCooldown + Time.time;
     }
+    
 }

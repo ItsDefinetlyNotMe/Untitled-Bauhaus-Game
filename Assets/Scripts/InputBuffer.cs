@@ -23,7 +23,6 @@ public class InputBuffer : MonoBehaviour
 
     public void BufferDequeue()
     {
-        //Debug.Log("Dequeueing: " + bufferQueue.Count + " elements.");
         if (bufferQueue.Count > 0)
         {
             while (bufferQueue.Count > toBuffer)
