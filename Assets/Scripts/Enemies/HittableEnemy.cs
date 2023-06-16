@@ -47,6 +47,9 @@ namespace Enemies
 
             base.GetHit(damage,damageSourcePosition, knockbackMultiplier,damageSource,heavy);
 
+            if (healthBar.value == maxHealth)
+                healthBar.gameObject.SetActive(true);
+
             healthBar.value = currentHealth;
             Knockback(0.05f,damageSourcePosition,knockbackMultiplier);//TODO duration
         }
