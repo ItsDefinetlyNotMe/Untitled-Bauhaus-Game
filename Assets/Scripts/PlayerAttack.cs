@@ -61,6 +61,7 @@ public class PlayerAttack : MonoBehaviour
     }
     public void HeavyAttack()
     {
+        CancelInvoke(nameof(HeavyAttack));
         if (!heavyAttackReady)
         {
             return;
