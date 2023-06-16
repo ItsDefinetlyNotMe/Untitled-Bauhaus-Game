@@ -19,7 +19,12 @@ public class TestScript : MonoBehaviour
     [SerializeField] private float duration;
     [SerializeField] private float knockback;
     //[Header("Camera")] 
-    [SerializeField] private GameObject camPos;
+    private GameObject camPos;
+
+    private void Start()
+    {
+        camPos = GameObject.Find("Camerafocus");
+    }
 
     private void Update()
     {
@@ -72,6 +77,8 @@ public class TestScript : MonoBehaviour
 
     public void StartTargeting()
     {
+        if(victim == null)
+            return;
         var en = victim.GetComponent<EnemyMovement>();
         MethodInfo methodInfo = typeof(EnemyMovement).GetMethod("StartTargeting", BindingFlags.NonPublic | BindingFlags.Instance);
         //object[] args = new object[] { duration, position, knockback };

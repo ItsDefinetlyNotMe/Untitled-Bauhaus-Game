@@ -97,7 +97,8 @@ public class SpearAndShieldEnemy : MeleeEnemy
         animator.SetTrigger(Defense);
     }
     public void BlockBreak(Vector2 damageSourcePosition)
-    {
+    {   
+        Stun(1f); 
         animator.SetTrigger(DefenseBreak);
     }
 

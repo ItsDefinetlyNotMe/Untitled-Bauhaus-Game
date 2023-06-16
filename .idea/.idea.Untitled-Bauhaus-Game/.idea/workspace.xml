@@ -6,10 +6,32 @@
   <component name="ChangeListManager">
     <list default="true" id="df972bb7-6a35-41d5-ab18-c81111b77aa5" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Untitled-Bauhaus-Game/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Untitled-Bauhaus-Game/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/InputBuffer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/InputBuffer.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/PlayerAttack.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/PlayerAttack.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Sword.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Sword.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/WeaponScript.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/WeaponScript.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Enemies/SpeerAndShieldSoldier/SpeerAndShieldSoldier.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Enemies/SpeerAndShieldSoldier/SpeerAndShieldSoldier.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/HUB.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/HUB.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/SimonTestScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/SimonTestScene.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Enemies/EnemyMovement.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Enemies/EnemyMovement.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Enemies/HittableEnemy.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Enemies/HittableEnemy.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Enemies/SpearAndShieldEnemy.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Enemies/SpearAndShieldEnemy.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Test/TestScript.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Test/TestScript.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Enemy/SpeerAndShieldSoldier/Death/SpearAndShieldDeath.anim" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/Enemy/SpeerAndShieldSoldier/Death/SpearAndShieldDeath.anim" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Enemy/SpeerAndShieldSoldier/Down/AttackDown/AttackDownSpeerAndShieldSoldier.anim" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/Enemy/SpeerAndShieldSoldier/Down/AttackDown/AttackDownSpeerAndShieldSoldier.anim" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Enemy/SpeerAndShieldSoldier/Down/AttackDown/DownLeft/AttackDownLeftSpeerAndShieldSoldier.anim" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/Enemy/SpeerAndShieldSoldier/Down/AttackDown/DownLeft/AttackDownLeftSpeerAndShieldSoldier.anim" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Enemy/SpeerAndShieldSoldier/Down/AttackDown/DownLeft/AttackDownRightSpeerAndShieldSoldier.anim" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/Enemy/SpeerAndShieldSoldier/Down/AttackDown/DownLeft/AttackDownRightSpeerAndShieldSoldier.anim" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Enemy/SpeerAndShieldSoldier/Down/DefenseBreakDown/DownDefenseBreak.anim" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/Enemy/SpeerAndShieldSoldier/Down/DefenseBreakDown/DownDefenseBreak.anim" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Enemy/SpeerAndShieldSoldier/Down/DefenseDown/DownDefense.anim" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/Enemy/SpeerAndShieldSoldier/Down/DefenseDown/DownDefense.anim" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Enemy/SpeerAndShieldSoldier/Down/IdleDown/SpeerAndShieldSoldierIDLE0000.controller" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/Enemy/SpeerAndShieldSoldier/Down/IdleDown/SpeerAndShieldSoldierIDLE0000.controller" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Enemy/SpeerAndShieldSoldier/Left/AttackLeft/Left/AttackLeft.anim" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/Enemy/SpeerAndShieldSoldier/Left/AttackLeft/Left/AttackLeft.anim" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Enemy/SpeerAndShieldSoldier/Left/AttackLeft/LeftDown/AttackLeftDown.anim" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/Enemy/SpeerAndShieldSoldier/Left/AttackLeft/LeftDown/AttackLeftDown.anim" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Enemy/SpeerAndShieldSoldier/Left/AttackLeft/LeftUp/AttackLeftUp.anim" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/Enemy/SpeerAndShieldSoldier/Left/AttackLeft/LeftUp/AttackLeftUp.anim" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Enemy/SpeerAndShieldSoldier/Left/DefenseBreakLeft/LeftDefenseBreak.anim" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/Enemy/SpeerAndShieldSoldier/Left/DefenseBreakLeft/LeftDefenseBreak.anim" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Enemy/SpeerAndShieldSoldier/Right/Animations/RightAttack.anim" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/Enemy/SpeerAndShieldSoldier/Right/Animations/RightAttack.anim" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Enemy/SpeerAndShieldSoldier/Right/Animations/RightAttackDown.anim" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/Enemy/SpeerAndShieldSoldier/Right/Animations/RightAttackDown.anim" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Enemy/SpeerAndShieldSoldier/Right/Animations/RightAttackUp.anim" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/Enemy/SpeerAndShieldSoldier/Right/Animations/RightAttackUp.anim" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Enemy/SpeerAndShieldSoldier/Right/Animations/RightDefenseBreak.anim" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/Enemy/SpeerAndShieldSoldier/Right/Animations/RightDefenseBreak.anim" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Enemy/SpeerAndShieldSoldier/Up/AttackUp/AttackUpLeftSpeerAndShieldSoldier.anim" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/Enemy/SpeerAndShieldSoldier/Up/AttackUp/AttackUpLeftSpeerAndShieldSoldier.anim" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Enemy/SpeerAndShieldSoldier/Up/AttackUp/AttackUpRightSpeerAndShieldSoldier.anim" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/Enemy/SpeerAndShieldSoldier/Up/AttackUp/AttackUpRightSpeerAndShieldSoldier.anim" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Enemy/SpeerAndShieldSoldier/Up/AttackUp/AttackUpSpeerAndShieldSoldier.anim" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/Enemy/SpeerAndShieldSoldier/Up/AttackUp/AttackUpSpeerAndShieldSoldier.anim" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Enemy/SpeerAndShieldSoldier/Up/IdleUp/UpDefenseBreak.anim" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/Enemy/SpeerAndShieldSoldier/Up/IdleUp/UpDefenseBreak.anim" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -21,6 +43,7 @@
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/7c971034553a4412aa7c92428f46e2e51f800/b5/e9bc7f25/Collider2D.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/964670f15c6b47f9b8f934073272047381e800/f5/72885211/Editor.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/ba783288ca164d3099898a8819fcec1c159e00/05/7299a542/Debug.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/ba783288ca164d3099898a8819fcec1c159e00/5a/a0bae562/MonoBehaviour.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/ba783288ca164d3099898a8819fcec1c159e00/cd/11ea9330/Bounds.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/HitboxScript.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/CameraShake.cs" root0="FORCE_HIGHLIGHTING" />

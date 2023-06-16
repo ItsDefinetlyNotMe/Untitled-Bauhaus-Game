@@ -127,9 +127,19 @@ namespace Enemies
             //For some reason the rb stops every now and then
         }
         
+        protected virtual void IndefStun()
+        {
+            isStunned = true;
+            StopTargeting();
+            rb.velocity = Vector2.zero;
+        }
+        protected virtual void UnStun()
+        {
+            isStunned = false;
+            StartTargeting();
+        }
         protected virtual void Stun(float duration)
         {
-            Debug.Log("Stun");
             isStunned = true;
             StopTargeting();
             rb.velocity = Vector2.zero;

@@ -84,7 +84,6 @@ namespace Enemies
                 yield return new WaitUntil(() => dying);
                 yield return new WaitUntil(() => !dying);
             }
-
             Destroy(gameObject);
         }
 
