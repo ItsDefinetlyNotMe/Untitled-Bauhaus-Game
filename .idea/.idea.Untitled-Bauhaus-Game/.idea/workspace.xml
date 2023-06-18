@@ -6,15 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="df972bb7-6a35-41d5-ab18-c81111b77aa5" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Untitled-Bauhaus-Game/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Untitled-Bauhaus-Game/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Enemies/SpeerAndShieldSoldier/SpeerAndShieldSoldier.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Enemies/SpeerAndShieldSoldier/SpeerAndShieldSoldier.prefab" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/SimonTestScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/SimonTestScene.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Valhalla.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Valhalla.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Enemies/HittableEnemy.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Enemies/HittableEnemy.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Enemies/MeleeEnemy.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Enemies/MeleeEnemy.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Enemies/SpearAndShieldEnemy.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Enemies/SpearAndShieldEnemy.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Enemy/SpeerAndShieldSoldier/Down/AttackDown/AttackDownSpeerAndShieldSoldier.anim" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/Enemy/SpeerAndShieldSoldier/Down/AttackDown/AttackDownSpeerAndShieldSoldier.anim" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Enemy/SpeerAndShieldSoldier/Down/AttackDown/DownLeft/AttackDownLeftSpeerAndShieldSoldier.anim" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/Enemy/SpeerAndShieldSoldier/Down/AttackDown/DownLeft/AttackDownLeftSpeerAndShieldSoldier.anim" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Enemy/SpeerAndShieldSoldier/Down/AttackDown/DownLeft/AttackDownRightSpeerAndShieldSoldier.anim" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/Enemy/SpeerAndShieldSoldier/Down/AttackDown/DownLeft/AttackDownRightSpeerAndShieldSoldier.anim" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Sprites/Enemy/SpeerAndShieldSoldier/Down/IdleDown/SpeerAndShieldSoldierIDLE0000.controller" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/Enemy/SpeerAndShieldSoldier/Down/IdleDown/SpeerAndShieldSoldierIDLE0000.controller" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -152,7 +146,8 @@
       <workItem from="1686741227820" duration="3812000" />
       <workItem from="1686832558696" duration="13665000" />
       <workItem from="1686911129226" duration="6645000" />
-      <workItem from="1686929965520" duration="4356000" />
+      <workItem from="1686929965520" duration="4968000" />
+      <workItem from="1687110824642" duration="2439000" />
     </task>
     <servers />
   </component>

@@ -33,38 +33,44 @@ abstract public class MeleeEnemy : EnemyMovement
         [SerializeField] protected float chargeAttackTime = .6f;
         [SerializeField] protected float rechargingTime = 1f;
         protected bool readyToAttack = true;
-        
+
+        protected Transform origin;
         protected override void StartUp() 
         {
             base.StartUp();
             currentEnemyState = EnemyState.Moving;
             animator = GetComponent<Animator>();
+            origin = GameObject.Find("OrderLayer").transform;
         }
         /// <summary> Figuring out what to do next based on The state Enemy is in</summary>
         protected void NextMove()
         {//figuring out what to do next called in update
             if(isStunned)return;
-            float distance = Vector2.Distance(transform.position, target.position - new Vector3(0f,0.5f,0f));
+            float distance = Vector2.Distance(origin.position, target.position);
             if (currentEnemyState != EnemyState.Attacking)
             {
-                SetAnimator(target.position - transform.position,true);
+                SetAnimator(target.position - origin.position,true);
                 if (distance <= attackRange * 0.8f)
                 {
+                    print("I should attack");
                     StartAttack();
                 }
             }
         }
         private void StartAttack()
         {
+            Time.timeScale = 0.5f;
             if(!readyToAttack)
                 return;
             Direction attackDirection = Direction.Up;
             //Ray to look wether there is an obstacle between u and player
-            Vector2 raydirection = (target.position - transform.position).normalized;
-            RaycastHit2D hit = Physics2D.Raycast(transform.position, raydirection, attackRange);
-            if(hit)
+            Vector2 offset = new Vector2(0f, -1f) * 0.5f; 
+            Vector2 raydirection = ((Vector2)target.position + offset - (Vector2)origin.position).normalized;
+            RaycastHit2D hit = Physics2D.Raycast(origin.position, raydirection, attackRange);
+            print(!hit.transform.CompareTag("Player"));
+            /*if(hit)
                 if(!hit.transform.CompareTag("Player"))
-                    return;
+                    return;*/
             attackDirection = GetDirection(raydirection);
             bool notused = true;
             readyToAttack = false;

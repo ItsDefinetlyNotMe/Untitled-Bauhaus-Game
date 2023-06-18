@@ -62,16 +62,13 @@ public class SpearAndShieldEnemy : MeleeEnemy
             animator.SetInteger(AttackSmallDirection,i);
             yield return new WaitUntil(() => currentEnemyState == EnemyState.Attacking);
             weaponCol.enabled = true;
-            print(weaponCol.enabled);
             //set enemy not attacking on the end of the animation 
             yield return new WaitUntil(() => currentEnemyState != EnemyState.Attacking);
             weaponCol.enabled = false;
-            print(weaponCol.enabled);
 
         }
         //animator.SetBool(IsAttacking,false);
         //play animation
-        Debug.Log("HIER");
         StartTargeting();
         ChangeState(EnemyState.Idle);
         animator.Play("Idle");
@@ -81,10 +78,10 @@ public class SpearAndShieldEnemy : MeleeEnemy
 
     protected override void SetAnimator(Vector2 dir, bool isWalking)
     {
-        float distance = Vector2.Distance(transform.position, target.position - new Vector3(0f, 0.5f, 0f));
+        float distance = Vector2.Distance(origin.position, target.position - new Vector3(0f, 0.5f, 0f));
         if (distance < attackRange)
         {
-            Vector2 direction = (target.position - transform.position).normalized;
+            Vector2 direction = (target.position - origin.position).normalized;
             animator.SetFloat(X, direction.x);
             animator.SetFloat(Y,direction.y);
         }
@@ -120,7 +117,7 @@ public class SpearAndShieldEnemy : MeleeEnemy
 
     protected Direction GetDirectionFromDamageSource(Vector2 damageSourcePosition)
     {
-        Vector2 direction = (damageSourcePosition - (Vector2)transform.position).normalized;
+        Vector2 direction = (damageSourcePosition - (Vector2)origin.position).normalized;
         return GetDirection(direction);
     }
 
@@ -132,7 +129,7 @@ public class SpearAndShieldEnemy : MeleeEnemy
     private void OnTriggerEnter2D(Collider2D other)
     {
         if(other.CompareTag("Player"))
-            other.GetComponent<HitablePlayer>().GetHit(damage,transform.position,knockback,gameObject,false);
+            other.GetComponent<HitablePlayer>().GetHit(damage,origin.position,knockback,gameObject,false);
     }
 
     private void OnDrawGizmos()
