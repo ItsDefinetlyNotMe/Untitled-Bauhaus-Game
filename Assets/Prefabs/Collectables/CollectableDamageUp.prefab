@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 1307851106290017538}
   - component: {fileID: -8809541145985877954}
   - component: {fileID: -9188902390191981862}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: CollectableDamageUp
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -76,8 +76,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 2065248313
-  m_SortingLayer: 6
+  m_SortingLayerID: 1745256251
+  m_SortingLayer: 5
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 62e2f13fb689ab14aac064debc3ffef4, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -182,7 +182,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7092176562657841605}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: DestinationRoot
   m_TagString: Untagged
   m_Icon: {fileID: 0}

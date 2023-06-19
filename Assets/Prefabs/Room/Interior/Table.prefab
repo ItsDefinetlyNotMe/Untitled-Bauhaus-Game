@@ -337,7 +337,7 @@ MonoBehaviour:
   - {x: 0.45499992, y: -0.75, z: 0}
   m_ShapePathHash: 0
   m_Mesh: {fileID: 0}
-  m_InstanceId: 65016
+  m_InstanceId: 70318
   m_LocalBounds:
     m_Center: {x: 0, y: 0, z: 0}
     m_Extent: {x: 0.45499992, y: 0.75, z: 0}
@@ -354,7 +354,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 60
+  currentHealth: 0
   size: 0
+  isDying: 0
   destroyedFirstSprite: {fileID: 21300000, guid: a2b51448759eb4d41b1a80fd822f9d1a, type: 3}
   destroyedSecondSprite: {fileID: 21300000, guid: 571407bdf12b13d49a1e6fd4e9e2f59d, type: 3}
   destroyedThirdSprite: {fileID: 21300000, guid: cd26e69855c56624ea3a320b92faccda, type: 3}
@@ -398,3 +400,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   destinationRoot: {fileID: 7519646608943073763}
+  moveable: 0
