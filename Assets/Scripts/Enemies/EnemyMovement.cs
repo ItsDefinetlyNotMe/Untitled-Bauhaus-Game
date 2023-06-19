@@ -69,7 +69,6 @@ namespace Enemies
                     return;
                 }
 
-                Debug.Log("NOW UNSTUNNED");
                 StartTargeting();   
                 isStunned = false;
             }
