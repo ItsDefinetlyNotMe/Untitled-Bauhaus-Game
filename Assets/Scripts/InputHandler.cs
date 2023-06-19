@@ -157,8 +157,19 @@ public class InputHandler : MonoBehaviour
 
         else if (SceneManager.GetActiveScene().name == "MainMenu")
         {
-            GameObject.Find("/Canvas/MainMenu/StartButtons").SetActive(true);
-            GameObject.Find("/Canvas/MainMenu/Slots").SetActive(false);
+            if (GameObject.Find("/Canvas/MainMenu/SlotDeletionConfirmation").activeSelf)
+            {
+                GameObject.Find("/Canvas/MainMenu/Slots").SetActive(true);
+                GameObject.Find("/Canvas/MainMenu/SlotDeletionConfirmation").SetActive(false);
+            }
+            else
+            {
+                GameObject.Find("/Canvas/MainMenu/StartButtons").SetActive(true);
+                GameObject.Find("/Canvas/MainMenu/Slots").SetActive(false);
+                GameObject.Find("/Canvas/MainMenu/Settings").SetActive(false);
+                GameObject.Find("/Canvas/MainMenu/SlotDeletionConfirmation").SetActive(false);
+
+            }
         }
 
     }
