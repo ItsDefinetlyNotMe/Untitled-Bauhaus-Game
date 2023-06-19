@@ -40,7 +40,7 @@ abstract public class MeleeEnemy : EnemyMovement
             base.StartUp();
             currentEnemyState = EnemyState.Moving;
             animator = GetComponent<Animator>();
-            origin = GameObject.Find("OrderLayer").transform;
+            origin = transform.GetChild(2).transform;
         }
         /// <summary> Figuring out what to do next based on The state Enemy is in</summary>
         protected void NextMove()
@@ -65,7 +65,7 @@ abstract public class MeleeEnemy : EnemyMovement
             Vector2 offset = new Vector2(0f, -1f) * 0.5f; 
             Vector2 raydirection = ((Vector2)target.position + offset - (Vector2)origin.position).normalized;
             RaycastHit2D hit = Physics2D.Raycast(origin.position, raydirection, attackRange);
-            print(!hit.transform.CompareTag("Player"));
+            //print(!hit.transform.CompareTag("PlayerBody"));
             /*if(hit)
                 if(!hit.transform.CompareTag("Player"))
                     return;*/
