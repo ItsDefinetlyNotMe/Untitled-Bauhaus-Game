@@ -137,7 +137,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6927992199260280634}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: OrderLayer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -177,7 +177,7 @@ GameObject:
   - component: {fileID: 5819144041988894667}
   - component: {fileID: 7631490824838879791}
   - component: {fileID: 4029955629151147387}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: SpeerAndShieldSoldier
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -433,7 +433,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3168918631648191638}
   - component: {fileID: 3168918631648191633}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Light 2D
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -544,7 +544,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7944521738468066455}
   - component: {fileID: 7862758786358408947}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: AttackCollider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -604,6 +604,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3168918631007937121}
     m_Modifications:
+    - target: {fileID: 1606646301491065887, guid: 9c46df7db14ddb8409454b923d1596e8, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 1606646301888756905, guid: 9c46df7db14ddb8409454b923d1596e8, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -692,6 +696,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: HealthBarCanvas
       objectReference: {fileID: 0}
+    - target: {fileID: 1606646301888756906, guid: 9c46df7db14ddb8409454b923d1596e8, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1606646302107014694, guid: 9c46df7db14ddb8409454b923d1596e8, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 1606646303115746416, guid: 9c46df7db14ddb8409454b923d1596e8, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -699,6 +711,14 @@ PrefabInstance:
     - target: {fileID: 1606646303115746416, guid: 9c46df7db14ddb8409454b923d1596e8, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1606646303115746417, guid: 9c46df7db14ddb8409454b923d1596e8, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1606646303195830984, guid: 9c46df7db14ddb8409454b923d1596e8, type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9c46df7db14ddb8409454b923d1596e8, type: 3}
