@@ -1142,17 +1142,9 @@ PrefabInstance:
       propertyPath: m_Name
       value: HealthBarCanvas
       objectReference: {fileID: 0}
-    - target: {fileID: 1606646301888756911, guid: 9c46df7db14ddb8409454b923d1596e8, type: 3}
-      propertyPath: m_PresetInfoIsWorld
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1606646303115746416, guid: 9c46df7db14ddb8409454b923d1596e8, type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1606646303115746416, guid: 9c46df7db14ddb8409454b923d1596e8, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
+    - target: {fileID: 1606646301888756910, guid: 9c46df7db14ddb8409454b923d1596e8, type: 3}
+      propertyPath: m_SortingLayerID
+      value: -1042069703
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9c46df7db14ddb8409454b923d1596e8, type: 3}

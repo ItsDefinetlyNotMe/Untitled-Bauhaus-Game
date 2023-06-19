@@ -47,6 +47,6 @@ MonoBehaviour:
   vasePrefabs:
   - {fileID: 4777662169212377178, guid: 17e04fa81eb7e614da60a9ed2f8f3241, type: 3}
   - {fileID: 1766800507530485754, guid: 45ac01c3527064bf1a09a7adf2c1fccc, type: 3}
-  - {fileID: 8354879712067097731, guid: d3e3d620f4d074cba9b1c9fdea4390dc, type: 3}
+  - {fileID: 3743134985539872924, guid: d3e3d620f4d074cba9b1c9fdea4390dc, type: 3}
   - {fileID: 7812315902663252142, guid: 0c54eaf87220743609bae20d7340b445, type: 3}
-  - {fileID: 9035149575536671549, guid: bfad84c4c7e9f451fbda37a56e3c60b5, type: 3}
+  - {fileID: 8456294629670883681, guid: 4b481e3c2f0bc4aa7a8db7607922712c, type: 3}

@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 324995355815173028}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: UpperWallWithSmallFlag
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -109,18 +109,6 @@ PrefabInstance:
     - target: {fileID: 8602913716426061390, guid: a5511775e32f59d42a8bdb9eb1ebaff4, type: 3}
       propertyPath: m_RootOrder
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8602913716426061390, guid: a5511775e32f59d42a8bdb9eb1ebaff4, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.7
-      objectReference: {fileID: 0}
-    - target: {fileID: 8602913716426061390, guid: a5511775e32f59d42a8bdb9eb1ebaff4, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 0.7
-      objectReference: {fileID: 0}
-    - target: {fileID: 8602913716426061390, guid: a5511775e32f59d42a8bdb9eb1ebaff4, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 0.7
       objectReference: {fileID: 0}
     - target: {fileID: 8602913716426061390, guid: a5511775e32f59d42a8bdb9eb1ebaff4, type: 3}
       propertyPath: m_LocalPosition.x

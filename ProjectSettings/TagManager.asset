@@ -23,7 +23,7 @@ TagManager:
   - Enemy
   - Enviroment
   - AirbornEnemy
-  - 
+  - Collectable
   - 
   - 
   - 
@@ -63,7 +63,7 @@ TagManager:
   - name: Details on Ground
     uniqueID: 1745256251
     locked: 0
-  - name: Character
+  - name: CharacterAndObjects
     uniqueID: 2065248313
     locked: 0
   - name: Overlaye

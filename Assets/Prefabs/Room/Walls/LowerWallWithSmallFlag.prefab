@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5377806029284775898}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: LowerWallWithSmallFlag
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -111,18 +111,6 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8602913716426061390, guid: a5511775e32f59d42a8bdb9eb1ebaff4, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.7
-      objectReference: {fileID: 0}
-    - target: {fileID: 8602913716426061390, guid: a5511775e32f59d42a8bdb9eb1ebaff4, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 0.7
-      objectReference: {fileID: 0}
-    - target: {fileID: 8602913716426061390, guid: a5511775e32f59d42a8bdb9eb1ebaff4, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 0.7
-      objectReference: {fileID: 0}
-    - target: {fileID: 8602913716426061390, guid: a5511775e32f59d42a8bdb9eb1ebaff4, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -163,8 +151,8 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8602913716426061391, guid: a5511775e32f59d42a8bdb9eb1ebaff4, type: 3}
-      propertyPath: m_Color.a
-      value: 0.19607843
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a5511775e32f59d42a8bdb9eb1ebaff4, type: 3}
