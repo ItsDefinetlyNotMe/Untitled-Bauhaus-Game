@@ -172,7 +172,6 @@ GameObject:
   - component: {fileID: 3168918631007937127}
   - component: {fileID: 304845753534137446}
   - component: {fileID: 7381506404192647285}
-  - component: {fileID: 6965415172700874937}
   - component: {fileID: 8323642154786869817}
   - component: {fileID: 5819144041988894667}
   - component: {fileID: 7631490824838879791}
@@ -312,22 +311,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!58 &6965415172700874937
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3168918631007937124}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.27317256}
-  serializedVersion: 2
-  m_Radius: 0.22682744
 --- !u!114 &8323642154786869817
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -349,9 +332,9 @@ MonoBehaviour:
   enemyObstacleLayer:
     serializedVersion: 2
     m_Bits: 704
-  damage: 0
-  knockback: 0
-  attackRange: 1
+  damage: 10
+  knockback: 100
+  attackRange: 0.8
   aggroRange: 10
   chargeAttackTime: 0.6
   rechargingTime: 1
@@ -423,6 +406,22 @@ MonoBehaviour:
   randomSound1: {fileID: 713768324835559908}
   audioSources2: []
   randomSound2: {fileID: 0}
+--- !u!70 &3765432054450856822
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3168918631007937124}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.01591345, y: -0.33097652}
+  m_Size: {x: 0.51945245, y: 0.13755657}
+  m_Direction: 1
 --- !u!1 &3168918631648191639
 GameObject:
   m_ObjectHideFlags: 0
@@ -576,7 +575,7 @@ PolygonCollider2D:
   m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}

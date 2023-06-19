@@ -52,14 +52,12 @@ abstract public class MeleeEnemy : EnemyMovement
                 SetAnimator(target.position - origin.position,true);
                 if (distance <= attackRange * 0.8f)
                 {
-                    print("I should attack");
                     StartAttack();
                 }
             }
         }
         private void StartAttack()
         {
-            Time.timeScale = 0.5f;
             if(!readyToAttack)
                 return;
             Direction attackDirection = Direction.Up;

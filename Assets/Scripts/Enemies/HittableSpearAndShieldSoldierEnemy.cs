@@ -7,7 +7,7 @@ using UnityEngine;
 public class HittableSpearAndShieldSoldierEnemy : HittableEnemy
 {
     private SpearAndShieldEnemy spearAndShieldEnemy;
-    [SerializeField] private float knockbackDuration = 0.05f;
+    [SerializeField] private float knockbackDuration = 0.3f;
 
     protected override void Start()
     {
@@ -21,12 +21,13 @@ public class HittableSpearAndShieldSoldierEnemy : HittableEnemy
         {
             if (!isBroken)
             {
-                //animation for block -> shieldbreak
                 spearAndShieldEnemy.PlayBlockAnimation(damageSourcePosition);
-                //knockback while shieldbreak => wait for Playblock to end before going into base .gethit
                 spearAndShieldEnemy.BlockBreak(damageSourcePosition);
+                base.GetHit(damage, damageSourcePosition, knockbackMultiplier, damageSource, true);
             }
-            base.GetHit(damage, damageSourcePosition, knockbackMultiplier, damageSource, true);
+            else
+                base.GetHit(damage, damageSourcePosition, 0f, damageSource, true);
+                
         }
         else
         {

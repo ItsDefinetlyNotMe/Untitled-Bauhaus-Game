@@ -23,14 +23,10 @@ public class SpearAndShieldEnemy : MeleeEnemy
     private static readonly int OnSmallAttackEnd = Animator.StringToHash("onSmallAttackEnd");
     private static readonly int OnAttackEnd = Animator.StringToHash("onAttackEnd");
 
-    private Collider2D weaponCol;
 
     private void Start()
     {
         base.StartUp();
-        weaponCol = transform.GetChild(0).GetComponent<Collider2D>();
-        weaponCol.enabled = false;
-        print(weaponCol.enabled);
         StartTargeting();
         
     }
@@ -41,7 +37,8 @@ public class SpearAndShieldEnemy : MeleeEnemy
         if (currentEnemyState == EnemyState.Moving || currentEnemyState == EnemyState.Idle)
         {
              SetAnimator(GetDirection(),rb.velocity.magnitude > 0.05f);
-        }
+        }else
+            rb.velocity = Vector3.zero;
     }
 
     protected override IEnumerator Attack(Direction direction,Action<bool> callback)
@@ -61,10 +58,8 @@ public class SpearAndShieldEnemy : MeleeEnemy
             //play animation 1..3
             animator.SetInteger(AttackSmallDirection,i);
             yield return new WaitUntil(() => currentEnemyState == EnemyState.Attacking);
-            weaponCol.enabled = true;
             //set enemy not attacking on the end of the animation 
             yield return new WaitUntil(() => currentEnemyState != EnemyState.Attacking);
-            weaponCol.enabled = false;
 
         }
         //animator.SetBool(IsAttacking,false);
@@ -128,6 +123,7 @@ public class SpearAndShieldEnemy : MeleeEnemy
 
     private void OnTriggerEnter2D(Collider2D other)
     {
+        print(other.name);
         if(other.CompareTag("Player"))
             other.GetComponent<HitablePlayer>().GetHit(damage,origin.position,knockback,gameObject,false);
     }
