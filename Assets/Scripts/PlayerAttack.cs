@@ -10,7 +10,7 @@ public class PlayerAttack : MonoBehaviour
     private PlayerMovement playerMovement;
     private PlayerStats stats;
     private float damageMultiplier = 1f;
-    float knockbackMultiplier = 5f;//TODO sollte mit der waffe importiert werden also dmg aswell
+    float knockbackMultiplier = 1500f;//TODO sollte mit der waffe importiert werden also dmg aswell
 
     private Animator animator;
 
