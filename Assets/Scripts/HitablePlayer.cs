@@ -26,6 +26,7 @@ public class HitablePlayer : HittableObject
 
     private Animator animator;
     public bool isAlreadyDestroyed { private get; set; } = false;
+    public GameObject HitCharacterSound;
 
     private void Awake()
     {
@@ -55,7 +56,8 @@ public class HitablePlayer : HittableObject
         //visual Feedback
         StartCoroutine(HitFeedback());
         CameraShake.Instance.ShakeCamera(0.5f,.7f,true);
-        
+        HitCharacterSound.GetComponent<RandomSound>().PlayRandom1();
+
         base.GetHit(damage,damageSourcePosition, knockbackMultiplier,damageSource,heavy);
         
         //knockback
