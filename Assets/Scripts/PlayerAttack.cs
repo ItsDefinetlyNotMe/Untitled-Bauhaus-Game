@@ -21,6 +21,9 @@ public class PlayerAttack : MonoBehaviour
     private static readonly int Charging = Animator.StringToHash("Charging");
     private static readonly int Release = Animator.StringToHash("Release");
 
+    public GameObject HeavyAttackSound;
+    public AudioSource HeavyAttackCharge;
+
     private void Start()
     {
         animator = GetComponent<Animator>();
@@ -61,12 +64,13 @@ public class PlayerAttack : MonoBehaviour
     }
     public void HeavyAttack()
     {
+        HeavyAttackSound.GetComponent<RandomSound>().PlayRandom1();
+        HeavyAttackCharge.Stop();
         CancelInvoke(nameof(HeavyAttack));
         if (!heavyAttackReady)
         {
             return;
         }
-
         heavyAttackReady = false;
         float chargedTime = Mathf.Min(3f, Time.time - heavyAttackTimer + 1);
         //ANIMATION START
@@ -79,6 +83,7 @@ public class PlayerAttack : MonoBehaviour
             }
         }));
         animator.ResetTrigger(Release);
+
     }
     public void ChargeHeavyAttack()
     {
@@ -94,6 +99,7 @@ public class PlayerAttack : MonoBehaviour
         Invoke(nameof(HeavyAttack),2f);
         animator.SetTrigger(Charging);
         //play animation
+        HeavyAttackCharge.Play();
     }
 
     public void LoadStats()

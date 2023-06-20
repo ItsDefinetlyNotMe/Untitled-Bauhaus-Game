@@ -15,6 +15,6 @@ public class ButtonSounds : MonoBehaviour
 
     public void clickSoundFunction()
     {
-        audioSource.PlayOneShot(clickSound);
+        audioSource.PlayOneShot(hoverSound);
     }
 }

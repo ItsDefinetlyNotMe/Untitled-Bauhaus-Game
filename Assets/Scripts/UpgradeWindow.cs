@@ -15,6 +15,9 @@ public class UpgradeWindow : MonoBehaviour
     private int maxHealthUpgrade = 10;
     private int maxHealthBonus = 0;
     private int maxHealthBasePrice = 0;
+    public AudioSource audioSource;
+    public AudioClip clickSound;
+    public AudioClip locked;
 
     public void Interact()
     {
@@ -48,7 +51,8 @@ public class UpgradeWindow : MonoBehaviour
         PlayerStats stats = FindObjectOfType<PlayerStats>();
 
         if (!stats.AddMoney(-price))
-            return;
+            audioSource.PlayOneShot(locked);
+        return;
 
         maxHealthBonus = PlayerPrefs.GetInt("maxHealth" + gameManager.saveSlot) + maxHealthUpgrade; //Get value and add new bonus
         PlayerPrefs.SetInt("maxHealth" + gameManager.saveSlot, maxHealthBonus); //Set new value
@@ -76,6 +80,7 @@ public class UpgradeWindow : MonoBehaviour
         for (int i = 0; i < PlayerPrefs.GetInt("maxHealth" + gameManager.saveSlot) / 10; i++)
         {
             newPrice = (int)(newPrice * 1.1);
+            audioSource.PlayOneShot(clickSound);
         }
 
         text.text = newPrice.ToString();
@@ -87,7 +92,8 @@ public class UpgradeWindow : MonoBehaviour
         PlayerStats stats = FindObjectOfType<PlayerStats>();
 
         if (!stats.AddMoney(-price))
-            return;
+            audioSource.PlayOneShot(locked);
+        return;
 
         print("Increase Damage Multiplier");
     }
