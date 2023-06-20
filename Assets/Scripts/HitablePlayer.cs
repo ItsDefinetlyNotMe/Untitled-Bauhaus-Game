@@ -22,6 +22,7 @@ public class HitablePlayer : HittableObject
     public static PlayerDeathDelegate onPlayerDeath;
     public GameObject StopMusic;
     public GameObject PostProcess;
+    public float slowMotionDuration = 0.5f;
 
     private Animator animator;
     public bool isAlreadyDestroyed { private get; set; } = false;
@@ -72,8 +73,34 @@ public class HitablePlayer : HittableObject
 
         UpdateHealthBar();
 
+        //Post Process
         PostProcess = GameObject.FindGameObjectWithTag("Volume");
         PostProcess.GetComponent<PostProcessEffects>().CharacterHit();
+
+        //Slow Motion Hit
+        StartCoroutine(ChangeGameMovementSlow(1f, 0.2f, 0f, 0.1f));
+        StartCoroutine(ChangeGameMovementNormal(0.1f));
+    }
+
+    IEnumerator ChangeGameMovementSlow(float startIntensity, float endIntensity, float elapsedTime, float duration)
+    {
+        while (elapsedTime < duration)
+        {
+            elapsedTime += Time.deltaTime;
+            float t = elapsedTime / duration;
+            Time.timeScale = Mathf.Lerp(startIntensity, endIntensity, t);
+            yield return null;
+        }
+
+        Time.timeScale = endIntensity;
+
+        yield return null;
+    }
+
+    IEnumerator ChangeGameMovementNormal(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        StartCoroutine(ChangeGameMovementSlow(0.2f, 1f, 0f, 0.1f));
     }
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
