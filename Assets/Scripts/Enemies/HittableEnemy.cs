@@ -15,8 +15,8 @@ namespace Enemies
         protected SpriteRenderer spriteRenderer;
         protected Rigidbody2D rb;
 
-        [SerializeField] private GameObject HitSound;
-        [SerializeField] private GameObject DeathHitSound;
+        public GameObject HitSound;
+        public GameObject DeathHitSound;
         [SerializeField] private Slider healthBar;
 
         protected EnemyMovement enemyMovement;
@@ -43,7 +43,7 @@ namespace Enemies
             
             //visual Feedback
             StartCoroutine(HitFeedback());
-            //HitSound.GetComponent<RandomSound>().PlayRandom1();
+            HitSound.GetComponent<RandomSound>().PlayRandom1();
 
             base.GetHit(damage,damageSourcePosition, knockbackMultiplier,damageSource,heavy);
 
@@ -67,7 +67,7 @@ namespace Enemies
 
         protected override void Die(GameObject damageSource)
         {
-            //DeathHitSound.GetComponent<RandomSound>().PlayRandom1();
+            DeathHitSound.GetComponent<RandomSound>().PlayRandom1();
             onEnemyDeath?.Invoke();
             if(enemyMovement != null)
                 enemyMovement.OnDeath();

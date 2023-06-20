@@ -417,8 +417,8 @@ MonoBehaviour:
   currentHealth: 0
   size: 0
   isDying: 0
-  HitSound: {fileID: 0}
-  DeathHitSound: {fileID: 0}
+  HitSound: {fileID: 2933741786661934001}
+  DeathHitSound: {fileID: 2933741786661934001}
   healthBar: {fileID: 4949287152226315201}
   dying: 0
 --- !u!114 &3178290292246446232
@@ -941,9 +941,9 @@ AudioSource:
   Priority: 128
   DopplerLevel: 5
   MinDistance: 1
-  MaxDistance: 15
+  MaxDistance: 20
   Pan2D: 0
-  rolloffMode: 2
+  rolloffMode: 0
   BypassEffects: 0
   BypassListenerEffects: 0
   BypassReverbZones: 0
