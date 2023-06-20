@@ -801,7 +801,7 @@ MonoBehaviour:
   - {x: 0.02350378, y: -0.09373565, z: 0}
   m_ShapePathHash: 2140632269
   m_Mesh: {fileID: 0}
-  m_InstanceId: 67920
+  m_InstanceId: 138150
   m_LocalBounds:
     m_Center: {x: -0.021345854, y: 0.021345705, z: 0}
     m_Extent: {x: 0.049118757, y: 0.123619616, z: 0}
@@ -822,6 +822,7 @@ MonoBehaviour:
   size: 1
   isDying: 0
   StopMusic: {fileID: 0}
+  PostProcess: {fileID: 0}
 --- !u!114 &3746463102038708328
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -12,6 +12,7 @@ TagManager:
   - PauseMenuCanvas
   - StopMusic
   - PlayerBody
+  - Volume
   layers:
   - Default
   - TransparentFX

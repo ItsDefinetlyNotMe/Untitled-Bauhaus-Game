@@ -21,6 +21,7 @@ public class HitablePlayer : HittableObject
     public delegate void PlayerDeathDelegate();
     public static PlayerDeathDelegate onPlayerDeath;
     public GameObject StopMusic;
+    public GameObject PostProcess;
 
     private Animator animator;
     public bool isAlreadyDestroyed { private get; set; } = false;
@@ -71,6 +72,8 @@ public class HitablePlayer : HittableObject
 
         UpdateHealthBar();
 
+        PostProcess = GameObject.FindGameObjectWithTag("Volume");
+        PostProcess.GetComponent<PostProcessEffects>().CharacterHit();
     }
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
