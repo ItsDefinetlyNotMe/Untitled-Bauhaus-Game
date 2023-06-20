@@ -18,6 +18,7 @@ public class HitablePlayer : HittableObject
     private SpriteRenderer spriteRenderer;
     private PlayerMovement playerMovement;
     private PlayerStats stats;
+    private Collider2D bodycol;
     public delegate void PlayerDeathDelegate();
     public static PlayerDeathDelegate onPlayerDeath;
     public GameObject StopMusic;
@@ -46,7 +47,8 @@ public class HitablePlayer : HittableObject
         spriteRenderer = GetComponent<SpriteRenderer>();
         playerMovement = GetComponent<PlayerMovement>();
         stats = GetComponent<PlayerStats>();
-
+        bodycol = transform.GetChild(4).GetComponent<Collider2D>();
+        
         maxHealth = stats.getMaxHealth();
         currentHealth = maxHealth;
         animator = GetComponent<Animator>();
@@ -155,11 +157,13 @@ public class HitablePlayer : HittableObject
 
         playerMovement.canMove = false;
         objectCollider.enabled = false;
+        bodycol.enabled = false;
 
         yield return new WaitUntil(() => !isDying);
 
         playerMovement.canMove = true;
         objectCollider.enabled = true;
+        bodycol.enabled = true;
         onPlayerDeath?.Invoke();
 
     }

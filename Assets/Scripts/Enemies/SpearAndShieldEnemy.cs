@@ -123,7 +123,6 @@ public class SpearAndShieldEnemy : MeleeEnemy
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        print(other.name);
         if(other.CompareTag("PlayerBody"))
             other.GetComponentInParent<HitablePlayer>().GetHit(damage,origin.position,knockback,gameObject,false);
     }
