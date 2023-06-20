@@ -119,6 +119,8 @@ public class HitablePlayer : HittableObject
         healthBar.SetActive(false);
         animator.SetTrigger("onDeath");
         Destroy(StopMusic);
+        PostProcess = GameObject.FindGameObjectWithTag("Volume");
+        PostProcess.GetComponent<PostProcessEffects>().CharacterDeath();
 
         yield return new WaitUntil(() => isDying);
 
@@ -130,6 +132,7 @@ public class HitablePlayer : HittableObject
         playerMovement.canMove = true;
         objectCollider.enabled = true;
         onPlayerDeath?.Invoke();
+
     }
     public void LoadStats()
     {
