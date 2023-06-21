@@ -21,6 +21,8 @@ public class HittableFireplace : HittableObject
     public float noiseScale = 0.1f;
     private float noiseOffset = 0.6f;
     private float baseLightintensity;
+    public GameObject HitSound;
+    public AudioSource FireSoundStop;
     
 
     protected override void Start()
@@ -50,12 +52,13 @@ public class HittableFireplace : HittableObject
             stage = 1;
             //priteRenderer.sprite = destroyedSecondSprite;
             animator.SetTrigger("nextStage");
+            HitSound.GetComponent<RandomSound>().PlayRandom1();
         }
         else if (currentHealth <= maxHealth * 2f / 3f && currentHealth > 0)
         {
             stage = 2;
             animator.SetTrigger("nextStage");
-
+            HitSound.GetComponent<RandomSound>().PlayRandom1();
         }
 
     }
@@ -63,6 +66,8 @@ public class HittableFireplace : HittableObject
     {
         //change sprite
         //spriteRenderer.sprite = destroyedSprite;
+        HitSound.GetComponent<RandomSound>().PlayRandom2();
+        FireSoundStop.Stop();
         StartCoroutine(LightDown());
         //light2D.intensity = 0f;
         //layerRoot.position += Vector3.up * 0.3f;

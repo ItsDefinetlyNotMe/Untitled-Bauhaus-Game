@@ -28,6 +28,7 @@ public class HitablePlayer : HittableObject
     private Animator animator;
     public bool isAlreadyDestroyed { private get; set; } = false;
     public GameObject HitCharacterSound;
+    public Camera mainCamera;
 
     private void Awake()
     {
@@ -52,12 +53,15 @@ public class HitablePlayer : HittableObject
         maxHealth = stats.getMaxHealth();
         currentHealth = maxHealth;
         animator = GetComponent<Animator>();
+        mainCamera = Camera.main;
     }
     public override void GetHit(int damage, Vector2 damageSourcePosition, float knockbackMultiplier,GameObject damageSource,bool heavy)
     {
         //visual Feedback
         StartCoroutine(HitFeedback());
         CameraShake.Instance.ShakeCamera(0.5f,.7f,true);
+        StartCoroutine(ResetCameraRotation(0.2f));
+        Invoke("ResetRotation", 0.2f);
         HitCharacterSound.GetComponent<RandomSound>().PlayRandom1();
 
         base.GetHit(damage,damageSourcePosition, knockbackMultiplier,damageSource,heavy);
@@ -84,6 +88,28 @@ public class HitablePlayer : HittableObject
         //Slow Motion Hit
         StartCoroutine(ChangeGameMovementSlow(1f, 0.2f, 0f, 0.1f));
         StartCoroutine(ChangeGameMovementNormal(0.1f));
+    }
+
+    public void ResetRotation()
+    {
+        mainCamera.transform.rotation = Quaternion.identity;
+    }
+
+    private IEnumerator ResetCameraRotation(float duration)
+    {
+        Quaternion startRotation = mainCamera.transform.rotation;
+        Quaternion endRotation = Quaternion.identity;
+        float elapsedTime = 0f;
+
+        while (elapsedTime < duration)
+        {
+            elapsedTime += Time.deltaTime;
+            float t = elapsedTime / duration;
+            mainCamera.transform.rotation = Quaternion.Slerp(startRotation, endRotation, t);
+            yield return null;
+        }
+
+        mainCamera.transform.rotation = endRotation;
     }
 
     IEnumerator ChangeGameMovementSlow(float startIntensity, float endIntensity, float elapsedTime, float duration)
