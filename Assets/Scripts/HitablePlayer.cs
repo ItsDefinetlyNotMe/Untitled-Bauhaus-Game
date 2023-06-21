@@ -1,12 +1,14 @@
 using System.Collections;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 // ReSharper disable Unity.InefficientPropertyAccess
 
 public class HitablePlayer : HittableObject
 {
+    [SerializeField] private AudioMixer audioMixer;
     private GameObject healthBar;
 
     private Slider healthSlider;
@@ -86,7 +88,7 @@ public class HitablePlayer : HittableObject
         PostProcess.GetComponent<PostProcessEffects>().CharacterHit();
 
         //Slow Motion Hit
-        StartCoroutine(ChangeGameMovementSlow(1f, 0.2f, 0f, 0.1f));
+        StartCoroutine(ChangeGameMovementSlow(1f, 0.2f, 0f, 0.1f, 800));
         StartCoroutine(ChangeGameMovementNormal(0.1f));
     }
 
@@ -112,8 +114,9 @@ public class HitablePlayer : HittableObject
         mainCamera.transform.rotation = endRotation;
     }
 
-    IEnumerator ChangeGameMovementSlow(float startIntensity, float endIntensity, float elapsedTime, float duration)
+    IEnumerator ChangeGameMovementSlow(float startIntensity, float endIntensity, float elapsedTime, float duration,  float musicLowPass)
     {
+        audioMixer.SetFloat("musicLowPass", musicLowPass);
         while (elapsedTime < duration)
         {
             elapsedTime += Time.deltaTime;
@@ -130,7 +133,7 @@ public class HitablePlayer : HittableObject
     IEnumerator ChangeGameMovementNormal(float delay)
     {
         yield return new WaitForSeconds(delay);
-        StartCoroutine(ChangeGameMovementSlow(0.2f, 1f, 0f, 0.1f));
+        StartCoroutine(ChangeGameMovementSlow(0.2f, 1f, 0f, 0.1f, 22000));
     }
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)

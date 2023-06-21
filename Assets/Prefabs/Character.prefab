@@ -931,7 +931,7 @@ MonoBehaviour:
   - {x: 0.02350378, y: -0.09373565, z: 0}
   m_ShapePathHash: 2140632269
   m_Mesh: {fileID: 0}
-  m_InstanceId: 76348
+  m_InstanceId: 203086
   m_LocalBounds:
     m_Center: {x: -0.021345854, y: 0.021345705, z: 0}
     m_Extent: {x: 0.049118757, y: 0.123619616, z: 0}
@@ -951,10 +951,12 @@ MonoBehaviour:
   currentHealth: 0
   size: 1
   isDying: 0
+  audioMixer: {fileID: 24100000, guid: 24a0e533ce68e9a499b8cb5d33a8edcb, type: 2}
   StopMusic: {fileID: 0}
   PostProcess: {fileID: 0}
   slowMotionDuration: 0.5
   HitCharacterSound: {fileID: 9118420516217612340}
+  mainCamera: {fileID: 0}
 --- !u!114 &3746463102038708328
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1667,9 +1669,9 @@ AudioSource:
   Priority: 128
   DopplerLevel: 1
   MinDistance: 1
-  MaxDistance: 500
+  MaxDistance: 5000
   Pan2D: 0
-  rolloffMode: 0
+  rolloffMode: 1
   BypassEffects: 0
   BypassListenerEffects: 0
   BypassReverbZones: 0
