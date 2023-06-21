@@ -931,7 +931,7 @@ MonoBehaviour:
   - {x: 0.02350378, y: -0.09373565, z: 0}
   m_ShapePathHash: 2140632269
   m_Mesh: {fileID: 0}
-  m_InstanceId: 115860
+  m_InstanceId: 76348
   m_LocalBounds:
     m_Center: {x: -0.021345854, y: 0.021345705, z: 0}
     m_Extent: {x: 0.049118757, y: 0.123619616, z: 0}
@@ -1658,7 +1658,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: -4665057645690639522, guid: 24a0e533ce68e9a499b8cb5d33a8edcb, type: 2}
   m_audioClip: {fileID: 8300000, guid: 6d618a0aac7fd6c4e8d26239b8356904, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.776
+  m_Volume: 1
   m_Pitch: 1
   Loop: 0
   Mute: 0
