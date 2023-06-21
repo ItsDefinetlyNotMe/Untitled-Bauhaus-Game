@@ -205,7 +205,7 @@ GameObject:
   - component: {fileID: 5819144041988894667}
   - component: {fileID: 7631490824838879791}
   - component: {fileID: 4029955629151147387}
-  - component: {fileID: 3765432054450856822}
+  - component: {fileID: 4216126323749852810}
   m_Layer: 8
   m_Name: SpeerAndShieldSoldier
   m_TagString: Untagged
@@ -357,6 +357,7 @@ MonoBehaviour:
   target: {fileID: 0}
   movementSpeed: 1
   nextWayPointDistance: 3
+  currentEnemyState: 0
   attackLayer:
     serializedVersion: 2
     m_Bits: 448
@@ -437,8 +438,8 @@ MonoBehaviour:
   randomSound1: {fileID: 713768324835559908}
   audioSources2: []
   randomSound2: {fileID: 0}
---- !u!70 &3765432054450856822
-CapsuleCollider2D:
+--- !u!58 &4216126323749852810
+CircleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -450,9 +451,9 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.01591345, y: -0.33097652}
-  m_Size: {x: 0.51945245, y: 0.13755657}
-  m_Direction: 1
+  m_Offset: {x: 0, y: -0.260522}
+  serializedVersion: 2
+  m_Radius: 0.19513357
 --- !u!1 &3168918631648191639
 GameObject:
   m_ObjectHideFlags: 0

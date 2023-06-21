@@ -32,7 +32,7 @@ abstract public class MeleeEnemy : EnemyMovement
         [Header("AttackTime")]
         [SerializeField] protected float chargeAttackTime = .6f;
         [SerializeField] protected float rechargingTime = 1f;
-        protected bool readyToAttack = true;
+        public bool readyToAttack = true;
 
         protected Transform origin;
         protected override void StartUp() 
@@ -81,7 +81,7 @@ abstract public class MeleeEnemy : EnemyMovement
             
         }
 
-        protected virtual void ChangeState(EnemyState nextState)
+        public virtual void ChangeState(EnemyState nextState)
         {
             currentEnemyState = nextState;
         }
