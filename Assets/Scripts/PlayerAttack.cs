@@ -11,7 +11,11 @@ public class PlayerAttack : MonoBehaviour
     private PlayerStats stats;
     private float damageMultiplier = 1f;
     float knockbackMultiplier = 1500f;//TODO sollte mit der waffe importiert werden also dmg aswell
-
+    
+    //crit
+    private float critChance = 0f;//clamp to 0-1
+    private float critMultiplier = 1.5f;
+    
     private Animator animator;
 
     private float heavyAttackTimer;
@@ -52,13 +56,16 @@ public class PlayerAttack : MonoBehaviour
     {
         if (weaponScript == null)
             return;
+
+        float crit = GetCritMultiplier();
+
         if (playerMovement.currentState != Structs.PlayerState.Moving)
             inputBuffer.BufferEnqueue(Attack, input);
         StartCoroutine(weaponScript.Attack((enemiesHit, weaponDamage) =>
         {
             foreach (Collider2D enemy in enemiesHit)
             {
-                enemy.GetComponent<HittableObject>().GetHit((int)(weaponDamage * damageMultiplier), transform.position, knockbackMultiplier, gameObject,false);
+                enemy.GetComponent<HittableObject>().GetHit((int)(weaponDamage * damageMultiplier * crit), transform.position, knockbackMultiplier, gameObject,false);
             }
         }));
     }
@@ -66,24 +73,28 @@ public class PlayerAttack : MonoBehaviour
     {
         HeavyAttackSound.GetComponent<RandomSound>().PlayRandom1();
         HeavyAttackCharge.Stop();
+        
         CancelInvoke(nameof(HeavyAttack));
+        
         if (!heavyAttackReady)
-        {
             return;
-        }
+        
         heavyAttackReady = false;
+        
         float chargedTime = Mathf.Min(3f, Time.time - heavyAttackTimer + 1);
+
+        float crit = GetCritMultiplier();
+        
         //ANIMATION START
         animator.SetTrigger(Release);
         StartCoroutine(weaponScript.HeavyAttack((enemiesHit, weaponDamage) =>
         {
             foreach (Collider2D enemy in enemiesHit)
             {
-                enemy.GetComponent<HittableObject>().GetHit((int)(weaponDamage * damageMultiplier * chargedTime), transform.position, knockbackMultiplier, gameObject,true);
+                enemy.GetComponent<HittableObject>().GetHit((int)(weaponDamage * damageMultiplier * chargedTime * crit), transform.position, knockbackMultiplier, gameObject,true);
             }
         }));
         animator.ResetTrigger(Release);
-
     }
     public void ChargeHeavyAttack()
     {
@@ -101,10 +112,15 @@ public class PlayerAttack : MonoBehaviour
         //play animation
         HeavyAttackCharge.Play();
     }
-
     public void LoadStats()
     {
         damageMultiplier = stats.getDamageMultiplier();
+    }
+    private float GetCritMultiplier()
+    {
+        if(Random.Range(0f, 1f) >= critChance)
+            return critMultiplier;
+        return 1;
     }
 
 }
