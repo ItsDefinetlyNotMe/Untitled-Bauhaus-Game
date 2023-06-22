@@ -890,6 +890,7 @@ MonoBehaviour:
   currentHealth: 0
   size: 0
   isDying: 0
+  floatingDamage: {fileID: 6811418104202620972, guid: cb81e25f972d23b4bb0678e1b8441ec8, type: 3}
   HitSound: {fileID: 6021109344697569480}
   DeathHitSound: {fileID: 2115272221078392754}
   healthBar: {fileID: 7885852103964972152}
