@@ -888,7 +888,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 40
   currentHealth: 0
-  size: 0
+  size: 1
   isDying: 0
   floatingDamage: {fileID: 6811418104202620972, guid: cb81e25f972d23b4bb0678e1b8441ec8, type: 3}
   HitSound: {fileID: 6021109344697569480}

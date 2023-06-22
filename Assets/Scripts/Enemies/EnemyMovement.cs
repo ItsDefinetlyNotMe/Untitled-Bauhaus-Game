@@ -68,8 +68,8 @@ namespace Enemies
                 {
                     return;
                 }
-
-                StartTargeting();   
+                if(ShouldTarget())
+                    StartTargeting();   
                 isStunned = false;
             }
             if(path == null)
@@ -153,5 +153,10 @@ namespace Enemies
             //Debug.Log( knockbackDirection.normalized * knockbackStrength);
             rb.AddForce( knockbackDirection.normalized * knockbackStrength);
         }
+
+        protected virtual bool ShouldTarget()
+        {
+            return true;
+        } 
     }
 }

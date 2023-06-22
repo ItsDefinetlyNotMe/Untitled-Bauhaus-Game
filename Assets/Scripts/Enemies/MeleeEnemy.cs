@@ -101,4 +101,9 @@ abstract public class MeleeEnemy : EnemyMovement
             else
                 return Direction.Left;
         }
+
+        protected override bool ShouldTarget()
+        {
+            return (currentEnemyState == EnemyState.Idle || currentEnemyState == EnemyState.Moving);
+        }
 }

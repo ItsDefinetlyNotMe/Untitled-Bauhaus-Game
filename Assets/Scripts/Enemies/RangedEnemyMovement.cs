@@ -144,6 +144,10 @@ namespace Enemies
         {
             currentEnemyState = nextState;
         }
+        protected override bool ShouldTarget()
+        {
+            return (currentEnemyState == EnemyState.Idle || currentEnemyState == EnemyState.Moving);
+        }
         /// <summary> Needs to be overriden, implements The Attack  </summary>
         protected abstract IEnumerator Attack(Action<bool> calback);
         private void OnDrawGizmosSelected() {
