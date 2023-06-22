@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Drawing;
+using Unity.Mathematics;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
@@ -11,6 +12,8 @@ namespace Enemies
 {
     public class HittableEnemy : HittableObject
     {
+        [SerializeField]
+        private GameObject floatingDamage;
         protected Animator animator;
         protected SpriteRenderer spriteRenderer;
         protected Rigidbody2D rb;
@@ -44,8 +47,11 @@ namespace Enemies
             //visual Feedback
             StartCoroutine(HitFeedback());
             HitSound.GetComponent<RandomSound>().PlayRandom1();
-
+            
             base.GetHit(damage,damageSourcePosition, knockbackMultiplier,damageSource,heavy);
+            
+            GameObject points = Instantiate(floatingDamage, transform.position, quaternion.identity) as GameObject;
+            points.transform.GetChild(0).GetComponent<TextMesh>().text =  damage.ToString();
 
             if (healthBar.value == maxHealth)
                 healthBar.gameObject.SetActive(true);

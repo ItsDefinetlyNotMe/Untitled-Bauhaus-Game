@@ -34,7 +34,7 @@ public class HittableSpearAndShieldSoldierEnemy : HittableEnemy
         else
         {
             spearAndShieldEnemy.PlayBlockAnimation(damageSourcePosition);
-            Knockback(knockbackDuration,damageSourcePosition,knockbackMultiplier);
+            base.GetHit(0, damageSourcePosition, 0f, damageSource, true);
         }
     }
 
