@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -15,6 +16,11 @@ public class UpgradeWindow : MonoBehaviour
     private int maxHealthUpgrade = 10;
     private int maxHealthBonus = 0;
     private int maxHealthBasePrice = 0;
+
+    private int damageMultiplierUpgrade = 25;
+    private int damageMultiplierBonus = 0;
+    private int damageMultiplierBasePrice = 0;
+
     public AudioSource audioSource;
     public AudioClip clickSound;
     public AudioClip locked;
@@ -90,6 +96,14 @@ public class UpgradeWindow : MonoBehaviour
 
     public void IncreaseDamageMultiplier()
     {
+        if (FindObjectsByType<GameManager>(FindObjectsSortMode.InstanceID).Length > 1)
+        {
+            print("ERROR: Too many gameManagers");
+            return;
+        }
+
+        gameManager = FindObjectsByType<GameManager>(FindObjectsSortMode.InstanceID)[0];
+
         int price = int.Parse(transform.GetChild(0).GetChild(2).GetChild(2).GetChild(0).GetComponent<TMP_Text>().text);
         PlayerStats stats = FindObjectOfType<PlayerStats>();
 
@@ -99,12 +113,42 @@ public class UpgradeWindow : MonoBehaviour
             return;
         }
 
-        print("Increase Damage Multiplier");
+        damageMultiplierBonus = PlayerPrefs.GetInt("damageMultiplier" + gameManager.saveSlot) + damageMultiplierUpgrade; //Get value and add new bonus
+        PlayerPrefs.SetInt("damageMultiplier" + gameManager.saveSlot, damageMultiplierBonus); //Set new value
+
+        PlayerPrefs.Save(); //Save changes in playerPrefs
+
+        UpdateDamageMultiplier();
+    }
+
+    public void UpdateDamageMultiplier()
+    {
+        if (FindObjectsByType<GameManager>(FindObjectsSortMode.InstanceID).Length > 1)
+        {
+            print("ERROR: Too many gameManagers");
+            return;
+        }
+
+        gameManager = FindObjectsByType<GameManager>(FindObjectsSortMode.InstanceID)[0];
+
+        Transform damageMultiplierDisplay = transform.GetChild(0).GetChild(2);
+        damageMultiplierDisplay.GetChild(1).GetComponent<TMP_Text>().text = PlayerPrefs.GetInt("damageMultiplier" + gameManager.saveSlot).ToString() + "%";
+        TMP_Text text = damageMultiplierDisplay.GetChild(2).GetChild(0).GetComponent<TMP_Text>();
+
+        int newPrice = damageMultiplierBasePrice;
+        for (int i = 0; i < (PlayerPrefs.GetInt("damageMultiplier" + gameManager.saveSlot) - 100) / 25; i++)
+        {
+            newPrice = (int)(newPrice * 1.1);
+            audioSource.PlayOneShot(clickSound);
+        }
+
+        text.text = newPrice.ToString();
     }
 
     private void Awake()
     {
         maxHealthBasePrice = int.Parse(transform.GetChild(0).GetChild(1).GetChild(2).GetChild(0).GetComponent<TMP_Text>().text);
+        damageMultiplierBasePrice = int.Parse(transform.GetChild(0).GetChild(2).GetChild(2).GetChild(0).GetComponent<TMP_Text>().text);
     }
 
     private void Start()
@@ -113,7 +157,10 @@ public class UpgradeWindow : MonoBehaviour
 
         upgradeWindow = transform.GetChild(0).gameObject;
 
-        //PlayerPrefs.SetInt("maxHealth" + gameManager.saveSlot, 0);
+        if (PlayerPrefs.GetInt("damageMultiplier" + gameManager.saveSlot) < 100)
+            PlayerPrefs.SetInt("damageMultiplier" + gameManager.saveSlot, 100);
+
+        PlayerPrefs.Save();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

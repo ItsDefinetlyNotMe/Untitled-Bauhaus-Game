@@ -187,7 +187,7 @@ namespace TestRandomWorldGeneration {
                     break;
                 }
 
-            } while (!DoesEnemyFitInRoom(mainEnemy.size));
+            } while (!DoesEnemyFitInRoom(mainEnemy.size) || mainEnemy.strength > difficulty);
 
             int strengthToFillWithMainEnemy = (int)(difficulty * percentageOfMainEnemy);
 

@@ -9,7 +9,7 @@ public class PlayerStats : MonoBehaviour
 
     public int money { get; private set; }
     private int maxHealthRunBonus;
-    private float damageMultiplierRunBonus = 1;
+    private float damageMultiplierRunBonus = 0;
     public int runMoney { get; private set; } = 0;
 
     private HitablePlayer hitablePlayer;
@@ -68,7 +68,7 @@ public class PlayerStats : MonoBehaviour
     public float getDamageMultiplier()
     {
         gameManager = FindObjectsByType<GameManager>(FindObjectsSortMode.InstanceID)[0];
-        return PlayerPrefs.GetInt("damageMultiplier" + gameManager.saveSlot) + damageMultiplierRunBonus;
+        return PlayerPrefs.GetInt("damageMultiplier" + gameManager.saveSlot) / 100.0f + damageMultiplierRunBonus;
     }
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
@@ -76,7 +76,7 @@ public class PlayerStats : MonoBehaviour
         if (scene.name == "HUB")
         {
             maxHealthRunBonus = 0;
-            damageMultiplierRunBonus = 1;
+            damageMultiplierRunBonus = 0;
             runMoney = 0;
         }
     }

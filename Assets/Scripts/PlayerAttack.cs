@@ -30,6 +30,11 @@ public class PlayerAttack : MonoBehaviour
     public GameObject HeavyAttackSound;
     public AudioSource HeavyAttackCharge;
 
+    private void Awake()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
     private void Start()
     {
         animator = GetComponent<Animator>();
@@ -54,6 +59,15 @@ public class PlayerAttack : MonoBehaviour
 
         whileLoopTracker = 0;
     }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        if (scene.name == "Valhalla")
+        {
+            LoadStats();
+        }
+    }
+
     public void Attack(InputValue input)
     {
         if (weaponScript == null)
@@ -123,6 +137,7 @@ public class PlayerAttack : MonoBehaviour
     public void LoadStats()
     {
         damageMultiplier = stats.getDamageMultiplier();
+        print("damage Multiplier: " + damageMultiplier);
     }
     private float GetCritMultiplier()
     {
@@ -131,4 +146,8 @@ public class PlayerAttack : MonoBehaviour
         return 1;
     }
 
+    private void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
 }

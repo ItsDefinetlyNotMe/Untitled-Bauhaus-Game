@@ -857,8 +857,8 @@ MonoBehaviour:
   - {fileID: 1323512839653876996, guid: 594b492b719a0b04eaf1eb403b3bfca0, type: 3}
   - {fileID: 1693856862799805358, guid: 6714fc8ebe5be2d46b52bc0ef2168dd8, type: 3}
   - {fileID: 3103849759367028104, guid: 356508f0a047c7c41a8b3d06b9529b8e, type: 3}
-  minNumberOfTiles: 100
-  maxNumberOfTiles: 150
+  minNumberOfTiles: 30
+  maxNumberOfTiles: 100
 --- !u!4 &939599504
 Transform:
   m_ObjectHideFlags: 0
@@ -948,13 +948,40 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyPrefabs:
   - prefab: {fileID: 2208891717536921004, guid: 80e8b4f49a9e0f941b85432532fc34d8, type: 3}
-    strength: 2
+    strength: 1
+    size: {x: 1, y: 1}
+  - prefab: {fileID: 2208891717536921004, guid: 42693a8a14844ac41ba70fa1c3fd99b8, type: 3}
+    strength: 3
+    size: {x: 1, y: 1}
+  - prefab: {fileID: 2208891717536921004, guid: a75d51a82ec9744469eb2f5f8c91d8e6, type: 3}
+    strength: 6
+    size: {x: 1, y: 1}
+  - prefab: {fileID: 2208891717536921004, guid: 6cc0f58c48a20e14c92062cf8488b523, type: 3}
+    strength: 10
     size: {x: 1, y: 1}
   - prefab: {fileID: 2933741786661934001, guid: b5266d5109119f9469afa7274aed749e, type: 3}
     strength: 1
     size: {x: 1, y: 1}
+  - prefab: {fileID: 2933741786661934001, guid: 4f449714a0394d342b5f919edc3b0bfd, type: 3}
+    strength: 3
+    size: {x: 1, y: 1}
+  - prefab: {fileID: 2933741786661934001, guid: a4301360074583948b58dabe4b69761f, type: 3}
+    strength: 6
+    size: {x: 1, y: 1}
+  - prefab: {fileID: 2933741786661934001, guid: 37d9d2d2acab4ca4aace2f7e796d337a, type: 3}
+    strength: 10
+    size: {x: 1, y: 1}
   - prefab: {fileID: 3168918631007937124, guid: 2dbc4eb4cbb5513408eec9e1b9b29d4e, type: 3}
     strength: 2
+    size: {x: 1, y: 1}
+  - prefab: {fileID: 3168918631007937124, guid: 3873e9be477219048a42768aae9af239, type: 3}
+    strength: 5
+    size: {x: 1, y: 1}
+  - prefab: {fileID: 3168918631007937124, guid: 407a50e5e6c19d947865765d1a4e5650, type: 3}
+    strength: 9
+    size: {x: 1, y: 1}
+  - prefab: {fileID: 3168918631007937124, guid: 16a2c0ffd5dc74c419dbc24c9027d747, type: 3}
+    strength: 14
     size: {x: 1, y: 1}
   percentageOfMainEnemy: 0.7
   spawnIndicator: {fileID: 4845491521085197880, guid: 92214db89e2ec6f4aa8d4b452ecde8d3, type: 3}
