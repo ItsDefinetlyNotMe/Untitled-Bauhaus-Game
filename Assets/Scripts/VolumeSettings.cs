@@ -69,6 +69,8 @@ public class VolumeSettings : MonoBehaviour
             SetMasterVolume();
         else
             audioMixer.SetFloat("masterVolume", -60);
+
+        gameObject.SetActive(false);
     }
 
     private void LoadVolume()
