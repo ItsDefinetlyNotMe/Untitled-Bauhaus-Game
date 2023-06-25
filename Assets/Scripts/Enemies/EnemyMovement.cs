@@ -32,7 +32,7 @@ namespace Enemies
         protected virtual void StartUp()
         {
             col = GetComponent<Collider2D>();
-            target = (GameObject.FindGameObjectsWithTag("Player"))[0].transform;
+            target = (GameObject.FindGameObjectsWithTag("Target"))[0].transform;
             if (target == null)
             {
                 target = transform;

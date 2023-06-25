@@ -105,7 +105,7 @@ namespace Enemies
                 if(projectileObstacleLayer == (projectileObstacleLayer | (1 << layer))){//if the player is not hittable in a straight line, reposition
                     break;
                 }
-                else if(results[i].transform.CompareTag("Player"))//Attack if player is hittable
+                else if(results[i].transform.CompareTag("Player")||results[i].transform.CompareTag("Clone"))//Attack if player is hittable
                 {
                     attackReady = false;
                     StartCoroutine(Attack((attackReady)=>

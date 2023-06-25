@@ -1,10 +1,13 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Mathematics;
 using UnityEngine.InputSystem;
 using UnityEngine;
 using static Structs.PlayerState;
 using UnityEngine.SceneManagement;
+using Object = UnityEngine.Object;
+
 // ReSharper disable Unity.InefficientPropertyAccess
 public class PlayerMovement : MonoBehaviour
 {
@@ -37,6 +40,14 @@ public class PlayerMovement : MonoBehaviour
     private int whileLoopTracker = 0;
     public GameObject DashSound;
 
+    [SerializeField] GameObject clonePrefab;
+    [SerializeField] private bool isCloneAbilityUnlocked;
+    [SerializeField] private float cloneTimeToBeAlive;
+    private Vector2 cloneSpawnPosition;
+    private bool cloneReady = true;
+    private GameObject clone;
+
+    private Transform target;
     private void Awake()
     {
         HitablePlayer.onPlayerDeath += DisableMovement;
@@ -86,6 +97,11 @@ public class PlayerMovement : MonoBehaviour
     {
         if (canDash && currentState == Moving)
         {
+            if (isCloneAbilityUnlocked)
+            {
+                cloneSpawnPosition = transform.position;
+                Invoke(nameof(SpawnClone),0.1f);
+            }
             DashSound.GetComponent<RandomSound>().PlayRandom1();
             ChangeState(Dashing);
             currentDashPower = maxDashingPower;
@@ -136,6 +152,31 @@ public class PlayerMovement : MonoBehaviour
     private void DisableMovement()
     {
         //playerInput.DeactivateInput(); TODO delete this function and unsubscribe event if unused
+    }
+
+    private void SpawnClone()
+    {
+        if (cloneReady)
+        {
+            clone = Instantiate(clonePrefab, cloneSpawnPosition, quaternion.identity) as GameObject;
+            Invoke(nameof(DestroyClone) ,cloneTimeToBeAlive);
+            //Move Targetingobject to clone
+            target = transform.GetChild(5);
+            target.parent = clone.transform;
+            target.position = clone.transform.position;
+            cloneReady = false;
+        }
+        
+    }
+
+    private void DestroyClone()
+    {
+        //Move Targeting object to player
+        target.parent = transform;
+        target.position = transform.position; 
+        if(clone != null)
+            Destroy(clone);
+        cloneReady = true;
     }
 
     private void OnDestroy()
