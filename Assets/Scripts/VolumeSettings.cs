@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class VolumeSettings : MonoBehaviour
@@ -70,7 +71,8 @@ public class VolumeSettings : MonoBehaviour
         else
             audioMixer.SetFloat("masterVolume", -60);
 
-        gameObject.SetActive(false);
+        if (SceneManager.GetActiveScene().name == "MainMenu")
+            gameObject.SetActive(false);
     }
 
     private void LoadVolume()

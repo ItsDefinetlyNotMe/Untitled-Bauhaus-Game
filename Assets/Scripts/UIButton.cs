@@ -49,10 +49,18 @@ public class UIButton : MonoBehaviour, ISelectHandler
         SceneManager.LoadScene("MainMenu");
     }
 
+    public void BackToPauseMenu()
+    {
+        GameObject pauseCanvas = GameObject.Find("PauseMenuCanvas");
+        pauseCanvas.transform.GetChild(0).gameObject.SetActive(true);
+        pauseCanvas.transform.GetChild(1).gameObject.SetActive(false);
+    }
+
     public void PauseSettings()
     {
-        transform.parent.gameObject.SetActive(false);
-        transform.parent.parent.GetChild(1).gameObject.SetActive(true);
+        GameObject pauseCanvas = GameObject.Find("PauseMenuCanvas");
+        pauseCanvas.transform.GetChild(0).gameObject.SetActive(false);
+        pauseCanvas.transform.GetChild(1).gameObject.SetActive(true);
     }
 
     private void OnEnable()
