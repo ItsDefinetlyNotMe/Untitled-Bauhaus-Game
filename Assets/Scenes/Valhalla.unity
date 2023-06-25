@@ -930,6 +930,7 @@ MonoBehaviour:
     type: 1
     difficulty: 2
   percentageOfMainObject: 0.6
+  difficultyExponent: 2
   difficulties:
   - difficultyType: 0
     difficulty: 10

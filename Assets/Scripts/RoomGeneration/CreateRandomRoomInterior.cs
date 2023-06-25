@@ -13,6 +13,7 @@ namespace TestRandomWorldGeneration
         [SerializeField] private float percentageOfMainObject;
 
         [Header("Difficulty")]
+        [SerializeField] private int difficultyExponent;
         [SerializeField] private Structs.DifficultyStruct[] difficulties;
 
         private List<Vector2> possibleSpawnPositions = new();
@@ -76,7 +77,11 @@ namespace TestRandomWorldGeneration
         {
             //Fill up 20% - 50% of the room
             spaceToFill = (int)(floorTileCount * UnityEngine.Random.Range(0.2f, 0.4f));
-            restDifficulty = difficulties[0].difficulty;
+            restDifficulty = 2 + (int)Mathf.Pow(FindObjectOfType<GameManager>().roomNumber, difficultyExponent);
+            print("current room number: " + FindObjectOfType<GameManager>().roomNumber);
+            print("difficulty exponent: " + difficultyExponent);
+            print("current room difficulty: " + restDifficulty);
+            print("--------------------------------------------------------");
 
             //Choose main furniture and fill up ~70% of the space you want to fill
             //Then choose remaining random from remaining possible objects
