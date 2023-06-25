@@ -209,10 +209,7 @@ public class InputHandler : MonoBehaviour
 
     private void OnPause()
     {
-        PlayerInput playerInput = FindObjectOfType<PlayerInput>();
-        playerInput.actions.FindActionMap("UI").Enable();
-        playerInput.actions.FindActionMap("Fighting").Disable();
-        playerInput.actions.FindActionMap("Movement").Disable();
+        StartCoroutine(ActivateUI());
 
         GameObject pauseCanvas = GameObject.Find("PauseMenuCanvas").transform.GetChild(0).gameObject;
         pauseCanvas.SetActive(true);
@@ -232,9 +229,9 @@ public class InputHandler : MonoBehaviour
         yield return new WaitForEndOfFrame();
 
         PlayerInput playerInput = FindObjectOfType<PlayerInput>();
+        playerInput.actions.FindActionMap("UI").Enable();
         playerInput.actions.FindActionMap("Fighting").Disable();
         playerInput.actions.FindActionMap("Movement").Disable();
-        playerInput.actions.FindActionMap("UI").Enable();
     }
 
     private IEnumerator DeactivateUI()
