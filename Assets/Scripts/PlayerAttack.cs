@@ -11,6 +11,8 @@ public class PlayerAttack : MonoBehaviour
     private PlayerStats stats;
     private float damageMultiplier = 1f;
     float knockbackMultiplier = 150f;//TODO sollte mit der waffe importiert werden also dmg aswell
+
+    private HitablePlayer hitablePlayer;
     
     //crit
     private float critChance = 0f;//clamp to 0-1

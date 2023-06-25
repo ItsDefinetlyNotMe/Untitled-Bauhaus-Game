@@ -168,6 +168,7 @@ public class HitablePlayer : HittableObject
     protected override void Die(GameObject damageSource)
     {
         //transform.position = new Vector3(-4.5f, -1.5f, 0);
+        Debug.Log("NOW YOU DIE");
         StartCoroutine(OnPlayerDeath());
         
         //base.Die(); TODO talk about correct resetting of player on death
@@ -177,8 +178,11 @@ public class HitablePlayer : HittableObject
     IEnumerator OnPlayerDeath()
     {
         healthBar.SetActive(false);
+        print("HEALTHBAR DEACTIVATED");
         animator.SetTrigger("onDeath");
+        print("DEATH ANIM STARTED");
         Destroy(StopMusic);
+        print("NO MUSIC FOR YOU");
         PostProcess = GameObject.FindGameObjectWithTag("Volume");
         PostProcess.GetComponent<PostProcessEffects>().CharacterDeath();
 

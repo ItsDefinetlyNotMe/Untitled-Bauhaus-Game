@@ -17,6 +17,8 @@ public class InputHandler : MonoBehaviour
     public bool isOnUpgrade { private get; set; } = false;
     public bool isInPauseMenu { private get; set; } = false;
 
+    private HitablePlayer hitablePlayer;
+
     private void Awake()
     {
         SceneManager.sceneLoaded += OnSceneLoaded;
@@ -36,6 +38,8 @@ public class InputHandler : MonoBehaviour
             playerMovement = FindObjectOfType<PlayerMovement>();
             playerAnimator = FindObjectOfType<PlayerAnimator>();
             playerAttack = FindObjectOfType<PlayerAttack>();
+            hitablePlayer = FindObjectOfType<HitablePlayer>();
+
 
             upgradeWindow = FindObjectOfType<UpgradeWindow>();
         }
@@ -47,6 +51,8 @@ public class InputHandler : MonoBehaviour
             playerMovement = FindObjectOfType<PlayerMovement>();
             playerAnimator = FindObjectOfType<PlayerAnimator>();
             playerAttack = FindObjectOfType<PlayerAttack>();
+            hitablePlayer = FindObjectOfType<HitablePlayer>();
+
         }
     }
 
@@ -70,6 +76,8 @@ public class InputHandler : MonoBehaviour
 
     private void OnDash(InputValue input)
     {
+        if(hitablePlayer.isDying)
+            return;
         {
             if (whileLoopTracker > 10)
                 return;
@@ -86,6 +94,8 @@ public class InputHandler : MonoBehaviour
 
     private void OnAttack(InputValue input)
     {
+        if(hitablePlayer.isDying)
+            return;
         while (playerAttack == null)
         {
             if (whileLoopTracker > 10)
@@ -181,6 +191,8 @@ public class InputHandler : MonoBehaviour
 
     private void OnSpecialAttack()
     {
+        if(hitablePlayer.isDying)
+            return;
         while (playerAttack == null)
         {
             if (whileLoopTracker > 10)
