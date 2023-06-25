@@ -1,10 +1,6 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
-using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
 public class HittableFireplace : HittableObject
@@ -16,6 +12,7 @@ public class HittableFireplace : HittableObject
     [SerializeField] private Light2D light2D;
     public bool dying;
     private bool dead;
+    private int currentStage;
 
     public float speed = 4f;
     public float noiseScale = 0.1f;
@@ -23,7 +20,9 @@ public class HittableFireplace : HittableObject
     private float baseLightintensity;
     public GameObject HitSound;
     public AudioSource FireSoundStop;
-    
+    private static readonly int NextStage = Animator.StringToHash("nextStage");
+    private static readonly int OnDeath = Animator.StringToHash("OnDeath");
+
 
     protected override void Start()
     {
@@ -51,33 +50,39 @@ public class HittableFireplace : HittableObject
         {
             stage = 1;
             //priteRenderer.sprite = destroyedSecondSprite;
-            animator.SetTrigger("nextStage");
+            animator.SetTrigger(NextStage);
+            currentStage++;
             HitSound.GetComponent<RandomSound>().PlayRandom1();
         }
         else if (currentHealth <= maxHealth * 2f / 3f && currentHealth > 0)
         {
             stage = 2;
-            animator.SetTrigger("nextStage");
+            animator.SetTrigger(NextStage);
+            currentStage++;
             HitSound.GetComponent<RandomSound>().PlayRandom1();
+        }else if (currentHealth <= 0)
+        {
+            stage = 3;
+            currentStage++;
         }
 
     }
     protected override void Die(GameObject damageSource)
     {
-        //change sprite
-        //spriteRenderer.sprite = destroyedSprite;
         HitSound.GetComponent<RandomSound>().PlayRandom2();
         FireSoundStop.Stop();
         StartCoroutine(LightDown());
-        //light2D.intensity = 0f;
-        //layerRoot.position += Vector3.up * 0.3f;
         base.Die(damageSource);
     }
 
     IEnumerator LightDown()
     {
         dead = true;
-        animator.SetTrigger("nextStage");
+        if(currentStage != stage)
+            animator.SetTrigger(OnDeath);
+        
+        animator.SetTrigger(NextStage);
+        
         yield return new WaitWhile(() => !dying);
         float startintensity = light2D.intensity;
         float duration = 0.1f; 
@@ -93,8 +98,4 @@ public class HittableFireplace : HittableObject
 
         light2D.intensity = 0f;
     }
-    //protected override void TakeDamage(int damage)
-    //{
-    //    base.TakeDamage(damage);
-    //}
 }

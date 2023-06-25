@@ -1,9 +1,7 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using static Structs;
 using Enemies;
-using Unity.VisualScripting;
 using UnityEngine;
 
 abstract public class MeleeEnemy : EnemyMovement
@@ -63,17 +61,8 @@ abstract public class MeleeEnemy : EnemyMovement
         {
             if(!readyToAttack)
                 return;
-            Direction attackDirection = Direction.Up;
-            //Ray to look wether there is an obstacle between u and player
-            //Vector2 offset = new Vector2(0f, -1f) * 0.5f; 
-            //Vector2 raydirection = ((Vector2)target.position + offset - (Vector2)origin.position).normalized;
-            //RaycastHit2D hit = Physics2D.Raycast(origin.position, raydirection, attackRange);
-            //print(!hit.transform.CompareTag("PlayerBody"));
-            /*if(hit)
-                if(!hit.transform.CompareTag("Player"))
-                    return;*/
-            attackDirection = GetDirection(target.position);
-            bool notused = true;
+            Direction attackDirection = GetDirection(target.position);
+            //bool notused = true;
             readyToAttack = false;
             StartCoroutine(Attack(attackDirection,(notused =>
             {
@@ -98,32 +87,31 @@ abstract public class MeleeEnemy : EnemyMovement
             Vector2 right = position + directionOffset * Vector2.right;
             Vector2 down = position + directionOffset * Vector2.down;
 
-            Direction smallest_direction = Direction.Left;
-            float min_dist = float.PositiveInfinity;
+            Direction smallestDirection = Direction.Left;
+            float minDist = float.PositiveInfinity;
             
-            if (Vector2.Distance(left, pos) < min_dist)
+            if (Vector2.Distance(left, pos) < minDist)
             {
-                min_dist = Vector2.Distance(left, pos);
-                smallest_direction = Direction.Left;
+                minDist = Vector2.Distance(left, pos);
+                smallestDirection = Direction.Left;
             }
 
-            if (Vector2.Distance(up, pos) < min_dist)
+            if (Vector2.Distance(up, pos) < minDist)
             {
-                min_dist = Vector2.Distance(up, pos);
-                smallest_direction = Direction.Up;
+                minDist = Vector2.Distance(up, pos);
+                smallestDirection = Direction.Up;
             }
-            if (Vector2.Distance(right, pos) < min_dist)
+            if (Vector2.Distance(right, pos) < minDist)
             {
-                min_dist = Vector2.Distance(right, pos);
-                smallest_direction = Direction.Right;
+                minDist = Vector2.Distance(right, pos);
+                smallestDirection = Direction.Right;
             }
-            if(Vector2.Distance(down, pos) < min_dist)
+            if(Vector2.Distance(down, pos) < minDist)
             {
-                min_dist = Vector2.Distance(down, pos);
-                smallest_direction = Direction.Down;
+                smallestDirection = Direction.Down;
             }
                 
-            return smallest_direction;
+            return smallestDirection;
         }
 
         protected override bool ShouldTarget()

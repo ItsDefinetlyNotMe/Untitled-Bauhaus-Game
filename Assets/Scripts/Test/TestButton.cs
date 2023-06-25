@@ -1,6 +1,7 @@
 #if (UNITY_EDITOR)
 
 using System;
+using Test;
 using TestRandomWorldGeneration;
 using UnityEngine;
 using UnityEditor;
@@ -9,7 +10,7 @@ using static Structs;
 [CustomEditor(typeof(TestScript))]
 public class TestButton : Editor
 {
-    private int targetingOption = 0;
+    //private int targetingOption = 0;
     private int selectedOption = 0;
     public override void OnInspectorGUI()
     {
