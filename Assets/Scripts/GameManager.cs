@@ -38,6 +38,11 @@ public class GameManager : MonoBehaviour
         if (isAlreadyDestroyed)
             return;
 
+        if (scene.name == "HUB")
+        {
+            roomNumber = 0;
+        }
+
         if (scene.name == "Valhalla")
         {
             randomRoomLayout = FindObjectOfType<CreateRandomRoomLayout>();

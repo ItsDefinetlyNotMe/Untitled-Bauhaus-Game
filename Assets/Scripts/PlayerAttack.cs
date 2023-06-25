@@ -137,7 +137,6 @@ public class PlayerAttack : MonoBehaviour
     public void LoadStats()
     {
         damageMultiplier = stats.getDamageMultiplier();
-        print("damage Multiplier: " + damageMultiplier);
     }
     private float GetCritMultiplier()
     {
