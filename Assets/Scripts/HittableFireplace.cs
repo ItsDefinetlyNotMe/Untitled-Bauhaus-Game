@@ -1,14 +1,13 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
+using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
 public class HittableFireplace : HittableObject
 {
     private Animator animator;
-    SpriteRenderer spriteRenderer;
     private int stage;
-    private Transform layerRoot;
     [SerializeField] private Light2D light2D;
     public bool dying;
     private bool dead;
@@ -18,8 +17,8 @@ public class HittableFireplace : HittableObject
     public float noiseScale = 0.1f;
     private float noiseOffset = 0.6f;
     private float baseLightintensity;
-    public GameObject HitSound;
-    public AudioSource FireSoundStop;
+    [FormerlySerializedAs("HitSound")] public GameObject hitSound;
+    [FormerlySerializedAs("FireSoundStop")] public AudioSource fireSoundStop;
     private static readonly int NextStage = Animator.StringToHash("nextStage");
     private static readonly int OnDeath = Animator.StringToHash("OnDeath");
 
@@ -27,8 +26,6 @@ public class HittableFireplace : HittableObject
     protected override void Start()
     {
         base.Start();
-        layerRoot = transform.Find("LayerRoot");
-        spriteRenderer = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
         noiseOffset = Random.Range(0f, 100f);
         baseLightintensity = light2D.intensity;
@@ -52,14 +49,14 @@ public class HittableFireplace : HittableObject
             //priteRenderer.sprite = destroyedSecondSprite;
             animator.SetTrigger(NextStage);
             currentStage++;
-            HitSound.GetComponent<RandomSound>().PlayRandom1();
+            hitSound.GetComponent<RandomSound>().PlayRandom1();
         }
         else if (currentHealth <= maxHealth * 2f / 3f && currentHealth > 0)
         {
             stage = 2;
             animator.SetTrigger(NextStage);
             currentStage++;
-            HitSound.GetComponent<RandomSound>().PlayRandom1();
+            hitSound.GetComponent<RandomSound>().PlayRandom1();
         }else if (currentHealth <= 0)
         {
             stage = 3;
@@ -69,8 +66,8 @@ public class HittableFireplace : HittableObject
     }
     protected override void Die(GameObject damageSource)
     {
-        HitSound.GetComponent<RandomSound>().PlayRandom2();
-        FireSoundStop.Stop();
+        hitSound.GetComponent<RandomSound>().PlayRandom2();
+        fireSoundStop.Stop();
         StartCoroutine(LightDown());
         base.Die(damageSource);
     }
