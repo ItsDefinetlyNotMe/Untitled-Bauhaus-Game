@@ -6,6 +6,7 @@ using UnityEngine.InputSystem;
 using UnityEngine;
 using static Structs.PlayerState;
 using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
 using Object = UnityEngine.Object;
 
 // ReSharper disable Unity.InefficientPropertyAccess
@@ -40,12 +41,16 @@ public class PlayerMovement : MonoBehaviour
     private int whileLoopTracker = 0;
     public GameObject DashSound;
 
+    [Header("Clone")]
     [SerializeField] GameObject clonePrefab;
     [SerializeField] private bool isCloneAbilityUnlocked;
     [SerializeField] private float cloneTimeToBeAlive;
+    [SerializeField] private float cloneCooldown = 5f;
+    private float timeStampCloneCooldown;
     private Vector2 cloneSpawnPosition;
     private bool cloneReady = true;
     private GameObject clone;
+    private Animator cloneCooldownAnimator;
 
     private Transform target;
     private void Awake()
@@ -156,12 +161,15 @@ public class PlayerMovement : MonoBehaviour
 
     private void SpawnClone()
     {
-        if (cloneReady)
+        if (cloneReady && timeStampCloneCooldown < Time.time)
         {
+            cloneCooldownAnimator = transform.GetChild(5).GetComponent<Animator>();
+            cloneCooldownAnimator.SetTrigger("Cooldown");
             clone = Instantiate(clonePrefab, cloneSpawnPosition, quaternion.identity) as GameObject;
             Invoke(nameof(DestroyClone) ,cloneTimeToBeAlive);
+            timeStampCloneCooldown = Time.time + cloneCooldown;
             //Move Targetingobject to clone
-            target = transform.GetChild(5);
+            target = transform.GetChild(6);
             target.parent = clone.transform;
             target.position = clone.transform.position;
             cloneReady = false;
