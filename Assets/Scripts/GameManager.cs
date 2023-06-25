@@ -10,6 +10,8 @@ public class GameManager : MonoBehaviour
     private Canvas gameOverCanvas;
     private GameObject roomTransitionScreen;
 
+    public int roomNumber { get; private set; } = 0;
+
     public bool isAlreadyDestroyed { private get; set; } = false;
 
     public int saveSlot;
@@ -48,6 +50,7 @@ public class GameManager : MonoBehaviour
     {
         roomTransitionScreen.SetActive(true);
         randomRoomLayout.loot = loot;
+        roomNumber++;
         randomRoomLayout.StartRoomGeneration(direction);
     }
 
