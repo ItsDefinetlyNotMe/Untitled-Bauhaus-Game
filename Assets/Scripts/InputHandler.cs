@@ -160,8 +160,9 @@ public class InputHandler : MonoBehaviour
 
             isInPauseMenu = false;
 
-            GameObject pauseCanvas = GameObject.Find("PauseMenuCanvas").transform.GetChild(0).gameObject;
-            pauseCanvas.SetActive(false);
+            GameObject pauseCanvas = GameObject.Find("PauseMenuCanvas");
+            pauseCanvas.transform.GetChild(1).gameObject.SetActive(false);
+            pauseCanvas.transform.GetChild(0).gameObject.SetActive(false);
             Time.timeScale = 1f;
         }
 
@@ -223,11 +224,12 @@ public class InputHandler : MonoBehaviour
     {
         StartCoroutine(ActivateUI());
 
+        isInPauseMenu = true;
+
         GameObject pauseCanvas = GameObject.Find("PauseMenuCanvas").transform.GetChild(0).gameObject;
         pauseCanvas.SetActive(true);
         Time.timeScale = 0f;
 
-        isInPauseMenu = true;
     }
 
     private void OnDelete()
