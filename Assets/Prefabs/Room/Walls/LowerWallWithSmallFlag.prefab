@@ -40,6 +40,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5377806029284775898}
     m_Modifications:
+    - target: {fileID: 6482613421711135064, guid: d13c3324b678aa44b88283c186b6a0c1, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7980319443548456798, guid: d13c3324b678aa44b88283c186b6a0c1, type: 3}
       propertyPath: m_Name
       value: World 1 - Wall unten

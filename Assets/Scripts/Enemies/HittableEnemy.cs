@@ -57,7 +57,8 @@ namespace Enemies
                 healthBar.gameObject.SetActive(true);
 
             healthBar.value = currentHealth;
-            Knockback(0.3f,damageSourcePosition,knockbackMultiplier);//TODO duration
+            if(!isDead)
+                Knockback(0.3f,damageSourcePosition,knockbackMultiplier);//TODO duration
         }
 
         protected virtual IEnumerator HitFeedback(){

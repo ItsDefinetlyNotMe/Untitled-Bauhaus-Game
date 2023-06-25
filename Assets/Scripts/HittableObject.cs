@@ -7,6 +7,8 @@ public abstract class HittableObject : MonoBehaviour
     public delegate void ObjectDeathDelegate();
     public static ObjectDeathDelegate onObjectDeath;
 
+    protected bool isDead;
+
     protected Collider2D objectCollider;
     [SerializeField] protected int maxHealth;
     public int currentHealth;
@@ -41,7 +43,8 @@ public abstract class HittableObject : MonoBehaviour
     {
         if(damageSource.CompareTag("Player"))
             onObjectDeath?.Invoke(); //Invoke event for controller vibration
-        
+
+        isDead = true;
         Bounds myBounds = new Bounds(transform.position,new Vector3(1f,1f,1f) * 2f);
         AstarPath.active.UpdateGraphs (myBounds);
         objectCollider.enabled = false;
