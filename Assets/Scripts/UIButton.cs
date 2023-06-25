@@ -44,7 +44,7 @@ public class UIButton : MonoBehaviour, ISelectHandler
 
         FindObjectOfType<InputHandler>().isInPauseMenu = false;
 
-        gameObject.SetActive(false);
+        gameObject.transform.parent.gameObject.SetActive(false);
         Time.timeScale = 1;
         SceneManager.LoadScene("MainMenu");
     }

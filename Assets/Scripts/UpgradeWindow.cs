@@ -51,8 +51,10 @@ public class UpgradeWindow : MonoBehaviour
         PlayerStats stats = FindObjectOfType<PlayerStats>();
 
         if (!stats.AddMoney(-price))
+        {
             audioSource.PlayOneShot(locked);
-        return;
+            return;
+        }
 
         maxHealthBonus = PlayerPrefs.GetInt("maxHealth" + gameManager.saveSlot) + maxHealthUpgrade; //Get value and add new bonus
         PlayerPrefs.SetInt("maxHealth" + gameManager.saveSlot, maxHealthBonus); //Set new value
@@ -92,8 +94,10 @@ public class UpgradeWindow : MonoBehaviour
         PlayerStats stats = FindObjectOfType<PlayerStats>();
 
         if (!stats.AddMoney(-price))
+        {
             audioSource.PlayOneShot(locked);
-        return;
+            return;
+        }
 
         print("Increase Damage Multiplier");
     }
