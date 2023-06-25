@@ -38,6 +38,8 @@ public class GameManager : MonoBehaviour
         if (isAlreadyDestroyed)
             return;
 
+        Debug.Log("Loaded: " + scene.name);
+
         if (scene.name == "HUB")
         {
             roomNumber = 0;

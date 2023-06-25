@@ -33,6 +33,7 @@ public class UpgradeWindow : MonoBehaviour
         upgradeWindow.SetActive(true);
 
         UpdateMaxHealth();
+        UpdateDamageMultiplier();
     }
 
     public void Back()

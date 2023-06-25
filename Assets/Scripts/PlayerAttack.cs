@@ -33,6 +33,8 @@ public class PlayerAttack : MonoBehaviour
     private void Awake()
     {
         SceneManager.sceneLoaded += OnSceneLoaded;
+
+        stats = GetComponent<PlayerStats>();
     }
 
     private void Start()
@@ -41,7 +43,7 @@ public class PlayerAttack : MonoBehaviour
         playerMovement = GetComponent<PlayerMovement>();
         weaponScript = GetComponentInChildren<WeaponScript>();
         inputBuffer = GetComponent<InputBuffer>();
-        stats = GetComponent<PlayerStats>();
+        
 
         PlayerInput playerInput = null;
 
