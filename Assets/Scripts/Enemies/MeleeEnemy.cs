@@ -12,7 +12,10 @@ abstract public class MeleeEnemy : EnemyMovement
     
         //[Header("States")]
         public EnemyState currentEnemyState { get; private set; }
-    
+
+        [Header("Directionoffset")] 
+        [SerializeField] protected float directionOffset;
+
         [Header("Layer")]
         [SerializeField] protected LayerMask attackLayer;
         [SerializeField] protected LayerMask enemyObstacleLayer;
@@ -23,11 +26,11 @@ abstract public class MeleeEnemy : EnemyMovement
         [Header("Attack")] 
         [SerializeField] protected int damage;
 
-        [SerializeField] protected float knockback;
+        //[SerializeField] protected float knockback;
         
         [Header("AttackRanges")]
         [SerializeField] protected float attackRange = 1f;
-        [SerializeField] protected float aggroRange = 50f;
+        //[SerializeField] protected float aggroRange = 50f;
     
         [Header("AttackTime")]
         [SerializeField] protected float chargeAttackTime = .6f;
@@ -62,23 +65,20 @@ abstract public class MeleeEnemy : EnemyMovement
                 return;
             Direction attackDirection = Direction.Up;
             //Ray to look wether there is an obstacle between u and player
-            Vector2 offset = new Vector2(0f, -1f) * 0.5f; 
-            Vector2 raydirection = ((Vector2)target.position + offset - (Vector2)origin.position).normalized;
-            RaycastHit2D hit = Physics2D.Raycast(origin.position, raydirection, attackRange);
+            //Vector2 offset = new Vector2(0f, -1f) * 0.5f; 
+            //Vector2 raydirection = ((Vector2)target.position + offset - (Vector2)origin.position).normalized;
+            //RaycastHit2D hit = Physics2D.Raycast(origin.position, raydirection, attackRange);
             //print(!hit.transform.CompareTag("PlayerBody"));
             /*if(hit)
                 if(!hit.transform.CompareTag("Player"))
                     return;*/
-            attackDirection = GetDirection(raydirection);
+            attackDirection = GetDirection(target.position);
             bool notused = true;
             readyToAttack = false;
             StartCoroutine(Attack(attackDirection,(notused =>
             {
                 readyToAttack = true;
             } )));
-            
-
-            
         }
 
         public virtual void ChangeState(EnemyState nextState)
@@ -90,16 +90,40 @@ abstract public class MeleeEnemy : EnemyMovement
 
         protected abstract void SetAnimator(Vector2 dir,bool isWalking);
 
-        protected Direction GetDirection(Vector2 dir)
+        protected Direction GetDirection(Vector2 pos)
         {
-            if (dir.y > 0 && Mathf.Abs(dir.x) <= dir.y)
-                return Direction.Up;
-            else if(Mathf.Abs(dir.x) <= Mathf.Abs(dir.y))
-                return Direction.Down;
-            else if (dir.x > 0)
-                return Direction.Right;
-            else
-                return Direction.Left;
+            Vector2 position = transform.position;
+            Vector2 left = position + directionOffset * Vector2.left;
+            Vector2 up = position + directionOffset * Vector2.up;
+            Vector2 right = position + directionOffset * Vector2.right;
+            Vector2 down = position + directionOffset * Vector2.down;
+
+            Direction smallest_direction = Direction.Left;
+            float min_dist = float.PositiveInfinity;
+            
+            if (Vector2.Distance(left, pos) < min_dist)
+            {
+                min_dist = Vector2.Distance(left, pos);
+                smallest_direction = Direction.Left;
+            }
+
+            if (Vector2.Distance(up, pos) < min_dist)
+            {
+                min_dist = Vector2.Distance(up, pos);
+                smallest_direction = Direction.Up;
+            }
+            if (Vector2.Distance(right, pos) < min_dist)
+            {
+                min_dist = Vector2.Distance(right, pos);
+                smallest_direction = Direction.Right;
+            }
+            if(Vector2.Distance(down, pos) < min_dist)
+            {
+                min_dist = Vector2.Distance(down, pos);
+                smallest_direction = Direction.Down;
+            }
+                
+            return smallest_direction;
         }
 
         protected override bool ShouldTarget()

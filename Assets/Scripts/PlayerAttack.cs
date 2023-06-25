@@ -65,7 +65,13 @@ public class PlayerAttack : MonoBehaviour
         {
             foreach (Collider2D enemy in enemiesHit)
             {
-                enemy.GetComponent<HittableObject>().GetHit((int)(weaponDamage * damageMultiplier * crit), transform.position, knockbackMultiplier, gameObject,false);
+                HittableObject hittableobject = enemy.GetComponent<HittableObject>();
+                if(hittableobject!=null)
+                    hittableobject.GetHit((int)(weaponDamage * damageMultiplier * crit), transform.position, knockbackMultiplier, gameObject,false);
+                else
+                {
+                    print(enemy);
+                }
             }
         }));
     }

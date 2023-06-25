@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6811418104202620962}
   - component: {fileID: 6811418104202620963}
   - component: {fileID: 3808246164041756028}
-  m_Layer: 9
+  m_Layer: 5
   m_Name: ParentFloatingDamage
   m_TagString: Untagged
   m_Icon: {fileID: 0}

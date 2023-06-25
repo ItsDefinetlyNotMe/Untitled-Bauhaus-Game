@@ -1,12 +1,7 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Runtime.CompilerServices;
-using Enemies;
-using UnityEditor;
 using static Structs;
 using UnityEngine;
-using Random = Unity.Mathematics.Random;
 
 public class SpearAndShieldEnemy : MeleeEnemy
 {
@@ -16,13 +11,13 @@ public class SpearAndShieldEnemy : MeleeEnemy
     private static readonly int OnAttack = Animator.StringToHash("onAttack");
     private static readonly int AttackDirection = Animator.StringToHash("AttackDirection");
     private static readonly int AttackSmallDirection = Animator.StringToHash("AttackSmallDirection");
-    private static readonly int Idle = Animator.StringToHash("Idle");
+    //private static readonly int Idle = Animator.StringToHash("Idle");
     private static readonly int Defense = Animator.StringToHash("Defense");
     private static readonly int DefenseBreak = Animator.StringToHash("DefenseBreak");
     private static readonly int BlockDirection = Animator.StringToHash("BlockDirection");
     private static readonly int OnSmallAttackEnd = Animator.StringToHash("onSmallAttackEnd");
-    private static readonly int OnAttackEnd = Animator.StringToHash("onAttackEnd");
-
+    //private static readonly int OnAttackEnd = Animator.StringToHash("onAttackEnd");
+    private bool isDefenseBroken;
 
     private void Start()
     {
@@ -98,9 +93,10 @@ public class SpearAndShieldEnemy : MeleeEnemy
         ChangeState(EnemyState.Attacking);
     }
 
-    public void PlayBlockAnimation(Vector2 damageSourcePosition)
+    public void PlayBlockAnimation(Vector2 damageSourcePosition,bool isBreaking)
     {
-        var dir = GetDirectionFromDamageSource(damageSourcePosition);
+        var dir = GetDirection(damageSourcePosition);
+        isDefenseBroken = isBreaking;
         animator.SetInteger(BlockDirection,(int)dir);
         animator.SetTrigger(Defense);
     }
@@ -108,12 +104,6 @@ public class SpearAndShieldEnemy : MeleeEnemy
     {   
         //Stun(1f); 
         animator.SetTrigger(DefenseBreak);
-    }
-
-    protected Direction GetDirectionFromDamageSource(Vector2 damageSourcePosition)
-    {
-        Vector2 direction = (damageSourcePosition - (Vector2)origin.position).normalized;
-        return GetDirection(direction);
     }
 
     public EnemyState GetState()
@@ -124,7 +114,17 @@ public class SpearAndShieldEnemy : MeleeEnemy
     private void OnTriggerEnter2D(Collider2D other)
     {
         if(other.CompareTag("PlayerBody"))
-            other.GetComponentInParent<HitablePlayer>().GetHit(damage,origin.position,knockback,gameObject,false);
+            other.GetComponentInParent<HitablePlayer>().GetHit(damage,origin.position,0f,gameObject,false);
+    }
+
+    public void OnDefenseEnd()
+    {
+        if (!isDefenseBroken)
+        {
+            ChangeState(EnemyState.Idle);
+            readyToAttack = true;
+            StartTargeting();
+        }
     }
 
     private void OnDrawGizmos()

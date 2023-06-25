@@ -517,6 +517,7 @@ MonoBehaviour:
   target: {fileID: 0}
   movementSpeed: 1
   nextWayPointDistance: 3
+  directionOffset: 0.2
   attackLayer:
     serializedVersion: 2
     m_Bits: 448
@@ -524,9 +525,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 704
   damage: 10
-  knockback: 100
   attackRange: 0.8
-  aggroRange: 10
   chargeAttackTime: 0.6
   rechargingTime: 1
   readyToAttack: 1
@@ -570,7 +569,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 129201a15b5c1d546a106f64f1fc9f43, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 130
+  maxHealth: 500
   currentHealth: 0
   size: 2
   isDying: 0
@@ -579,7 +578,6 @@ MonoBehaviour:
   DeathHitSound: {fileID: 5344731875620374412}
   healthBar: {fileID: 6546067699203022589}
   dying: 0
-  knockbackDuration: 0.05
 --- !u!114 &4029955629151147387
 MonoBehaviour:
   m_ObjectHideFlags: 0

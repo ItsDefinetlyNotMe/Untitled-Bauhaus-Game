@@ -7,17 +7,17 @@ public class HittableHead : HittableEnemy
 {
     // Start is called before the first frame update
     HittableEnemy parentHittableScript;
-    private SpriteRenderer spriteRenderer;
+    private SpriteRenderer spriteRendererHead;
     protected override void Start()
     {
         parentHittableScript = transform.parent.GetComponent<HittableEnemy>();
-        spriteRenderer = GetComponent<SpriteRenderer>();
+        spriteRendererHead = GetComponent<SpriteRenderer>();
     }
 
     public override void GetHit(int damage, Vector2 damageSourcePosition, float knockbackMultiplier, GameObject damageSource, bool heavy)
     {
         parentHittableScript.GetHit(9999,damageSourcePosition,0,damageSource,heavy);
-        spriteRenderer.enabled = false;
+        spriteRendererHead.enabled = false;
 
     }
 }
