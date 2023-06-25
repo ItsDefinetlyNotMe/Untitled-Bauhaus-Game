@@ -49,6 +49,20 @@ public class UIButton : MonoBehaviour, ISelectHandler
         SceneManager.LoadScene("MainMenu");
     }
 
+    public void BackToHUB()
+    {
+        PlayerInput playerInput = FindObjectOfType<PlayerInput>();
+        playerInput.actions.FindActionMap("Fighting").Enable();
+        playerInput.actions.FindActionMap("Movement").Enable();
+        playerInput.actions.FindActionMap("UI").Disable();
+
+        FindObjectOfType<InputHandler>().isInPauseMenu = false;
+
+        gameObject.transform.parent.gameObject.SetActive(false);
+        Time.timeScale = 1;
+        SceneManager.LoadScene("HUB");
+    }
+
     public void BackToPauseMenu()
     {
         GameObject pauseCanvas = GameObject.Find("PauseMenuCanvas");
@@ -61,6 +75,21 @@ public class UIButton : MonoBehaviour, ISelectHandler
         GameObject pauseCanvas = GameObject.Find("PauseMenuCanvas");
         pauseCanvas.transform.GetChild(0).gameObject.SetActive(false);
         pauseCanvas.transform.GetChild(1).gameObject.SetActive(true);
+    }
+
+    public void ResumeGame()
+    {
+        PlayerInput playerInput = FindObjectOfType<PlayerInput>();
+        playerInput.actions.FindActionMap("Fighting").Enable();
+        playerInput.actions.FindActionMap("Movement").Enable();
+        playerInput.actions.FindActionMap("UI").Disable();
+
+        FindObjectOfType<InputHandler>().isInPauseMenu = false;
+
+        GameObject pauseCanvas = GameObject.Find("PauseMenuCanvas");
+        pauseCanvas.transform.GetChild(0).gameObject.SetActive(false);
+        pauseCanvas.transform.GetChild(1).gameObject.SetActive(false);
+        Time.timeScale = 1f;
     }
 
     private void OnEnable()
