@@ -49,6 +49,12 @@ public class UIButton : MonoBehaviour, ISelectHandler
         SceneManager.LoadScene("MainMenu");
     }
 
+    public void PauseSettings()
+    {
+        transform.parent.gameObject.SetActive(false);
+        transform.parent.parent.GetChild(1).gameObject.SetActive(true);
+    }
+
     private void OnEnable()
     {
         string sceneName = SceneManager.GetActiveScene().name;
