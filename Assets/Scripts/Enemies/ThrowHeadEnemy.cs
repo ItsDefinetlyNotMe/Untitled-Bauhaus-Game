@@ -40,7 +40,6 @@ namespace Enemies
             {
                 float lerpT = (Time.time - timeStart) / lerpDuration;
                 headRb.position =  Mathf.Lerp(positionHeadY,positionHeadY + 0.2f,lerpT) * Vector2.up + headRb.position.x * Vector2.right;
-                print(headRb.position.y - positionHeadY + 0.2f);
                 if (lerpT >= 0.99f)
                 {
                     animator.SetTrigger(OnRespawn);
