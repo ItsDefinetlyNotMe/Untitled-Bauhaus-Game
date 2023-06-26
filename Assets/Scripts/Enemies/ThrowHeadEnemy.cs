@@ -44,7 +44,6 @@ namespace Enemies
                 {
                     animator.SetTrigger(OnRespawn);
                     lerpFlag = false;
-                    Time.timeScale = 1f;
                 }
             }
             if(isStunned)
@@ -82,7 +81,6 @@ namespace Enemies
             //dash head
             headRb.velocity = (target.position-transform.position).normalized * projectileSpeed;
             yield return new WaitForSeconds(2);
-            Time.timeScale = 0.1f;
             //stop head as new function
             StopHead();
             yield return new WaitWhile(()=>currentEnemyState != Structs.EnemyState.Recharging);
