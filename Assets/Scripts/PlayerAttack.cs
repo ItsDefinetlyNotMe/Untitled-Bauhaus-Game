@@ -138,6 +138,10 @@ public class PlayerAttack : MonoBehaviour
         //play animation
         HeavyAttackCharge.Play();
     }
+    private void AttackFinished()
+    {
+        weaponScript.AttackFinished();
+    }
     public void LoadStats()
     {
         damageMultiplier = stats.getDamageMultiplier();

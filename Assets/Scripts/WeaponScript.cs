@@ -132,7 +132,7 @@ public abstract class WeaponScript : MonoBehaviour
         }*/
     }
 
-    private void AttackFinished()
+    public void AttackFinished()
     {
         isAttacking = false;
     }
