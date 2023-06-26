@@ -10,7 +10,12 @@ namespace Enemies
         private Transform head;
         private SpriteRenderer spriteRenderer;
         private Rigidbody2D headRb;
-        
+        [Header("Lerp")] 
+        private bool lerpFlag;
+        private float positionHeadY;
+        private readonly float lerpDuration=0.2f;
+        private float timeStart;
+
         [Header("Attack")]
         [SerializeField] private float attackDamage;
         private static readonly int OnAttack = Animator.StringToHash("onAttack");
@@ -31,6 +36,18 @@ namespace Enemies
         // Update is called once per frame
         void Update()
         {
+            if (lerpFlag)
+            {
+                float lerpT = (Time.time - timeStart) / lerpDuration;
+                headRb.position =  Mathf.Lerp(positionHeadY,positionHeadY + 0.2f,lerpT) * Vector2.up + headRb.position.x * Vector2.right;
+                print(headRb.position.y - positionHeadY + 0.2f);
+                if (lerpT >= 0.99f)
+                {
+                    animator.SetTrigger(OnRespawn);
+                    lerpFlag = false;
+                    Time.timeScale = 1f;
+                }
+            }
             if(isStunned)
                 return;
             NextMove();
@@ -60,11 +77,13 @@ namespace Enemies
             head.transform.position = transform.position;
             yield return new WaitWhile(()=>currentEnemyState != Structs.EnemyState.ChargingAttack);
             yield return new WaitUntil(()=>head.gameObject.activeSelf);
+            head.GetComponent<Collider2D>().enabled = true;
             ChangeState(Structs.EnemyState.Attacking);
             spriteRenderer.enabled = false;
             //dash head
             headRb.velocity = (target.position-transform.position).normalized * projectileSpeed;
             yield return new WaitForSeconds(2);
+            Time.timeScale = 0.1f;
             //stop head as new function
             StopHead();
             yield return new WaitWhile(()=>currentEnemyState != Structs.EnemyState.Recharging);
@@ -114,10 +133,16 @@ namespace Enemies
         }
 
         private void StopHead()
-        {   
+        {
             headRb.velocity = Vector3.zero;
-            animator.SetTrigger(OnRespawn);
-            rb.position = headRb.position;
+            head.GetComponent<Collider2D>().enabled = false;
+            rb.position = headRb.position;// + Vector2.up * 0.2f;
+            positionHeadY = headRb.position.y;
+            timeStart = Time.time;
+            lerpFlag = true;
+            //somehow prevent fleeing while respawning
+            //LERP
+
         }
 
         private void SetAnimator(Vector2 dir, bool isMoving)
