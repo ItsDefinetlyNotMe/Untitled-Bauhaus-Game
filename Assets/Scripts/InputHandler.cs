@@ -68,8 +68,11 @@ public class InputHandler : MonoBehaviour
             whileLoopTracker++;
         }
 
-        playerMovement.movementDirection = input.Get<Vector2>();
-        playerAnimator.Movement(input);
+        if (playerMovement.currentState != Structs.PlayerState.Dashing)
+        {
+            playerMovement.movementDirection = input.Get<Vector2>();
+            playerAnimator.Movement(input);
+        }
 
         whileLoopTracker = 0;
     }

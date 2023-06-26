@@ -131,7 +131,7 @@ public class PlayerAttack : MonoBehaviour
         heavyAttackReady = true;
         PlayerAnimator pA = GetComponent<PlayerAnimator>();
         pA.SetDirection(weaponScript.DetermineAttackDirection());
-        playerMovement.currentState = Structs.PlayerState.Charging;
+        playerMovement.ChangeState(Structs.PlayerState.Charging);
         heavyAttackTimer = Time.time;
         Invoke(nameof(HeavyAttack),2f);
         animator.SetTrigger(Charging);

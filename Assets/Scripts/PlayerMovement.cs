@@ -8,6 +8,7 @@ using static Structs.PlayerState;
 using UnityEngine.SceneManagement;
 using UnityEngine.Serialization;
 using Object = UnityEngine.Object;
+using Unity.VisualScripting;
 
 // ReSharper disable Unity.InefficientPropertyAccess
 public class PlayerMovement : MonoBehaviour
@@ -18,7 +19,7 @@ public class PlayerMovement : MonoBehaviour
     public bool shouldBoost { private get; set; } = false;
     public bool canMove { private get; set; } = true;
 
-    public Vector2 movementDirection { get; set; }
+    public Vector2 movementDirection;
     public Structs.PlayerState currentState; //{get; private set;}
 
     [Header("Buffer")] private InputBuffer inputBuffer;    
@@ -32,13 +33,12 @@ public class PlayerMovement : MonoBehaviour
     Collider2D coll;
 
     [Header("Dash")]
-    [SerializeField] private float maxDashingPower = 2.4f;
+    [SerializeField] private float maxDashingPower;
     private float currentDashPower = 1f;
-    private readonly float dashingTime = 0.25f;
+    private readonly float dashingTime = 0.15f;
     private readonly float dashingCooldown = 0f;
     private bool canDash = true;
-    //for iframes/itime
-    private readonly float invulnerabilityTime = 0.15f;
+    private float dashingProgress = 0f;
 
     private int whileLoopTracker = 0;
     public GameObject DashSound;
@@ -92,6 +92,11 @@ public class PlayerMovement : MonoBehaviour
                 inputBuffer.BufferDequeue();
             if (canMove)
             {
+                if (currentState == Dashing)
+                {
+                    currentDashPower = Mathf.Lerp(maxDashingPower, 1f, dashingProgress);
+                    dashingProgress += Time.deltaTime / dashingTime;
+                }
                 rb.velocity = movementDirection * (defaultMoveSpeed * currentDashPower);
 
             }
@@ -127,24 +132,15 @@ public class PlayerMovement : MonoBehaviour
     }
     private IEnumerator TrackDash()
     {
-        StartCoroutine(MakeInvulnerable());
         yield return new WaitForSeconds(dashingTime);
         trailRenderer.emitting = false;
         currentDashPower = 1.0f;
         yield return new WaitForSeconds(dashingCooldown);
         ChangeState(Moving);
         canDash = true;
+        dashingProgress = 0f;
     }
-
-    private IEnumerator MakeInvulnerable(){
-        yield return new WaitForSeconds((dashingTime-invulnerabilityTime)/3f);
-        //rb.isKinematic = true;
-        //coll.enabled = false;
-        yield return new WaitForSeconds(((dashingTime-invulnerabilityTime)*2)/3f);
-        rb.isKinematic = false;
-        coll.enabled = true;
-    }
-    private void ChangeState(Structs.PlayerState nextState)
+    public void ChangeState(Structs.PlayerState nextState)
     {
         switch(nextState)
         {

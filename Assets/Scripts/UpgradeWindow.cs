@@ -187,6 +187,8 @@ public class UpgradeWindow : MonoBehaviour
 
             InputHandler inputHandler = FindObjectOfType<InputHandler>();
             inputHandler.isOnUpgrade = false;
+
+            upgradeWindow.SetActive(false);
         }
     }
 }

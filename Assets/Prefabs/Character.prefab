@@ -815,8 +815,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   defaultMoveSpeed: 4
-  currentState: 0
-  maxDashingPower: 2.4
+  movementDirection: {x: 0, y: 0}
+  maxDashingPower: 4.5
   DashSound: {fileID: 5400179971047660843}
   clonePrefab: {fileID: 5129063763896722648, guid: 256b70d27fc6c864c8d304e8ed2b13ae, type: 3}
   isCloneAbilityUnlocked: 1
