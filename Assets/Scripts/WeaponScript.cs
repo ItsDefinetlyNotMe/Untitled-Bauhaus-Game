@@ -29,6 +29,7 @@ public abstract class WeaponScript : MonoBehaviour
     
     [Header("Attack")]
     private float nextAttack;
+    private bool isAttacking = false;
     private float nextHeavyAttack;
     //public bool isAttacking = false;
     private int attackNumber;
@@ -47,21 +48,24 @@ public abstract class WeaponScript : MonoBehaviour
             weaponHitBoxes[i] = transform.GetChild(i).GetComponent<Collider2D>();
         }
     }
-    void Update()
+    private void Update()
     {
         if(movementScript.movementDirection.magnitude > 0)
             playerDirection = movementScript.movementDirection;
     }
+
     public IEnumerator Attack(Action<List<Collider2D>,int> callback )
     {
         //tracking the attacktimer and detecting enemys in attackradius if possible to attack
-        if(Time.time >= nextAttack && movementScript.currentState == Moving){
+        if(/*Time.time >= nextAttack*/ !isAttacking && movementScript.currentState == Moving){
             //movementScript.ChangeState(ATTACKING);
+
+            //Cooldown
+            isAttacking = true;
+            nextAttack = Time.time + 1f/attackSpeed;
+
             //call animation
             DetermineAttackNumber(DetermineAttackDirection());
-            
-            //Cooldown
-            nextAttack = Time.time + 1f/attackSpeed;
             
             //Wait for animation to start
             //yield return new WaitWhile(() => isAttacking == false);
@@ -127,6 +131,12 @@ public abstract class WeaponScript : MonoBehaviour
             Debug.Log(":c");
         }*/
     }
+
+    private void AttackFinished()
+    {
+        isAttacking = false;
+    }
+
     private bool IsAnyHitboxEnabled()
     {
         foreach (Collider2D hitbox in weaponHitBoxes)

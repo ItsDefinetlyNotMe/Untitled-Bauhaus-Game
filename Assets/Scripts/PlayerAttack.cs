@@ -93,6 +93,8 @@ public class PlayerAttack : MonoBehaviour
             }
         }));
     }
+
+
     public void HeavyAttack()
     {
         HeavyAttackSound.GetComponent<RandomSound>().PlayRandom1();
