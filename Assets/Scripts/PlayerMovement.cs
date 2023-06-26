@@ -14,6 +14,8 @@ public class PlayerMovement : MonoBehaviour
 {
     [Header("Movement")]
     [SerializeField] private float defaultMoveSpeed = 11f;
+    public Vector2 attackBoost { private get; set; }
+    public bool shouldBoost { private get; set; } = false;
     public bool canMove { private get; set; } = true;
 
     public Vector2 movementDirection { get; set; }
@@ -94,8 +96,15 @@ public class PlayerMovement : MonoBehaviour
 
             }
         }
-        else
-            rb.velocity = new Vector3(0f,0f,0f);
+
+        else if (currentState == Attacking && shouldBoost)
+        {
+            //dash into direction of attack
+            rb.velocity = attackBoost;
+        }
+
+        else 
+            rb.velocity = new Vector3(0f, 0f, 0f);
     }
 
     public void Dash(InputValue input)
@@ -152,6 +161,11 @@ public class PlayerMovement : MonoBehaviour
         {
             transform.position = new Vector3(-4.65f, -2.1f, 0);
         }
+    }
+
+    private void DontBoostAnymore()
+    {
+        shouldBoost = false;
     }
 
     private void DisableMovement()

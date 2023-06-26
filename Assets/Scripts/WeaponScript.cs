@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
+using Unity.VisualScripting;
 using UnityEngine;
 using static Structs.Direction;
 using static Structs.PlayerState;
@@ -17,14 +18,15 @@ public abstract class WeaponScript : MonoBehaviour
     protected float knockbackAmplifier = 10f;
     
     [Header("Layer")]
-    [SerializeField] LayerMask hittableLayers;
+    [SerializeField] private LayerMask hittableLayers;
 
     [Header("Player")]
-    PlayerMovement movementScript;
-    Vector2 playerDirection = new Vector2(-1,0);
+    private PlayerMovement movementScript;
+    private Vector2 playerDirection = new Vector2(-1,0);
 
     [Header("Physics")]
-    Collider2D[] weaponHitBoxes;
+    private Collider2D[] weaponHitBoxes;
+    private Rigidbody2D rb;
     
     
     [Header("Attack")]
@@ -36,6 +38,11 @@ public abstract class WeaponScript : MonoBehaviour
     [SerializeField] private float attackNumberCooldown = 5.0f;
     private float attackNumberTimeStamp;
     private Structs.Direction attackDirection;
+
+    private void Awake()
+    {
+        rb = transform.parent.GetComponent<Rigidbody2D>();
+    }
 
     private void Start()
     {
@@ -64,8 +71,34 @@ public abstract class WeaponScript : MonoBehaviour
             isAttacking = true;
             nextAttack = Time.time + 1f/attackSpeed;
 
+            Structs.Direction attackDirection = DetermineAttackDirection();
+
+            Vector2 boost = Vector2.zero;
+            switch (attackDirection)
+            { 
+                case Left:
+                    boost = new Vector2(-1, 0);
+                    break;
+                
+                case Up:
+                    boost = new Vector2(0, 1);
+                    break;
+                
+                case Right:
+                    boost = new Vector2(1, 0);
+                    break;
+                
+                case Down:
+                    boost = new Vector2(0, -1);
+                    break;          
+            }
+
+            PlayerMovement playerMovement = FindObjectOfType<PlayerMovement>();
+            playerMovement.attackBoost = boost;
+            playerMovement.shouldBoost = true;
+
             //call animation
-            DetermineAttackNumber(DetermineAttackDirection());
+            DetermineAttackNumber(attackDirection);
             
             //Wait for animation to start
             //yield return new WaitWhile(() => isAttacking == false);
@@ -134,6 +167,7 @@ public abstract class WeaponScript : MonoBehaviour
 
     public void AttackFinished()
     {
+        FindObjectOfType<PlayerMovement>().attackBoost = Vector2.zero;
         isAttacking = false;
     }
 
