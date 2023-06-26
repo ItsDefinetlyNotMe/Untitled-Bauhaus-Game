@@ -38,24 +38,30 @@ public class Collectable : MonoBehaviour
             HitablePlayer hitablePlayer = collision.gameObject.GetComponent<HitablePlayer>();
             PlayerAttack playerAttack = collision.gameObject.GetComponent<PlayerAttack>();
 
+            GameObject inGameCanvas = GameObject.Find("/InGameCanvas");
+
             switch (Regex.Replace(gameObject.name, "\\(Clone\\)", ""))
             {
                 case "CollectableMaxHealthUp":
+                    inGameCanvas.transform.GetChild(4).gameObject.SetActive(true);
                     playerStats.SetMaxHealthRunBonus(maxHealthValue);                    
                     hitablePlayer.currentHealth += maxHealthValue;
                     hitablePlayer.LoadStats();
                     break;
 
                 case "CollectableHeal":
+                    inGameCanvas.transform.GetChild(5).gameObject.SetActive(true);
                     hitablePlayer.HealByPercentage(healPercentage);
                     hitablePlayer.LoadStats();
                     break;
 
                 case "CollectableMynt":
+                    inGameCanvas.transform.GetChild(2).gameObject.SetActive(true);
                     playerStats.AddMoney(moneyValue);
                     break;
 
                 case "CollectableDamageUp":
+                    inGameCanvas.transform.GetChild(3).gameObject.SetActive(true);
                     playerStats.SetdamageMultiplierRunBonus(damageMultiplierValue);
                     playerAttack.LoadStats();
                     break;
@@ -63,6 +69,5 @@ public class Collectable : MonoBehaviour
 
             Destroy(gameObject);
         }
-
     }
 }
