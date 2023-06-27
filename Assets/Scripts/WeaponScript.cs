@@ -71,7 +71,7 @@ public abstract class WeaponScript : MonoBehaviour
             isAttacking = true;
             nextAttack = Time.time + 1f/attackSpeed;
 
-            Structs.Direction attackDirection = DetermineAttackDirection();
+            DetermineAttackDirection();
 
             Vector2 boost = Vector2.zero;
             switch (attackDirection)
@@ -130,34 +130,60 @@ public abstract class WeaponScript : MonoBehaviour
     public IEnumerator HeavyAttack(Action<List<Collider2D>,int> callback)
     {
         //call animation
-            DetermineAttackDirection();
-            playerAnimator.SetDirection(attackDirection);
-            playerAnimator.PlayHeavyAttackAnimation(attackDirection);
+        DetermineAttackDirection();
+        playerAnimator.SetDirection(attackDirection);
+        playerAnimator.PlayHeavyAttackAnimation(attackDirection);
 
+
+        //Cooldown
+        isAttacking = true;
+        nextHeavyAttack = Time.time + 1f/attackSpeed;
+
+
+        Vector2 boost = Vector2.zero;
+        switch (attackDirection)
+        {
+            case Left:
+                boost = new Vector2(-1, 0);
+                break;
+
+            case Up:
+                boost = new Vector2(0, 1);
+                break;
+
+            case Right:
+                boost = new Vector2(1, 0);
+                break;
+
+            case Down:
+                boost = new Vector2(0, -1);
+                break;
+        }
+
+        PlayerMovement playerMovement = FindObjectOfType<PlayerMovement>();
+        playerMovement.attackBoost = boost;
+        playerMovement.shouldBoost = true;
+
+        //Wait for Hitbox to be ready
+        yield return new WaitUntil(() => IsAnyHitboxEnabled());
             
-            //Cooldown
-            nextHeavyAttack = Time.time + 1f/attackSpeed;
-            
-            //Wait for Hitbox to be ready
-            yield return new WaitUntil(() => IsAnyHitboxEnabled());
-            
-            //locating enemies
-            List<Collider2D> enemiesHit = new List<Collider2D>();
-            ContactFilter2D enemyFilter = new ContactFilter2D();
-            enemyFilter.SetLayerMask(hittableLayers);
-            foreach(Collider2D weaponHitBox in weaponHitBoxes)
-            {
-                if(!weaponHitBox.gameObject.activeSelf){
-                    continue;
-                }
-                weaponHitBox.OverlapCollider(enemyFilter, enemiesHit);
+        //locating enemies
+        List<Collider2D> enemiesHit = new List<Collider2D>();
+        ContactFilter2D enemyFilter = new ContactFilter2D();
+        enemyFilter.SetLayerMask(hittableLayers);
+        foreach(Collider2D weaponHitBox in weaponHitBoxes)
+        {
+            if(!weaponHitBox.gameObject.activeSelf){
+                continue;
             }
+            weaponHitBox.OverlapCollider(enemyFilter, enemiesHit);
+        }
 
-            //giving back enemies and the attackdamage as soon as they are calculated
-            callback(enemiesHit,attackDamage);
-            //yield return new WaitWhile(()=> isAttacking == true);
-            yield return new WaitWhile(()=> movementScript.currentState == Attacking);
-            //movementScript.ChangeState(MOVING);
+        //giving back enemies and the attackdamage as soon as they are calculated
+        callback(enemiesHit,attackDamage);
+        //yield return new WaitWhile(()=> isAttacking == true);
+        yield return new WaitWhile(()=> movementScript.currentState == Attacking);
+        //movementScript.ChangeState(MOVING);
         //}
         /*else
         {
