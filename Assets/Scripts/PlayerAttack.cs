@@ -12,6 +12,7 @@ public class PlayerAttack : MonoBehaviour
     private float damageMultiplier = 1f;
     float knockbackMultiplier = 150f;//TODO sollte mit der waffe importiert werden also dmg aswell
 
+    [SerializeField] private Transform feedTransform;
     private HitablePlayer hitablePlayer;
     
     private Animator animator;
@@ -81,7 +82,7 @@ public class PlayerAttack : MonoBehaviour
             {
                 HittableObject hittableobject = enemy.GetComponent<HittableObject>();
                 if(hittableobject!=null)
-                    hittableobject.GetHit((int)(weaponDamage * damageMultiplier * crit), transform.position, knockbackMultiplier, gameObject,false);
+                    hittableobject.GetHit((int)(weaponDamage * damageMultiplier * crit), feedTransform.position, knockbackMultiplier, gameObject,false);
                 else
                 {
                     print(enemy);

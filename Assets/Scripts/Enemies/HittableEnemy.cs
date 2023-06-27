@@ -20,7 +20,7 @@ namespace Enemies
 
         public GameObject HitSound;
         public GameObject DeathHitSound;
-        [SerializeField] private Slider healthBar;
+        [SerializeField] public Slider healthBar;
 
         protected EnemyMovement enemyMovement;
         //called on deathanimation

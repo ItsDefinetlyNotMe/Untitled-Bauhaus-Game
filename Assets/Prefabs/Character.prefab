@@ -1015,6 +1015,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1e2afd82b41177409e43b413b418f57, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  feedTransform: {fileID: 7621532491532971187}
   HeavyAttackSound: {fileID: 9054074305316787897}
   HeavyAttackCharge: {fileID: 5326863983705198024}
 --- !u!114 &5688125501025751801
@@ -1043,7 +1044,7 @@ MonoBehaviour:
   - {x: 0.02350378, y: -0.09373565, z: 0}
   m_ShapePathHash: 2140632269
   m_Mesh: {fileID: 0}
-  m_InstanceId: 79750
+  m_InstanceId: 69592
   m_LocalBounds:
     m_Center: {x: -0.021345854, y: 0.021345705, z: 0}
     m_Extent: {x: 0.049118757, y: 0.123619616, z: 0}
@@ -1320,7 +1321,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6936160265501521877}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -0.258, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

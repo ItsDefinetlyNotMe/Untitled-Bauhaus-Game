@@ -10,12 +10,14 @@ namespace Enemies
         private Transform head;
         private SpriteRenderer spriteRenderer;
         private Rigidbody2D headRb;
+        
         [Header("Lerp")] 
         private bool lerpFlag;
         private float positionHeadY;
         private readonly float lerpDuration=0.2f;
         private float timeStart;
-
+        private HittableEnemy hittableEnemy;
+        
         [Header("Attack")]
         [SerializeField] private float attackDamage;
         private static readonly int OnAttack = Animator.StringToHash("onAttack");
@@ -31,6 +33,7 @@ namespace Enemies
             headRb = head.gameObject.GetComponent<Rigidbody2D>();
             StartTargeting();
             spriteRenderer = GetComponent<SpriteRenderer>();
+            hittableEnemy = GetComponent<HittableEnemy>();
         }
 
         // Update is called once per frame
@@ -42,6 +45,8 @@ namespace Enemies
                 headRb.position =  Mathf.Lerp(positionHeadY,positionHeadY + 0.2f,lerpT) * Vector2.up + headRb.position.x * Vector2.right;
                 if (lerpT >= 0.99f)
                 {
+                    hittableEnemy.healthBar.gameObject.SetActive(true);
+                    col.enabled = true;
                     animator.SetTrigger(OnRespawn);
                     lerpFlag = false;
                 }
@@ -78,6 +83,8 @@ namespace Enemies
             head.GetComponent<Collider2D>().enabled = true;
             ChangeState(Structs.EnemyState.Attacking);
             spriteRenderer.enabled = false;
+            col.enabled = false;
+            hittableEnemy.healthBar.gameObject.SetActive(false);
             //dash head
             headRb.velocity = (target.position-transform.position).normalized * projectileSpeed;
             yield return new WaitForSeconds(2);
