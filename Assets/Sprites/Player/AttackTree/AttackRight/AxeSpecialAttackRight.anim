@@ -166,8 +166,22 @@ AnimationClip:
     floatParameter: 0
     intParameter: 2
     messageOptions: 0
+  - time: 0.28333333
+    functionName: DontBoostAnymore
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
   - time: 0.5
     functionName: ChangeState
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 0.5
+    functionName: AttackFinished
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
