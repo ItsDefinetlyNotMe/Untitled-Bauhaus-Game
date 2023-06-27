@@ -518,6 +518,7 @@ MonoBehaviour:
   target: {fileID: 0}
   movementSpeed: 1
   nextWayPointDistance: 3
+  feedTransform: {fileID: 6927992199260280634}
   directionOffset: 0.2
   attackLayer:
     serializedVersion: 2

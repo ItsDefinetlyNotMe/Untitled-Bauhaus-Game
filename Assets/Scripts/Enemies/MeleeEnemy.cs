@@ -9,6 +9,8 @@ abstract public class MeleeEnemy : EnemyMovement
         //[Header("Movement")]
     
         //[Header("States")]
+        [SerializeField]
+        protected Transform feedTransform;
         public EnemyState currentEnemyState { get; private set; }
 
         [Header("Directionoffset")] 
@@ -34,6 +36,8 @@ abstract public class MeleeEnemy : EnemyMovement
         [SerializeField] protected float chargeAttackTime = .6f;
         [SerializeField] protected float rechargingTime = 1f;
         public bool readyToAttack = true;
+
+        protected Direction currentDirection = Direction.Left; 
 
         protected Transform origin;
         protected override void StartUp() 
@@ -62,6 +66,7 @@ abstract public class MeleeEnemy : EnemyMovement
             if(!readyToAttack)
                 return;
             Direction attackDirection = GetDirection(target.position);
+            currentDirection = attackDirection;
             //bool notused = true;
             readyToAttack = false;
             StartCoroutine(Attack(attackDirection,(notused =>
@@ -81,7 +86,7 @@ abstract public class MeleeEnemy : EnemyMovement
 
         protected Direction GetDirection(Vector2 pos)
         {
-            Vector2 position = transform.position;
+            Vector2 position = feedTransform.position;
             Vector2 left = position + directionOffset * Vector2.left;
             Vector2 up = position + directionOffset * Vector2.up;
             Vector2 right = position + directionOffset * Vector2.right;

@@ -31,10 +31,12 @@ public class SpearAndShieldEnemy : MeleeEnemy
         NextMove();
         if (currentEnemyState == EnemyState.Moving || currentEnemyState == EnemyState.Idle)
         {
-             SetAnimator(GetDirection(),rb.velocity.magnitude > 0.05f);
+            SetAnimator(GetDirection(),rb.velocity.magnitude > 0.05f);
+            SetCurrentDirection(GetDirection());
         }else
             rb.velocity = Vector3.zero;
     }
+    
 
     protected override IEnumerator Attack(Direction direction,Action<bool> callback)
     {
@@ -127,9 +129,49 @@ public class SpearAndShieldEnemy : MeleeEnemy
         }
     }
 
+    private void SetCurrentDirection(Vector2 dir)
+    {
+        if (Mathf.Abs(dir.x) > Mathf.Abs(dir.y))
+        {
+            //horizontal
+            if (dir.x > 0)
+                currentDirection = Direction.Right;
+            else
+                currentDirection = Direction.Left;
+        }
+        else
+        {
+            //vertical
+            if (dir.y > 0)
+                currentDirection = Direction.Up;
+            else
+                currentDirection = Direction.Down;
+        }
+    }
+
+    public bool IsVulnerable(Vector2 pos)
+    {
+        var playerDirection = GetDirection(pos.normalized);
+        print("Player: " + playerDirection + "Enemy:" + currentDirection);
+        if (currentDirection == playerDirection)
+            return false;
+        return true;
+    }
+
     private void OnDrawGizmos()
     {
-        Gizmos.DrawWireSphere(transform.position,attackRange);
-        Gizmos.DrawLine(transform.position,transform.position);
+        //Gizmos.DrawWireSphere(transform.position,attackRange);
+        //Gizmos.DrawLine(transform.position,transform.position);
+        Vector3 dir = new Vector3(0,0,0);
+        if (currentDirection == Direction.Left)
+            dir = new Vector3(-1, 0);
+        else if (currentDirection == Direction.Up)
+            dir = new Vector3(0, 1);
+        else if (currentDirection == Direction.Down)
+            dir = new Vector3(0, -1);
+        else if (currentDirection == Direction.Left)
+            dir = new Vector3(-1, 0);
+        Gizmos.DrawRay(feedTransform.position,  dir);
+
     }
 }
