@@ -35,7 +35,7 @@ public class PlayerMovement : MonoBehaviour
     [Header("Dash")]
     [SerializeField] private float maxDashingPower;
     private float currentDashPower = 1f;
-    private readonly float dashingTime = 0.15f;
+    private readonly float dashingTime = 0.08f;
     private readonly float dashingCooldown = 0f;
     private bool canDash = true;
     private float dashingProgress = 0f;
