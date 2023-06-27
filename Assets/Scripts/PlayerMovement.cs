@@ -36,7 +36,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float maxDashingPower;
     private float currentDashPower = 1f;
     private readonly float dashingTime = 0.08f;
-    private readonly float dashingCooldown = 0f;
+    private readonly float dashingCooldown = 0.2f;
     private bool canDash = true;
     private float dashingProgress = 0f;
 
@@ -135,10 +135,10 @@ public class PlayerMovement : MonoBehaviour
         yield return new WaitForSeconds(dashingTime);
         trailRenderer.emitting = false;
         currentDashPower = 1.0f;
-        yield return new WaitForSeconds(dashingCooldown);
         ChangeState(Moving);
-        canDash = true;
         dashingProgress = 0f;
+        yield return new WaitForSeconds(dashingCooldown);
+        canDash = true;
     }
     public void ChangeState(Structs.PlayerState nextState)
     {
