@@ -20,7 +20,7 @@ public class PlayerMovement : MonoBehaviour
     public bool canMove { private get; set; } = true;
 
     public Vector2 movementDirection;
-    public Structs.PlayerState currentState; //{get; private set;}
+    public Structs.PlayerState currentState {get; private set;}
 
     [Header("Buffer")] private InputBuffer inputBuffer;    
 
