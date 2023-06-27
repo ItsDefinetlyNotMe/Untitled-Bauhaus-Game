@@ -7,21 +7,22 @@ public class PlayerStats : MonoBehaviour
 {
     [SerializeField] private int baseMaxHealth;
 
+    //money
     public int money { get; private set; }
-    private int maxHealthRunBonus;
-    private float damageMultiplierRunBonus = 0;
     public int runMoney { get; private set; } = 0;
 
-    private HitablePlayer hitablePlayer;
-    private PlayerAttack playerAttack;
+    //maxHealth
+    private int maxHealthRunBonus;
+    private float damageMultiplierRunBonus = 0;
+
+    //crit
+    private float critMultiplier = 1.5f;
+
     private GameManager gameManager;
 
     private void Start()
     {
         SceneManager.sceneLoaded += OnSceneLoaded;
-
-        hitablePlayer = GetComponent<HitablePlayer>();
-        playerAttack = GetComponent<PlayerAttack>();
     }
 
     public bool AddMoney(int amount)
@@ -69,6 +70,16 @@ public class PlayerStats : MonoBehaviour
     {
         gameManager = FindObjectsByType<GameManager>(FindObjectsSortMode.InstanceID)[0];
         return PlayerPrefs.GetInt("damageMultiplier" + gameManager.saveSlot) / 100.0f + damageMultiplierRunBonus;
+    }
+
+    public float GetCritMultiplier()
+    {
+        gameManager = FindObjectsByType<GameManager>(FindObjectsSortMode.InstanceID)[0];
+        float critChance = PlayerPrefs.GetInt("critChance" + gameManager.saveSlot) / 100.0f;
+
+        if (Random.Range(0f, 1f) <= critChance)
+            return critMultiplier;
+        return 1;
     }
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)

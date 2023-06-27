@@ -21,6 +21,10 @@ public class UpgradeWindow : MonoBehaviour
     private int damageMultiplierBonus = 0;
     private int damageMultiplierBasePrice = 0;
 
+    private int critChanceUpgrade = 2;
+    private int critChancePercentage;
+    private int critChanceBasePrice = 0;
+
     public AudioSource audioSource;
     public AudioClip clickSound;
     public AudioClip locked;
@@ -34,6 +38,7 @@ public class UpgradeWindow : MonoBehaviour
 
         UpdateMaxHealth();
         UpdateDamageMultiplier();
+        UpdateCritChance();
     }
 
     public void Back()
@@ -146,10 +151,63 @@ public class UpgradeWindow : MonoBehaviour
         text.text = newPrice.ToString();
     }
 
+    public void IncreaseCritChance()
+    {
+        if (FindObjectsByType<GameManager>(FindObjectsSortMode.InstanceID).Length > 1)
+        {
+            print("ERROR: Too many gameManagers");
+            return;
+        }
+
+        gameManager = FindObjectsByType<GameManager>(FindObjectsSortMode.InstanceID)[0];
+
+        int price = int.Parse(transform.GetChild(0).GetChild(5).GetChild(2).GetChild(0).GetComponent<TMP_Text>().text);
+        PlayerStats stats = FindObjectOfType<PlayerStats>();
+
+        if (!stats.AddMoney(-price))
+        {
+            audioSource.PlayOneShot(locked);
+            return;
+        }
+
+        critChancePercentage = PlayerPrefs.GetInt("critChance" + gameManager.saveSlot) + critChanceUpgrade; //Get value and add new bonus
+        PlayerPrefs.SetInt("critChance" + gameManager.saveSlot, critChancePercentage); //Set new value
+
+        PlayerPrefs.Save(); //Save changes in playerPrefs
+
+        UpdateCritChance();
+    }
+
+    private void UpdateCritChance()
+    {
+        if (FindObjectsByType<GameManager>(FindObjectsSortMode.InstanceID).Length > 1)
+        {
+            print("ERROR: Too many gameManagers");
+            return;
+        }
+
+        gameManager = FindObjectsByType<GameManager>(FindObjectsSortMode.InstanceID)[0];
+
+        Transform critChanceDisplay = transform.GetChild(0).GetChild(5);
+        critChanceDisplay.GetChild(1).GetComponent<TMP_Text>().text = PlayerPrefs.GetInt("critChance" + gameManager.saveSlot).ToString() + "%";
+        TMP_Text text = critChanceDisplay.GetChild(2).GetChild(0).GetComponent<TMP_Text>();
+
+        int newPrice = critChanceBasePrice;
+        for (int i = 0; i < PlayerPrefs.GetInt("critChance" + gameManager.saveSlot) / 2; i++)
+        {
+            newPrice = (int)(newPrice * 1.1);
+            audioSource.PlayOneShot(clickSound);
+        }
+
+        text.text = newPrice.ToString();
+    }
+
+
     private void Awake()
     {
         maxHealthBasePrice = int.Parse(transform.GetChild(0).GetChild(1).GetChild(2).GetChild(0).GetComponent<TMP_Text>().text);
         damageMultiplierBasePrice = int.Parse(transform.GetChild(0).GetChild(2).GetChild(2).GetChild(0).GetComponent<TMP_Text>().text);
+        critChanceBasePrice = int.Parse(transform.GetChild(0).GetChild(5).GetChild(2).GetChild(0).GetComponent<TMP_Text>().text);
     }
 
     private void Start()

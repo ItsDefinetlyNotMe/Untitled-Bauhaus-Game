@@ -14,10 +14,6 @@ public class PlayerAttack : MonoBehaviour
 
     private HitablePlayer hitablePlayer;
     
-    //crit
-    private float critChance = 0f;//clamp to 0-1
-    private float critMultiplier = 1.5f;
-    
     private Animator animator;
 
     private float heavyAttackTimer;
@@ -75,7 +71,7 @@ public class PlayerAttack : MonoBehaviour
         if (weaponScript == null)
             return;
 
-        float crit = GetCritMultiplier();
+        float crit = stats.GetCritMultiplier();
 
         if (playerMovement.currentState != Structs.PlayerState.Moving)
             inputBuffer.BufferEnqueue(Attack, input);
@@ -109,7 +105,7 @@ public class PlayerAttack : MonoBehaviour
         
         float chargedTime = Mathf.Min(3f, Time.time - heavyAttackTimer + 1);
 
-        float crit = GetCritMultiplier();
+        float crit = stats.GetCritMultiplier();
         
         //ANIMATION START
         animator.SetTrigger(Release);
@@ -146,12 +142,7 @@ public class PlayerAttack : MonoBehaviour
     {
         damageMultiplier = stats.getDamageMultiplier();
     }
-    private float GetCritMultiplier()
-    {
-        if(Random.Range(0f, 1f) >= critChance)
-            return critMultiplier;
-        return 1;
-    }
+    
 
     private void OnDisable()
     {
