@@ -10,6 +10,7 @@ namespace Enemies
         private Transform head;
         private SpriteRenderer spriteRenderer;
         private Rigidbody2D headRb;
+        private bool respawning;
         
         [Header("Lerp")] 
         private bool lerpFlag;
@@ -39,6 +40,7 @@ namespace Enemies
         // Update is called once per frame
         void Update()
         {
+
             if (lerpFlag)
             {
                 float lerpT = (Time.time - timeStart) / lerpDuration;
@@ -48,8 +50,17 @@ namespace Enemies
                     hittableEnemy.healthBar.gameObject.SetActive(true);
                     col.enabled = true;
                     animator.SetTrigger(OnRespawn);
+                    respawning = true;
                     lerpFlag = false;
                 }
+
+                rb.velocity = Vector3.zero;
+            }
+            
+            if (respawning)
+            {
+                rb.velocity = Vector3.zero;
+                return;
             }
             if(isStunned)
                 return;
@@ -94,6 +105,7 @@ namespace Enemies
             spriteRenderer.enabled = true;
             head.gameObject.SetActive(false);
             yield return new WaitWhile(()=>currentEnemyState == Structs.EnemyState.Recharging);
+            respawning = false;
             ChangeState(Structs.EnemyState.Moving);
             callback(true);
         }
