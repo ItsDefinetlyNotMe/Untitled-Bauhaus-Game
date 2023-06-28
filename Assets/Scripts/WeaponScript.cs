@@ -31,7 +31,7 @@ public abstract class WeaponScript : MonoBehaviour
     
     [Header("Attack")]
     private float nextAttack;
-    private bool isAttacking = false;
+    private bool alreadyStartedAttack = false;
     private float nextHeavyAttack;
     //public bool isAttacking = false;
     private int attackNumber;
@@ -64,11 +64,11 @@ public abstract class WeaponScript : MonoBehaviour
     public IEnumerator Attack(Action<List<Collider2D>,int> callback )
     {
         //tracking the attacktimer and detecting enemys in attackradius if possible to attack
-        if(/*Time.time >= nextAttack*/ !isAttacking && movementScript.currentState == Moving){
+        if(/*Time.time >= nextAttack*/ !alreadyStartedAttack && movementScript.currentState == Moving){
             //movementScript.ChangeState(ATTACKING);
 
             //Cooldown
-            isAttacking = true;
+            alreadyStartedAttack = true;
             nextAttack = Time.time + 1f/attackSpeed;
 
             DetermineAttackDirection();
@@ -104,6 +104,8 @@ public abstract class WeaponScript : MonoBehaviour
             //yield return new WaitWhile(() => isAttacking == false);
             yield return new WaitWhile(() => movementScript.currentState != Attacking);
             
+            alreadyStartedAttack = false;
+
             //locating enemies
             List<Collider2D> enemiesHit = new List<Collider2D>();
             ContactFilter2D enemyFilter = new ContactFilter2D();
@@ -136,7 +138,7 @@ public abstract class WeaponScript : MonoBehaviour
 
 
         //Cooldown
-        isAttacking = true;
+        alreadyStartedAttack = true;
         nextHeavyAttack = Time.time + 1f/attackSpeed;
 
 
@@ -194,7 +196,7 @@ public abstract class WeaponScript : MonoBehaviour
     public void AttackFinished()
     {
         FindObjectOfType<PlayerMovement>().attackBoost = Vector2.zero;
-        isAttacking = false;
+        alreadyStartedAttack = false;
     }
 
     private bool IsAnyHitboxEnabled()
