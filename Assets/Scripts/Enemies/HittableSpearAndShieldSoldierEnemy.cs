@@ -30,8 +30,8 @@ public class HittableSpearAndShieldSoldierEnemy : HittableEnemy
                 base.GetHit(damage, damageSourcePosition, 0f, damageSource, true);
                 
         }
-        /*else if(spearAndShieldEnemy.IsVulnerable(damageSourcePosition))
-            base.GetHit(damage, damageSourcePosition, 0f, damageSource, true);*/
+        else if(spearAndShieldEnemy.IsVulnerable(damageSourcePosition))
+            base.GetHit(damage, damageSourcePosition, 0f, damageSource, true);
         else
         {
             spearAndShieldEnemy.PlayBlockAnimation(damageSourcePosition,false);

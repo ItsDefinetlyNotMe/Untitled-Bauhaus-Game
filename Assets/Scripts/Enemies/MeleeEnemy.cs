@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using static Structs;
 using Enemies;
+using Unity.VisualScripting;
 using UnityEngine;
 
 abstract public class MeleeEnemy : EnemyMovement
@@ -122,5 +123,14 @@ abstract public class MeleeEnemy : EnemyMovement
         protected override bool ShouldTarget()
         {
             return (currentEnemyState == EnemyState.Idle || currentEnemyState == EnemyState.Moving);
+        }
+
+        void OnDrawGizmos()
+        {
+            Vector2 position = feedTransform.position;
+            Vector2 left = position + directionOffset * Vector2.left;
+            Vector2 up = position + directionOffset * Vector2.up;
+            Vector2 right = position + directionOffset * Vector2.right;
+            Vector2 down = position + directionOffset * Vector2.down;
         }
 }

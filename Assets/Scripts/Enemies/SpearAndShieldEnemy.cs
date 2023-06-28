@@ -19,6 +19,7 @@ public class SpearAndShieldEnemy : MeleeEnemy
     //private static readonly int OnAttackEnd = Animator.StringToHash("onAttackEnd");
     private bool isDefenseBroken;
 
+    private Direction playerDirection;
     private void Start()
     {
         base.StartUp();
@@ -100,12 +101,14 @@ public class SpearAndShieldEnemy : MeleeEnemy
         var dir = GetDirection(damageSourcePosition);
         isDefenseBroken = isBreaking;
         animator.SetInteger(BlockDirection,(int)dir);
+        animator.SetBool("isNotBlocking",false);
         animator.SetTrigger(Defense);
     }
     public void BlockBreak(Vector2 damageSourcePosition)
     {   
         //Stun(1f); 
         animator.SetTrigger(DefenseBreak);
+        animator.SetBool("isNotBlocking",true);
     }
 
     public EnemyState GetState()
@@ -151,11 +154,12 @@ public class SpearAndShieldEnemy : MeleeEnemy
 
     public bool IsVulnerable(Vector2 pos)
     {
-        var playerDirection = GetDirection(pos.normalized);
+        var playerDirection = GetDirection(pos);
         print("Player: " + playerDirection + "Enemy:" + currentDirection);
-        if (currentDirection == playerDirection)
-            return false;
-        return true;
+        if (currentDirection != playerDirection)
+            if ((int)playerDirection % 2 == (int)currentDirection % 2)
+                return true;
+        return false;
     }
 
     private void OnDrawGizmos()
@@ -163,8 +167,8 @@ public class SpearAndShieldEnemy : MeleeEnemy
         //Gizmos.DrawWireSphere(transform.position,attackRange);
         //Gizmos.DrawLine(transform.position,transform.position);
         Vector3 dir = new Vector3(0,0,0);
-        if (currentDirection == Direction.Left)
-            dir = new Vector3(-1, 0);
+        if (currentDirection == Direction.Right)
+            dir = new Vector3(1, 0);
         else if (currentDirection == Direction.Up)
             dir = new Vector3(0, 1);
         else if (currentDirection == Direction.Down)
@@ -172,6 +176,19 @@ public class SpearAndShieldEnemy : MeleeEnemy
         else if (currentDirection == Direction.Left)
             dir = new Vector3(-1, 0);
         Gizmos.DrawRay(feedTransform.position,  dir);
+
+        playerDirection = GetDirection(target.position);
+        print(target.position);
+        if (playerDirection == Direction.Right)
+            dir = new Vector3(1, 0);
+        else if (playerDirection == Direction.Up)
+            dir = new Vector3(0, 1);
+        else if (playerDirection == Direction.Down)
+            dir = new Vector3(0, -1);
+        else if (playerDirection == Direction.Left)
+            dir = new Vector3(-1, 0);
+        Gizmos.color = Color.red;
+        Gizmos.DrawRay(feedTransform.position,  dir*0.8f);
 
     }
 }
