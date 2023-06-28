@@ -156,6 +156,7 @@ public class PlayerMovement : MonoBehaviour
         if (scene.name == "HUB")
         {
             transform.position = new Vector3(-4.65f, -2.1f, 0);
+            currentState = Moving;
         }
     }
 

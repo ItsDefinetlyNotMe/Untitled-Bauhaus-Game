@@ -20,6 +20,8 @@ public class GameManager : MonoBehaviour
     {
         PlayerPrefs.SetInt("money" + slot, 0);
         PlayerPrefs.SetInt("maxHealth" + slot, 0);
+        PlayerPrefs.SetInt("damageMultiplier" + slot, 100);
+        PlayerPrefs.SetInt("critChance" + slot, 0);
     }
 
     private void Awake()
