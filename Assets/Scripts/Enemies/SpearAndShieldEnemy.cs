@@ -178,7 +178,6 @@ public class SpearAndShieldEnemy : MeleeEnemy
         Gizmos.DrawRay(feedTransform.position,  dir);
 
         playerDirection = GetDirection(target.position);
-        print(target.position);
         if (playerDirection == Direction.Right)
             dir = new Vector3(1, 0);
         else if (playerDirection == Direction.Up)
