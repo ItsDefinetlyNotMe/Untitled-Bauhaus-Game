@@ -25,6 +25,9 @@ public class UpgradeWindow : MonoBehaviour
     private int critChancePercentage;
     private int critChanceBasePrice = 0;
 
+    private int critDamageUpgrade = 25;
+    private int critDamagePercentage;
+
     public AudioSource audioSource;
     public AudioClip clickSound;
     public AudioClip locked;
@@ -39,6 +42,7 @@ public class UpgradeWindow : MonoBehaviour
         UpdateMaxHealth();
         UpdateDamageMultiplier();
         UpdateCritChance();
+        UpdateCritDamage();
     }
 
     public void Back()
@@ -143,6 +147,62 @@ public class UpgradeWindow : MonoBehaviour
 
         int newPrice = damageMultiplierBasePrice;
         for (int i = 0; i < (PlayerPrefs.GetInt("damageMultiplier" + gameManager.saveSlot) - 100) / 25; i++)
+        {
+            newPrice = (int)(newPrice * 1.1);
+            audioSource.PlayOneShot(clickSound);
+        }
+
+        text.text = newPrice.ToString();
+    }
+
+    public void IncreaseCritDamage()
+    {
+        if (FindObjectsByType<GameManager>(FindObjectsSortMode.InstanceID).Length > 1)
+        {
+            print("ERROR: Too many gameManagers");
+            return;
+        }
+
+        gameManager = FindObjectsByType<GameManager>(FindObjectsSortMode.InstanceID)[0];
+
+        int price = int.Parse(transform.GetChild(0).GetChild(6).GetChild(2).GetChild(0).GetComponent<TMP_Text>().text);
+        PlayerStats stats = FindObjectOfType<PlayerStats>();
+
+        if (!stats.AddMoney(-price))
+        {
+            audioSource.PlayOneShot(locked);
+            return;
+        }
+
+        critDamagePercentage = PlayerPrefs.GetInt("critDamage" + gameManager.saveSlot) + critDamageUpgrade; //Get value and add new bonus
+        PlayerPrefs.SetInt("critDamage" + gameManager.saveSlot, critDamagePercentage); //Set new value
+
+        PlayerPrefs.Save(); //Save changes in playerPrefs
+
+        UpdateCritDamage();
+    }
+
+    private void UpdateCritDamage()
+    {
+        if (FindObjectsByType<GameManager>(FindObjectsSortMode.InstanceID).Length > 1)
+        {
+            print("ERROR: Too many gameManagers");
+            return;
+        }
+
+        gameManager = FindObjectsByType<GameManager>(FindObjectsSortMode.InstanceID)[0];
+
+        Transform critDamageDisplay = transform.GetChild(0).GetChild(6);
+
+        // round it to 2 decimal places
+        int critDamage = PlayerPrefs.GetInt("critDamage" + gameManager.saveSlot);
+        float critDamageFloat = (float)critDamage / 100;
+        float roundedCritDamage = (float)Math.Round(critDamageFloat, 2);
+        critDamageDisplay.GetChild(1).GetComponent<TMP_Text>().text = "x" + roundedCritDamage.ToString();
+        TMP_Text text = critDamageDisplay.GetChild(2).GetChild(0).GetComponent<TMP_Text>();
+
+        int newPrice = critChanceBasePrice;
+        for (int i = 0; i < (PlayerPrefs.GetInt("critDamage" + gameManager.saveSlot) - 100) / 25; i++)
         {
             newPrice = (int)(newPrice * 1.1);
             audioSource.PlayOneShot(clickSound);
