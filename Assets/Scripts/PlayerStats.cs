@@ -36,6 +36,10 @@ public class PlayerStats : MonoBehaviour
             return false;
         }
 
+        // add gotten money to total mynts for save game infos in main menu
+        if (amount > 0)
+            PlayerPrefs.SetInt("totalMynt" + gameManager.saveSlot, PlayerPrefs.GetInt("totalMynt" + gameManager.saveSlot) + amount);
+
         PlayerPrefs.SetInt("money" + gameManager.saveSlot, oldMoney + amount);
 
         PlayerPrefs.Save(); //Save changes in playerPrefs

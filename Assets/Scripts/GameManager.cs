@@ -18,12 +18,24 @@ public class GameManager : MonoBehaviour
 
     public void DeleteSaveOfSlot(string slot)
     {
+        //money
         PlayerPrefs.SetInt("money" + slot, 0);
+
+        //upgrades
         PlayerPrefs.SetInt("maxHealth" + slot, 0);
         PlayerPrefs.SetInt("damageMultiplier" + slot, 100);
         PlayerPrefs.SetInt("critChance" + slot, 0);
         PlayerPrefs.SetInt("critDamage" + slot, 150);
         PlayerPrefs.SetInt("cloneAbility" + slot, 0);
+
+        //save game info in main menu
+        PlayerPrefs.SetInt("totalMynt" + slot, 0);
+        PlayerPrefs.SetInt("highestRoom" + slot, 0);
+        PlayerPrefs.SetInt("enemiesKilled" + slot, 0);
+
+        SaveSlotButton[] slotButtons = FindObjectsByType<SaveSlotButton>(FindObjectsSortMode.None);
+        foreach (SaveSlotButton slotButton in slotButtons)
+            slotButton.UpdateSaveInfo();
     }
 
     private void Awake()
@@ -61,6 +73,10 @@ public class GameManager : MonoBehaviour
         randomRoomLayout.loot = loot;
         roomNumber++;
         randomRoomLayout.StartRoomGeneration(direction);
+
+        // set highest room number for save slot information in main menu
+        if (roomNumber > PlayerPrefs.GetInt("highestRoom" + saveSlot))
+            PlayerPrefs.SetInt("highestRoom" + saveSlot, roomNumber);
     }
 
     private void EndRoomTransition()

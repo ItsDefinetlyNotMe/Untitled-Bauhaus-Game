@@ -94,6 +94,10 @@ namespace TestRandomWorldGeneration {
 
         private void SpawnOneEnemy()
         {
+            GameManager gameManager = FindObjectOfType<GameManager>();
+
+            PlayerPrefs.SetInt("enemiesKilled" + gameManager.saveSlot, PlayerPrefs.GetInt("enemiesKilled" + gameManager.saveSlot) + 1);
+
             livingEnemyCounter--;
 
             if (livingEnemyCounter <= 0)
