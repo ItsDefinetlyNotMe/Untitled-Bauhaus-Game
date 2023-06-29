@@ -39,6 +39,11 @@ public class UIButton : MonoBehaviour, ISelectHandler
         upgradeWindow.IncreaseCritDamage();
     }
 
+    public void BuyCloneAbility()
+    {
+        upgradeWindow.BuyCloneAbility();
+    }
+
     public void LoadSave(int slotNumber)
     {
         gameManager.saveSlot = slotNumber;

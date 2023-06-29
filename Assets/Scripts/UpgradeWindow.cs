@@ -7,6 +7,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class UpgradeWindow : MonoBehaviour
 {
@@ -43,6 +44,7 @@ public class UpgradeWindow : MonoBehaviour
         UpdateDamageMultiplier();
         UpdateCritChance();
         UpdateCritDamage();
+        UpdateCloneAbility();
     }
 
     public void Back()
@@ -204,7 +206,7 @@ public class UpgradeWindow : MonoBehaviour
         int newPrice = critChanceBasePrice;
         for (int i = 0; i < (PlayerPrefs.GetInt("critDamage" + gameManager.saveSlot) - 100) / 25; i++)
         {
-            newPrice = (int)(newPrice * 1.1);
+            newPrice = (int)(newPrice * 1.3);
             audioSource.PlayOneShot(clickSound);
         }
 
@@ -250,8 +252,14 @@ public class UpgradeWindow : MonoBehaviour
 
         Transform critChanceDisplay = transform.GetChild(0).GetChild(5);
         critChanceDisplay.GetChild(1).GetComponent<TMP_Text>().text = PlayerPrefs.GetInt("critChance" + gameManager.saveSlot).ToString() + "%";
-        TMP_Text text = critChanceDisplay.GetChild(2).GetChild(0).GetComponent<TMP_Text>();
 
+        if (PlayerPrefs.GetInt("critChance" + gameManager.saveSlot) >= 100)
+        {
+            critChanceDisplay.GetChild(2).gameObject.SetActive(false);
+            return;
+        }
+
+        TMP_Text text = critChanceDisplay.GetChild(2).GetChild(0).GetComponent<TMP_Text>();
         int newPrice = critChanceBasePrice;
         for (int i = 0; i < PlayerPrefs.GetInt("critChance" + gameManager.saveSlot) / 2; i++)
         {
@@ -260,6 +268,62 @@ public class UpgradeWindow : MonoBehaviour
         }
 
         text.text = newPrice.ToString();
+    }
+
+    public void BuyCloneAbility()
+    {
+        if (FindObjectsByType<GameManager>(FindObjectsSortMode.InstanceID).Length > 1)
+        {
+            print("ERROR: Too many gameManagers");
+            return;
+        }
+
+        gameManager = FindObjectsByType<GameManager>(FindObjectsSortMode.InstanceID)[0];
+
+        int price = int.Parse(transform.GetChild(0).GetChild(7).GetChild(2).GetChild(0).GetComponent<TMP_Text>().text);
+        PlayerStats stats = FindObjectOfType<PlayerStats>();
+
+        if (!stats.AddMoney(-price))
+        {
+            audioSource.PlayOneShot(locked);
+            return;
+        }
+
+        PlayerPrefs.SetInt("cloneAbility" + gameManager.saveSlot, 1); //Set to true
+
+        PlayerPrefs.Save(); //Save changes in playerPrefs
+
+        UpdateCloneAbility();
+    }
+
+    private void UpdateCloneAbility()
+    {
+        if (FindObjectsByType<GameManager>(FindObjectsSortMode.InstanceID).Length > 1)
+        {
+            print("ERROR: Too many gameManagers");
+            return;
+        }
+
+        gameManager = FindObjectsByType<GameManager>(FindObjectsSortMode.InstanceID)[0];
+
+        if (PlayerPrefs.GetInt("cloneAbility" + gameManager.saveSlot) == 1)
+        {
+            //activate toggle
+            transform.GetChild(0).GetChild(7).GetChild(1).GetComponent<Toggle>().isOn = true;
+
+            //deactivate purchase button
+            transform.GetChild(0).GetChild(7).GetChild(2).gameObject.SetActive(false);
+        }
+        
+        else
+        {
+            //deactivate toggle
+            transform.GetChild(0).GetChild(7).GetChild(1).GetComponent<Toggle>().isOn = false;
+
+            //activate purchase button
+            transform.GetChild(0).GetChild(7).GetChild(2).gameObject.SetActive(true);
+        }
+        
     }
 
 

@@ -23,6 +23,7 @@ public class GameManager : MonoBehaviour
         PlayerPrefs.SetInt("damageMultiplier" + slot, 100);
         PlayerPrefs.SetInt("critChance" + slot, 0);
         PlayerPrefs.SetInt("critDamage" + slot, 150);
+        PlayerPrefs.SetInt("cloneAbility" + slot, 0);
     }
 
     private void Awake()

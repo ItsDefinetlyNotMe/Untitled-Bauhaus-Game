@@ -45,7 +45,6 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Clone")]
     [SerializeField] GameObject clonePrefab;
-    [SerializeField] private bool isCloneAbilityUnlocked;
     [SerializeField] private float cloneTimeToBeAlive;
     [SerializeField] private float cloneCooldown = 5f;
     private float timeStampCloneCooldown;
@@ -116,7 +115,9 @@ public class PlayerMovement : MonoBehaviour
     {
         if (canDash && currentState == Moving)
         {
-            if (isCloneAbilityUnlocked)
+            GameManager gameManager = FindObjectOfType<GameManager>();
+
+            if (PlayerPrefs.GetInt("cloneAbility" + gameManager.saveSlot) == 1)
             {
                 cloneSpawnPosition = transform.position;
                 Invoke(nameof(SpawnClone),0.1f);
