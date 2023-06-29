@@ -819,7 +819,6 @@ MonoBehaviour:
   maxDashingPower: 4.5
   DashSound: {fileID: 5400179971047660843}
   clonePrefab: {fileID: 5129063763896722648, guid: 256b70d27fc6c864c8d304e8ed2b13ae, type: 3}
-  isCloneAbilityUnlocked: 1
   cloneTimeToBeAlive: 3
   cloneCooldown: 5
 --- !u!95 &-6367775612054391267
@@ -1044,7 +1043,7 @@ MonoBehaviour:
   - {x: 0.02350378, y: -0.09373565, z: 0}
   m_ShapePathHash: 2140632269
   m_Mesh: {fileID: 0}
-  m_InstanceId: 69592
+  m_InstanceId: 85742
   m_LocalBounds:
     m_Center: {x: -0.021345854, y: 0.021345705, z: 0}
     m_Extent: {x: 0.049118757, y: 0.123619616, z: 0}
@@ -1175,7 +1174,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: -4665057645690639522, guid: 24a0e533ce68e9a499b8cb5d33a8edcb, type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 0.5
+  m_Volume: 1
   m_Pitch: 3
   Loop: 0
   Mute: 0
@@ -1813,7 +1812,7 @@ AudioSource:
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
-  Priority: 128
+  Priority: 0
   DopplerLevel: 1
   MinDistance: 1
   MaxDistance: 5000
@@ -1881,7 +1880,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 1
+      value: 0.907
       inSlope: 0
       outSlope: 0
       tangentMode: 0
