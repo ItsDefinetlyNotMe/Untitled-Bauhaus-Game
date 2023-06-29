@@ -15,9 +15,6 @@ public class PlayerStats : MonoBehaviour
     private int maxHealthRunBonus;
     private float damageMultiplierRunBonus = 0;
 
-    //crit
-    private float critMultiplier = 1.5f;
-
     private GameManager gameManager;
 
     private void Start()
@@ -78,7 +75,7 @@ public class PlayerStats : MonoBehaviour
         float critChance = PlayerPrefs.GetInt("critChance" + gameManager.saveSlot) / 100.0f;
 
         if (Random.Range(0f, 1f) <= critChance)
-            return critMultiplier;
+            return PlayerPrefs.GetInt("critDamage" + gameManager.saveSlot) / 100.0f;
         return 1;
     }
 
