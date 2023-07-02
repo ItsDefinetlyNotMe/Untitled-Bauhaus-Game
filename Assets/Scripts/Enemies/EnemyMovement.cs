@@ -28,7 +28,7 @@ namespace Enemies
         protected Vector2 feetPositionOffset;
     
         [Header("Target")]
-        private bool targeting;
+        protected bool targeting;
         /// <summary> To be called on Start, getting basic Components </summary>
         protected virtual void StartUp()
         {

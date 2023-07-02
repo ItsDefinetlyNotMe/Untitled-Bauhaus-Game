@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Mathematics;
 using UnityEngine;
 
 public class HammerScript : MonoBehaviour
@@ -11,6 +12,8 @@ public class HammerScript : MonoBehaviour
     private int damage = 10;
     
     private Rigidbody2D rb;
+
+    [SerializeField] private GameObject lightning;
     // Start is called before the first frame update
     void Awake()
     {
@@ -38,6 +41,8 @@ public class HammerScript : MonoBehaviour
             other.transform.GetComponent<HitablePlayer>().GetHit(damage,transform.position,20000f,gameObject,false);
             //Spawn lightning
         }
+
+        Instantiate(lightning, transform.position, quaternion.identity);
         Destroy(gameObject);
     }
 }

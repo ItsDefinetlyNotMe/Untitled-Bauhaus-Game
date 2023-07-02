@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using Cinemachine;
 using UnityEngine.SceneManagement;
@@ -6,6 +7,8 @@ public class CameraShake : MonoBehaviour
 {
     public static CameraShake Instance { get; private set; }
     private float timeToShake;
+    private int shakeCount;
+    private Quaternion baseRotation;
     // private bool isShaking = false;
     private float intensity_;
     private float shakeTime_;
@@ -17,6 +20,7 @@ public class CameraShake : MonoBehaviour
     void Awake()
     {
         //Instance = this;
+        baseRotation = Quaternion.identity;
         SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
@@ -31,6 +35,7 @@ public class CameraShake : MonoBehaviour
     }
     public void ShakeCamera(float shakeTime, float intensity,bool isLerping = false)
     {
+        shakeCount += 1;
         intensity_ = intensity;
         shakeTime_ = shakeTime;
         cinemachineBasicMultiChannelPerlin.m_AmplitudeGain = intensity;
@@ -40,7 +45,14 @@ public class CameraShake : MonoBehaviour
             InvokeRepeating(nameof(Shake2),0.1f,0.1f);
         else
             InvokeRepeating(nameof(Shake1),0.1f,0.1f);
-            // CinemaschineBasicMultiChannelPerlin cinemaschineBasicMultiChannelPerlin
+        shakeCount -= 1;
+        if (shakeCount == 0)
+        {
+            //StartCoroutine(ResetCameraRotation(0.1f));
+            //Invoke("ResetRotation", 0.1f);
+        }
+        // CinemaschineBasicMultiChannelPerlin cinemaschineBasicMultiChannelPerlin
+
     }
 
     private void Shake1()
@@ -60,6 +72,26 @@ public class CameraShake : MonoBehaviour
         cinemachineBasicMultiChannelPerlin.m_AmplitudeGain = lerpValue;
         if(lerpValue == 0)
             CancelInvoke(nameof(Shake2));
+    }
+    
+    private IEnumerator ResetCameraRotation(float duration)
+    {
+        Quaternion startRotation = transform.rotation;
+        float elapsedTime = 0f;
+
+        while (elapsedTime < duration)
+        {
+            elapsedTime += Time.deltaTime;
+            float t = elapsedTime / duration;
+            transform.rotation = Quaternion.Slerp(startRotation, baseRotation, t);
+            yield return null;
+        }
+
+        transform.rotation = baseRotation;
+    }
+    public void ResetRotation()
+    {
+        transform.rotation = baseRotation;
     }
 
 }

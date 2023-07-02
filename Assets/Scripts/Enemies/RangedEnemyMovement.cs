@@ -38,6 +38,7 @@ namespace Enemies
         [SerializeField] protected float rechargingTime = 1f;
         [SerializeField] protected float projectileSpeed = 1f;
         private bool attackReady = true;
+        protected Vector3 rayOffset;
     
         [Header("Debug",order = 2)]
         public bool debug;
@@ -96,7 +97,7 @@ namespace Enemies
             };
             RaycastHit2D[]  results = new RaycastHit2D[arraysize];
             Vector2 direction = target.position - new Vector3(0f,0.2f,0) - transform.position;//TODO
-            arraysize = Physics2D.Raycast(transform.position, direction.normalized, rayCastFilter, results, maximumRange);//Raycast to check wether player is behind an Object
+            arraysize = Physics2D.Raycast(transform.position + rayOffset, direction.normalized, rayCastFilter, results, maximumRange);//Raycast to check wether player is behind an Object
             debugDirection = direction.normalized;
             for(int i = 0; i < arraysize; ++i)
             {

@@ -39,6 +39,7 @@ public class ThorScript : EnemyMovement
     private static readonly int OnThrowHead = Animator.StringToHash("OnThrowHammer");
     private static readonly int OnHammerSlam = Animator.StringToHash("OnHammerSlam");
     private static readonly int OnSummonLightning = Animator.StringToHash("OnSummonLightning");
+    private static readonly int OnDashAttack = Animator.StringToHash("OnDashAttack");
 
     void Awake()
     {
@@ -53,7 +54,6 @@ public class ThorScript : EnemyMovement
     // Update is called once per frame
     void Update()
     {
-        currentPhase = 1;
         //SetAnimator();
         if (currentPhase == 0)
         {
@@ -62,6 +62,8 @@ public class ThorScript : EnemyMovement
             //2) GroundSlam
             if (currentState == Structs.ThorState.Moving)
             {
+                if(!targeting)
+                    StartTargeting();
                 SetAnimator(GetDirection());
                 float distance = Vector2.Distance(target.position, (Vector2) transform.position + feetPositionOffset);
                 if (distance < meleeRange && hammerSlamTimeStamp < Time.time)
@@ -86,6 +88,7 @@ public class ThorScript : EnemyMovement
             //3) THUNDER
             if (Time.time > summonLightningTimeStamp)
             {
+                print(Time.time + ":" + summonLightningTimeStamp);
                 StartCoroutine(SummonLightning());
             }
 
@@ -96,14 +99,17 @@ public class ThorScript : EnemyMovement
     private IEnumerator HammerSlam()
     {
         hammerSlamTimeStamp = Time.time + hammerSlamCooldown;
-        StopTargeting();
-        rb.velocity = Vector2.zero;
+        //Set State first then wait until after the update for stopping tarfeting
         animator.SetInteger(Direction,(int)GetStructDirection(target.position));
         animator.SetTrigger(OnHammerSlam);
         
+        yield return new WaitForFixedUpdate();
+        StopTargeting();
+        rb.velocity = Vector2.zero;
+        
         yield return new WaitUntil(() => currentState == Structs.ThorState.HammerSlamAttack);
         yield return new WaitUntil(() => currentState == Structs.ThorState.Moving);
-        StartTargeting();
+        //StartTargeting();
     }
     private IEnumerator ThrowHammer()
     {
@@ -117,22 +123,23 @@ public class ThorScript : EnemyMovement
         StartTargeting();
         throwReady = true;
     }
-    
     private IEnumerator SummonLightning()
     {
         summonLightningTimeStamp = Time.time + summonLightningCooldown;
+        animator.SetTrigger(OnSummonLightning);
         StopTargeting();
         rb.velocity = Vector2.zero;
-        animator.SetTrigger(OnSummonLightning);
         bool alreadyAttacked = false;
         yield return new WaitUntil(() => currentState == Structs.ThorState.SummonLightning);
         yield return new WaitUntil(() => readyToSummon);
-        
+
         //Summon 8 Lightningstrikes thrice
         if (!alreadyAttacked)
         {
             alreadyAttacked = true;
-            float radius = 1f;
+            float radiusX = 1f;
+            float radiusY = radiusX * .8f;
+
             int lightningStrikes = 8;
             for (int row = 0; row <= 3; ++row)
             {
@@ -140,12 +147,14 @@ public class ThorScript : EnemyMovement
                 for (int lightning = 0; lightning <= lightningStrikes; ++lightning)
                 {
                     float angle = (lightning * (360f / lightningStrikes)) * (Mathf.PI / 180f);
-                    float x = radius * Mathf.Cos(angle);
-                    float y = radius * Mathf.Sin(angle);
+                    float x = radiusX * Mathf.Cos(angle);
+                    float y = radiusY * Mathf.Sin(angle);
                     Instantiate(lightningPrefab, position + new Vector2(x, y), quaternion.identity, transform);
                 }
 
-                radius += .5f;
+
+                radiusX += .5f;
+                radiusY += .5f *.8f;
                 //lightningStrikes *= 2;
                 lightningStrikes += 4 + 2*row;
                 yield return new WaitForSeconds(1);
@@ -156,6 +165,16 @@ public class ThorScript : EnemyMovement
         StartTargeting();
     }
 
+    private IEnumerator ChargeAttack()
+    {
+        StopTargeting();
+        animator.SetInteger(Direction,(int)GetStructDirection(target.position));
+        animator.SetTrigger(OnDashAttack);
+        yield return new WaitUntil(() => currentState == Structs.ThorState.ChargeAttack);
+
+        yield return new WaitUntil(() => currentState == Structs.ThorState.Moving);
+        StartTargeting();
+    }
     private void MakeReadyForLightning()
     {
         readyToSummon = true;

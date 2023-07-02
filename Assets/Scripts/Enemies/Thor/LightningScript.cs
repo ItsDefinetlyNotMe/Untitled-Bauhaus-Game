@@ -18,4 +18,9 @@ public class LightningScript : MonoBehaviour
             other.GetComponent<HitablePlayer>().GetHit(damage,transform.position,10f,gameObject,false);
         }
     }
+
+    private void ShakeCamera()
+    {
+        CameraShake.Instance.ShakeCamera(0.3f,.7f,false);
+    }
 }

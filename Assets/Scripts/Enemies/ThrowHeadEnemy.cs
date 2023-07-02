@@ -31,6 +31,7 @@ namespace Enemies
         {
             base.StartUp();
             head = transform.Find("throwing_head");
+            rayOffset = Vector3.up * 0.18f;
             headRb = head.gameObject.GetComponent<Rigidbody2D>();
             StartTargeting();
             spriteRenderer = GetComponent<SpriteRenderer>();
