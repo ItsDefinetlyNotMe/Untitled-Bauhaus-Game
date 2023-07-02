@@ -1,9 +1,11 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using TestRandomWorldGeneration;
 using Unity.VisualScripting;
 using UnityEngine;
+using Update = UnityEngine.PlayerLoop.Update;
 
 public class Collectable : MonoBehaviour
 {
@@ -22,14 +24,11 @@ public class Collectable : MonoBehaviour
         playerStats = FindObjectOfType<PlayerStats>();
     }
 
-    private void OnTriggerStay2D(Collider2D collision)
+    private void Update()
     {
-        if (collision.CompareTag("Player"))
-        {
-            Vector2 playerPos = collision.transform.position;
-            Vector2 direction = new Vector2(playerPos.x - transform.position.x, playerPos.y - transform.position.y);
-            rb.AddForce((6 - direction.magnitude) * direction.normalized);
-        }
+        Vector2 playerPos = GameObject.FindGameObjectWithTag("Player").transform.position;
+        Vector2 direction = new Vector2(playerPos.x - transform.position.x, playerPos.y - transform.position.y);
+        rb.velocity = direction.normalized;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
