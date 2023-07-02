@@ -13,6 +13,18 @@ public class Structs : MonoBehaviour
     public enum EnemyState{
         ChargingAttack,Attacking,Recharging,Moving,Fleeing,Idle
     }
+
+    public enum ThorState
+    {
+        ChargeAttack,
+        ThrowHammer,
+        SummonLightning,
+        SlamAttack,
+        GenerateHammer,
+        GetUp,
+        Moving
+    }
+
     //[Header("RandomRoomGeneration")]
     [Serializable]
     public struct InteriorPrefab

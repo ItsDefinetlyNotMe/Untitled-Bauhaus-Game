@@ -164,6 +164,7 @@ public class SpearAndShieldEnemy : MeleeEnemy
 
     private void OnDrawGizmos()
     {
+        /*
         //Gizmos.DrawWireSphere(transform.position,attackRange);
         //Gizmos.DrawLine(transform.position,transform.position);
         Vector3 dir = new Vector3(0,0,0);
@@ -188,6 +189,6 @@ public class SpearAndShieldEnemy : MeleeEnemy
             dir = new Vector3(-1, 0);
         Gizmos.color = Color.red;
         Gizmos.DrawRay(feedTransform.position,  dir*0.8f);
-
+*/
     }
 }

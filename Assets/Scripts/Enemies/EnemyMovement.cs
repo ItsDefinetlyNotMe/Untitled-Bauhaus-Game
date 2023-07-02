@@ -33,6 +33,7 @@ namespace Enemies
         {
             col = GetComponent<Collider2D>();
             target = (GameObject.FindGameObjectsWithTag("Target"))[0].transform;
+            
             if (target == null)
             {
                 target = transform;
@@ -84,8 +85,6 @@ namespace Enemies
             }
             if(!reachedEndofPath && targeting)
             {
-                if(isStunned)
-                    Debug.Log("targeting");
                 if(direction.magnitude > 0.1f)
                     lastDirection = direction;
                 direction = ((Vector2)path.vectorPath[currentWaypoint] - rb.position).normalized;
@@ -107,7 +106,7 @@ namespace Enemies
 
         protected void FindPlayer()
         {
-            Transform player = (GameObject.FindGameObjectsWithTag("Player"))[0].transform;
+            Transform player = (GameObject.FindGameObjectsWithTag("Target"))[0].transform;
             if (player != null)
                 target = player;
             CancelInvoke(nameof(FindPlayer));
