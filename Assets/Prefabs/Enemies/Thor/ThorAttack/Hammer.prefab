@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 5679695404672588757}
   - component: {fileID: 3224862600282987334}
   - component: {fileID: 6948926372895453621}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Hammer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -30,8 +30,8 @@ Transform:
   m_GameObject: {fileID: 673404662876253520}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -2.6972363, y: -1.2140884, z: 0}
-  m_LocalScale: {x: 1, y: 1.9985625, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.32, y: 0.63953996, z: 0.32}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -78,7 +78,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 0.14528298, b: 0.14528298, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

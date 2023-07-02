@@ -52,7 +52,7 @@ public class ThorScript : EnemyMovement
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         //SetAnimator();
         if (currentPhase == 0)
@@ -88,7 +88,6 @@ public class ThorScript : EnemyMovement
             //3) THUNDER
             if (Time.time > summonLightningTimeStamp)
             {
-                print(Time.time + ":" + summonLightningTimeStamp);
                 StartCoroutine(SummonLightning());
             }
 
@@ -99,7 +98,7 @@ public class ThorScript : EnemyMovement
     private IEnumerator HammerSlam()
     {
         hammerSlamTimeStamp = Time.time + hammerSlamCooldown;
-        //Set State first then wait until after the update for stopping tarfeting
+        //Set State first then wait until after the update for stopping targeting
         animator.SetInteger(Direction,(int)GetStructDirection(target.position));
         animator.SetTrigger(OnHammerSlam);
         
@@ -114,10 +113,14 @@ public class ThorScript : EnemyMovement
     private IEnumerator ThrowHammer()
     {
         throwReady = false;
-        StopTargeting();
-        rb.velocity = Vector2.zero;
+        
         animator.SetInteger(Direction,(int)GetStructDirection(target.position));
         animator.SetTrigger(OnThrowHead);
+        
+        yield return new  WaitForFixedUpdate();
+        StopTargeting();
+        rb.velocity = Vector2.zero;
+        
         yield return new WaitUntil(() => currentState == Structs.ThorState.ThrowHammer);
         yield return new WaitUntil(() => currentState == Structs.ThorState.Moving);
         StartTargeting();
@@ -199,7 +202,7 @@ public class ThorScript : EnemyMovement
     private void InstantiateHammer()
     {
         Vector3 offset = new Vector3();
-        GameObject hammer= Instantiate(hammerPrefab, transform.position + offset, quaternion.identity);
+        GameObject hammer = Instantiate(hammerPrefab, transform.position + offset, quaternion.identity);
         hammer.GetComponent<HammerScript>().SetDirection((-((Vector2)transform.position+feetPositionOffset)+(Vector2)target.position).normalized);
     }
 

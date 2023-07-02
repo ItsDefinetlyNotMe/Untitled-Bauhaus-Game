@@ -41,6 +41,7 @@ public class HammerScript : MonoBehaviour
             other.transform.GetComponent<HitablePlayer>().GetHit(damage,transform.position,20000f,gameObject,false);
             //Spawn lightning
         }
+        CameraShake.Instance.ShakeCamera(0.3f,.7f,false);
 
         Instantiate(lightning, transform.position, quaternion.identity);
         Destroy(gameObject);
