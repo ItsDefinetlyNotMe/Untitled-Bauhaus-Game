@@ -13,7 +13,7 @@ public class UIButton : MonoBehaviour, ISelectHandler
 {
     private UpgradeWindow upgradeWindow;
     private GameManager gameManager;
-
+    
     public void SelectThisButton()
     {
         GetComponent<Button>().Select();

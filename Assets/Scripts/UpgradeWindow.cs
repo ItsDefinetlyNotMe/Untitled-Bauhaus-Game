@@ -33,12 +33,16 @@ public class UpgradeWindow : MonoBehaviour
     public AudioClip clickSound;
     public AudioClip locked;
 
+    private bool firstOnClick;
+
     public void Interact()
     {
         PlayerInput playerInput = FindObjectOfType<PlayerInput>();
         playerInput.actions.FindActionMap("Movement").Disable();
 
         upgradeWindow.SetActive(true);
+
+        firstOnClick = true;
 
         UpdateMaxHealth();
         UpdateDamageMultiplier();
@@ -61,6 +65,16 @@ public class UpgradeWindow : MonoBehaviour
         {
             print("ERROR: Too many gameManagers");
             return;
+        }
+        
+        PlayerInput playerInput = FindObjectOfType<PlayerInput>();
+        if (playerInput.currentControlScheme == "Gamepad")
+        {
+            if (firstOnClick)
+            {
+                firstOnClick = false;
+                return;
+            }
         }
 
         gameManager = FindObjectsByType<GameManager>(FindObjectsSortMode.InstanceID)[0];
