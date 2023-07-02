@@ -195,8 +195,6 @@ public class InputHandler : MonoBehaviour
 
     private void OnSpecialAttack()
     {
-        if(hitablePlayer.isDying)
-            return;
         while (playerAttack == null)
         {
             if (whileLoopTracker > 10)
@@ -212,12 +210,16 @@ public class InputHandler : MonoBehaviour
         {
             //chargeAttack
             sp = true;
+            if(hitablePlayer.isDying)
+                return;
             playerAttack.ChargeHeavyAttack();
         }
         else
         {
             //Attack
             sp = false;
+            if(hitablePlayer.isDying)
+                return;
             playerAttack.HeavyAttack();
         }
 
