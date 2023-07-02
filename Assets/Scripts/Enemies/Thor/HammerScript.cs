@@ -16,6 +16,7 @@ public class HammerScript : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         col = GetComponent<Collider2D>();
+        Physics2D.IgnoreCollision(col,GameObject.FindGameObjectWithTag("Thor").GetComponent<Collider2D>());
     }
 
     // Update is called once per frame

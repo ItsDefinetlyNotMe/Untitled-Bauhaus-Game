@@ -24,7 +24,8 @@ namespace Enemies
         bool reachedEndofPath;
         private Vector2 direction = new Vector2(0f, 0f);
         private Vector2 lastDirection = new Vector2(0f, 0f);
-        
+
+        protected Vector2 feetPositionOffset;
     
         [Header("Target")]
         private bool targeting;
@@ -42,7 +43,7 @@ namespace Enemies
 
             seeker = GetComponent<Seeker>();
             rb = GetComponent<Rigidbody2D>();
-            seeker.StartPath(rb.position,target.position,OnPathComplete); 
+            seeker.StartPath(rb.position+feetPositionOffset,target.position,OnPathComplete); 
             InvokeRepeating(nameof(UpdatePath),0f,.5f);
         }
         void UpdatePath()
@@ -50,7 +51,7 @@ namespace Enemies
             if(targeting)
             {
                 if(seeker.IsDone())
-                    seeker.StartPath(rb.position,target.position,OnPathComplete);
+                    seeker.StartPath(rb.position+feetPositionOffset,target.position,OnPathComplete);
             }
         }
         void OnPathComplete(Path newPath)
@@ -87,10 +88,10 @@ namespace Enemies
             {
                 if(direction.magnitude > 0.1f)
                     lastDirection = direction;
-                direction = ((Vector2)path.vectorPath[currentWaypoint] - rb.position).normalized;
+                direction = ((Vector2)path.vectorPath[currentWaypoint] - (rb.position+feetPositionOffset)).normalized;
                 Vector2 force = direction * movementSpeed;
                 rb.velocity = force;
-                float distance = Vector2.Distance(rb.position, path.vectorPath[currentWaypoint]);
+                float distance = Vector2.Distance(rb.position+feetPositionOffset, path.vectorPath[currentWaypoint]);
                 if(distance < reachedWayPointDistance)
                     ++currentWaypoint;
             }

@@ -19,7 +19,7 @@ public class Structs : MonoBehaviour
         ChargeAttack,
         ThrowHammer,
         SummonLightning,
-        SlamAttack,
+        HammerSlamAttack,
         GenerateHammer,
         GetUp,
         Moving

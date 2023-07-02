@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 5092981296554492166}
   - component: {fileID: 5092981296554492167}
   - component: {fileID: 5092981296554492164}
+  - component: {fileID: 6094734462267778594}
+  - component: {fileID: 1840888495282370100}
   m_Layer: 0
   m_Name: BlueThunder
   m_TagString: Untagged
@@ -108,6 +110,35 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!70 &6094734462267778594
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5092981296554492165}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.082650855, y: -0.045381155}
+  m_Size: {x: 0.5434126, y: 0.2947883}
+  m_Direction: 1
+--- !u!114 &1840888495282370100
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5092981296554492165}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3fc85b30e24210c448851454c0df5aa7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 30
 --- !u!1 &6526423452220453561
 GameObject:
   m_ObjectHideFlags: 0

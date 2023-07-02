@@ -24,7 +24,7 @@ public class SpearAndShieldEnemy : MeleeEnemy
     {
         base.StartUp();
         StartTargeting();
-        
+        feetPositionOffset =Vector2.down * 0.34f;
     }
 
     private void Update()

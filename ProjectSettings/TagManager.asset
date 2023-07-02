@@ -15,6 +15,7 @@ TagManager:
   - Volume
   - Target
   - Clone
+  - Thor
   layers:
   - Default
   - TransparentFX
