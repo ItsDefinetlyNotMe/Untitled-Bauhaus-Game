@@ -98,27 +98,27 @@ namespace TestRandomWorldGeneration {
 
             PlayerPrefs.SetInt("enemiesKilled" + gameManager.saveSlot, PlayerPrefs.GetInt("enemiesKilled" + gameManager.saveSlot) + 1);
 
+            if (enemiesToSpawn.Count > 0)
+            {
+                int index = Random.Range(0, enemiesToSpawn.Count);
+                EnemyPrefab newEnemy = enemiesToSpawn[index];
+                int enemySize = newEnemy.size.x * newEnemy.size.y;
+                    
+                if (enemySize > 1)
+                    InstantiateBigEnemy(newEnemy);
+                else
+                    InstantiateSmallEnemy(newEnemy);
+                    
+                enemiesToSpawn.RemoveRange(index, 1);
+            }
+            
             livingEnemyCounter--;
 
             if (livingEnemyCounter <= 0)
             {
-                createRandomRoomLayout.OpenDoors();
+                createRandomRoomLayout.SpawnCollectable();
                 livingEnemyCounter = 0;
             }
-
-            if (enemiesToSpawn.Count == 0)
-                return;
-
-            int index = UnityEngine.Random.Range(0, enemiesToSpawn.Count);
-            Structs.EnemyPrefab newEnemy = enemiesToSpawn[index];
-            int enemySize = newEnemy.size.x * newEnemy.size.y;
-
-            if (enemySize > 1)
-                InstantiateBigEnemy(newEnemy);
-            else
-                InstantiateSmallEnemy(newEnemy);
-
-            enemiesToSpawn.RemoveRange(index, 1);
         }
 
         /// <summary>

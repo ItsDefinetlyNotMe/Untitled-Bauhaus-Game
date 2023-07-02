@@ -100,18 +100,20 @@ namespace TestRandomWorldGeneration
             onRoomGenerated?.Invoke();
         }
 
-        public void OpenDoors()
-        {
+        public void SpawnCollectable()
+        { 
             foreach (GameObject collectable in collectables)
             {
                 if (collectable.name == loot)
                 {
                     GameObject newItem = Instantiate(collectable, Vector2.zero, Quaternion.identity);
                     newItem.transform.parent = gameObject.transform;
-                    break;
+                    return;
                 }
             }
-
+        }
+        public void OpenDoors()
+        {
             //activate doors
             foreach (GameObject door in exitDoors)
             {

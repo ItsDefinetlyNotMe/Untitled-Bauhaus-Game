@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
+using TestRandomWorldGeneration;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -66,6 +67,7 @@ public class Collectable : MonoBehaviour
                     playerAttack.LoadStats();
                     break;
             }
+            FindObjectOfType<CreateRandomRoomLayout>().OpenDoors();
 
             Destroy(gameObject);
         }
