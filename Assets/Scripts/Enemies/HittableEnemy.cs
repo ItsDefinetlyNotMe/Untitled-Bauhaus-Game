@@ -63,7 +63,7 @@ namespace Enemies
 
         protected virtual IEnumerator HitFeedback(){
             Vector3 t = transform.localScale;
-            transform.localScale *= 1.05f;
+            transform.localScale *= 1.2f;
             if (spriteRenderer.enabled)
                 spriteRenderer.color = new Color(255,0,0,255);
             yield return new WaitForSeconds(.1f);
