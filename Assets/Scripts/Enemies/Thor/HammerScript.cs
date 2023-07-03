@@ -8,7 +8,7 @@ public class HammerScript : MonoBehaviour
 {
     private Vector3 flyDirection;
     private Collider2D col;
-    private float speed = 20f;
+    private float speed = 10f;
     private int damage = 10;
     
     private Rigidbody2D rb;
@@ -43,7 +43,8 @@ public class HammerScript : MonoBehaviour
         }
         CameraShake.Instance.ShakeCamera(0.3f,.7f,false);
 
-        Instantiate(lightning, transform.position, quaternion.identity);
+        var light = Instantiate(lightning, transform.position, quaternion.identity);
+        light.transform.localScale *= 2; 
         Destroy(gameObject);
     }
 }
