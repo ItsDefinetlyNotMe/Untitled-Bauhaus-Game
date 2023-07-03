@@ -1,7 +1,10 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.Android;
 using UnityEngine.SceneManagement;
 
 public class InputHandler : MonoBehaviour
@@ -18,10 +21,26 @@ public class InputHandler : MonoBehaviour
     public bool isInPauseMenu { private get; set; } = false;
 
     private HitablePlayer hitablePlayer;
+    private PlayerInput playerInput;
 
     private void Awake()
     {
         SceneManager.sceneLoaded += OnSceneLoaded;
+        playerInput = gameObject.GetComponent<PlayerInput>();
+    }
+
+    private void Update()
+    {
+        if (playerInput.currentControlScheme == "Keyboard + Mouse")
+        {
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
+        }
+        if (playerInput.currentControlScheme == "Gamepad")
+        {
+            Cursor.visible = false;
+            Cursor.lockState = CursorLockMode.Locked;
+        }
     }
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
@@ -55,7 +74,7 @@ public class InputHandler : MonoBehaviour
 
         }
     }
-
+    
     private void OnMovement(InputValue input)
     {
         while (playerMovement == null || playerAnimator == null)
