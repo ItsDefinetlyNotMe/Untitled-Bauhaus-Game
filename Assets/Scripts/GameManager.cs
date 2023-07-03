@@ -62,8 +62,8 @@ public class GameManager : MonoBehaviour
         if (scene.name == "Valhalla")
         {
             randomRoomLayout = FindObjectOfType<CreateRandomRoomLayout>();
-            gameOverCanvas = GameObject.Find("/GameOverCanvas").GetComponent<Canvas>();
-            roomTransitionScreen = gameOverCanvas.transform.GetChild(1).gameObject;
+            gameOverCanvas = GameObject.Find("/GameOverCanvas").GetComponent<Canvas>();//TODO NO
+            roomTransitionScreen = gameOverCanvas.transform.GetChild(1).gameObject;//TODO NO
         }
     }
 

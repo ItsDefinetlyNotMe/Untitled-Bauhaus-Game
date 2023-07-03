@@ -127,6 +127,11 @@ public class HitablePlayer : HittableObject
 
             UpdateHealthBar();
         }
+        else if(scene.name == "ThorBossFight")
+        {
+            healthBar = GameObject.Find("/InGameCanvas/HealthBar");
+            UpdateHealthBar();
+        }
     }
 
     private void UpdateHealthBar()
@@ -190,4 +195,5 @@ public class HitablePlayer : HittableObject
     {
         SceneManager.sceneLoaded -= OnSceneLoaded;
     }
+    
 }

@@ -15,7 +15,6 @@ public class GameOverScript : MonoBehaviour
     public void SetUp()
     {
         SceneManager.LoadScene("HUB");
-
         //gameOverScreen.SetActive(true);
     }
 

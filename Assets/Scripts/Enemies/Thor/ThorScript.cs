@@ -28,7 +28,12 @@ public class ThorScript : EnemyMovement
     
     [Header("DashAttack")]
     [SerializeField] private float dashRange;
+    [SerializeField] private float maxDashPower = 5f;
+    private bool canDash = true;
+    private float dashingTime = 2f;
+    private bool readyToDash;
 
+        
     [Header("Essentials")] 
     private Animator animator;
     [SerializeField] private GameObject lightningPrefab;
@@ -54,7 +59,9 @@ public class ThorScript : EnemyMovement
     // Update is called once per frame
     void FixedUpdate()
     {
+
         //SetAnimator();
+        float distance = Vector2.Distance(target.position, (Vector2) transform.position + feetPositionOffset);
         if (currentPhase == 0)
         {
             //2 attacks wich he alternates between
@@ -65,7 +72,6 @@ public class ThorScript : EnemyMovement
                 if(!targeting)
                     StartTargeting();
                 SetAnimator(GetDirection());
-                float distance = Vector2.Distance(target.position, (Vector2) transform.position + feetPositionOffset);
                 if (distance < meleeRange && hammerSlamTimeStamp < Time.time)
                 {
                     StartCoroutine( HammerSlam());
@@ -90,6 +96,25 @@ public class ThorScript : EnemyMovement
             {
                 StartCoroutine(SummonLightning());
             }
+            if (canDash)
+            {
+                canDash = false;
+                StartCoroutine(ChargeAttack());
+            }
+                /*
+                    if (distance < meleeRange && hammerSlamTimeStamp < Time.time)
+                    {
+                        //StartCoroutine( HammerSlam());
+                    }
+                    else if (distance < dashRange)
+                    {
+                        
+                        
+                    }
+                    else if (distance < throwRange && throwReady)
+                    {
+                        
+                    }*/
 
         }
         
@@ -170,14 +195,35 @@ public class ThorScript : EnemyMovement
 
     private IEnumerator ChargeAttack()
     {
-        StopTargeting();
-        animator.SetInteger(Direction,(int)GetStructDirection(target.position));
+        Vector2 dashDirection = (target.position - ((Vector3)feetPositionOffset + transform.position)).normalized;
+        Structs.Direction animationDirection = GetStructDirection(target.position);
+        
+        animator.SetInteger(Direction,(int)animationDirection);
         animator.SetTrigger(OnDashAttack);
+        
+        yield return new WaitForFixedUpdate();
+        StopTargeting();
+        print(rb.velocity);
+        rb.velocity = Vector2.zero;
+        
         yield return new WaitUntil(() => currentState == Structs.ThorState.ChargeAttack);
-
+        yield return new WaitUntil(() => readyToDash);
+        rb.velocity = dashDirection * maxDashPower;
+        print(rb.velocity);
+        readyToDash = false;
+        yield return new WaitForSeconds(dashingTime);
+        
         yield return new WaitUntil(() => currentState == Structs.ThorState.Moving);
-        StartTargeting();
+        canDash = true;
+        //StartTargeting();
     }
+
+    private void ReadyForDash()
+    {
+        readyToDash = true;
+    }
+    
+    
     private void MakeReadyForLightning()
     {
         readyToSummon = true;
@@ -211,6 +257,11 @@ public class ThorScript : EnemyMovement
         CameraShake.Instance.ShakeCamera(3.0f,2.0f,true);
         //StartCoroutine(ResetCameraRotation(0.2f));
         //Invoke("ResetRotation", 0.2f);
+    }
+
+    public void SetPhase(int phase)
+    {
+        currentPhase = phase;
     }
     private void OnDrawGizmos()
     {

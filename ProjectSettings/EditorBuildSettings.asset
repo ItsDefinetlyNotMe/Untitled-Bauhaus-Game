@@ -14,5 +14,8 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Valhalla.unity
     guid: 0bf16c052838c064aaeee0001b0554ed
+  - enabled: 1
+    path: Assets/Scenes/ThorBossFight.unity
+    guid: 30d4aa7b94c917543ae8ac15afdb9b6f
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 23a33427cc39c104ea0bf28ee94a6b95, type: 2}
