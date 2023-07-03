@@ -36,7 +36,17 @@ namespace Enemies
                 if(currentEnemyState == EnemyState.Fleeing){
                     invert = -1;
                 }
-                transform.localScale = target.position.x < transform.position.x ? new Vector3(1f*invert, 1f, 1f) : new Vector3(-1f*invert, 1f, 1f);
+
+                if (target.position.x < transform.position.x)
+                {
+                    transform.localScale = new Vector3(1f * invert, 1f, 1f);
+                    transform.GetChild(5).localScale = new Vector3(1f * invert, 1f, 1f);
+                }
+                else
+                {
+                    transform.localScale = new Vector3(-1f * invert, 1f, 1f);
+                    transform.GetChild(5).localScale = new Vector3(-1f * invert, 1f, 1f);
+                }
             }
             NextMove();
         }
