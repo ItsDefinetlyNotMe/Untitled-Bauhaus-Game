@@ -1,11 +1,8 @@
 using System.Collections;
-using System.Collections.Generic;
 using Enemies;
 using Unity.Mathematics;
-using Unity.VisualScripting;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
-using UnityEngine.XR;
+using UnityEngine.Serialization;
 
 public class ThorScript : EnemyMovement
 {
@@ -15,8 +12,9 @@ public class ThorScript : EnemyMovement
     
     [Header("MeleeAttack")]
     [SerializeField] private float meleeRange;
-    private float hammerSlamCooldown = 5f;
+    [SerializeField] private float hammerSlamCooldown = 10f;
     private float hammerSlamTimeStamp;
+    private bool baseAttackReady;
     
     [Header("RangedAttack")]
     [SerializeField] private float throwRange;
@@ -26,8 +24,9 @@ public class ThorScript : EnemyMovement
     [SerializeField] private float summonLightningTimeStamp;
     private bool readyToSummon = false;
     
+    [FormerlySerializedAs("dashRange")]
     [Header("DashAttack")]
-    [SerializeField] private float dashRange;
+    [SerializeField] private float midRange;
     [SerializeField] private float maxDashPower = 5f;
     private bool canDash = true;
     private float dashingTime = 2f;
@@ -64,7 +63,7 @@ public class ThorScript : EnemyMovement
         float distance = Vector2.Distance(target.position, (Vector2) transform.position + feetPositionOffset);
         if (currentPhase == 0)
         {
-            //2 attacks wich he alternates between
+            //2 attacks wich he alternates between + base attack
             //1) ThrouwHammer
             //2) GroundSlam
             if (currentState == Structs.ThorState.Moving)
@@ -72,14 +71,18 @@ public class ThorScript : EnemyMovement
                 if(!targeting)
                     StartTargeting();
                 SetAnimator(GetDirection());
-                if (distance < meleeRange && hammerSlamTimeStamp < Time.time)
+                if (distance < meleeRange)
                 {
-                    StartCoroutine( HammerSlam());
+                    if(hammerSlamTimeStamp < Time.time)
+                        StartCoroutine( HammerSlam());
+                    else
+                    {
+                        baseAttackReady = false;
+                        StartCoroutine(BaseAttack());
+                    }
                 }
-                else if (distance < dashRange)
+                else if (distance < midRange)
                 {
-                    
-                    
                 }
                 else if (distance < throwRange && throwReady)
                 {
@@ -101,25 +104,26 @@ public class ThorScript : EnemyMovement
                 canDash = false;
                 StartCoroutine(ChargeAttack());
             }
-                /*
-                    if (distance < meleeRange && hammerSlamTimeStamp < Time.time)
-                    {
-                        //StartCoroutine( HammerSlam());
-                    }
-                    else if (distance < dashRange)
-                    {
-                        
-                        
-                    }
-                    else if (distance < throwRange && throwReady)
-                    {
-                        
-                    }*/
 
         }
         
     }
 
+    private IEnumerator BaseAttack()
+    {
+        
+        animator.SetInteger(Direction,(int)GetStructDirection(target.position));
+        animator.SetTrigger("OnBaseAttack");
+        
+        yield return new  WaitForFixedUpdate();
+        StopTargeting();
+        rb.velocity = Vector2.zero;
+        
+        yield return new WaitUntil(() => currentState == Structs.ThorState.BaseAttack);
+        yield return new WaitUntil(() => currentState == Structs.ThorState.Moving);
+        StartTargeting();
+        baseAttackReady = true;
+    }
     private IEnumerator HammerSlam()
     {
         hammerSlamTimeStamp = Time.time + hammerSlamCooldown;
@@ -192,7 +196,6 @@ public class ThorScript : EnemyMovement
         yield return new WaitUntil(() => currentState == Structs.ThorState.Moving);
         StartTargeting();
     }
-
     private IEnumerator ChargeAttack()
     {
         Vector2 dashDirection = (target.position - ((Vector3)feetPositionOffset + transform.position)).normalized;
@@ -222,8 +225,7 @@ public class ThorScript : EnemyMovement
     {
         readyToDash = true;
     }
-    
-    
+
     private void MakeReadyForLightning()
     {
         readyToSummon = true;
@@ -254,9 +256,7 @@ public class ThorScript : EnemyMovement
 
     private void ThorCameraShake()
     {
-        CameraShake.Instance.ShakeCamera(3.0f,2.0f,true);
-        //StartCoroutine(ResetCameraRotation(0.2f));
-        //Invoke("ResetRotation", 0.2f);
+        CameraShake.Instance.ShakeCamera(3.0f, 2.0f, true);
     }
 
     public void SetPhase(int phase)

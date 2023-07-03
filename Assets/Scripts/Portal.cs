@@ -20,7 +20,6 @@ public class Portal : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        print(other.tag);
         if (other.CompareTag("Player"))
         {
             SceneManager.LoadScene("ThorBossFight");

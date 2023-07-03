@@ -22,6 +22,7 @@ public class Structs : MonoBehaviour
         HammerSlamAttack,
         GenerateHammer,
         GetUp,
+        BaseAttack,
         Moving
     }
 
