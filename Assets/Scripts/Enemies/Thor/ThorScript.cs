@@ -1,14 +1,17 @@
+using System;
 using System.Collections;
 using Enemies;
 using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.Serialization;
+using Random = UnityEngine.Random;
 
 public class ThorScript : EnemyMovement
 {
     [Header("State")]
     private int currentPhase;
     private Structs.ThorState currentState;
+    private bool isphaseTransitionDone;
     
     [Header("MeleeAttack")]
     [SerializeField] private float meleeRange;
@@ -36,6 +39,8 @@ public class ThorScript : EnemyMovement
     [Header("Essentials")] 
     private Animator animator;
     [SerializeField] private GameObject lightningPrefab;
+    [SerializeField] private GameObject redLightningPrefab;
+    
     
     private static readonly int Y = Animator.StringToHash("Y");
     private static readonly int X = Animator.StringToHash("X");
@@ -45,6 +50,7 @@ public class ThorScript : EnemyMovement
     private static readonly int OnSummonLightning = Animator.StringToHash("OnSummonLightning");
     private static readonly int OnDashAttack = Animator.StringToHash("OnDashAttack");
     private static readonly int OnBaseAttack = Animator.StringToHash("OnBaseAttack");
+    private static readonly int OnPhase2Start = Animator.StringToHash("OnPhase2Start");
 
     void Awake()
     {
@@ -93,7 +99,8 @@ public class ThorScript : EnemyMovement
                     StartCoroutine(ThrowHammer());
                 }
             }
-        }else if (currentPhase == 1)
+        }
+        else if (currentPhase == 1)
         {
             //3 attacks wich he alternates between
             //1) ThrouwHammer
@@ -136,7 +143,13 @@ public class ThorScript : EnemyMovement
             }
 
         }
-        
+        else if (currentPhase == 2)
+        {
+            //madness begins
+            if(!targeting)
+                StartTargeting();
+            SetAnimator(GetDirection());
+        }
     }
 
     private IEnumerator BaseAttack()
@@ -290,7 +303,41 @@ public class ThorScript : EnemyMovement
 
     public void SetPhase(int phase)
     {
+        if (phase == 2 && !isphaseTransitionDone)
+        {
+            isphaseTransitionDone = true;
+            TriggerPhase2();
+        }
         currentPhase = phase;
+    }
+
+    private void TriggerPhase2()
+    {
+        animator.SetTrigger(OnPhase2Start);
+        var redLight = Instantiate(redLightningPrefab, feetPositionOffset + (Vector2)transform.position,
+            quaternion.identity);
+        redLight.transform.localScale = new Vector3(3.0f,3.0f,3.0f);
+        StartCoroutine(SummonRandomLighning());
+        baseAttackReady = false;
+        hammerSlamTimeStamp = Single.PositiveInfinity;
+        summonLightningTimeStamp = Single.PositiveInfinity;
+        canDash = false;
+    }
+
+    private IEnumerator SummonRandomLighning()
+    {
+        while (true)
+        {
+            for (int i = 0; i < 3; ++i)
+            {//for some reason spawns lightning in the same postion 3 times
+                Vector3 randomVector = transform.position + new Vector3(Random.Range(0f, 6f),Random.Range(0f, 6f),Random.Range(0f, 6f));
+                var redLight = Instantiate(redLightningPrefab,randomVector,
+                    quaternion.identity);
+                float rand = Random.Range(1f, 4f);
+                redLight.transform.localScale = new Vector3(rand, rand, rand);
+            }
+            yield return new WaitForSeconds(0.8f);
+        }
     }
     private void OnDrawGizmos()
     {

@@ -28,6 +28,8 @@ public class HittableThor : HittableObject
         UpdateHealthBar();
         if(currentHealth <= (2f/3)*maxHealth)
             thorScript.SetPhase(1);
+        if(currentHealth <= (1f/3)*maxHealth)
+            thorScript.SetPhase(2);
     }
     private void UpdateHealthBar()
     {
