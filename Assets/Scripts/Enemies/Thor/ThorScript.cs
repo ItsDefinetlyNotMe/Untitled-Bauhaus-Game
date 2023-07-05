@@ -12,7 +12,7 @@ public class ThorScript : EnemyMovement
     
     [Header("MeleeAttack")]
     [SerializeField] private float meleeRange;
-    [SerializeField] private float hammerSlamCooldown = 10f;
+    [SerializeField] private float hammerSlamCooldown = 15f;
     private float hammerSlamTimeStamp;
     private bool baseAttackReady;
     
@@ -141,7 +141,6 @@ public class ThorScript : EnemyMovement
 
     private IEnumerator BaseAttack()
     {
-        
         animator.SetInteger(Direction,3/*(int)GetStructDirection(target.position)*/);
         animator.SetTrigger(OnBaseAttack);
         
@@ -151,7 +150,7 @@ public class ThorScript : EnemyMovement
         
         yield return new WaitUntil(() => currentState == Structs.ThorState.BaseAttack);
         yield return new WaitUntil(() => currentState == Structs.ThorState.Moving);
-        StartTargeting();
+        //StartTargeting();
         baseAttackReady = true;
     }
     private IEnumerator HammerSlam()

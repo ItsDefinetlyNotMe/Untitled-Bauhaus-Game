@@ -35,15 +35,17 @@ public class HammerScript : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D other)
     {
+        Vector2 position = transform.position;
         //KILL HIM
         if (other.transform.CompareTag("Player"))
         {
             other.transform.GetComponent<HitablePlayer>().GetHit(damage,transform.position,20000f,gameObject,false);
             //Spawn lightning
+            position = other.transform.position;
         }
         CameraShake.Instance.ShakeCamera(0.3f,.7f,false);
 
-        var light = Instantiate(lightning, transform.position, quaternion.identity);
+        var light = Instantiate(lightning, position, quaternion.identity);
         light.transform.localScale *= 2; 
         Destroy(gameObject);
     }
