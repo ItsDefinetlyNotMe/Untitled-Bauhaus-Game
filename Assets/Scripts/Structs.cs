@@ -22,8 +22,8 @@ public class Structs : MonoBehaviour
         HammerSlamAttack,
         GenerateHammer,
         GetUp,
-        BaseAttack,
-        Moving
+        Moving,
+        BaseAttack
     }
 
     //[Header("RandomRoomGeneration")]

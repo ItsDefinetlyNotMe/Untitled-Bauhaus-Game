@@ -44,6 +44,7 @@ public class ThorScript : EnemyMovement
     private static readonly int OnHammerSlam = Animator.StringToHash("OnHammerSlam");
     private static readonly int OnSummonLightning = Animator.StringToHash("OnSummonLightning");
     private static readonly int OnDashAttack = Animator.StringToHash("OnDashAttack");
+    private static readonly int OnBaseAttack = Animator.StringToHash("OnBaseAttack");
 
     void Awake()
     {
@@ -73,6 +74,7 @@ public class ThorScript : EnemyMovement
                 SetAnimator(GetDirection());
                 if (distance < meleeRange)
                 {
+                    //attack/get him into other zones
                     if(hammerSlamTimeStamp < Time.time)
                         StartCoroutine( HammerSlam());
                     else
@@ -83,9 +85,11 @@ public class ThorScript : EnemyMovement
                 }
                 else if (distance < midRange)
                 {
+                    //close distance
                 }
                 else if (distance < throwRange && throwReady)
                 {
+                    //try to keep him away
                     StartCoroutine(ThrowHammer());
                 }
             }
@@ -95,14 +99,40 @@ public class ThorScript : EnemyMovement
             //1) ThrouwHammer
             //2) GroundSlam
             //3) THUNDER
-            if (Time.time > summonLightningTimeStamp)
+            if (currentState == Structs.ThorState.Moving)
             {
-                StartCoroutine(SummonLightning());
-            }
-            if (canDash)
-            {
-                canDash = false;
-                StartCoroutine(ChargeAttack());
+                if(!targeting)
+                    StartTargeting();
+                SetAnimator(GetDirection());
+                if (distance < meleeRange)
+                {
+                    //attack/get him into other zones
+                    if(hammerSlamTimeStamp < Time.time)
+                        StartCoroutine( HammerSlam());
+                    else
+                    {
+                        baseAttackReady = false;
+                        StartCoroutine(BaseAttack());
+                    }
+                }
+                else if (distance < midRange)
+                {
+                    //close distance/Attack
+                    if (Time.time > summonLightningTimeStamp)
+                    {
+                        StartCoroutine(SummonLightning());
+                    }
+                    if (canDash)
+                    {
+                        canDash = false;
+                        StartCoroutine(ChargeAttack());
+                    }
+                }
+                else if (distance < throwRange && throwReady)
+                {
+                    //try to keep him away
+                    StartCoroutine(ThrowHammer());
+                }
             }
 
         }
@@ -112,8 +142,8 @@ public class ThorScript : EnemyMovement
     private IEnumerator BaseAttack()
     {
         
-        animator.SetInteger(Direction,(int)GetStructDirection(target.position));
-        animator.SetTrigger("OnBaseAttack");
+        animator.SetInteger(Direction,3/*(int)GetStructDirection(target.position)*/);
+        animator.SetTrigger(OnBaseAttack);
         
         yield return new  WaitForFixedUpdate();
         StopTargeting();
@@ -266,6 +296,8 @@ public class ThorScript : EnemyMovement
     private void OnDrawGizmos()
     {
         Gizmos.DrawWireSphere((Vector2)transform.position + feetPositionOffset,throwRange);
+        Gizmos.DrawWireSphere((Vector2)transform.position + feetPositionOffset,midRange);
+        Gizmos.DrawWireSphere((Vector2)transform.position + feetPositionOffset,meleeRange) ;
         Gizmos.DrawRay(feetPositionOffset+(Vector2)transform.position,GetDirection());
     }
 }
