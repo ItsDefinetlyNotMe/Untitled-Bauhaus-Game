@@ -78,7 +78,7 @@ namespace Enemies.Thor
 
             if ((int)Time.time % 10 == 0)
                 baseAttackReady = true;
-            currentState = -1;
+            currentPhase = -1;
             float distance = Vector2.Distance(target.position, (Vector2) transform.position + feetPositionOffset);
             if (currentPhase == 0)
             {
