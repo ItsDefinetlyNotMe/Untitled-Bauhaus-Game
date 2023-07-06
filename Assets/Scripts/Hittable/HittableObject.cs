@@ -29,7 +29,7 @@ public abstract class HittableObject : MonoBehaviour
     {
         //apply damage
         currentHealth -= damage;
-        if (currentHealth <= 0)
+        if (currentHealth <= 0 && !isDead && !isDying)
         {
             Die(damageSource);
         }

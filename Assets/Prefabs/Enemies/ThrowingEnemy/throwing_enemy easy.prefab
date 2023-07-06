@@ -180,7 +180,7 @@ GameObject:
   - component: {fileID: 296575169871363573}
   m_Layer: 8
   m_Name: throwing_enemy easy
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -349,7 +349,10 @@ MonoBehaviour:
   chargeAttackTime: 0.6
   rechargingTime: 1
   projectileSpeed: 4
-  attackReady: 1
+  debug: 0
+  debugRanges: 0
+  debugRaycast: 0
+  debugState: 0
   attackDamage: 20
 --- !u!50 &8702053444927784501
 Rigidbody2D:
@@ -466,6 +469,9 @@ MonoBehaviour:
   randomSound2: {fileID: 0}
   randomSound3: {fileID: 0}
   randomSound4: {fileID: 0}
+  randomSound5: {fileID: 0}
+  randomSound6: {fileID: 0}
+  randomSound7: {fileID: 0}
 --- !u!1 &2933741787640651168
 GameObject:
   m_ObjectHideFlags: 0

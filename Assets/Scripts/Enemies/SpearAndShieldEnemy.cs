@@ -155,7 +155,6 @@ public class SpearAndShieldEnemy : MeleeEnemy
     public bool IsVulnerable(Vector2 pos)
     {
         var playerDirection = GetDirection(pos);
-        print("Player: " + playerDirection + "Enemy:" + currentDirection);
         if (currentDirection != playerDirection)
             if ((int)playerDirection % 2 == (int)currentDirection % 2)
                 return true;
