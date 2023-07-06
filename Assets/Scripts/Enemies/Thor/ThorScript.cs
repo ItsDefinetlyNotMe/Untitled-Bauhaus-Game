@@ -18,7 +18,7 @@ namespace Enemies.Thor
         [SerializeField] private float meleeRange;
         [SerializeField] private float hammerSlamCooldown = 15f;
         private float hammerSlamTimeStamp;
-        private bool baseAttackReady=true;
+        private bool baseAttackReady = true;
         public bool hammerslamReady;
     
         [Header("RangedAttack")]
@@ -172,6 +172,7 @@ namespace Enemies.Thor
             animator.ResetTrigger(OnBaseAttack);
             yield return new WaitUntil(() => currentState == Structs.ThorState.Moving);
             //StartTargeting();
+            yield return new WaitForSeconds(0.5f);
             baseAttackReady = true;
         }
         private IEnumerator HammerSlam()
