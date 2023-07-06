@@ -255,6 +255,18 @@ public class InputHandler : MonoBehaviour
 
         GameObject pauseCanvas = GameObject.Find("PauseMenuCanvas").transform.GetChild(0).gameObject;
         pauseCanvas.SetActive(true);
+        GameObject controls_controller = GameObject.Find("Controls").transform.GetChild(0).gameObject;
+        GameObject controls_mouse = GameObject.Find("Controls").transform.GetChild(1).gameObject;
+        if (playerInput.currentControlScheme == "Keyboard + Mouse")
+        {
+            controls_controller.SetActive(false);
+            controls_mouse.SetActive(true);
+        }
+        if (playerInput.currentControlScheme == "Gamepad")
+        {
+            controls_controller.SetActive(true);
+            controls_mouse.SetActive(false);
+        }
         Time.timeScale = 0f;
 
     }
