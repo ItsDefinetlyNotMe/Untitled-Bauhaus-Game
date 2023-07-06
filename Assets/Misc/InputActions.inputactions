@@ -552,6 +552,17 @@
                 },
                 {
                     "name": "",
+                    "id": "6104c332-898e-4e76-9f43-dd10da29a516",
+                    "path": "<Keyboard>/enter",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard + Mouse",
+                    "action": "Submit",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "b46dc62d-f5c8-44c6-9eb1-1b15eda4a778",
                     "path": "<Keyboard>/escape",
                     "interactions": "",

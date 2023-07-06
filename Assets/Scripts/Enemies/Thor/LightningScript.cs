@@ -23,4 +23,9 @@ public class LightningScript : MonoBehaviour
     {
         CameraShake.Instance.ShakeCamera(0.3f,.7f,false);
     }
+
+    private void Finished()
+    {
+        Destroy(gameObject);
+    }
 }

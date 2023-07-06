@@ -8,7 +8,12 @@
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Untitled-Bauhaus-Game/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Untitled-Bauhaus-Game/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Enemies/Thor/Thor.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Enemies/Thor/Thor.prefab" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Enemies/Thor/ThorAttack/Hammer.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Enemies/Thor/ThorAttack/Hammer.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Enemies/Thor/HammerScript.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Enemies/Thor/HammerScript.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Enemies/EnemyMovement.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Enemies/EnemyMovement.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Enemies/Thor/HittableThor.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Enemies/Thor/HittableThor.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Enemies/Thor/LightningScript.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Enemies/Thor/LightningScript.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Enemies/Thor/ThorScript.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Enemies/Thor/ThorScript.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Structs.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Structs.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Enemy/Thor/RedThunder/RedThunderMove.anim" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/Enemy/Thor/RedThunder/RedThunderMove.anim" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -27,6 +32,7 @@
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Enemies/Head.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Enemies/HittableHead.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Enemies/HittableThrowingHead.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Enemies/Thor/BaseAttackDamage.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Enemies/Thor/DashDamage.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Enemies/Thor/HammerScript.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Enemies/Thor/HittableThor.cs" root0="FORCE_HIGHLIGHTING" />
@@ -166,7 +172,10 @@
       <workItem from="1687898341061" duration="4385000" />
       <workItem from="1688309452450" duration="10953000" />
       <workItem from="1688368675596" duration="11772000" />
-      <workItem from="1688384073983" duration="2724000" />
+      <workItem from="1688384073983" duration="4591000" />
+      <workItem from="1688550491925" duration="11098000" />
+      <workItem from="1688591737801" duration="664000" />
+      <workItem from="1688644438161" duration="2416000" />
     </task>
     <servers />
   </component>
