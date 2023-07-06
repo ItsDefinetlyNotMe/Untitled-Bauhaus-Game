@@ -169,13 +169,14 @@ namespace Enemies.Thor
         {
             animator.SetInteger(Direction,3/*(int)GetStructDirection(target.position)*/);
             animator.SetTrigger(OnBaseAttack);
-        
+            
             yield return new  WaitForFixedUpdate();
             StopTargeting();
             print("BaseAttack");
             rb.velocity = Vector2.zero;
         
             yield return new WaitUntil(() => currentState == Structs.ThorState.BaseAttack);
+            animator.ResetTrigger(OnBaseAttack);
             yield return new WaitUntil(() => currentState == Structs.ThorState.Moving);
             //StartTargeting();
             baseAttackReady = true;
