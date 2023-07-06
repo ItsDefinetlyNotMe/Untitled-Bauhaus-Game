@@ -18,7 +18,7 @@ namespace Enemies.Thor
         [SerializeField] private float meleeRange;
         [SerializeField] private float hammerSlamCooldown = 15f;
         private float hammerSlamTimeStamp;
-        private bool baseAttackReady;
+        private bool baseAttackReady=true;
         public bool hammerslamReady;
     
         [Header("RangedAttack")]
@@ -69,15 +69,8 @@ namespace Enemies.Thor
         override protected void FixedUpdate()
         {
             base.FixedUpdate();
-            //SetAnimator();
-            if (baseAttackReady)
-            {
-                baseAttackReady = false;
-                StartCoroutine(BaseAttack());
-            }
+            //SetAnimator()
 
-            if ((int)Time.time % 10 == 0)
-                baseAttackReady = true;
             //currentPhase = -1;
             float distance = Vector2.Distance(target.position, (Vector2) transform.position + feetPositionOffset);
             if (currentPhase == 0)
