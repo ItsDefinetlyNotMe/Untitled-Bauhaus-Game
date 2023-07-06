@@ -5,7 +5,7 @@ public class HammerScript : MonoBehaviour
 {
     private Vector3 flyDirection;
     private Collider2D col;
-    private float speed = 10f;
+    private float speed = 7f;
     private int damage = 10;
     
     private Rigidbody2D rb;
@@ -31,7 +31,7 @@ public class HammerScript : MonoBehaviour
         int invert = 0;
         if (direction.x > 0)
             invert = 360;
-            transform.Rotate(  Vector3.forward *Mathf.Abs(invert - Vector2.Angle(Vector3.up, flyDirection)));
+        transform.Rotate(  Vector3.forward *Mathf.Abs(invert - Vector2.Angle(Vector3.up, flyDirection)));
     }
 
     private void OnCollisionEnter2D(Collision2D other)

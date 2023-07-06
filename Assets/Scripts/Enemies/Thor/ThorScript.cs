@@ -160,7 +160,7 @@ namespace Enemies.Thor
 
         private IEnumerator BaseAttack()
         {
-            animator.SetInteger(Direction,3/*(int)GetStructDirection(target.position)*/);
+            animator.SetInteger(Direction,(int)GetStructDirection(target.position));
             animator.SetTrigger(OnBaseAttack);
             
             yield return new  WaitForFixedUpdate();

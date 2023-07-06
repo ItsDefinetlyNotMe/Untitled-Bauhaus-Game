@@ -248,7 +248,9 @@ public class InputHandler : MonoBehaviour
     {
         if (isOnUpgrade)
             return;
-
+        
+        CameraShake.Instance.StopShaking();
+        
         StartCoroutine(ActivateUI());
 
         isInPauseMenu = true;
