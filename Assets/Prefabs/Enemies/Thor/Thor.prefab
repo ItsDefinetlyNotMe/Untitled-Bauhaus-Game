@@ -920,6 +920,7 @@ MonoBehaviour:
   midRange: 2.3
   maxDashPower: 5
   lightningPrefab: {fileID: 5092981296554492165, guid: 093b945a8aa6d99429ada69350754eb9, type: 3}
+  redLightningPrefab: {fileID: 0}
 --- !u!114 &4808744667806635792
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -949,8 +950,8 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 10000
-  m_LinearDrag: 3
+  m_Mass: 0.0001
+  m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 0
   m_Material: {fileID: 0}

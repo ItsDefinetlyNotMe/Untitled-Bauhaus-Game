@@ -63,9 +63,9 @@ public class ThorScript : EnemyMovement
     }
 
     // Update is called once per frame
-    void FixedUpdate()
+    override protected void FixedUpdate()
     {
-
+        base.FixedUpdate();
         //SetAnimator();
         float distance = Vector2.Distance(target.position, (Vector2) transform.position + feetPositionOffset);
         if (currentPhase == 0)
@@ -73,6 +73,7 @@ public class ThorScript : EnemyMovement
             //2 attacks wich he alternates between + base attack
             //1) ThrouwHammer
             //2) GroundSlam
+            print(rb.velocity);
             if (currentState == Structs.ThorState.Moving)
             {
                 if(!targeting)
@@ -159,6 +160,7 @@ public class ThorScript : EnemyMovement
         
         yield return new  WaitForFixedUpdate();
         StopTargeting();
+        print("BaseAttack");
         rb.velocity = Vector2.zero;
         
         yield return new WaitUntil(() => currentState == Structs.ThorState.BaseAttack);
@@ -175,6 +177,7 @@ public class ThorScript : EnemyMovement
         
         yield return new WaitForFixedUpdate();
         StopTargeting();
+        print("HammerSlam");
         rb.velocity = Vector2.zero;
         
         yield return new WaitUntil(() => currentState == Structs.ThorState.HammerSlamAttack);
@@ -190,6 +193,7 @@ public class ThorScript : EnemyMovement
         
         yield return new  WaitForFixedUpdate();
         StopTargeting();
+        print("throwHammer");
         rb.velocity = Vector2.zero;
         
         yield return new WaitUntil(() => currentState == Structs.ThorState.ThrowHammer);
@@ -202,6 +206,7 @@ public class ThorScript : EnemyMovement
         summonLightningTimeStamp = Time.time + summonLightningCooldown;
         animator.SetTrigger(OnSummonLightning);
         StopTargeting();
+        print("Summon Lightning");
         rb.velocity = Vector2.zero;
         bool alreadyAttacked = false;
         yield return new WaitUntil(() => currentState == Structs.ThorState.SummonLightning);
@@ -248,7 +253,7 @@ public class ThorScript : EnemyMovement
         
         yield return new WaitForFixedUpdate();
         StopTargeting();
-        print(rb.velocity);
+        print("ChargeAttack");
         rb.velocity = Vector2.zero;
         
         yield return new WaitUntil(() => currentState == Structs.ThorState.ChargeAttack);
@@ -314,6 +319,8 @@ public class ThorScript : EnemyMovement
     private void TriggerPhase2()
     {
         animator.SetTrigger(OnPhase2Start);
+
+        rb.velocity = Vector3.zero;
         var redLight = Instantiate(redLightningPrefab, feetPositionOffset + (Vector2)transform.position,
             quaternion.identity);
         redLight.transform.localScale = new Vector3(3.0f,3.0f,3.0f);
@@ -328,15 +335,17 @@ public class ThorScript : EnemyMovement
     {
         while (true)
         {
-            for (int i = 0; i < 3; ++i)
+            for (int i = 0; i < 15; ++i)
             {//for some reason spawns lightning in the same postion 3 times
                 Vector3 randomVector = transform.position + new Vector3(Random.Range(0f, 6f),Random.Range(0f, 6f),Random.Range(0f, 6f));
                 var redLight = Instantiate(redLightningPrefab,randomVector,
                     quaternion.identity);
                 float rand = Random.Range(1f, 4f);
+                print(rand+":"+i);
                 redLight.transform.localScale = new Vector3(rand, rand, rand);
+                yield return new WaitForSeconds(0.05f);
             }
-            yield return new WaitForSeconds(0.8f);
+            yield return new WaitForSeconds(0.5f);
         }
     }
     private void OnDrawGizmos()

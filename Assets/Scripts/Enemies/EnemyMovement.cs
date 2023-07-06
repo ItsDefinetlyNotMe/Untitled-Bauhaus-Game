@@ -62,8 +62,9 @@ namespace Enemies
                 currentWaypoint = 0;
             }
         }
-        void FixedUpdate()
+        virtual protected void FixedUpdate()
         {
+            print(isStunned+ ":" + path!=null + ":" + (currentWaypoint >= path.vectorPath.Count) + targeting);
             if (isStunned)
             {
                 if (stunnedTimeStamp > Time.time)
@@ -90,6 +91,7 @@ namespace Enemies
                     lastDirection = direction;
                 direction = ((Vector2)path.vectorPath[currentWaypoint] - (rb.position+feetPositionOffset)).normalized;
                 Vector2 force = direction * movementSpeed;
+                print(rb.velocity + ":base" );
                 rb.velocity = force;
                 float distance = Vector2.Distance(rb.position+feetPositionOffset, path.vectorPath[currentWaypoint]);
                 if(distance < reachedWayPointDistance)
