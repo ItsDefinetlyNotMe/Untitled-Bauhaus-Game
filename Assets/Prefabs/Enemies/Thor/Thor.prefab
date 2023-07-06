@@ -913,6 +913,7 @@ MonoBehaviour:
   nextWayPointDistance: 3
   meleeRange: 1.2
   hammerSlamCooldown: 10
+  hammerslamReady: 0
   throwRange: 5
   hammerPrefab: {fileID: 673404662876253520, guid: 375e1ef86aee32b4ea9c08fcc8413003, type: 3}
   summonLightningCooldown: 30
@@ -920,7 +921,9 @@ MonoBehaviour:
   midRange: 2.3
   maxDashPower: 5
   lightningPrefab: {fileID: 5092981296554492165, guid: 093b945a8aa6d99429ada69350754eb9, type: 3}
-  redLightningPrefab: {fileID: 0}
+  redLightningPrefab: {fileID: 199192464368706336, guid: 6d9c928f65068864eb898d191a522a8f, type: 3}
+  shatteredGround: {fileID: 6874008681624529779, guid: dbc8410ce534b2647b153fdab5b83279, type: 3}
+  redCirclePrefab: {fileID: 6995412593377450540, guid: 66b4cb8c956454047a7f59ae82b1a4ae, type: 3}
 --- !u!114 &4808744667806635792
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -950,7 +953,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 0.0001
+  m_Mass: 1000000
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 0

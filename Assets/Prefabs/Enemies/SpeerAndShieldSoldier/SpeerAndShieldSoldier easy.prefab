@@ -635,6 +635,9 @@ MonoBehaviour:
   randomSound2: {fileID: 2980934145326814585}
   randomSound3: {fileID: 1654193739490466553}
   randomSound4: {fileID: 0}
+  randomSound5: {fileID: 0}
+  randomSound6: {fileID: 0}
+  randomSound7: {fileID: 0}
 --- !u!1 &3168918631648191639
 GameObject:
   m_ObjectHideFlags: 0
@@ -1175,12 +1178,12 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: -0.2479817, y: 0.5317719}
-      - {x: -0.20158607, y: -0.06830835}
-      - {x: -0.14436443, y: -0.13550611}
-      - {x: -0.09760718, y: -0.034753006}
+    - - {x: -0.22680941, y: 0.22213674}
+      - {x: -0.20732099, y: -0.01738131}
+      - {x: -0.13286729, y: -0.25650793}
+      - {x: -0.11059575, y: 0.00794895}
       - {x: -0.14060648, y: 0.1996771}
-      - {x: -0.19327652, y: 0.57950544}
+      - {x: -0.15269971, y: 0.24256206}
 --- !u!1 &7301472686547144457
 GameObject:
   m_ObjectHideFlags: 0

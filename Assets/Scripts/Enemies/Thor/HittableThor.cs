@@ -1,3 +1,4 @@
+using Enemies.Thor;
 using UnityEngine;
 
 public class HittableThor : HittableObject
