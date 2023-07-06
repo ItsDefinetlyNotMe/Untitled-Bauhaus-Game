@@ -55,6 +55,15 @@ public class CameraShake : MonoBehaviour
 
     }
 
+    public void StopShaking()
+    {
+        //CancelInvoke(nameof(Shake2));
+        //CancelInvoke(nameof(Shake1));
+        
+        cinemachineBasicMultiChannelPerlin.m_AmplitudeGain = 0f;
+        ResetCameraRotation(0f);
+    }
+
     private void Shake1()
     {
         if (Time.time > timeToShake)
