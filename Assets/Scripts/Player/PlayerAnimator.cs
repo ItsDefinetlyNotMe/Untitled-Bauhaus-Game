@@ -1,3 +1,4 @@
+using System.Text.RegularExpressions;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Serialization;
@@ -6,6 +7,7 @@ using static Structs.Direction;
 public class PlayerAnimator : MonoBehaviour
 {
     private Animator animator;
+    private Animator wooshAnimator;
     private Vector2 movementDirection;
     [FormerlySerializedAs("Sound")] [SerializeField] private GameObject sound;
     private bool isInvoked = true;
@@ -18,6 +20,7 @@ public class PlayerAnimator : MonoBehaviour
     private void Awake()
     {
         animator = GetComponent<Animator>();
+        wooshAnimator = transform.Find("Woosh").gameObject.GetComponent<Animator>();
     }
 
     public void Movement(InputValue input)
@@ -65,8 +68,11 @@ public class PlayerAnimator : MonoBehaviour
                 break;
         }
         localAttackDirection += number.ToString();
-        //Debug.Log(localAttackDirection);
+
         animator.Play(localAttackDirection);
+
+        // Play woosh animation
+        wooshAnimator.Play(Regex.Replace(localAttackDirection, "Attack", "Woosh"));
     }
 
     public void PlayHeavyAttackAnimation(Structs.Direction attackDirection)
