@@ -67,6 +67,35 @@ public class PostProcessEffects : MonoBehaviour
         yield return null;
     }
 
+    public void GoldVignette(float goldDuration)
+    {
+        StopAllCoroutines(); // Stop all running coroutines before starting new ones
+
+        StartCoroutine(ChangeVignetteColor(Color.black, goldDuration));
+        StartCoroutine(ChangeVignetteColor(Color.yellow, goldDuration, goldDuration));
+    }
+
+    IEnumerator ChangeVignetteColor(Color targetColor, float duration, float delay = 0f)
+    {
+        if (delay > 0f)
+            yield return new WaitForSeconds(delay);
+
+        float elapsedTime = 0f;
+        Color startColor = vignette.color.value;
+
+        while (elapsedTime < duration)
+        {
+            elapsedTime += Time.deltaTime;
+            float t = elapsedTime / duration;
+            vignette.color.value = Color.Lerp(startColor, targetColor, t);
+            yield return null;
+        }
+
+        vignette.color.value = targetColor;
+
+        yield return null;
+    }
+
     IEnumerator ChangeChromaticAberrationIntensity(float targetIntensity, float duration)
     {
         float startIntensity = chromaticAberration.intensity.value;
