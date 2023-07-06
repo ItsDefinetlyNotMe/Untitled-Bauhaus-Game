@@ -28,6 +28,10 @@ public class HammerScript : MonoBehaviour
     public void SetDirection(Vector2 direction)
     {
         flyDirection = direction;
+        int invert = 0;
+        if (direction.x > 0)
+            invert = 360;
+            transform.Rotate(  Vector3.forward *Mathf.Abs(invert - Vector2.Angle(Vector3.up, flyDirection)));
     }
 
     private void OnCollisionEnter2D(Collision2D other)

@@ -189,12 +189,12 @@ namespace Enemies.Thor
         
             yield return new WaitUntil(() => currentState == Structs.ThorState.HammerSlamAttack);
             //make red circle around thor (Hitbox)
-            var cricle = Instantiate(redCirclePrefab, transform.position + (Vector3)feetPositionOffset, quaternion.identity);
+            var circle = Instantiate(redCirclePrefab, transform.position + (Vector3)feetPositionOffset, quaternion.identity);
             yield return new WaitForSeconds(0.2f);
             Instantiate(lightningPrefab, transform.position + (Vector3)feetPositionOffset, quaternion.identity);
             //wait for slam
             yield return new WaitUntil(() => hammerslamReady);
-            Destroy(cricle);
+            Destroy(circle);
             Instantiate(shatteredGround, transform.position + (Vector3)feetPositionOffset, quaternion.identity);
             yield return new WaitUntil(() => currentState == Structs.ThorState.Moving);
             //StartTargeting();
