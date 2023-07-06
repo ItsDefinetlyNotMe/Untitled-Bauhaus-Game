@@ -246,6 +246,9 @@ public class InputHandler : MonoBehaviour
 
     private void OnPause()
     {
+        if (isOnUpgrade)
+            return;
+
         StartCoroutine(ActivateUI());
 
         isInPauseMenu = true;
