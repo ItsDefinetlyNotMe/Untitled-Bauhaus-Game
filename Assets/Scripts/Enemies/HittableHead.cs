@@ -14,7 +14,10 @@ public class HittableHead : HittableEnemy
         spriteRendererHead = GetComponent<SpriteRenderer>();
     }
 
-    protected override void Die(GameObject damageSource) { }
+    protected override void Die(GameObject damageSource)
+    {
+        return;
+    }
 
     public override void GetHit(int damage, Vector2 damageSourcePosition, float knockbackMultiplier, GameObject damageSource, bool heavy)
     {
