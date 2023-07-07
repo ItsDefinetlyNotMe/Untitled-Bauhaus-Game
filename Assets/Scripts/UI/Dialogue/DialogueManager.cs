@@ -9,21 +9,20 @@ public class DialogueManager : MonoBehaviour
     public TMP_Text dialogueText;
     
     private Queue<string> sentences;
+    private DialogueTrigger dialogueTrigger;
 
-    private int saveSlot;
-    
     void Start()
     {
         sentences = new Queue<string>();
-        saveSlot = FindObjectOfType<GameManager>().saveSlot;
     }
 
-    public void StartDialogue(string[] dialogueSentences, string dialogueName)
+    public void StartDialogue(string[] dialogueSentences, DialogueTrigger newDialogueTrigger)
     {
+        dialogueTrigger = newDialogueTrigger;
         GameObject dialogueSystem = GameObject.Find("/DialogueSystem");
         dialogueSystem.transform.GetChild(0).gameObject.SetActive(true);
         
-        nameText.text = dialogueName;
+        nameText.text = dialogueTrigger.dialogue.name;
         
         sentences.Clear();
 
@@ -31,21 +30,24 @@ public class DialogueManager : MonoBehaviour
         {
             sentences.Enqueue(sentence);
         }
-        DisplayNextSentence();
         
-        PlayerPrefs.SetInt("boolFirstTimeTalk" + dialogueName + saveSlot, 1);
-        PlayerPrefs.Save();
+        DisplayNextSentence();
     }
 
     public void DisplayNextSentence()
     {
         if (sentences.Count == 0)
         {
+            dialogueTrigger.transform.GetChild(0).gameObject.SetActive(false);
+            PlayerPrefs.SetInt("boolFirstTimeTalk" + dialogueTrigger.dialogue.name + dialogueTrigger.saveslot, 1);
+            PlayerPrefs.Save();
+            
             EndDialogue();
             return;
         }
-
+        
         string sentence = sentences.Dequeue();
+        
         //StopAllCoroutines();
         StartCoroutine(TypeSentence(sentence));
     }
@@ -56,8 +58,8 @@ public class DialogueManager : MonoBehaviour
         foreach (char letter in sentence)
         {
             dialogueText.text += letter;
-            yield return null;
         }
+        yield return null;
     }
 
     public void EndDialogue()

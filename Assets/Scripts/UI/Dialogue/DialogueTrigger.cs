@@ -7,9 +7,9 @@ using UnityEngine.InputSystem;
 
 public class DialogueTrigger : MonoBehaviour
 {
-    [SerializeField] private Dialogue dialogue;
+    public Dialogue dialogue;
 
-    private int saveslot;
+    public int saveslot;
     
     private void Start()
     {
@@ -28,14 +28,14 @@ public class DialogueTrigger : MonoBehaviour
 
         if (PlayerPrefs.GetInt("boolFirstTimeTalk" + dialogue.name + saveslot) == 0)
         {
-            FindObjectOfType<DialogueManager>().StartDialogue(dialogue.firstTimeSentences, dialogue.name);
+            FindObjectOfType<DialogueManager>().StartDialogue(dialogue.firstTimeSentences, this);
                     
             //PlayerPrefs.SetInt("boolFirstTimeTalk" + dialogue.name + saveslot, 1);
-            PlayerPrefs.Save();
+            //PlayerPrefs.Save();
         }
         else
         {
-            FindObjectOfType<DialogueManager>().StartDialogue(dialogue.loopSentences, dialogue.name);
+            FindObjectOfType<DialogueManager>().StartDialogue(dialogue.loopSentences, this);
         }  
     }
 
