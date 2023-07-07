@@ -2,6 +2,7 @@ using System.Threading;
 using UnityEngine.InputSystem;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System.Collections;
 
 public class PlayerAttack : MonoBehaviour
 {
@@ -107,7 +108,10 @@ public class PlayerAttack : MonoBehaviour
         float chargedTime = Mathf.Min(3f, Time.time - heavyAttackTimer + 1);
 
         float crit = stats.GetCritMultiplier();
-        
+
+        // Start scaling back to normal size while heavy attack
+        StartCoroutine(ScaleBackToNormalSize()); // TODO fix weird scaling behaviour
+
         //ANIMATION START
         animator.SetTrigger(Release);
         StartCoroutine(weaponScript.HeavyAttack((enemiesHit, weaponDamage) =>
@@ -134,6 +138,23 @@ public class PlayerAttack : MonoBehaviour
         animator.SetTrigger(Charging);
         //play animation
         HeavyAttackCharge.Play();
+    }
+
+    private IEnumerator ScaleBackToNormalSize()
+    {
+        SpriteRenderer sr = GetComponent<SpriteRenderer>();
+        Vector3 oldScale = transform.localScale;
+        print(oldScale);
+        float lerpProgress = 0.0f;
+        while (lerpProgress <= 1.0f)
+        {
+            transform.localScale = Vector3.Lerp(oldScale, Vector3.one, lerpProgress);
+            sr.size = transform.localScale;
+            print(transform.localScale);
+            lerpProgress += Time.deltaTime /  5.0f;
+            yield return new WaitForEndOfFrame();
+
+        }
     }
     private void AttackFinished()
     {
