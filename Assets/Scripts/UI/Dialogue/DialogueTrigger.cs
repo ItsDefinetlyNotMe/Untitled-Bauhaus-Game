@@ -7,7 +7,18 @@ using UnityEngine.InputSystem;
 
 public class DialogueTrigger : MonoBehaviour
 {
-    public Dialogue dialogue;
+    [SerializeField] private Dialogue dialogue;
+
+    private int saveslot;
+    
+    private void Start()
+    {
+        saveslot = FindObjectOfType<GameManager>().saveSlot;
+        if (PlayerPrefs.GetInt("boolFirstTimeTalk" + dialogue.name + saveslot) == 0)
+        {
+            transform.GetChild(0).gameObject.SetActive(true);
+        }
+    }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
@@ -15,7 +26,20 @@ public class DialogueTrigger : MonoBehaviour
         playerInput.actions.FindActionMap("Fighting").Disable();
         playerInput.actions.FindActionMap("UI").Enable();
         
-        FindObjectOfType<DialogueManager>().StartDialogue(dialogue);
+        transform.GetChild(0).gameObject.SetActive(false);
+
+        if (PlayerPrefs.GetInt("boolFirstTimeTalk" + dialogue.name + saveslot) == 0)
+        {
+            FindObjectOfType<DialogueManager>().StartDialogue(dialogue.firstTimeSentences, dialogue.name);
+            
+            PlayerPrefs.SetInt("boolFirstTimeTalk" + dialogue.name + saveslot, 1);
+            PlayerPrefs.Save();
+        }
+        else
+        {
+            FindObjectOfType<DialogueManager>().StartDialogue(dialogue.loopSentences, dialogue.name);
+        }
+        
     }
 
     private void OnCollisionExit2D(Collision2D collision)

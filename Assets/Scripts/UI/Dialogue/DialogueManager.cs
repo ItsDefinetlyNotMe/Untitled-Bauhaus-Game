@@ -15,16 +15,16 @@ public class DialogueManager : MonoBehaviour
         sentences = new Queue<string>();
     }
 
-    public void StartDialogue(Dialogue dialogue)
+    public void StartDialogue(string[] dialogueSentences, string dialogueName)
     {
         GameObject dialogueSystem = GameObject.Find("/DialogueSystem");
         dialogueSystem.transform.GetChild(0).gameObject.SetActive(true);
         
-        nameText.text = dialogue.name;
+        nameText.text = dialogueName;
         
         sentences.Clear();
 
-        foreach (string sentence in dialogue.sentences)
+        foreach (string sentence in dialogueSentences)
         {
             sentences.Enqueue(sentence);
         }
