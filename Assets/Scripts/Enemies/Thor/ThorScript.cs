@@ -44,6 +44,7 @@ namespace Enemies.Thor
         [SerializeField] private GameObject redLightningPrefab;
         [SerializeField] private GameObject shatteredGround;
         [FormerlySerializedAs("redCircle")] [SerializeField] private GameObject redCirclePrefab;
+        private Structs.Direction closeDirection = Structs.Direction.Left;
     
         private static readonly int Y = Animator.StringToHash("Y");
         private static readonly int X = Animator.StringToHash("X");
@@ -328,7 +329,12 @@ namespace Enemies.Thor
 
         private Structs.Direction GetStructDirection(Vector3 pos)
         {
-            Vector3 dir = (pos - transform.position + (Vector3)feetPositionOffset).normalized;
+            
+            Vector3 dir = (pos - transform.position + (Vector3)feetPositionOffset);
+            if (dir.magnitude <= 1)
+                return closeDirection;
+            
+            dir.Normalize();
             
             if (dir.x > 0)
             {
@@ -408,6 +414,11 @@ namespace Enemies.Thor
                 }
                 yield return new WaitForSeconds(0.5f);
             }
+        }
+
+        public void SetCloseDirection(int direction)
+        {
+            closeDirection = (Structs.Direction)direction;
         }
         private void OnDrawGizmos()
         {
