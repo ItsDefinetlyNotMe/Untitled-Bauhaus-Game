@@ -9,10 +9,13 @@ public class DialogueManager : MonoBehaviour
     public TMP_Text dialogueText;
     
     private Queue<string> sentences;
+
+    private int saveSlot;
     
     void Start()
     {
         sentences = new Queue<string>();
+        saveSlot = FindObjectOfType<GameManager>().saveSlot;
     }
 
     public void StartDialogue(string[] dialogueSentences, string dialogueName)
@@ -28,8 +31,10 @@ public class DialogueManager : MonoBehaviour
         {
             sentences.Enqueue(sentence);
         }
-
         DisplayNextSentence();
+        
+        PlayerPrefs.SetInt("boolFirstTimeTalk" + dialogueName + saveSlot, 1);
+        PlayerPrefs.Save();
     }
 
     public void DisplayNextSentence()
