@@ -118,6 +118,9 @@ namespace TestRandomWorldGeneration {
             {
                 createRandomRoomLayout.SpawnCollectable();
                 livingEnemyCounter = 0;
+
+                GameObject PostProcess = GameObject.FindGameObjectWithTag("Volume");
+                PostProcess.GetComponent<PostProcessEffects>().GoldVignette(2f);
             }
         }
 
