@@ -25,7 +25,7 @@ public class PlayerAnimator : MonoBehaviour
 
     public void Movement(InputValue input)
     {
-        movementDirection = input.Get<Vector2>();
+        movementDirection = input.Get<Vector2>().normalized;
 
         if (movementDirection.x != 0 || movementDirection.y != 0)
         {
