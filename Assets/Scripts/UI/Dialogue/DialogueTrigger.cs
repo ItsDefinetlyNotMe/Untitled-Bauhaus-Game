@@ -20,34 +20,33 @@ public class DialogueTrigger : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerEnter2D(Collider2D other)
     {
         PlayerInput playerInput = FindObjectOfType<PlayerInput>();
         playerInput.actions.FindActionMap("Fighting").Disable();
         playerInput.actions.FindActionMap("UI").Enable();
-        
+                
         transform.GetChild(0).gameObject.SetActive(false);
-
+        
         if (PlayerPrefs.GetInt("boolFirstTimeTalk" + dialogue.name + saveslot) == 0)
         {
             FindObjectOfType<DialogueManager>().StartDialogue(dialogue.firstTimeSentences, dialogue.name);
-            
+                    
             PlayerPrefs.SetInt("boolFirstTimeTalk" + dialogue.name + saveslot, 1);
             PlayerPrefs.Save();
         }
         else
         {
             FindObjectOfType<DialogueManager>().StartDialogue(dialogue.loopSentences, dialogue.name);
-        }
-        
+        }  
     }
 
-    private void OnCollisionExit2D(Collision2D collision)
+    private void OnTriggerExit2D(Collider2D other)
     {
         PlayerInput playerInput = FindObjectOfType<PlayerInput>();
         playerInput.actions.FindActionMap("Fighting").Enable();
         playerInput.actions.FindActionMap("UI").Disable();
-        
+                
         FindObjectOfType<DialogueManager>().EndDialogue();
     }
 }
