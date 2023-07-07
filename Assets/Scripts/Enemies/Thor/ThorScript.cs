@@ -48,7 +48,7 @@ namespace Enemies.Thor
         private static readonly int Y = Animator.StringToHash("Y");
         private static readonly int X = Animator.StringToHash("X");
         private static readonly int Direction = Animator.StringToHash("Direction");
-        private static readonly int OnThrowHead = Animator.StringToHash("OnThrowHammer");
+        private static readonly int OnThrowHammer = Animator.StringToHash("OnThrowHammer");
         private static readonly int OnHammerSlam = Animator.StringToHash("OnHammerSlam");
         private static readonly int OnSummonLightning = Animator.StringToHash("OnSummonLightning");
         private static readonly int OnDashAttack = Animator.StringToHash("OnDashAttack");
@@ -70,7 +70,7 @@ namespace Enemies.Thor
         {
             base.FixedUpdate();
             //SetAnimator()
-
+            
             //currentPhase = -1;
             float distance = Vector2.Distance(target.position, (Vector2) transform.position + feetPositionOffset);
             if (currentPhase == 0)
@@ -104,6 +104,11 @@ namespace Enemies.Thor
                         //try to keep him away
                         StartCoroutine(ThrowHammer());
                     }
+                }
+                else
+                {
+                    if(targeting)
+                        StopTargeting();
                 }
             }
             else if (currentPhase == 1)
@@ -147,17 +152,31 @@ namespace Enemies.Thor
                         StartCoroutine(ThrowHammer());
                     }
                 }
+                else
+                {
+                    if(targeting)
+                        StopTargeting();
+                }
 
             }
             else if (currentPhase == 2)
             {
-                //madness begins
-                if(!targeting)
-                    StartTargeting();
-                SetAnimator(GetDirection());
+                if (currentState == Structs.ThorState.Moving)
+                {
+                    //madness begins
+                    if(!targeting)
+                        StartTargeting();
+                    
+                    SetAnimator(GetDirection());
+                        
+                }
+                else
+                {
+                    if(targeting)
+                        StopTargeting();
+                }
             }
         }
-
         private IEnumerator BaseAttack()
         {
             animator.SetInteger(Direction,(int)GetStructDirection(target.position));
@@ -202,9 +221,9 @@ namespace Enemies.Thor
         private IEnumerator ThrowHammer()
         {
             throwReady = false;
-        
-            animator.SetInteger(Direction,(int)GetStructDirection(target.position));
-            animator.SetTrigger(OnThrowHead);
+            //print((int)GetStructDirection(target.position));
+            animator.SetInteger(Direction,(int)GetStructDirection(target.position));//Why dont you throw anymore the moment you do this
+            animator.SetTrigger(OnThrowHammer);
         
             yield return new  WaitForFixedUpdate();
             StopTargeting();
@@ -309,7 +328,30 @@ namespace Enemies.Thor
 
         private Structs.Direction GetStructDirection(Vector3 pos)
         {
-            return Structs.Direction.Up;
+            Vector3 dir = (pos - transform.position + (Vector3)feetPositionOffset).normalized;
+            
+            if (dir.x > 0)
+            {
+                if (Mathf.Abs(dir.y) > dir.x)
+                {
+                    if (dir.y > 0)
+                    {
+                        return Structs.Direction.Up;
+                    }
+
+                    return Structs.Direction.Down;
+                }
+                return Structs.Direction.Right;
+            }
+            if (Mathf.Abs(dir.y) > -dir.x)
+            {
+                if (dir.y > 0)
+                {
+                    return Structs.Direction.Up;
+                }
+                return Structs.Direction.Down;
+            }
+            return Structs.Direction.Left;
         }
 
         private void InstantiateHammer()
@@ -369,10 +411,29 @@ namespace Enemies.Thor
         }
         private void OnDrawGizmos()
         {
-            Gizmos.DrawWireSphere((Vector2)transform.position + feetPositionOffset,throwRange);
+          /*  Gizmos.DrawWireSphere((Vector2)transform.position + feetPositionOffset,throwRange);
             Gizmos.DrawWireSphere((Vector2)transform.position + feetPositionOffset,midRange);
             Gizmos.DrawWireSphere((Vector2)transform.position + feetPositionOffset,meleeRange) ;
-            Gizmos.DrawRay(feetPositionOffset+(Vector2)transform.position,GetDirection());
+            Gizmos.DrawRay(feetPositionOffset+(Vector2)transform.position,GetDirection());*/
+            Structs.Direction dir = GetStructDirection(target.position);
+            Vector3 Ray = Vector3.zero;
+            switch (dir)
+            {
+                case Structs.Direction.Left:
+                    Ray = new Vector2(-1, 0);
+                    break;
+                case Structs.Direction.Up:
+                    Ray = new Vector2(0, 1);
+                    break;
+                case Structs.Direction.Right:
+                    Ray = new Vector2(1, 0);
+                    break;
+                case Structs.Direction.Down:
+                    Ray = new Vector2(0, -1);
+                    break;
+            }
+            Gizmos.color = Color.red;
+            Gizmos.DrawRay(transform.position+(Vector3)feetPositionOffset,Ray);
         }
     }
 }

@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 6094734462267778594}
   - component: {fileID: 1840888495282370100}
   m_Layer: 0
-  m_Name: BlueThunder
+  m_Name: BlueThunderLong
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

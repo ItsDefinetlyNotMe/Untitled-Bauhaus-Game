@@ -148,7 +148,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 840717ddee6163847bc8003ed3d82691, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lightning: {fileID: 5092981296554492165, guid: 093b945a8aa6d99429ada69350754eb9, type: 3}
+  lightning: {fileID: 5092981296554492165, guid: 4a6dfbd357b8f6648b4c8799774ee117, type: 3}
 --- !u!114 &6948926372895453621
 MonoBehaviour:
   m_ObjectHideFlags: 0
