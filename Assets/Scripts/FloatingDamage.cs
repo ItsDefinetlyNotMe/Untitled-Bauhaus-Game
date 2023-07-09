@@ -15,10 +15,4 @@ public class FloatingDamage : MonoBehaviour
         transform.position += Vector3.up * 0.4f + Random.Range(-0.2f,0.2f) * Vector3.right;
         //startPosition = transform.position;
     }
-
-    private void Update()
-    {
-        //t += Time.deltaTime;
-        //transform.position = Vector3.Lerp(startPosition, startPosition + Vector3.up * 0.3f, t);
-    }
 }
