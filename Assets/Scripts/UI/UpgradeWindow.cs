@@ -370,6 +370,16 @@ public class UpgradeWindow : MonoBehaviour
 
             InputHandler inputHandler = FindObjectOfType<InputHandler>();
             inputHandler.isOnUpgrade = true;
+            
+            if (playerInput.currentControlScheme == "Keyboard + Mouse")
+            {
+                transform.GetChild(9).GetChild(1).gameObject.SetActive(true);
+            }
+
+            if (playerInput.currentControlScheme == "Gamepad")
+            {
+                transform.GetChild(9).GetChild(0).gameObject.SetActive(true);
+            }
         }
     }
 
@@ -383,6 +393,10 @@ public class UpgradeWindow : MonoBehaviour
 
             InputHandler inputHandler = FindObjectOfType<InputHandler>();
             inputHandler.isOnUpgrade = false;
+            
+            transform.GetChild(9).GetChild(0).gameObject.SetActive(false);
+            transform.GetChild(9).GetChild(1).gameObject.SetActive(false);
+
 
             upgradeWindow.SetActive(false);
         }
