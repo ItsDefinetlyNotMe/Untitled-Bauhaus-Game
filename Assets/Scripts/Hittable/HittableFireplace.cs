@@ -43,24 +43,22 @@ public class HittableFireplace : HittableObject
     protected override void TakeDamage(int damage,GameObject damageSource)
     {
         base.TakeDamage(damage,damageSource);
-        if (currentHealth <= maxHealth * 1f / 3f && currentHealth > 0 && stage == 0)
+        if (currentHealth <= maxHealth * 1f / 3f && currentHealth > 0)
         {
-            stage = 1;
-            //priteRenderer.sprite = destroyedSecondSprite;
-            animator.SetTrigger(NextStage);
-            currentStage++;
+            animator.Play("FeuerstelleCrack2");
             hitSound.GetComponent<RandomSound>().PlayRandom1();
         }
+
         else if (currentHealth <= maxHealth * 2f / 3f && currentHealth > 0)
         {
-            stage = 2;
-            animator.SetTrigger(NextStage);
-            currentStage++;
+            animator.Play("FeuerstelleCrack1");
             hitSound.GetComponent<RandomSound>().PlayRandom1();
-        }else if (currentHealth <= 0)
+        }
+        
+        else if (currentHealth <= 0)
         {
-            stage = 3;
-            currentStage++;
+            animator.Play("FirePlaceDestroyed");
+            hitSound.GetComponent<RandomSound>().PlayRandom1();
         }
 
     }
