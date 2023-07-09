@@ -13,7 +13,7 @@ namespace TestRandomWorldGeneration
         [SerializeField] private float percentageOfMainObject;
 
         [Header("Difficulty")]
-        [SerializeField] private int difficultyExponent;
+        [SerializeField] private float difficultyExponent;
         [SerializeField] private Structs.DifficultyStruct[] difficulties;
 
         private List<Vector2> possibleSpawnPositions = new();

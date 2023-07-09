@@ -85,7 +85,7 @@ public class PlayerMovement : MonoBehaviour
     private void FixedUpdate()
     {
 
-        if (currentState != Attacking && canMove)
+        if (currentState != Attacking && currentState != Charging && canMove)
         {
             if (currentState == Moving)
                 inputBuffer.BufferDequeue();
@@ -143,6 +143,11 @@ public class PlayerMovement : MonoBehaviour
     }
     public void ChangeState(Structs.PlayerState nextState)
     {
+        if (currentState == Charging && nextState == Moving)
+        {
+            print("This is the error");
+        }
+
         switch(nextState)
         {
             case Attacking:
@@ -162,6 +167,11 @@ public class PlayerMovement : MonoBehaviour
         {
             transform.position = new Vector3(-4.65f, -2.1f, 0);
             currentState = Moving;
+        }
+
+        else if (scene.name == "ThorBossFight")
+        {
+            transform.position = new Vector3(-4.5f, -4.15f, 0);
         }
     }
 

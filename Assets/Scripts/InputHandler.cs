@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.InputSystem.Android;
 using UnityEngine.SceneManagement;
 
 public class InputHandler : MonoBehaviour
@@ -226,10 +225,6 @@ public class InputHandler : MonoBehaviour
         }
         whileLoopTracker = 0;
 
-        print(playerMovement.currentState);
-
-        //if (playerMovement.currentState != Structs.PlayerState.Charging)
-            //heavyAttackPressed = false;
         
         if (input.isPressed)
         {

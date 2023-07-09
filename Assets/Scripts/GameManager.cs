@@ -76,6 +76,13 @@ public class GameManager : MonoBehaviour
         roomTransitionScreen.SetActive(true);
         randomRoomLayout.loot = loot;
         roomNumber++;
+
+        if (roomNumber >= 10)
+        {
+            SceneManager.LoadScene("ThorBossFight");
+            return;
+        }
+
         randomRoomLayout.StartRoomGeneration(direction);
 
         // set highest room number for save slot information in main menu
