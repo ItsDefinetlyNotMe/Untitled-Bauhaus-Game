@@ -54,7 +54,6 @@ namespace Enemies
             GameObject points = Instantiate(floatingDamage, transform.position, quaternion.identity) as GameObject;
             points.transform.GetChild(0).GetComponent<TMP_Text>().text =  damage.ToString();
             byte colorgradient = (byte)(255 - 255 * (damage / (maxHealth / 2.0f))); 
-            print((damage / (maxHealth / 2.0f)));
             points.transform.GetChild(0).GetComponent<TMP_Text>().faceColor = new Color32(255,colorgradient,colorgradient,255);
 
             if (healthBar.value == maxHealth)

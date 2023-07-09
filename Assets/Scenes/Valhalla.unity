@@ -800,7 +800,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: +50 Mynt
+  m_text: +500 Mynt
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 939ebb0f5bd890e49af7b4449b708bc9, type: 2}
   m_sharedMaterial: {fileID: 2618114049645615162, guid: 939ebb0f5bd890e49af7b4449b708bc9, type: 2}
@@ -1458,7 +1458,7 @@ MonoBehaviour:
     type: 1
     difficulty: 2
   percentageOfMainObject: 0.6
-  difficultyExponent: 2
+  difficultyExponent: 1.3
   difficulties:
   - difficultyType: 0
     difficulty: 10
@@ -1588,7 +1588,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!61 &1023481424
 BoxCollider2D:
   m_ObjectHideFlags: 0

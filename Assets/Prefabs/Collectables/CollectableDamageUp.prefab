@@ -217,7 +217,7 @@ MonoBehaviour:
   maxHealthValue: 30
   healPercentage: 0.4
   damageMultiplierValue: 1
-  moneyValue: 50
+  moneyValue: 500
 --- !u!58 &2220467975646320459
 CircleCollider2D:
   m_ObjectHideFlags: 0

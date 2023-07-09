@@ -137,8 +137,11 @@ public class PlayerAttack : MonoBehaviour
         //playerMovement.ChangeState(Structs.PlayerState.Charging);
         heavyAttackTimer = Time.time;
         Invoke(nameof(HeavyAttack),2f);
-        animator.SetTrigger(Charging);
+
         //play animation
+        animator.SetTrigger(Charging);
+
+        //play animation sound
         HeavyAttackCharge.Play();
     }
 
