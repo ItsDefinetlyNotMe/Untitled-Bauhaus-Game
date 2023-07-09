@@ -18,7 +18,7 @@ namespace Enemies.Thor
         [SerializeField] private float meleeRange;
         [SerializeField] private float hammerSlamCooldown = 15f;
         private float hammerSlamTimeStamp;
-        private bool baseAttackReady = true;
+        private float baseAttackTimeStamp;
         public bool hammerslamReady;
     
         [Header("RangedAttack")]
@@ -45,7 +45,8 @@ namespace Enemies.Thor
         [SerializeField] private GameObject shatteredGround;
         [FormerlySerializedAs("redCircle")] [SerializeField] private GameObject redCirclePrefab;
         private Structs.Direction closeDirection = Structs.Direction.Left;
-    
+
+        private bool debug;
         private static readonly int Y = Animator.StringToHash("Y");
         private static readonly int X = Animator.StringToHash("X");
         private static readonly int Direction = Animator.StringToHash("Direction");
@@ -64,6 +65,7 @@ namespace Enemies.Thor
             //playerCamera = Camera.main;
             feetPositionOffset = Vector3.down * 0.5f;
             StartTargeting();
+            debug = true;
         }
 
         // Update is called once per frame
@@ -90,9 +92,8 @@ namespace Enemies.Thor
                         //attack/get him into other zones
                         if(hammerSlamTimeStamp < Time.time)
                             StartCoroutine( HammerSlam());
-                        else if (baseAttackReady)
+                        else if (baseAttackTimeStamp < Time.time)
                         {
-                            baseAttackReady = false;
                             StartCoroutine(BaseAttack());
                         }
                     }
@@ -108,8 +109,11 @@ namespace Enemies.Thor
                 }
                 else
                 {
-                    if(targeting)
+                    if (targeting)
+                    {
                         StopTargeting();
+                        rb.velocity = Vector3.zero;
+                    }
                 }
             }
             else if (currentPhase == 1)
@@ -130,8 +134,8 @@ namespace Enemies.Thor
                             StartCoroutine( HammerSlam());
                         else
                         {
-                            baseAttackReady = false;
-                            StartCoroutine(BaseAttack());
+                            if(baseAttackTimeStamp < Time.time)
+                                StartCoroutine(BaseAttack());
                         }
                     }
                     else if (distance < midRange)
@@ -155,8 +159,12 @@ namespace Enemies.Thor
                 }
                 else
                 {
-                    if(targeting)
+                    if (targeting)
+                    {
                         StopTargeting();
+                        if(currentState != Structs.ThorState.ChargeAttack && !readyToDash)
+                            rb.velocity = Vector3.zero;
+                    }
                 }
 
             }
@@ -173,27 +181,28 @@ namespace Enemies.Thor
                 }
                 else
                 {
-                    if(targeting)
+                    if (targeting)
+                    {
                         StopTargeting();
+                        rb.velocity = Vector3.zero;
+                    }
                 }
             }
         }
         private IEnumerator BaseAttack()
         {
-            animator.SetInteger(Direction,(int)GetStructDirection(target.position));
+            baseAttackTimeStamp = Time.time + 1f;
+            animator.SetInteger(Direction,(int)closeDirection);
             animator.SetTrigger(OnBaseAttack);
             
             yield return new  WaitForFixedUpdate();
             StopTargeting();
-            print("BaseAttack");
             rb.velocity = Vector2.zero;
+            
         
             yield return new WaitUntil(() => currentState == Structs.ThorState.BaseAttack);
-            animator.ResetTrigger(OnBaseAttack);
+            //animator.ResetTrigger(OnBaseAttack);
             yield return new WaitUntil(() => currentState == Structs.ThorState.Moving);
-            //StartTargeting();
-            yield return new WaitForSeconds(0.5f);
-            baseAttackReady = true;
         }
         private IEnumerator HammerSlam()
         {
@@ -264,6 +273,12 @@ namespace Enemies.Thor
                     for (int lightning = 0; lightning <= lightningStrikes; ++lightning)
                     {
                         float angle = (lightning * (360f / lightningStrikes)) * (Mathf.PI / 180f);
+                        if (row <= 2)
+                        {
+                            float innerX = 0.3f * Mathf.Cos(angle);
+                            float innerY = 0.3f * Mathf.Sin(angle);   
+                            Instantiate(lightningPrefab, position + new Vector2(innerX, innerY), quaternion.identity, transform);
+                        }
                         float x = radiusX * Mathf.Cos(angle);
                         float y = radiusY * Mathf.Sin(angle);
                         Instantiate(lightningPrefab, position + new Vector2(x, y), quaternion.identity, transform);
@@ -332,7 +347,10 @@ namespace Enemies.Thor
             
             Vector3 dir = (pos - transform.position + (Vector3)feetPositionOffset);
             if (dir.magnitude <= 1)
+            {
+                print("--------------------------\n\t" + closeDirection + "\n--------------------------");
                 return closeDirection;
+            }
             
             dir.Normalize();
             
@@ -392,7 +410,7 @@ namespace Enemies.Thor
                 quaternion.identity);
             redLight.transform.localScale = new Vector3(3.0f,3.0f,3.0f);
             StartCoroutine(SummonRandomLighning());
-            baseAttackReady = false;
+            baseAttackTimeStamp = Single.PositiveInfinity;
             hammerSlamTimeStamp = Single.PositiveInfinity;
             summonLightningTimeStamp = Single.PositiveInfinity;
             canDash = false;
@@ -422,10 +440,14 @@ namespace Enemies.Thor
         }
         private void OnDrawGizmos()
         {
-          /*  Gizmos.DrawWireSphere((Vector2)transform.position + feetPositionOffset,throwRange);
+            if(!debug)
+                return;
+            /*
+            Gizmos.DrawWireSphere((Vector2)transform.position + feetPositionOffset,throwRange);
             Gizmos.DrawWireSphere((Vector2)transform.position + feetPositionOffset,midRange);
             Gizmos.DrawWireSphere((Vector2)transform.position + feetPositionOffset,meleeRange) ;
             Gizmos.DrawRay(feetPositionOffset+(Vector2)transform.position,GetDirection());*/
+          
             Structs.Direction dir = GetStructDirection(target.position);
             Vector3 Ray = Vector3.zero;
             switch (dir)
@@ -445,6 +467,7 @@ namespace Enemies.Thor
             }
             Gizmos.color = Color.red;
             Gizmos.DrawRay(transform.position+(Vector3)feetPositionOffset,Ray);
+            
         }
     }
 }

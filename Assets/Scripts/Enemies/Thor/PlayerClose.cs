@@ -6,12 +6,17 @@ using UnityEngine;
 
 public class PlayerClose : MonoBehaviour
 {
-    
+    private ThorScript thorScript;
+    private void Start()
+    {
+        thorScript = transform.parent.parent.GetComponent<ThorScript>();
+    }
+
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Player"))
         {
-            transform.parent.parent.GetComponent<ThorScript>().SetCloseDirection(int.Parse(name));
+            thorScript.SetCloseDirection(int.Parse(name));
         }
     }
 }
