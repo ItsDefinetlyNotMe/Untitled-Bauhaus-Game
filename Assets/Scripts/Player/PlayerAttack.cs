@@ -110,7 +110,7 @@ public class PlayerAttack : MonoBehaviour
         float crit = stats.GetCritMultiplier();
 
         // Start scaling back to normal size while heavy attack
-        StartCoroutine(ScaleBackToNormalSize()); // TODO fix weird scaling behaviour
+        //StartCoroutine(ScaleBackToNormalSize()); // TODO fix weird scaling behaviour
 
         //ANIMATION START
         //animator.SetTrigger(Release);
@@ -142,21 +142,7 @@ public class PlayerAttack : MonoBehaviour
         HeavyAttackCharge.Play();
     }
 
-    private IEnumerator ScaleBackToNormalSize()
-    {
-        SpriteRenderer sr = GetComponent<SpriteRenderer>();
-        Vector3 oldScale = transform.localScale;
-        float lerpProgress = 0.0f;
 
-        while (lerpProgress <= 1.0f)
-        {
-            transform.localScale = Vector3.Lerp(oldScale, Vector3.one, lerpProgress);
-            //print(transform.localScale);
-            lerpProgress += Time.deltaTime /  5.0f;
-            yield return new WaitForEndOfFrame();
-
-        }
-    }
     private void AttackFinished()
     {
         weaponScript.AttackFinished();
@@ -164,12 +150,6 @@ public class PlayerAttack : MonoBehaviour
     public void LoadStats()
     {
         damageMultiplier = stats.getDamageMultiplier();
-    }
-
-
-    private void Update()
-    {
-        //print(transform.localScale);
     }
 
     private void OnDisable()

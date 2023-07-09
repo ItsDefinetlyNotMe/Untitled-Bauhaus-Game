@@ -143,8 +143,6 @@ public class PlayerMovement : MonoBehaviour
     }
     public void ChangeState(Structs.PlayerState nextState)
     {
-        //print("change State To: " + nextState);
-
         switch(nextState)
         {
             case Attacking:

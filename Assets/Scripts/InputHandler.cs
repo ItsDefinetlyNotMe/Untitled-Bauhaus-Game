@@ -226,8 +226,6 @@ public class InputHandler : MonoBehaviour
         }
         whileLoopTracker = 0;
 
-        print(heavyAttackPressed);
-
         if (playerMovement.currentState != Structs.PlayerState.Charging)
             heavyAttackPressed = false;
         
