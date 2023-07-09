@@ -35,6 +35,7 @@ public class HittableThor : HittableObject
     protected override void Die(GameObject damageSource)
     {
         onThorDeath?.Invoke();
+        GameObject.Find("/MoneyBonus").transform.GetChild(0).gameObject.SetActive(true);
         base.Die(damageSource);
     }
 

@@ -5,6 +5,7 @@ using System.Text.RegularExpressions;
 using TestRandomWorldGeneration;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using Update = UnityEngine.PlayerLoop.Update;
 
 public class Collectable : MonoBehaviour
@@ -66,7 +67,9 @@ public class Collectable : MonoBehaviour
                     playerAttack.LoadStats();
                     break;
             }
-            FindObjectOfType<CreateRandomRoomLayout>().OpenDoors();
+
+            if (SceneManager.GetActiveScene().name != "ThorBossFight")
+                FindObjectOfType<CreateRandomRoomLayout>().OpenDoors();            
 
             Destroy(gameObject);
         }
