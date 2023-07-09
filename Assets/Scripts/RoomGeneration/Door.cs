@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using static Structs;
 
 
@@ -38,6 +39,13 @@ namespace TestRandomWorldGeneration
                 return;
 
             col.enabled = false;
+
+            if (SceneManager.GetActiveScene().name == "ThorBossFight")
+            {
+                SceneManager.LoadScene("HUB");
+                return;
+            }
+
             onDoorEnter?.Invoke(direction, loot);
             Destroy(this);
         }

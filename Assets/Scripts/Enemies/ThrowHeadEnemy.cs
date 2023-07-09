@@ -48,7 +48,7 @@ namespace Enemies
                 headRb.position =  Mathf.Lerp(positionHeadY,positionHeadY + 0.2f,lerpT) * Vector2.up + headRb.position.x * Vector2.right;
                 if (lerpT >= 0.99f)
                 {
-                    hittableEnemy.healthBar.gameObject.SetActive(true);
+                    //hittableEnemy.healthBar.gameObject.SetActive(true);
                     col.enabled = true;
                     animator.SetTrigger(OnRespawn);
                     respawning = true;
@@ -85,6 +85,8 @@ namespace Enemies
 
         protected override IEnumerator Attack(Action<bool> callback)
         {
+            Transform isAlwaysOnTransform = transform.GetChild(3);
+
             StopTargeting();
             rb.velocity = new Vector2(0, 0);
             SetAnimator((target.position-transform.position).normalized,true);
@@ -93,15 +95,23 @@ namespace Enemies
             yield return new WaitWhile(()=>currentEnemyState != Structs.EnemyState.ChargingAttack);
             yield return new WaitUntil(()=>head.gameObject.activeSelf);
             head.GetComponent<Collider2D>().enabled = true;
+
+            isAlwaysOnTransform.parent = head;
+            isAlwaysOnTransform.localPosition = Vector3.zero;
+
             ChangeState(Structs.EnemyState.Attacking);
             spriteRenderer.enabled = false;
             col.enabled = false;
-            hittableEnemy.healthBar.gameObject.SetActive(false);
+            //hittableEnemy.healthBar.gameObject.SetActive(false);
             //dash head
             headRb.velocity = (target.position-transform.position).normalized * projectileSpeed;
             yield return new WaitForSeconds(2);
             //stop head as new function
             StopHead();
+
+            isAlwaysOnTransform.parent = transform;
+            isAlwaysOnTransform.localPosition = Vector3.zero;
+
             yield return new WaitWhile(()=>currentEnemyState != Structs.EnemyState.Recharging);
             spriteRenderer.enabled = true;
             head.gameObject.SetActive(false);

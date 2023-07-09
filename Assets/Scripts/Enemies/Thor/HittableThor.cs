@@ -1,4 +1,5 @@
 using Enemies.Thor;
+using TestRandomWorldGeneration;
 using UnityEngine;
 
 public class HittableThor : HittableObject
@@ -35,7 +36,12 @@ public class HittableThor : HittableObject
     protected override void Die(GameObject damageSource)
     {
         onThorDeath?.Invoke();
-        GameObject.Find("/MoneyBonus").transform.GetChild(0).gameObject.SetActive(true);
+        GameObject.Find("/ThorDeathEvent").transform.GetChild(0).gameObject.SetActive(true);
+
+        Door door = GameObject.Find("DoorToHUB").GetComponent<Door>();
+        door.GetComponent<Animator>().SetTrigger("open");
+        door.GetComponent<Door>().ActivateDoor();
+
         base.Die(damageSource);
     }
 
