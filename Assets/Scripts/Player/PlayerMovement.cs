@@ -144,9 +144,7 @@ public class PlayerMovement : MonoBehaviour
     public void ChangeState(Structs.PlayerState nextState)
     {
         if (currentState == Charging && nextState == Moving)
-        {
-            print("This is the error");
-        }
+            return;
 
         switch(nextState)
         {
