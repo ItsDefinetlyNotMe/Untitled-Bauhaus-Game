@@ -213,7 +213,7 @@ public class InputHandler : MonoBehaviour
         SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 
-    private void OnSpecialAttack()
+    private void OnSpecialAttack(InputValue input)
     {
         while (playerAttack == null)
         {
@@ -226,10 +226,12 @@ public class InputHandler : MonoBehaviour
         }
         whileLoopTracker = 0;
 
-        if (playerMovement.currentState != Structs.PlayerState.Charging)
-            heavyAttackPressed = false;
+        print(playerMovement.currentState);
+
+        //if (playerMovement.currentState != Structs.PlayerState.Charging)
+            //heavyAttackPressed = false;
         
-        if (!heavyAttackPressed)
+        if (input.isPressed)
         {
             //chargeAttack
             heavyAttackPressed = true;
