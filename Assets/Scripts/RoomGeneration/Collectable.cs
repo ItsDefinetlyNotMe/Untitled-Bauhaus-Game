@@ -57,7 +57,12 @@ public class Collectable : MonoBehaviour
                     break;
 
                 case "CollectableMynt":
-                    inGameCanvas.transform.GetChild(2).gameObject.SetActive(true);
+                    if (SceneManager.GetActiveScene().name != "ThorBossFight")
+                        inGameCanvas.transform.GetChild(2).gameObject.SetActive(true);
+
+                    else
+                        inGameCanvas.transform.GetChild(7).gameObject.SetActive(true);
+
                     playerStats.AddMoney(moneyValue);
                     break;
 
