@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Drawing;
+using TMPro;
 using Unity.Mathematics;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -51,7 +52,7 @@ namespace Enemies
             base.GetHit(damage,damageSourcePosition, knockbackMultiplier,damageSource,heavy);
             
             GameObject points = Instantiate(floatingDamage, transform.position, quaternion.identity) as GameObject;
-            points.transform.GetChild(0).GetComponent<TextMesh>().text =  damage.ToString();
+            points.transform.GetChild(0).GetComponent<TMP_Text>().text =  damage.ToString();
 
             if (healthBar.value == maxHealth)
                 healthBar.gameObject.SetActive(true);
