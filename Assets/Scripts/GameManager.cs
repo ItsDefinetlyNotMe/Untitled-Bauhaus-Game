@@ -1,4 +1,5 @@
 using System;
+using Enemies.Thor;
 using TestRandomWorldGeneration;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -51,8 +52,14 @@ public class GameManager : MonoBehaviour
     {
         Door.onDoorEnter += StartRoomTransition;
         CreateRandomRoomLayout.onRoomGenerated += EndRoomTransition;
+        HittableThor.onThorDeath += SetBoolThorDeath;
     }
 
+    private void SetBoolThorDeath()
+    {
+        PlayerPrefs.SetInt("ThorAlive", 1);
+        PlayerPrefs.Save();
+    }
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         if (isAlreadyDestroyed)
@@ -76,8 +83,8 @@ public class GameManager : MonoBehaviour
         roomTransitionScreen.SetActive(true);
         randomRoomLayout.loot = loot;
         roomNumber++;
-
-        if (roomNumber >= 10)
+        
+        if (roomNumber >= 10 && PlayerPrefs.GetInt("ThorAlive") == 0)
         {
             SceneManager.LoadScene("ThorBossFight");
             return;
@@ -99,5 +106,7 @@ public class GameManager : MonoBehaviour
     {
         Door.onDoorEnter -= StartRoomTransition;
         SceneManager.sceneLoaded -= OnSceneLoaded;
+        HittableThor.onThorDeath -= SetBoolThorDeath;
+
     }
 }

@@ -7,6 +7,9 @@ public class HittableThor : HittableObject
     //[SerializeField] private Slider thorHealthBar;
     [SerializeField] private GameObject healthBar;
     private PlayerHealthBar thorHealthbar;
+    
+    public delegate void ThorDeathDelegate();
+    public static ThorDeathDelegate onThorDeath;
     protected override void Start()
     {
         base.Start();
@@ -28,6 +31,13 @@ public class HittableThor : HittableObject
         if(currentHealth <= (1f/3)*maxHealth)
             thorScript.SetPhase(2);
     }
+
+    protected override void Die(GameObject damageSource)
+    {
+        onThorDeath?.Invoke();
+        base.Die(damageSource);
+    }
+
     private void UpdateHealthBar()
     {
         thorHealthbar.UpdateHealthBar(currentHealth, maxHealth);
