@@ -143,9 +143,15 @@ public class PlayerMovement : MonoBehaviour
     }
     public void ChangeState(Structs.PlayerState nextState)
     {
+        //print("change State To: " + nextState);
+
         switch(nextState)
         {
             case Attacking:
+                rb.velocity = new Vector3(0f,0f,0f);
+                break;
+            
+            case Charging:
                 rb.velocity = new Vector3(0f,0f,0f);
                 break;
         }

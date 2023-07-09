@@ -13,7 +13,7 @@ public class InputHandler : MonoBehaviour
     private PlayerMovement playerMovement;
     private PlayerAttack playerAttack;
     private PlayerAnimator playerAnimator;
-    private bool sp;
+    private bool heavyAttackPressed;
 
     private int whileLoopTracker = 0;
 
@@ -118,6 +118,7 @@ public class InputHandler : MonoBehaviour
     {
         if(hitablePlayer.isDying)
             return;
+
         while (playerAttack == null)
         {
             if (whileLoopTracker > 10)
@@ -224,11 +225,16 @@ public class InputHandler : MonoBehaviour
             whileLoopTracker++;
         }
         whileLoopTracker = 0;
+
+        print(heavyAttackPressed);
+
+        if (playerMovement.currentState != Structs.PlayerState.Charging)
+            heavyAttackPressed = false;
         
-        if (!sp)
+        if (!heavyAttackPressed)
         {
             //chargeAttack
-            sp = true;
+            heavyAttackPressed = true;
             if(hitablePlayer.isDying)
                 return;
             playerAttack.ChargeHeavyAttack();
@@ -236,7 +242,7 @@ public class InputHandler : MonoBehaviour
         else
         {
             //Attack
-            sp = false;
+            heavyAttackPressed = false;
             if(hitablePlayer.isDying)
                 return;
             playerAttack.HeavyAttack();

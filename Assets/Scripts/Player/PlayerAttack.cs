@@ -94,16 +94,16 @@ public class PlayerAttack : MonoBehaviour
 
 
     public void HeavyAttack()
-    {
-        HeavyAttackSound.GetComponent<RandomSound>().PlayRandom1();
-        HeavyAttackCharge.Stop();
-        
+    {        
         CancelInvoke(nameof(HeavyAttack));
         
         if (!heavyAttackReady)
             return;
         
         heavyAttackReady = false;
+
+        HeavyAttackSound.GetComponent<RandomSound>().PlayRandom1();
+        HeavyAttackCharge.Stop();
         
         float chargedTime = Mathf.Min(3f, Time.time - heavyAttackTimer + 1);
 
@@ -113,7 +113,7 @@ public class PlayerAttack : MonoBehaviour
         StartCoroutine(ScaleBackToNormalSize()); // TODO fix weird scaling behaviour
 
         //ANIMATION START
-        animator.SetTrigger(Release);
+        //animator.SetTrigger(Release);
         StartCoroutine(weaponScript.HeavyAttack((enemiesHit, weaponDamage) =>
         {
             foreach (Collider2D enemy in enemiesHit)
@@ -121,18 +121,20 @@ public class PlayerAttack : MonoBehaviour
                 enemy.GetComponent<HittableObject>().GetHit((int)(weaponDamage * damageMultiplier * chargedTime * crit), transform.position, knockbackMultiplier, gameObject,true);
             }
         }));
-        animator.ResetTrigger(Release);
+        //animator.ResetTrigger(Release);
     }
     public void ChargeHeavyAttack()
     {
         if (weaponScript == null)
             return;
+
         if (playerMovement.currentState != Structs.PlayerState.Moving)
             return;
+        
         heavyAttackReady = true;
         PlayerAnimator pA = GetComponent<PlayerAnimator>();
         pA.SetDirection(weaponScript.DetermineAttackDirection());
-        playerMovement.ChangeState(Structs.PlayerState.Charging);
+        //playerMovement.ChangeState(Structs.PlayerState.Charging);
         heavyAttackTimer = Time.time;
         Invoke(nameof(HeavyAttack),2f);
         animator.SetTrigger(Charging);
@@ -144,13 +146,12 @@ public class PlayerAttack : MonoBehaviour
     {
         SpriteRenderer sr = GetComponent<SpriteRenderer>();
         Vector3 oldScale = transform.localScale;
-        print(oldScale);
         float lerpProgress = 0.0f;
+
         while (lerpProgress <= 1.0f)
         {
             transform.localScale = Vector3.Lerp(oldScale, Vector3.one, lerpProgress);
-            sr.size = transform.localScale;
-            print(transform.localScale);
+            //print(transform.localScale);
             lerpProgress += Time.deltaTime /  5.0f;
             yield return new WaitForEndOfFrame();
 
@@ -164,7 +165,12 @@ public class PlayerAttack : MonoBehaviour
     {
         damageMultiplier = stats.getDamageMultiplier();
     }
-    
+
+
+    private void Update()
+    {
+        //print(transform.localScale);
+    }
 
     private void OnDisable()
     {
