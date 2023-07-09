@@ -148,6 +148,10 @@ public class PlayerMovement : MonoBehaviour
             case Attacking:
                 rb.velocity = new Vector3(0f,0f,0f);
                 break;
+            
+            case Charging:
+                rb.velocity = new Vector3(0f,0f,0f);
+                break;
         }
         currentState = nextState;
     }
