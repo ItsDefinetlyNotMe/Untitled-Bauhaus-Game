@@ -141,7 +141,7 @@ namespace TestRandomWorldGeneration
 
                 player = GameObject.Find("/Character");
 
-                StartRoomGeneration(Direction.Right);
+                StartRoomGeneration(Direction.Down);
             }
         }
 
