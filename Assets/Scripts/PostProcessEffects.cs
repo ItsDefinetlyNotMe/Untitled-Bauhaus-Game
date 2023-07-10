@@ -49,8 +49,11 @@ public class PostProcessEffects : MonoBehaviour
         SceneManager.LoadScene(sceneName);
     }
 
-    IEnumerator ChangeVignetteIntensity(float targetIntensity, float duration)
+    IEnumerator ChangeVignetteIntensity(float targetIntensity, float duration, float delay = 0f)
     {
+        if (delay > 0f)
+            yield return new WaitForSeconds(delay);
+
         float startIntensity = vignette.intensity.value;
         float elapsedTime = 0.0f;
 
@@ -67,13 +70,72 @@ public class PostProcessEffects : MonoBehaviour
         yield return null;
     }
 
+
     public void GoldVignette(float goldDuration)
     {
         StopAllCoroutines(); // Stop all running coroutines before starting new ones
 
-        StartCoroutine(ChangeVignetteColor(Color.black, goldDuration));
-        StartCoroutine(ChangeVignetteColor(Color.yellow, goldDuration, goldDuration));
-        StartCoroutine(ChangeVignetteColor(Color.black, goldDuration));
+        StartCoroutine(ChangeVignetteColor(Color.yellow, goldDuration)); // Change the vignette color to gold
+
+        StartCoroutine(DelayedChangeVignetteIntensity(0.6f, transitionDuration)); // Start with a stronger vignette intensity after a delay
+        StartCoroutine(DelayedChangeChromaticAberrationIntensity(0.4f, transitionDuration));
+
+        StartCoroutine(WeakenVignetteIntensity(0.2f, goldDuration, delayedTransitionDuration)); // Gradually weaken the vignette intensity with a longer delay
+
+        StartCoroutine(ChangeVignetteColor(Color.black, transitionDuration, goldDuration)); // Change the vignette color to black
+
+        StartCoroutine(FadeOutChromaticAberrationIntensity(delayedTransitionDuration + goldDuration + transitionDuration)); // Fade out the chromatic aberration intensity after the transitions are complete
+    }
+
+    IEnumerator FadeOutChromaticAberrationIntensity(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+
+        float startIntensity = chromaticAberration.intensity.value;
+        float elapsedTime = 0.0f;
+        float fadeDuration = 1.0f; // Adjust the fade duration as desired
+
+        while (elapsedTime < fadeDuration)
+        {
+            elapsedTime += Time.deltaTime;
+            float t = elapsedTime / fadeDuration;
+            chromaticAberration.intensity.value = Mathf.Lerp(startIntensity, 0f, t);
+            yield return null;
+        }
+
+        chromaticAberration.intensity.value = 0f;
+    }
+
+
+    IEnumerator WeakenVignetteIntensity(float targetIntensity, float duration, float delay)
+    {
+        yield return new WaitForSeconds(delay);
+
+        float startIntensity = vignette.intensity.value;
+        float elapsedTime = 0.0f;
+
+        while (elapsedTime < duration)
+        {
+            elapsedTime += Time.deltaTime;
+            float t = elapsedTime / duration;
+            vignette.intensity.value = Mathf.Lerp(startIntensity, targetIntensity, t);
+            yield return null;
+        }
+
+        vignette.intensity.value = targetIntensity;
+    }
+
+
+    IEnumerator DelayedChangeVignetteColor(Color targetColor, float duration, float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        StartCoroutine(ChangeVignetteColor(targetColor, duration));
+    }
+
+    IEnumerator DelayedChangeVignetteIntensity(float targetIntensity, float duration, float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        StartCoroutine(ChangeVignetteIntensity(targetIntensity, duration));
     }
 
     IEnumerator ChangeVignetteColor(Color targetColor, float duration, float delay = 0f)

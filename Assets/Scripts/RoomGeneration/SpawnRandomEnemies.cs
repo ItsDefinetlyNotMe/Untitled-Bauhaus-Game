@@ -118,11 +118,11 @@ namespace TestRandomWorldGeneration {
             if (livingEnemyCounter <= 0)
             {
                 WinningSound.GetComponent<PlaySound>().playSound();
-                createRandomRoomLayout.SpawnCollectable();
-                livingEnemyCounter = 0;
-
                 GameObject PostProcess = GameObject.FindGameObjectWithTag("Volume");
                 PostProcess.GetComponent<PostProcessEffects>().GoldVignette(2f);
+                
+                createRandomRoomLayout.SpawnCollectable();
+                livingEnemyCounter = 0;
             }
         }
 
