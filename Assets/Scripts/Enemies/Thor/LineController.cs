@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class LineController : MonoBehaviour
@@ -22,6 +23,8 @@ public class LineController : MonoBehaviour
     private float timeStampToActivate;
     private static readonly int MainTex = Shader.PropertyToID("_MainTex");
 
+    private float hitCooldownTimeStamp = 0; 
+
     void Awake()
     {
         lineRenderer = GetComponent<LineRenderer>();
@@ -36,7 +39,6 @@ public class LineController : MonoBehaviour
         if (Time.time > timeStampToActivate && !isActive)
         {
             isActive = true;
-            //col
             edgeCollider2D.enabled = true;
         }
         //calculate next position of laser
@@ -46,13 +48,31 @@ public class LineController : MonoBehaviour
         
         //Raycast to get distance
         Vector2 dir = new Vector2(X, Y).normalized;
-        RaycastHit2D hit2D = Physics2D.Raycast((Vector2)transform.position, dir,20f,redLightningLayer);
+
+        Vector2 rightOffset = dir.Perpendicular1() * 0.07f;
+        Vector2 leftOffset = dir.Perpendicular2() * 0.07f;
         
+        RaycastHit2D hit2DRight = Physics2D.Raycast((Vector2)transform.position + rightOffset, dir,20f,redLightningLayer);
+        RaycastHit2D hit2DLeft = Physics2D.Raycast((Vector2)transform.position + leftOffset, dir,20f,redLightningLayer);
+
         //Set Distance
-        if (hit2D)
+        if (hit2DRight && hit2DLeft)
         {
-            X *= hit2D.distance;
-            Y *= hit2D.distance;
+            float hitDistance = Mathf.Min(hit2DRight.distance, hit2DLeft.distance);
+            X *= hitDistance;
+            Y *= hitDistance;
+        }
+
+        else if (hit2DRight)
+        {
+            X *= hit2DRight.distance;
+            Y *= hit2DRight.distance;
+        }
+
+        else
+        {
+            X *= hit2DLeft.distance;
+            Y *= hit2DLeft.distance;
         }
 
         Vector2 pos = new Vector2(transform.position.x + X, transform.position.y + Y);
@@ -85,9 +105,11 @@ public class LineController : MonoBehaviour
 
     void SetEdgeCollider()
     {
-        List<Vector2> positions = new List<Vector2>();
-        positions.Add(Vector2.zero);
-        positions.Add((Vector2)transform.parent.InverseTransformPoint(lineRenderer.GetPosition(1)));
+        List<Vector2> positions = new List<Vector2>
+        {
+            Vector2.zero,
+            (Vector2)transform.InverseTransformPoint(lineRenderer.GetPosition(1))
+        };
         edgeCollider2D.SetPoints(positions);
     }
 
@@ -103,13 +125,14 @@ public class LineController : MonoBehaviour
         }
     }
 
-    void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Player"))
-        {
-            print("collision with player");
-            other.GetComponent<HitablePlayer>().GetHit(30,transform.parent.parent.position,0f,transform.parent.parent.gameObject,false);
-        }   
+            if (Time.time > hitCooldownTimeStamp)
+            {
+                other.GetComponent<HitablePlayer>().GetHit(30, transform.parent.parent.position, 0f, transform.parent.parent.gameObject, false);
+                hitCooldownTimeStamp = Time.time + 0.3f;
+            }
     }
 
     public void Activate()
@@ -123,5 +146,4 @@ public class LineController : MonoBehaviour
         isActive = false;
         edgeCollider2D.enabled = false;
     }
-    
 }
