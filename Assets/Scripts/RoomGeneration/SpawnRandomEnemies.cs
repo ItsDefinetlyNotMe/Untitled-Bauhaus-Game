@@ -28,6 +28,7 @@ namespace TestRandomWorldGeneration {
         private int spaceToFill;
         private int livingEnemyCounter = 0;
         private int difficulty;
+        public GameObject WinningSound;
 
         private bool isFirstWave = true;
 
@@ -116,6 +117,7 @@ namespace TestRandomWorldGeneration {
 
             if (livingEnemyCounter <= 0)
             {
+                WinningSound.GetComponent<PlaySound>().playSound();
                 createRandomRoomLayout.SpawnCollectable();
                 livingEnemyCounter = 0;
 

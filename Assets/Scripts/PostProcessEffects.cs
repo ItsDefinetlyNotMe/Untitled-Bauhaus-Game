@@ -73,6 +73,7 @@ public class PostProcessEffects : MonoBehaviour
 
         StartCoroutine(ChangeVignetteColor(Color.black, goldDuration));
         StartCoroutine(ChangeVignetteColor(Color.yellow, goldDuration, goldDuration));
+        StartCoroutine(ChangeVignetteColor(Color.black, goldDuration));
     }
 
     IEnumerator ChangeVignetteColor(Color targetColor, float duration, float delay = 0f)
