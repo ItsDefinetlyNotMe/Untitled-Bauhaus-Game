@@ -364,7 +364,7 @@ namespace Enemies.Thor
             Vector3 dir = (pos - transform.position + (Vector3)feetPositionOffset);
             if (dir.magnitude <= 1)
             {
-                print("--------------------------\n\t" + closeDirection + "\n--------------------------");
+                //print("--------------------------\n\t" + closeDirection + "\n--------------------------");
                 return closeDirection;
             }
             

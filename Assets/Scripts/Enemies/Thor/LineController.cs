@@ -37,6 +37,7 @@ public class LineController : MonoBehaviour
         {
             isActive = true;
             //col
+            edgeCollider2D.enabled = true;
         }
         //calculate next position of laser
         angle  += Time.deltaTime;
@@ -106,6 +107,7 @@ public class LineController : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+            print("collision with player");
             other.GetComponent<HitablePlayer>().GetHit(30,transform.parent.parent.position,0f,transform.parent.parent.gameObject,false);
         }   
     }
@@ -119,6 +121,7 @@ public class LineController : MonoBehaviour
     public void Deactivate()
     {
         isActive = false;
+        edgeCollider2D.enabled = false;
     }
     
 }
