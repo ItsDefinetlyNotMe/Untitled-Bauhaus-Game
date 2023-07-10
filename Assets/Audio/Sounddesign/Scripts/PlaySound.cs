@@ -12,7 +12,7 @@ public class PlaySound : MonoBehaviour
     public AudioSource randomSound6;
     public AudioSource randomSound7;
 
-    public void playSound() 
+    void playSound() 
     {
         randomSound1.Play();
     }

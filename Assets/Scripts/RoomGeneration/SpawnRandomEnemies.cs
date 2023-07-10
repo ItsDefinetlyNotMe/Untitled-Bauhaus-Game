@@ -31,8 +31,6 @@ namespace TestRandomWorldGeneration {
 
         private bool isFirstWave = true;
 
-        public GameObject WinningSound;
-
         public void StartEnemySpawning(ref float[,] newTileMatrix, int newFloorTileCount, int remainingSpace, int restDifficulty)
         {
             ResetEverything();
@@ -118,11 +116,11 @@ namespace TestRandomWorldGeneration {
 
             if (livingEnemyCounter <= 0)
             {
-                WinningSound.GetComponent<PlaySound>().playSound();
                 createRandomRoomLayout.SpawnCollectable();
                 livingEnemyCounter = 0;
-                //GameObject PostProcess = GameObject.FindGameObjectWithTag("Volume");
-                //PostProcess.GetComponent<PostProcessEffects>().GoldVignette(2f);
+
+                GameObject PostProcess = GameObject.FindGameObjectWithTag("Volume");
+                PostProcess.GetComponent<PostProcessEffects>().GoldVignette(2f);
             }
         }
 
