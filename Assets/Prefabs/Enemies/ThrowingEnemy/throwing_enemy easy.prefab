@@ -490,6 +490,7 @@ GameObject:
   - component: {fileID: 9188020283563185994}
   - component: {fileID: 6386090014182594845}
   - component: {fileID: 4276340648685081418}
+  - component: {fileID: 2670237554105816505}
   m_Layer: 10
   m_Name: throwing_head
   m_TagString: Untagged
@@ -787,6 +788,25 @@ MonoBehaviour:
   DeathHitSound: {fileID: 0}
   healthBar: {fileID: 0}
   dying: 0
+--- !u!114 &2670237554105816505
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2933741787640651168}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a7be728db1cdec45933980cd7888a39, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  randomSound1: {fileID: 3868093938728499525}
+  randomSound2: {fileID: 0}
+  randomSound3: {fileID: 0}
+  randomSound4: {fileID: 0}
+  randomSound5: {fileID: 0}
+  randomSound6: {fileID: 0}
+  randomSound7: {fileID: 0}
 --- !u!1 &3662112752095405277
 GameObject:
   m_ObjectHideFlags: 0
