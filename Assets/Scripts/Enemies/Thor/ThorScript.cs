@@ -47,6 +47,7 @@ namespace Enemies.Thor
         private Transform laserParent;
         private float laserRunTime = 8f;
         private float laserStopTimeStamp;
+
         [Header("Essentials")] 
         private Animator animator;
         [SerializeField] private GameObject lightningPrefab;
@@ -54,6 +55,7 @@ namespace Enemies.Thor
         [SerializeField] private GameObject shatteredGround;
         [FormerlySerializedAs("redCircle")] [SerializeField] private GameObject redCirclePrefab;
         private Structs.Direction closeDirection = Structs.Direction.Left;
+        public bool isDead { private get; set; } = false;
 
         private bool debug;
         private static readonly int Y = Animator.StringToHash("Y");
@@ -82,8 +84,8 @@ namespace Enemies.Thor
                 lineController[x] = laserParent.GetChild(x).GetComponent<LineController>();
             }
             //debug
-            currentPhase = 2;
-            TriggerPhase2();
+            //currentPhase = 2;
+            //TriggerPhase2();
         }
         // Update is called once per frame
         override protected void FixedUpdate()
@@ -412,7 +414,7 @@ namespace Enemies.Thor
             for (int x = 0; x < laserCount; ++x)
                 lineController[x].Activate();
         }
-        private void StopLasers()
+        public void StopLasers()
         {
             print("Stopping lasers...");
             isActiveLaser = false;
@@ -447,11 +449,11 @@ namespace Enemies.Thor
         }
         private IEnumerator SummonRandomLighning()
         {
-            while (true)
+            while (!isDead)
             {
                 for (int i = 0; i < 15; ++i)
                 {//for some reason spawns lightning in the same postion 3 times
-                    Vector3 randomVector = transform.position + new Vector3(Random.Range(0f, 6f),Random.Range(0f, 6f),Random.Range(0f, 6f));
+                    Vector3 randomVector = transform.position + new Vector3(Random.Range(-3f, 3f), Random.Range(-3f, 3f), 0f);
                     var redLight = Instantiate(redLightningPrefab,randomVector,
                         quaternion.identity);
                     float rand = Random.Range(1f, 4f);
@@ -494,7 +496,14 @@ namespace Enemies.Thor
             }
             Gizmos.color = Color.red;
             Gizmos.DrawRay(transform.position+(Vector3)feetPositionOffset,Ray);
+
+
             
+        }
+
+        private void DestroyThor()
+        {
+            Destroy(gameObject);
         }
     }
 }

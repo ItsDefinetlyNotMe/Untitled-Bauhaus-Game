@@ -32,6 +32,8 @@ public class HitablePlayer : HittableObject
     public GameObject HitCharacterSound;
     public Camera mainCamera;
 
+    public bool isInvulnerable { private get; set; } = false;
+
     private void Awake()
     {
         SceneManager.sceneLoaded += OnSceneLoaded;
@@ -59,6 +61,9 @@ public class HitablePlayer : HittableObject
     }
     public override void GetHit(int damage, Vector2 damageSourcePosition, float knockbackMultiplier,GameObject damageSource,bool heavy)
     {
+        if (isInvulnerable)
+            return;
+
         //visual Feedback
         StartCoroutine(HitFeedback());
         CameraShake.Instance.ShakeCamera(0.5f,.7f,true);
@@ -131,6 +136,11 @@ public class HitablePlayer : HittableObject
         {
             healthBar = GameObject.Find("/InGameCanvas/HealthBar");
             UpdateHealthBar();
+        }
+
+        else if (scene.name == "HUB")
+        {
+            isInvulnerable = false;
         }
     }
 

@@ -36,6 +36,15 @@ public class HittableThor : HittableObject
     protected override void Die(GameObject damageSource)
     {
         onThorDeath?.Invoke();
+
+        GameObject.FindGameObjectWithTag("Player").GetComponent<HitablePlayer>().isInvulnerable = true;
+
+        thorScript.isDead = true;
+        thorScript.SetPhase(3);
+        thorScript.StopLasers();
+
+        GetComponent<Animator>().Play("ThorDeath");
+
         GameObject.Find("/ThorDeathEvent").transform.GetChild(0).gameObject.SetActive(true);
 
         Door door = GameObject.Find("DoorToHUB").GetComponent<Door>();
