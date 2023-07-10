@@ -36,6 +36,7 @@ namespace TestRandomWorldGeneration
         [Header("Collectables")]
         [SerializeField] private List<GameObject> UICollectables;
         [SerializeField] private List<GameObject> collectables;
+        [SerializeField] private GameObject bossUICollectable;
         //[SerializeField] private GameObject maxHealthUp;
         //[SerializeField] private GameObject heal;
         //[SerializeField] private GameObject damageUp;
@@ -91,9 +92,17 @@ namespace TestRandomWorldGeneration
             tileMatrix[(int)numberOfMaxTiles / 2, (int)numberOfMaxTiles / 2] = 7;
 
             SetDoorDirections(doorDirection);
-
-            SetLootForNextRoom();
-
+            
+            if (FindObjectOfType<GameManager>().roomNumber == 9 && PlayerPrefs.GetInt("ThorAlive") == 0)
+            {
+                SetLootForBoss();
+            }
+            else
+            {
+                SetLootForNextRoom();
+            }
+            
+            
             //create room interior
             createRandomRoomInterior.SetInteriorVariables(ref tileMatrix, numberOfMaxTiles);
 
@@ -101,7 +110,7 @@ namespace TestRandomWorldGeneration
         }
 
         public void SpawnCollectable()
-        { 
+        {
             foreach (GameObject collectable in collectables)
             {
                 if (collectable.name == loot)
@@ -351,6 +360,41 @@ namespace TestRandomWorldGeneration
             }
         }
 
+        private void SetLootForBoss()
+        {
+            foreach (GameObject door in exitDoors)
+            {
+                Door doorScript = door.GetComponent<Door>();
+
+                GameObject collectable = bossUICollectable;
+
+                Vector2 doorPos = door.transform.position;
+
+                Vector2 spawnPos = Vector2.zero;
+
+                switch (doorScript.direction)
+                {
+                    case Direction.Left:
+                        spawnPos = new Vector2(doorPos.x + 0.365f, doorPos.y + 0.5f);
+                        break;
+
+                    case Direction.Up:
+                        spawnPos = new Vector2(doorPos.x, doorPos.y + 0.5f);
+                        break;
+
+                    case Direction.Right:
+                        spawnPos = new Vector2(doorPos.x - 0.365f, doorPos.y + 0.5f);
+                        break;
+
+                    case Direction.Down:
+                        spawnPos = new Vector2(doorPos.x, doorPos.y + 0.5f);
+                        break;
+                }
+
+                collectable = Instantiate(collectable, spawnPos, Quaternion.identity);
+                collectable.transform.parent = gameObject.transform;
+            }
+        }
 
         private void GenerateMatrix()
         {

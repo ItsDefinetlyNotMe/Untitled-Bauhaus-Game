@@ -36,6 +36,7 @@ public class GameManager : MonoBehaviour
         
         PlayerPrefs.SetInt("boolFirstTimeTalk" + "Valkyrie Lana" + slot, 0);
         PlayerPrefs.SetInt("boolFirstTimeTalk" + "Sven" + slot, 0);
+        PlayerPrefs.SetInt("ThorAlive", 0);
 
 
         SaveSlotButton[] slotButtons = FindObjectsByType<SaveSlotButton>(FindObjectsSortMode.None);
