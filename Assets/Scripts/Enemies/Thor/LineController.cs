@@ -1,7 +1,5 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 public class LineController : MonoBehaviour
@@ -20,7 +18,11 @@ public class LineController : MonoBehaviour
     private EdgeCollider2D edgeCollider2D;
     [SerializeField] private LayerMask redLightningLayer;
     private Transform lightingEnd;
-    void Start()
+    private bool isActive;
+    private float timeStampToActivate;
+    private static readonly int MainTex = Shader.PropertyToID("_MainTex");
+
+    void Awake()
     {
         lineRenderer = GetComponent<LineRenderer>();
         angle = offset * Mathf.PI / 2;
@@ -31,7 +33,11 @@ public class LineController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        if (Time.time > timeStampToActivate && !isActive)
+        {
+            isActive = true;
+            //col
+        }
         //calculate next position of laser
         angle  += Time.deltaTime;
         float X = Mathf.Cos(angle);
@@ -59,16 +65,19 @@ public class LineController : MonoBehaviour
 
 
         //animate Laser
-        fpscounter += Time.deltaTime;
-        if (fpscounter >= 1f / fps)
+        if (isActive)
         {
-            animationStep++;
-            if (animationStep == textures.Length)
-                animationStep = 0;
-            lineRenderer.material.SetTexture("_MainTex",textures[animationStep]);
-            fpscounter = 0;
+            fpscounter += Time.deltaTime;
+            if (fpscounter >= 1f / fps)
+            {
+                animationStep++;
+                if (animationStep == 2)
+                    animationStep = 0;
+                lineRenderer.material.SetTexture(MainTex, textures[animationStep]);
+                fpscounter = 0;
+            }
         }
-        
+
         //Set hitbox of Ray
         SetEdgeCollider();
     }
@@ -78,7 +87,6 @@ public class LineController : MonoBehaviour
         List<Vector2> positions = new List<Vector2>();
         positions.Add(Vector2.zero);
         positions.Add((Vector2)transform.parent.InverseTransformPoint(lineRenderer.GetPosition(1)));
-        print( positions[1]);
         edgeCollider2D.SetPoints(positions);
     }
 
@@ -86,11 +94,11 @@ public class LineController : MonoBehaviour
     {
         Vector3 direction = (transform.position - pos).normalized;
         if(direction.x < 0)
-            transform.rotation = Quaternion.AngleAxis(360 - 90 + Vector2.Angle(direction, Vector3.up), Vector3.forward);
+            transform.rotation = Quaternion.AngleAxis(360 - Vector2.Angle(direction, Vector3.up), Vector3.forward);
         else
         {
             direction = -direction;
-            transform.rotation = Quaternion.AngleAxis(90 + Vector2.Angle(direction, Vector3.up), Vector3.forward);
+            transform.rotation = Quaternion.AngleAxis(Vector2.Angle(direction, Vector3.up), Vector3.forward);
         }
     }
 
@@ -100,6 +108,17 @@ public class LineController : MonoBehaviour
         {
             other.GetComponent<HitablePlayer>().GetHit(30,transform.parent.parent.position,0f,transform.parent.parent.gameObject,false);
         }   
+    }
+
+    public void Activate()
+    {
+        lineRenderer.material.SetTexture(MainTex, textures[2]);
+        timeStampToActivate = Time.time + 1;
+    }
+
+    public void Deactivate()
+    {
+        isActive = false;
     }
     
 }

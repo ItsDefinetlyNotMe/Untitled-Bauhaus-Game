@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using Unity.Mathematics;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
@@ -28,8 +29,8 @@ namespace Enemies.Thor
         [SerializeField] private float summonLightningCooldown = 30f;
         [SerializeField] private float summonLightningTimeStamp;
         private bool readyToSummon = false;
-    
         [FormerlySerializedAs("dashRange")]
+        
         [Header("DashAttack")]
         [SerializeField] private float midRange;
         [SerializeField] private float maxDashPower = 5f;
@@ -37,7 +38,15 @@ namespace Enemies.Thor
         private float dashingTime = 2f;
         private bool readyToDash;
 
-        
+        [Header("Phase 2")]
+        private float laserCooldown = 5f;
+        private float laserRestartTimeStamp;
+        private LineController[] lineController;
+        private int laserCount = 4;
+        private bool isActiveLaser;
+        private Transform laserParent;
+        private float laserRunTime = 8f;
+        private float laserStopTimeStamp;
         [Header("Essentials")] 
         private Animator animator;
         [SerializeField] private GameObject lightningPrefab;
@@ -66,14 +75,21 @@ namespace Enemies.Thor
             feetPositionOffset = Vector3.down * 0.5f;
             StartTargeting();
             debug = true;
+            laserParent = transform.Find("Laser");
+            lineController = new LineController[4];
+            for (int x = 0; x < laserCount; ++x)
+            {
+                lineController[x] = laserParent.GetChild(x).GetComponent<LineController>();
+            }
+            //debug
+            currentPhase = 2;
+            TriggerPhase2();
         }
-
         // Update is called once per frame
         override protected void FixedUpdate()
         {
             base.FixedUpdate();
             //SetAnimator()
-            
             //currentPhase = -1;
             float distance = Vector2.Distance(target.position, (Vector2) transform.position + feetPositionOffset);
             if (currentPhase == 0)
@@ -177,6 +193,10 @@ namespace Enemies.Thor
                         StartTargeting();
                     
                     SetAnimator(GetDirection());
+                    if(Time.time > laserRestartTimeStamp && !isActiveLaser)
+                        StartLasers();
+                    else if(laserStopTimeStamp < Time.time && isActiveLaser)
+                        StopLasers();
                         
                 }
                 else
@@ -320,17 +340,14 @@ namespace Enemies.Thor
             canDash = true;
             //StartTargeting();
         }
-
         private void ReadyForDash()
         {
             readyToDash = true;
         }
-
         private void MakeReadyForLightning()
         {
             readyToSummon = true;
-        } 
-    
+        }
         private void SetAnimator(Vector2 dir)
         {
             dir.Normalize();
@@ -341,7 +358,6 @@ namespace Enemies.Thor
         {
             currentState = nextState;
         }
-
         private Structs.Direction GetStructDirection(Vector3 pos)
         {
             
@@ -377,19 +393,34 @@ namespace Enemies.Thor
             }
             return Structs.Direction.Left;
         }
-
         private void InstantiateHammer()
         {
             Vector3 offset = new Vector3();
             GameObject hammer = Instantiate(hammerPrefab, transform.position + offset, quaternion.identity);
             hammer.GetComponent<HammerScript>().SetDirection((-((Vector2)transform.position+feetPositionOffset)+(Vector2)target.position).normalized);
         }
-
         private void ThorCameraShake()
         {
             CameraShake.Instance.ShakeCamera(3.0f, 2.0f, true);
         }
-
+        private void StartLasers()
+        {
+            print("Starting lasers...");
+            isActiveLaser = true;
+            laserStopTimeStamp = Time.time + laserRunTime;
+            laserParent.gameObject.SetActive(true);
+            for (int x = 0; x < laserCount; ++x)
+                lineController[x].Activate();
+        }
+        private void StopLasers()
+        {
+            print("Stopping lasers...");
+            isActiveLaser = false;
+            laserRestartTimeStamp = Time.time + laserCooldown;
+            laserParent.gameObject.SetActive(false);
+            for (int x = 0; x < laserCount; ++x)
+                lineController[x].Deactivate();
+        }
         public void SetPhase(int phase)
         {
             if (phase == 2 && !isphaseTransitionDone)
@@ -399,7 +430,6 @@ namespace Enemies.Thor
             }
             currentPhase = phase;
         }
-
         private void TriggerPhase2()
         {
             StopTargeting();
@@ -415,7 +445,6 @@ namespace Enemies.Thor
             summonLightningTimeStamp = Single.PositiveInfinity;
             canDash = false;
         }
-
         private IEnumerator SummonRandomLighning()
         {
             while (true)
@@ -426,14 +455,12 @@ namespace Enemies.Thor
                     var redLight = Instantiate(redLightningPrefab,randomVector,
                         quaternion.identity);
                     float rand = Random.Range(1f, 4f);
-                    print(rand+":"+i);
                     redLight.transform.localScale = new Vector3(rand, rand, rand);
                     yield return new WaitForSeconds(0.05f);
                 }
                 yield return new WaitForSeconds(0.5f);
             }
         }
-
         public void SetCloseDirection(int direction)
         {
             closeDirection = (Structs.Direction)direction;
