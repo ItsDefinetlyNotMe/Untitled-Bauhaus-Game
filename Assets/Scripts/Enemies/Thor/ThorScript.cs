@@ -496,9 +496,6 @@ namespace Enemies.Thor
             }
             Gizmos.color = Color.red;
             Gizmos.DrawRay(transform.position+(Vector3)feetPositionOffset,Ray);
-
-
-            
         }
 
         private void DestroyThor()
