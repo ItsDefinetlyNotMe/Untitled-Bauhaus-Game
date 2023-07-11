@@ -12,7 +12,6 @@ public class InputHandler : MonoBehaviour
     private PlayerMovement playerMovement;
     private PlayerAttack playerAttack;
     private PlayerAnimator playerAnimator;
-    private bool heavyAttackPressed;
 
     private int whileLoopTracker = 0;
 
@@ -229,7 +228,6 @@ public class InputHandler : MonoBehaviour
         if (input.isPressed)
         {
             //chargeAttack
-            heavyAttackPressed = true;
             if(hitablePlayer.isDying)
                 return;
             playerAttack.ChargeHeavyAttack();
@@ -237,7 +235,6 @@ public class InputHandler : MonoBehaviour
         else
         {
             //Attack
-            heavyAttackPressed = false;
             if(hitablePlayer.isDying)
                 return;
             playerAttack.HeavyAttack();
