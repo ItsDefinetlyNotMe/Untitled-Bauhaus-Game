@@ -49,8 +49,8 @@ public class LineController : MonoBehaviour
         //Raycast to get distance
         Vector2 dir = new Vector2(X, Y).normalized;
 
-        Vector2 rightOffset = dir.Perpendicular1() * 0.07f;
-        Vector2 leftOffset = dir.Perpendicular2() * 0.07f;
+        Vector2 rightOffset = Vector2.Perpendicular(dir) * 0.07f;
+        Vector2 leftOffset = Vector2.Perpendicular(-dir) * 0.07f;
         
         RaycastHit2D hit2DRight = Physics2D.Raycast((Vector2)transform.position + rightOffset, dir,20f,redLightningLayer);
         RaycastHit2D hit2DLeft = Physics2D.Raycast((Vector2)transform.position + leftOffset, dir,20f,redLightningLayer);
