@@ -85,6 +85,10 @@ public class GameManager : MonoBehaviour
         randomRoomLayout.loot = loot;
         roomNumber++;
         
+        // set highest room number for save slot information in main menu
+        if (roomNumber > PlayerPrefs.GetInt("highestRoom" + saveSlot))
+            PlayerPrefs.SetInt("highestRoom" + saveSlot, roomNumber);
+
         if (roomNumber >= 10 && PlayerPrefs.GetInt("ThorAlive") == 0)
         {
             SceneManager.LoadScene("ThorBossFight");
@@ -93,9 +97,6 @@ public class GameManager : MonoBehaviour
 
         randomRoomLayout.StartRoomGeneration(direction);
 
-        // set highest room number for save slot information in main menu
-        if (roomNumber > PlayerPrefs.GetInt("highestRoom" + saveSlot))
-            PlayerPrefs.SetInt("highestRoom" + saveSlot, roomNumber);
     }
 
     private void EndRoomTransition()
