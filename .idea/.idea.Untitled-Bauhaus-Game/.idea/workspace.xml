@@ -7,9 +7,8 @@
     <list default="true" id="df972bb7-6a35-41d5-ab18-c81111b77aa5" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Untitled-Bauhaus-Game/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Untitled-Bauhaus-Game/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Enemies/Thor/Thor.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Enemies/Thor/Thor.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Enemies/Thor/LineController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Enemies/Thor/LineController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Enemies/Thor/ThorScript.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Enemies/Thor/ThorScript.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Enemy/Thor/CreatingWeapon/ThorAnimatorController.controller" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/Enemy/Thor/CreatingWeapon/ThorAnimatorController.controller" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/ThorBossFight.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/ThorBossFight.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Valhalla.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Valhalla.unity" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -177,6 +176,8 @@
       <workItem from="1688644438161" duration="2416000" />
       <workItem from="1688738125208" duration="9202000" />
       <workItem from="1688973642309" duration="4706000" />
+      <workItem from="1689076493669" duration="611000" />
+      <workItem from="1689077597171" duration="3000" />
     </task>
     <servers />
   </component>

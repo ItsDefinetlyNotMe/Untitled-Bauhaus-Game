@@ -17,32 +17,32 @@ public class PlaySound : MonoBehaviour
         randomSound1.Play();
     }
 
-    void playSound2()
+    public void playSound2()
     {
         randomSound2.Play();
     }
 
-    void playSound3()
+    public void playSound3()
     {
         randomSound3.Play();
     }
 
-    void playSound4()
+    public void playSound4()
     {
         randomSound4.Play();
     }
 
-    void playSound5()
+    public void playSound5()
     {
         randomSound5.Play();
     }
 
-    void playSound6()
+    public void playSound6()
     {
         randomSound6.Play();
     }
 
-    void playSound7()
+    public void playSound7()
     {
         randomSound7.Play();
     }

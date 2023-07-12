@@ -49,6 +49,7 @@ namespace Enemies.Thor
         private float laserStopTimeStamp;
 
         [Header("Essentials")] 
+        private PlaySound playSound;
         private Animator animator;
         [SerializeField] private GameObject lightningPrefab;
         [SerializeField] private GameObject redLightningPrefab;
@@ -74,6 +75,7 @@ namespace Enemies.Thor
             currentState = Structs.ThorState.Moving;
             animator = GetComponent<Animator>();
             //playerCamera = Camera.main;
+            playSound = GetComponent<PlaySound>();
             feetPositionOffset = Vector3.down * 0.5f;
             StartTargeting();
             debug = true;
@@ -102,8 +104,12 @@ namespace Enemies.Thor
 //                print(rb.velocity);
                 if (currentState == Structs.ThorState.Moving)
                 {
-                    if(!targeting)
+                    if (!targeting)
+                    {
+                        InvokeRepeating(nameof(PlayFootStepSound), 0.3f, 0.5f);
                         StartTargeting();
+                    }
+
                     SetAnimator(GetDirection());
                     if (distance < meleeRange)
                     {
@@ -130,6 +136,7 @@ namespace Enemies.Thor
                     if (targeting)
                     {
                         StopTargeting();
+                        CancelInvoke(nameof(PlayFootStepSound));
                         rb.velocity = Vector3.zero;
                     }
                 }
@@ -142,8 +149,12 @@ namespace Enemies.Thor
                 //3) THUNDER
                 if (currentState == Structs.ThorState.Moving)
                 {
-                    if(!targeting)
+                    if (!targeting)
+                    {
+                        InvokeRepeating(nameof(PlayFootStepSound), 0.3f, 0.5f);
                         StartTargeting();
+                    }
+
                     SetAnimator(GetDirection());
                     if (distance < meleeRange)
                     {
@@ -180,6 +191,7 @@ namespace Enemies.Thor
                     if (targeting)
                     {
                         StopTargeting();
+                        CancelInvoke(nameof(PlayFootStepSound));
                         if(currentState != Structs.ThorState.ChargeAttack && !readyToDash)
                             rb.velocity = Vector3.zero;
                     }
@@ -191,9 +203,12 @@ namespace Enemies.Thor
                 if (currentState == Structs.ThorState.Moving)
                 {
                     //madness begins
-                    if(!targeting)
+                    if (!targeting)
+                    {
                         StartTargeting();
-                    
+                        InvokeRepeating(nameof(PlayFootStepSound), 0.3f, 0.5f);
+                    }
+
                     SetAnimator(GetDirection());
                     if(Time.time > laserRestartTimeStamp && !isActiveLaser)
                         StartLasers();
@@ -206,6 +221,7 @@ namespace Enemies.Thor
                     if (targeting)
                     {
                         StopTargeting();
+                        CancelInvoke(nameof(PlayFootStepSound));
                         rb.velocity = Vector3.zero;
                     }
                 }
@@ -220,6 +236,7 @@ namespace Enemies.Thor
             yield return new  WaitForFixedUpdate();
             StopTargeting();
             rb.velocity = Vector2.zero;
+            playSound.playSound4();
             
         
             yield return new WaitUntil(() => currentState == Structs.ThorState.BaseAttack);
@@ -237,6 +254,7 @@ namespace Enemies.Thor
             StopTargeting();
             print("HammerSlam");
             rb.velocity = Vector2.zero;
+            playSound.playSound3();
         
             yield return new WaitUntil(() => currentState == Structs.ThorState.HammerSlamAttack);
             //make red circle around thor (Hitbox)
@@ -261,7 +279,8 @@ namespace Enemies.Thor
             StopTargeting();
             print("throwHammer");
             rb.velocity = Vector2.zero;
-        
+            playSound.playSound6();
+            
             yield return new WaitUntil(() => currentState == Structs.ThorState.ThrowHammer);
             yield return new WaitUntil(() => currentState == Structs.ThorState.Moving);
             StartTargeting();
@@ -276,6 +295,7 @@ namespace Enemies.Thor
             StopTargeting();
             print("Summon Lightning");
             rb.velocity = Vector2.zero;
+            playSound.playSound2();
             
             bool alreadyAttacked = false;
             yield return new WaitUntil(() => currentState == Structs.ThorState.SummonLightning);
@@ -330,6 +350,7 @@ namespace Enemies.Thor
             StopTargeting();
             print("ChargeAttack");
             rb.velocity = Vector2.zero;
+            playSound.playSound5();
         
             yield return new WaitUntil(() => currentState == Structs.ThorState.ChargeAttack);
             yield return new WaitUntil(() => readyToDash);
@@ -436,7 +457,8 @@ namespace Enemies.Thor
         {
             StopTargeting();
             animator.SetTrigger(OnPhase2Start);
-
+            playSound.playSound7();
+            
             rb.velocity = Vector3.zero;
             var redLight = Instantiate(redLightningPrefab, feetPositionOffset + (Vector2)transform.position,
                 quaternion.identity);
@@ -501,6 +523,11 @@ namespace Enemies.Thor
         private void DestroyThor()
         {
             Destroy(gameObject);
+        }
+        
+        private void PlayFootStepSound()
+        {
+            GetComponent<RandomSound>().PlayRandom1();
         }
     }
 }
