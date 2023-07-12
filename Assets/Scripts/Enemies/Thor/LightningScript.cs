@@ -8,7 +8,8 @@ public class LightningScript : MonoBehaviour
     [SerializeField] private int damage = 30;
     void Start()
     {
-        Destroy(gameObject,2f);   
+        Destroy(gameObject,2f);
+        GetComponent<RandomSound>().PlayRandom1();
     }
 
     private void OnTriggerEnter2D(Collider2D other)
