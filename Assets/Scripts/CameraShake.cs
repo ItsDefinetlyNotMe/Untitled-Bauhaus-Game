@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 using Cinemachine;
@@ -6,9 +7,12 @@ using UnityEngine.SceneManagement;
 public class CameraShake : MonoBehaviour
 {
     public static CameraShake Instance { get; private set; }
-    private float timeToShake;
-    private int shakeCount;
+    private float timeToShakeLerp;
+    private float timeToShakeNoLerp;
+    
     private Quaternion baseRotation;
+
+    private int shakeCount;
     // private bool isShaking = false;
     private float intensity_;
     private float shakeTime_;
@@ -24,6 +28,17 @@ public class CameraShake : MonoBehaviour
         SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
+    private void Update()
+    {
+        if (shakeCount <= 0)
+        {
+            //if (transform.parent.rotation != Quaternion.identity)
+            //{
+                StopShaking();
+            //}
+        }
+    }
+
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         if (isAlreadyDestroyed)
@@ -35,54 +50,68 @@ public class CameraShake : MonoBehaviour
     }
     public void ShakeCamera(float shakeTime, float intensity,bool isLerping = false)
     {
-        shakeCount += 1;
         intensity_ = intensity;
         shakeTime_ = shakeTime;
         cinemachineBasicMultiChannelPerlin.m_AmplitudeGain = intensity;
         
-        timeToShake = Time.time + shakeTime;
-        if(isLerping)
-            InvokeRepeating(nameof(Shake2),0.1f,0.1f);
-        else
-            InvokeRepeating(nameof(Shake1),0.1f,0.1f);
-        shakeCount -= 1;
-        if (shakeCount == 0)
+            /*if (timeToShakeLerp > Time.time)
+                shakeCount -= 1;*/
+        if (shakeCount == 1)
         {
-            //StartCoroutine(ResetCameraRotation(0.1f));
-            //Invoke("ResetRotation", 0.1f);
+            if (timeToShakeLerp > Time.time)
+                CancelInvoke(nameof(ShakeWithLerp));
+            else if (timeToShakeNoLerp > Time.time)
+                CancelInvoke(nameof(ShakeWithLerp));
         }
-        // CinemaschineBasicMultiChannelPerlin cinemaschineBasicMultiChannelPerlin
+        shakeCount = 1;
 
+        if (isLerping)
+        {
+            timeToShakeLerp = Time.time + shakeTime;
+        }
+        else if (!isLerping)
+        {
+            timeToShakeNoLerp = Time.time + shakeTime;
+        }
+        if (isLerping)
+            InvokeRepeating(nameof(ShakeWithLerp), 0.1f, 0.15f);
+        else
+            InvokeRepeating(nameof(ShakeNoLerp), 0.1f, 0.15f);
     }
 
     public void StopShaking()
     {
-        //CancelInvoke(nameof(Shake2));
-        //CancelInvoke(nameof(Shake1));
-        
         cinemachineBasicMultiChannelPerlin.m_AmplitudeGain = 0f;
-        ResetCameraRotation(0f);
+        transform.parent.rotation = Quaternion.identity;
     }
 
-    private void Shake1()
+    private void ShakeNoLerp()
     {
-        if (Time.time > timeToShake)
+        if (Time.time > timeToShakeNoLerp)
         {
             var cinemachineBasicMultiChannelPerlin = cinemaschineVirtualCamera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
             cinemachineBasicMultiChannelPerlin.m_AmplitudeGain = 0;
-            CancelInvoke(nameof(Shake1));
+            //StopShaking();
+            shakeCount -= 1;
+            CancelInvoke(nameof(ShakeNoLerp));
         }
     }
 
-    private void Shake2()
+    private void ShakeWithLerp()
     {
-        var cinemachineBasicMultiChannelPerlin = cinemaschineVirtualCamera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
-        float lerpValue = intensity_ * Mathf.Max((timeToShake - Time.time) / shakeTime_, 0f); 
+        var cinemachineBasicMultiChannelPerlin =
+            cinemaschineVirtualCamera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
+        float lerpValue = intensity_ * Mathf.Max((timeToShakeLerp - Time.time) / shakeTime_, 0f);
         cinemachineBasicMultiChannelPerlin.m_AmplitudeGain = lerpValue;
-        if(lerpValue == 0)
-            CancelInvoke(nameof(Shake2));
+        //StopShaking();
+        if (lerpValue == 0)
+        {
+            shakeCount -= 1;
+            CancelInvoke(nameof(ShakeWithLerp));
+        }
+
     }
-    
+
     private IEnumerator ResetCameraRotation(float duration)
     {
         Quaternion startRotation = transform.rotation;
@@ -98,9 +127,4 @@ public class CameraShake : MonoBehaviour
 
         transform.rotation = baseRotation;
     }
-    public void ResetRotation()
-    {
-        transform.rotation = baseRotation;
-    }
-
 }

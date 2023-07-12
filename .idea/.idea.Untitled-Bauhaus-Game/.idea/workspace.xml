@@ -6,9 +6,13 @@
   <component name="ChangeListManager">
     <list default="true" id="df972bb7-6a35-41d5-ab18-c81111b77aa5" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Untitled-Bauhaus-Game/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Untitled-Bauhaus-Game/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Audio/Sounddesign/Scripts/PlaySound.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Audio/Sounddesign/Scripts/PlaySound.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Enemies/Thor/Thor.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Enemies/Thor/Thor.prefab" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/ThorBossFight.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/ThorBossFight.unity" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/Valhalla.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Valhalla.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Enemies/EnemyMovement.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Enemies/EnemyMovement.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Enemies/Thor/ThorScript.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Enemies/Thor/ThorScript.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/ProjectSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/ProjectSettings.asset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -80,6 +84,14 @@
     </hideBySeverity>
   </component>
   <component name="RunManager" selected="Attach to Unity Editor.Attach to Unity Editor">
+    <configuration name="Standalone Player" type="RunUnityExe" factoryName="Unity Executable">
+      <option name="EXE_PATH" value="$USER_HOME$/OneDrive - Technische Universität Ilmenau/Desktop/Neuer Ordner\Untitled-Bauhaus-Game.exe" />
+      <option name="PROGRAM_PARAMETERS" value="" />
+      <option name="WORKING_DIRECTORY" value="C:\Users\simon\OneDrive - Technische Universität Ilmenau\Desktop\Neuer Ordner" />
+      <option name="PASS_PARENT_ENVS" value="1" />
+      <option name="USE_EXTERNAL_CONSOLE" value="0" />
+      <method v="2" />
+    </configuration>
     <configuration name="Start Unity" type="RunUnityExe" factoryName="Unity Executable">
       <option name="EXE_PATH" value="/Applications/Unity/Hub/Editor/2021.3.22f1/Unity.app/Contents/MacOS/Unity" />
       <option name="PROGRAM_PARAMETERS" value="-projectPath $PROJECT_DIR$ -debugCodeOptimization" />
@@ -178,6 +190,7 @@
       <workItem from="1688973642309" duration="4706000" />
       <workItem from="1689076493669" duration="611000" />
       <workItem from="1689077597171" duration="3000" />
+      <workItem from="1689162460335" duration="1567000" />
     </task>
     <servers />
   </component>

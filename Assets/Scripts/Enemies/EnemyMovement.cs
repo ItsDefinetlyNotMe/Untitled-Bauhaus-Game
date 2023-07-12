@@ -100,6 +100,7 @@ namespace Enemies
         }
 
         protected void StartTargeting(){
+            
             targeting = true;
         }
 

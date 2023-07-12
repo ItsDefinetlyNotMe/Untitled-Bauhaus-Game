@@ -187,13 +187,13 @@ namespace Enemies.Thor
                             }
                         }
                         
-                        //if only thís attack is ready
+                        //if only thï¿½s attack is ready
                         else if (Time.time > summonLightningTimeStamp)
                         {
                             StartCoroutine(SummonLightning());
                         }
 
-                        //if only thís attack is ready
+                        //if only thï¿½s attack is ready
                         else if (canDash)
                         {
                             canDash = false;
@@ -270,10 +270,10 @@ namespace Enemies.Thor
             //make red circle around thor (Hitbox)
             var circle = Instantiate(redCirclePrefab, transform.position + (Vector3)feetPositionOffset, quaternion.identity);
             yield return new WaitForSeconds(0.2f);
-            Instantiate(lightningPrefab, transform.position + (Vector3)feetPositionOffset, quaternion.identity);
             //wait for slam
             yield return new WaitUntil(() => hammerslamReady);
             Destroy(circle);
+            ThorCameraShake();
             Instantiate(shatteredGround, transform.position + (Vector3)feetPositionOffset, quaternion.identity);
             yield return new WaitUntil(() => currentState == Structs.ThorState.Moving);
             //StartTargeting();
