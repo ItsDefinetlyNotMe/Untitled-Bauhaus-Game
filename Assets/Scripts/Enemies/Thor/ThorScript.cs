@@ -77,7 +77,6 @@ namespace Enemies.Thor
             //playerCamera = Camera.main;
             playSound = GetComponent<PlaySound>();
             feetPositionOffset = Vector3.down * 0.5f;
-            StartTargeting();
             debug = true;
             laserParent = transform.Find("Laser");
             lineController = new LineController[4];
@@ -86,7 +85,7 @@ namespace Enemies.Thor
                 lineController[x] = laserParent.GetChild(x).GetComponent<LineController>();
             }
             //debug
-            //currentPhase = 2;
+            currentPhase = -1;
             //TriggerPhase2();
         }
         // Update is called once per frame
@@ -540,6 +539,17 @@ namespace Enemies.Thor
         private void DestroyThor()
         {
             Destroy(gameObject);
+        }
+
+        private void StartFightStart()
+        {
+            Invoke(nameof(StartFight),0.5f);
+        }
+
+        private void StartFight()
+        {
+            currentPhase = 0;
+            StartTargeting();
         }
         
         private void PlayFootStepSound()
