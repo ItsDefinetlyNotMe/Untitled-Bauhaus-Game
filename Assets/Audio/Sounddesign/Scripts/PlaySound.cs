@@ -11,6 +11,8 @@ public class PlaySound : MonoBehaviour
     public AudioSource randomSound5;
     public AudioSource randomSound6;
     public AudioSource randomSound7;
+    public AudioSource randomSound8;
+    public AudioSource randomSound9;
 
     public void playSound() 
     {
@@ -45,5 +47,15 @@ public class PlaySound : MonoBehaviour
     public void playSound7()
     {
         randomSound7.Play();
+    }
+
+    public void playSound8()
+    {
+        randomSound8.Play();
+    }
+
+    public void playSound9()
+    {
+        randomSound9.Play();
     }
 }
