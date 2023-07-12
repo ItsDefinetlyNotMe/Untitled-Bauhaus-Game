@@ -721,6 +721,8 @@ MonoBehaviour:
   randomSound5: {fileID: 0}
   randomSound6: {fileID: 0}
   randomSound7: {fileID: 0}
+  randomSound8: {fileID: 0}
+  randomSound9: {fileID: 0}
 --- !u!82 &506943205
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1588,7 +1590,7 @@ MonoBehaviour:
     offset: {x: 0, y: 0.1}
     type: 0
     difficulty: 0
-  - prefab: {fileID: 2722546779421598269, guid: 7ec9ef05db4644896bef75787ada0833, type: 3}
+  - prefab: {fileID: 2450496227188854435, guid: e93003696dc5342c29cd7c0b70ab3369, type: 3}
     size: {x: 1, y: 4}
     possibleMainObject: 1
     offset: {x: 0, y: 0}
