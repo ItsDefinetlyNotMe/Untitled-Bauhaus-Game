@@ -25,7 +25,6 @@ public class ShatteredGround : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        print(other);
         if(other.CompareTag("Player"))
             other.GetComponent<HitablePlayer>().GetHit(damage,transform.position,0f,transform.gameObject,false);
     }

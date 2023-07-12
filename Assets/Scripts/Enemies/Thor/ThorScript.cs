@@ -93,6 +93,8 @@ namespace Enemies.Thor
         override protected void FixedUpdate()
         {
             base.FixedUpdate();
+
+            //print(animator.GetCurrentAnimatorClipInfo(0)[0].clip.name);
             //SetAnimator()
             //currentPhase = -1;
             float distance = Vector2.Distance(target.position, (Vector2) transform.position + feetPositionOffset);
@@ -174,7 +176,7 @@ namespace Enemies.Thor
                         {
                             StartCoroutine(SummonLightning());
                         }
-                        if (canDash)
+                        else if (canDash)
                         {
                             canDash = false;
                             StartCoroutine(ChargeAttack());
@@ -252,7 +254,6 @@ namespace Enemies.Thor
         
             yield return new WaitForFixedUpdate();
             StopTargeting();
-            print("HammerSlam");
             rb.velocity = Vector2.zero;
             playSound.playSound3();
         
@@ -277,7 +278,6 @@ namespace Enemies.Thor
         
             yield return new  WaitForFixedUpdate();
             StopTargeting();
-            print("throwHammer");
             rb.velocity = Vector2.zero;
             playSound.playSound6();
             
@@ -293,7 +293,6 @@ namespace Enemies.Thor
 
             yield return new WaitForFixedUpdate(); 
             StopTargeting();
-            print("Summon Lightning");
             rb.velocity = Vector2.zero;
             playSound.playSound2();
             
@@ -348,14 +347,12 @@ namespace Enemies.Thor
         
             yield return new WaitForFixedUpdate();
             StopTargeting();
-            print("ChargeAttack");
             rb.velocity = Vector2.zero;
             playSound.playSound5();
         
             yield return new WaitUntil(() => currentState == Structs.ThorState.ChargeAttack);
             yield return new WaitUntil(() => readyToDash);
             rb.velocity = dashDirection * maxDashPower;
-            print(rb.velocity);
             readyToDash = false;
             yield return new WaitForSeconds(dashingTime);
         
@@ -493,11 +490,11 @@ namespace Enemies.Thor
         {
             if(!debug)
                 return;
-            /*
+            
             Gizmos.DrawWireSphere((Vector2)transform.position + feetPositionOffset,throwRange);
             Gizmos.DrawWireSphere((Vector2)transform.position + feetPositionOffset,midRange);
             Gizmos.DrawWireSphere((Vector2)transform.position + feetPositionOffset,meleeRange) ;
-            Gizmos.DrawRay(feetPositionOffset+(Vector2)transform.position,GetDirection());*/
+            Gizmos.DrawRay(feetPositionOffset+(Vector2)transform.position,GetDirection());
           
             Structs.Direction dir = GetStructDirection(target.position);
             Vector3 Ray = Vector3.zero;
