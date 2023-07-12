@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Cinemachine;
@@ -19,7 +20,10 @@ public class Cutscene : MonoBehaviour
     private bool animationStarted;
     private float tTarget;
 
+
+    private float zoomedOutSize;
     private Animator thorAnimator;
+    private float tZoom;
     private PlayerMovement playerMovement;
     private float tBack;
     // Start is called before the first frame update
@@ -32,6 +36,7 @@ public class Cutscene : MonoBehaviour
         endBackPosition = new Vector3(-4.5f,-4.15f,-10f);
         transform.position = endBackPosition;
         cinemachineVirtualCamera.Priority = 10;
+        zoomedOutSize = 2.5f;
         haltTime = 2f;
         targetDirectionTime = 1f;
         backDirectionTime = 2f;
@@ -44,7 +49,10 @@ public class Cutscene : MonoBehaviour
         if (Time.time < targetDirectionTimeStamp)
         {
             tTarget += Time.deltaTime / targetDirectionTime;
+            tZoom += Time.deltaTime / targetDirectionTime;
+
             transform.position = Vector3.Lerp(endBackPosition, startBackPosition, tTarget);
+            cinemachineVirtualCamera.m_Lens.OrthographicSize = Mathf.Lerp(2f, zoomedOutSize, tZoom);
         }
         else if (!animationStarted)
         {
@@ -60,6 +68,7 @@ public class Cutscene : MonoBehaviour
             {
                 cinemachineVirtualCamera.Priority = 0;
                 playerMovement.canMove = true;
+                GameObject.FindWithTag("MainCamera").GetComponentInChildren<CinemachineVirtualCamera>().m_Lens.OrthographicSize = zoomedOutSize;
                 Destroy(this);
             }
 

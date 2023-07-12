@@ -1,3 +1,4 @@
+using Cinemachine;
 using Enemies.Thor;
 using TestRandomWorldGeneration;
 using UnityEngine;
@@ -36,7 +37,8 @@ public class HittableThor : HittableObject
     protected override void Die(GameObject damageSource)
     {
         onThorDeath?.Invoke();
-
+        GameObject.FindGameObjectWithTag("MainCamera").GetComponentInChildren<CinemachineVirtualCamera>().m_Lens.OrthographicSize = 2f;
+        
         GameObject.FindGameObjectWithTag("Player").GetComponent<HitablePlayer>().isInvulnerable = true;
 
         thorScript.isDead = true;

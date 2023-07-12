@@ -1,4 +1,5 @@
 using System.Collections;
+using Cinemachine;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Audio;
@@ -167,6 +168,7 @@ public class HitablePlayer : HittableObject
 
     IEnumerator OnPlayerDeath()
     {
+        GameObject.FindWithTag("MainCamera").GetComponentInChildren<CinemachineVirtualCamera>().m_Lens.OrthographicSize = 2f;
         healthBar.SetActive(false);
         animator.SetTrigger("onDeath");
         Destroy(StopMusic);
