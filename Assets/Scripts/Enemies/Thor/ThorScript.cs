@@ -171,11 +171,29 @@ namespace Enemies.Thor
                     }
                     else if (distance < midRange)
                     {
-                        //close distance/Attack
-                        if (Time.time > summonLightningTimeStamp)
+                        // This range is for bringing the player to another range
+
+                        //if both attacks are ready, choose random
+                        if (Time.time > summonLightningTimeStamp && canDash)
+                        {
+                            int rand = Random.Range(0, 2);
+
+                            if (rand == 0)
+                                StartCoroutine(SummonLightning());
+                            else
+                            {
+                                canDash = false;
+                                StartCoroutine(ChargeAttack());
+                            }
+                        }
+                        
+                        //if only thís attack is ready
+                        else if (Time.time > summonLightningTimeStamp)
                         {
                             StartCoroutine(SummonLightning());
                         }
+
+                        //if only thís attack is ready
                         else if (canDash)
                         {
                             canDash = false;
@@ -339,9 +357,14 @@ namespace Enemies.Thor
         }
         private IEnumerator ChargeAttack()
         {
-            Vector2 dashDirection = (target.position - ((Vector3)feetPositionOffset + transform.position)).normalized;
             Structs.Direction animationDirection = GetStructDirection(target.position);
-        
+            
+            if (animationDirection == Structs.Direction.Left || animationDirection == Structs.Direction.Right)
+            {
+                canDash = true;
+                yield break;
+            }
+
             animator.SetInteger(Direction,(int)animationDirection);
             animator.SetTrigger(OnDashAttack);
         
@@ -352,18 +375,24 @@ namespace Enemies.Thor
         
             yield return new WaitUntil(() => currentState == Structs.ThorState.ChargeAttack);
             yield return new WaitUntil(() => readyToDash);
+            Vector2 dashDirection = (target.position - ((Vector3)feetPositionOffset + transform.position)).normalized;
             rb.velocity = dashDirection * maxDashPower;
             readyToDash = false;
             yield return new WaitForSeconds(dashingTime);
         
             yield return new WaitUntil(() => currentState == Structs.ThorState.Moving);
             canDash = true;
-            //StartTargeting();
         }
         private void ReadyForDash()
         {
             readyToDash = true;
         }
+
+        private void StopMoving()
+        {
+            rb.velocity = Vector2.zero;
+        }
+
         private void MakeReadyForLightning()
         {
             readyToSummon = true;
