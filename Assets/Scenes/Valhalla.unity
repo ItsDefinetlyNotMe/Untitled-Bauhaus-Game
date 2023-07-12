@@ -1582,7 +1582,7 @@ MonoBehaviour:
     offset: {x: -0.03, y: 0.25}
     type: 0
     difficulty: 0
-  - prefab: {fileID: 7519646610877873944, guid: 878e2f27faa700346ac0e0592be0370a, type: 3}
+  - prefab: {fileID: 2450496227188854435, guid: 24b787b8b82274ce4a6a009db5471bed, type: 3}
     size: {x: 1, y: 1}
     possibleMainObject: 0
     offset: {x: 0, y: 0.1}

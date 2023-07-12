@@ -72,9 +72,9 @@ TagManager:
   - name: CharacterAndObjects
     uniqueID: 2065248313
     locked: 0
-  - name: Overlaye
-    uniqueID: 3252897593
-    locked: 0
   - name: Invisible walls
     uniqueID: 4109067993
+    locked: 0
+  - name: Overlaye
+    uniqueID: 3252897593
     locked: 0
