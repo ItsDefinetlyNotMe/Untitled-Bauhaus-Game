@@ -10,6 +10,7 @@ public class Head : MonoBehaviour
     private ThrowHeadEnemy throwHeadEnemy;
     private Rigidbody2D rb;
     private Animator animator;
+    public bool isDying;
     void Start()
     {
         animator = GetComponent<Animator>();
@@ -20,6 +21,8 @@ public class Head : MonoBehaviour
     
     private void  Update()
     {
+        if(isDying)
+            return;
         string rolldirection = "Left"; 
         Vector3 dir = rb.velocity.normalized;
         if (dir.y > 0 && Mathf.Abs(dir.x) <= dir.y)

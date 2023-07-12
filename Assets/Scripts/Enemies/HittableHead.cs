@@ -23,9 +23,15 @@ public class HittableHead : HittableEnemy
 
     public override void GetHit(int damage, Vector2 damageSourcePosition, float knockbackMultiplier, GameObject damageSource, bool heavy)
     {
-        spriteRendererHead.enabled = false;
         col.enabled = false;
+        GetComponent<Head>().isDying = true;
+        GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+        GetComponent<Animator>().Play("HeadDeath");
         parentHittableScript.GetHit(9999,damageSourcePosition,0,damageSource,heavy);
+    }
 
+    private void DisableSpriteRenderer()
+    {
+        spriteRendererHead.enabled = false;
     }
 }
