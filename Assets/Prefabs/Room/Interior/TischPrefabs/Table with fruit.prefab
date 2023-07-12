@@ -79,7 +79,7 @@ SpriteRenderer:
   m_SortingLayerID: 2065248313
   m_SortingLayer: 6
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: beb51d234f7ab4dc2b9258f0c10da436, type: 3}
+  m_Sprite: {fileID: 21300000, guid: e10c1f3683743d946b784a540bd650b1, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -136,8 +136,8 @@ MonoBehaviour:
   currentHealth: 0
   size: 0
   isDying: 0
-  destroyedFirstSprite: {fileID: 21300000, guid: 2c37c9d3020d54a358d1723830fcf921, type: 3}
-  destroyedSecondSprite: {fileID: 21300000, guid: 71476bb7a6ec1409e9594f2fb0f65533, type: 3}
+  destroyedFirstSprite: {fileID: 21300000, guid: cb3b6819ca350aa48b52f4c4263338dc, type: 3}
+  destroyedSecondSprite: {fileID: 21300000, guid: 8e480ac09d1f619458c4e04ab6a35ff3, type: 3}
   destroyedThirdSprite: {fileID: 21300000, guid: cd26e69855c56624ea3a320b92faccda, type: 3}
   sound: {fileID: 8139180105924222697}
 --- !u!61 &8139180104365832836
