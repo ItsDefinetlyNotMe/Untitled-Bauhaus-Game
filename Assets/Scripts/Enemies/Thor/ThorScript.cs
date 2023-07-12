@@ -220,31 +220,22 @@ namespace Enemies.Thor
             }
             else if (currentPhase == 2)
             {
-                if (currentState == Structs.ThorState.Moving)
+                //madness begins
+                if (!targeting)
                 {
-                    //madness begins
-                    if (!targeting)
-                    {
-                        StartTargeting();
-                        InvokeRepeating(nameof(PlayFootStepSound), 0.3f, 0.5f);
-                    }
+                    StartTargeting();
+                    InvokeRepeating(nameof(PlayFootStepSound), 0.3f, 0.5f);
+                }
 
-                    SetAnimator(GetDirection());
-                    if(Time.time > laserRestartTimeStamp && !isActiveLaser)
-                        StartLasers();
-                    else if(laserStopTimeStamp < Time.time && isActiveLaser)
-                        StopLasers();
-                        
-                }
-                else
+                SetAnimator(GetDirection());
+                if (Time.time > laserRestartTimeStamp && !isActiveLaser)
                 {
-                    if (targeting)
-                    {
-                        StopTargeting();
-                        CancelInvoke(nameof(PlayFootStepSound));
-                        rb.velocity = Vector3.zero;
-                    }
+                    print("StartLasers");
+                    StartLasers();
+
                 }
+                else if(laserStopTimeStamp < Time.time && isActiveLaser)
+                    StopLasers();                        
             }
         }
         private IEnumerator BaseAttack()
