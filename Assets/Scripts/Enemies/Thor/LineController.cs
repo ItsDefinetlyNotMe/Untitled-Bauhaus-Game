@@ -143,7 +143,7 @@ public class LineController : MonoBehaviour
 
     public void Deactivate()
     {
+        GetComponent<EdgeCollider2D>().enabled = false;
         isActive = false;
-        edgeCollider2D.enabled = false;
     }
 }

@@ -72,7 +72,8 @@ public class PlayerAnimator : MonoBehaviour
         animator.Play(localAttackDirection);
 
         // Play woosh animation
-        wooshAnimator.Play(Regex.Replace(localAttackDirection, "Attack", "Woosh"));
+        if (number != 2)
+            wooshAnimator.Play(Regex.Replace(localAttackDirection, "Attack", "Woosh"));
     }
 
     public void PlayHeavyAttackAnimation(Structs.Direction attackDirection)

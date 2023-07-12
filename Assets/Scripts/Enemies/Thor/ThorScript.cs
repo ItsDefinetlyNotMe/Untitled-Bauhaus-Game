@@ -466,9 +466,9 @@ namespace Enemies.Thor
             print("Stopping lasers...");
             isActiveLaser = false;
             laserRestartTimeStamp = Time.time + laserCooldown;
-            laserParent.gameObject.SetActive(false);
             for (int x = 0; x < laserCount; ++x)
                 lineController[x].Deactivate();
+            laserParent.gameObject.SetActive(false);
         }
         public void SetPhase(int phase)
         {
