@@ -12,6 +12,7 @@ public class HittableThor : HittableObject
     
     public delegate void ThorDeathDelegate();
     public static ThorDeathDelegate onThorDeath;
+    public GameObject HitSound;
     protected override void Start()
     {
         base.Start();
@@ -22,6 +23,7 @@ public class HittableThor : HittableObject
     public override void GetHit(int damage, Vector2 damageSourcePosition, float knockbackMultiplier, GameObject damageSource, bool heavy)
     {
         base.GetHit(damage, damageSourcePosition, knockbackMultiplier, damageSource, heavy);
+        HitSound.GetComponent<RandomSound>().PlayRandom1();
     }
 
     protected override void TakeDamage(int damage, GameObject damageSource)
