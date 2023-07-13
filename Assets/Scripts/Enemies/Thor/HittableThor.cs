@@ -22,6 +22,7 @@ public class HittableThor : HittableObject
 
     public override void GetHit(int damage, Vector2 damageSourcePosition, float knockbackMultiplier, GameObject damageSource, bool heavy)
     {
+
         base.GetHit(damage, damageSourcePosition, knockbackMultiplier, damageSource, heavy);
         HitSound.GetComponent<RandomSound>().PlayRandom1();
     }
