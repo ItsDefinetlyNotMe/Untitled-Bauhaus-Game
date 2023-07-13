@@ -234,7 +234,10 @@ namespace Enemies.Thor
 
                 }
                 else if(laserStopTimeStamp < Time.time && isActiveLaser)
-                    StopLasers();                        
+                    StopLasers();
+
+                if (isDead)
+                    rb.velocity = Vector3.zero;
             }
         }
         private IEnumerator BaseAttack()
