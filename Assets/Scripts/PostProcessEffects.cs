@@ -73,18 +73,18 @@ public class PostProcessEffects : MonoBehaviour
 
     public void GoldVignette(float goldDuration)
     {
-        StopAllCoroutines(); // Stop all running coroutines before starting new ones
+        StopAllCoroutines(); 
 
-        StartCoroutine(ChangeVignetteColor(Color.yellow, goldDuration)); // Change the vignette color to gold
+        StartCoroutine(ChangeVignetteColor(new Color(0.8f, 0.8f, 0f), goldDuration)); 
 
-        StartCoroutine(DelayedChangeVignetteIntensity(0.6f, transitionDuration)); // Start with a stronger vignette intensity after a delay
+        StartCoroutine(DelayedChangeVignetteIntensity(0.6f, transitionDuration)); 
         StartCoroutine(DelayedChangeChromaticAberrationIntensity(0.4f, transitionDuration));
 
-        StartCoroutine(WeakenVignetteIntensity(0.2f, goldDuration, delayedTransitionDuration)); // Gradually weaken the vignette intensity with a longer delay
+        StartCoroutine(WeakenVignetteIntensity(0.2f, goldDuration, delayedTransitionDuration)); 
 
-        StartCoroutine(ChangeVignetteColor(Color.black, transitionDuration, goldDuration)); // Change the vignette color to black
+        StartCoroutine(ChangeVignetteColor(Color.black, transitionDuration, goldDuration)); 
 
-        StartCoroutine(FadeOutChromaticAberrationIntensity(delayedTransitionDuration + goldDuration + transitionDuration)); // Fade out the chromatic aberration intensity after the transitions are complete
+        StartCoroutine(FadeOutChromaticAberrationIntensity(delayedTransitionDuration + goldDuration + transitionDuration));
     }
 
     IEnumerator FadeOutChromaticAberrationIntensity(float delay)
@@ -93,7 +93,7 @@ public class PostProcessEffects : MonoBehaviour
 
         float startIntensity = chromaticAberration.intensity.value;
         float elapsedTime = 0.0f;
-        float fadeDuration = 1.0f; // Adjust the fade duration as desired
+        float fadeDuration = 1.0f; 
 
         while (elapsedTime < fadeDuration)
         {
