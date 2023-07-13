@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Drawing;
 using TMPro;
@@ -13,6 +14,7 @@ namespace Enemies
 {
     public class HittableEnemy : HittableObject
     {
+        private float lastTimeTouchedFloor = 0;
         [SerializeField]
         private GameObject floatingDamage;
         protected Animator animator;
@@ -42,6 +44,18 @@ namespace Enemies
             healthBar.maxValue = maxHealth;
             healthBar.value = maxHealth;
         }
+
+        private void Update()
+        {
+            if (lastTimeTouchedFloor > 10f)
+            {
+                print("OUCH");
+                TakeDamage(3,gameObject);
+            }
+
+            lastTimeTouchedFloor += Time.deltaTime;
+        }
+
         public override void GetHit(int damage, Vector2 damageSourcePosition, float knockbackMultiplier,GameObject damageSource,bool heavy)
         {
             
@@ -110,6 +124,11 @@ namespace Enemies
             {
                 Debug.Log("no Enemy Movementscript");
             }
+        }
+
+        public void TouchingFloor()
+        {
+            lastTimeTouchedFloor = 0;
         }
 
     }

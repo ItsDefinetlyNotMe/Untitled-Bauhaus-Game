@@ -17,11 +17,12 @@ TagManager:
   - Clone
   - Thor
   - AttackWoosh
+  - Floor
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Floor
   - Water
   - UI
   - HittableObjectLow
