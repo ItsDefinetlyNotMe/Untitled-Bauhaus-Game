@@ -691,7 +691,7 @@ GameObject:
   - component: {fileID: 5831769530074572751}
   m_Layer: 10
   m_Name: Raven easy
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

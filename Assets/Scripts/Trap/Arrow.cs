@@ -21,6 +21,8 @@ public class Arrow : MonoBehaviour
     {
         if (hitInfo.name == "CrossbowStand(Clone)")
             return;
+        if(hitInfo.CompareTag("Floor"))
+            return;
 
         HittableObject script  = hitInfo.GetComponent<HittableObject>();
         if(script == null)

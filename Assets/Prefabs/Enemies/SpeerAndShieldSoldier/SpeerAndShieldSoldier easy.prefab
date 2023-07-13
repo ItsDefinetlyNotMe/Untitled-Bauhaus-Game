@@ -368,7 +368,7 @@ GameObject:
   - component: {fileID: 9055269523312533792}
   m_Layer: 8
   m_Name: SpeerAndShieldSoldier easy
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -638,6 +638,8 @@ MonoBehaviour:
   randomSound5: {fileID: 0}
   randomSound6: {fileID: 0}
   randomSound7: {fileID: 0}
+  randomSound8: {fileID: 0}
+  randomSound9: {fileID: 0}
 --- !u!1 &3168918631648191639
 GameObject:
   m_ObjectHideFlags: 0
