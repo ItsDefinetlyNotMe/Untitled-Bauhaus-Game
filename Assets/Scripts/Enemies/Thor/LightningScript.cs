@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class LightningScript : MonoBehaviour
 {
-    [SerializeField] private int damage = 30;
+    [SerializeField] private int damage = 15;
     void Start()
     {
         Destroy(gameObject,2f);

@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class ShatteredGround : MonoBehaviour
 {
-    [SerializeField] int damage = 60;
+    [SerializeField] int damage = 30;
     // Start is called before the first frame update
     void Start()
     {

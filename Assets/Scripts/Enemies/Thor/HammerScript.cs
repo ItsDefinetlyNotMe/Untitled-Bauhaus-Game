@@ -5,7 +5,7 @@ public class HammerScript : MonoBehaviour
 {
     private Vector3 flyDirection;
     private Collider2D col;
-    private float speed = 7f;
+    private float speed = 5f;
     private int damage = 10;
     
     private Rigidbody2D rb;

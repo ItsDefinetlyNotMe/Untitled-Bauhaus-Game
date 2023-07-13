@@ -20,12 +20,12 @@ public class DashDamage : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D other)
     {
         if(other.transform.CompareTag("Player"))
-            other.transform.GetComponent<HitablePlayer>().GetHit(20,transform.parent.position,2000f,transform.parent.gameObject,false);
+            other.transform.GetComponent<HitablePlayer>().GetHit(10,transform.parent.position,2000f,transform.parent.gameObject,false);
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
         if(other.CompareTag("Player"))
-            other.transform.GetComponent<HitablePlayer>().GetHit(40,transform.parent.position,2000f,transform.parent.gameObject,false);
+            other.transform.GetComponent<HitablePlayer>().GetHit(25,transform.parent.position,2000f,transform.parent.gameObject,false);
     }
 }

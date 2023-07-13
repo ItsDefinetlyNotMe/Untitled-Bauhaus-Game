@@ -492,12 +492,12 @@ namespace Enemies.Thor
         {
             while (!isDead)
             {
-                for (int i = 0; i < 15; ++i)
+                for (int i = 0; i < 7; ++i)
                 {//for some reason spawns lightning in the same postion 3 times
                     Vector3 randomVector = transform.position + new Vector3(Random.Range(-3f, 3f), Random.Range(-3f, 3f), 0f);
                     var redLight = Instantiate(redLightningPrefab,randomVector,
                         quaternion.identity);
-                    float rand = Random.Range(1f, 4f);
+                    float rand = Random.Range(1f, 3f);
                     redLight.transform.localScale = new Vector3(rand, rand, rand);
                     yield return new WaitForSeconds(0.05f);
                 }

@@ -42,7 +42,7 @@ public class LineController : MonoBehaviour
             edgeCollider2D.enabled = true;
         }
         //calculate next position of laser
-        angle  += Time.deltaTime;
+        angle  += Time.deltaTime/2;
         float X = Mathf.Cos(angle);
         float Y = Mathf.Sin(angle);  
         
