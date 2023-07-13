@@ -497,6 +497,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3850136954240267112}
   - component: {fileID: 7882026609421658452}
+  - component: {fileID: 6283387291151417361}
   m_Layer: 8
   m_Name: HitSound
   m_TagString: Untagged
@@ -615,6 +616,23 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &6283387291151417361
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1416682361958114099}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ddc489c590a50542a22bbe9c9068444, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioSources1:
+  - {fileID: 8300000, guid: fb96110df2f25b445873a83d1f06d9a4, type: 3}
+  randomSound1: {fileID: 7882026609421658452}
+  audioSources2: []
+  randomSound2: {fileID: 0}
 --- !u!1 &1480623079947658794
 GameObject:
   m_ObjectHideFlags: 0
