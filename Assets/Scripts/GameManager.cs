@@ -36,7 +36,10 @@ public class GameManager : MonoBehaviour
         
         PlayerPrefs.SetInt("boolFirstTimeTalk" + "Valkyrie Lana" + slot, 0);
         PlayerPrefs.SetInt("boolFirstTimeTalk" + "Sven" + slot, 0);
-        PlayerPrefs.SetInt("ThorAlive", 0);
+
+        //thor fight
+        PlayerPrefs.SetInt("ThorAlive" + slot, 0);
+        PlayerPrefs.SetInt("ThorReached" + slot, 0);
 
 
         SaveSlotButton[] slotButtons = FindObjectsByType<SaveSlotButton>(FindObjectsSortMode.None);
@@ -58,7 +61,7 @@ public class GameManager : MonoBehaviour
 
     private void SetBoolThorDeath()
     {
-        PlayerPrefs.SetInt("ThorAlive", 1);
+        PlayerPrefs.SetInt("ThorAlive" + saveSlot, 1);
         PlayerPrefs.Save();
     }
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
@@ -89,8 +92,9 @@ public class GameManager : MonoBehaviour
         if (roomNumber > PlayerPrefs.GetInt("highestRoom" + saveSlot))
             PlayerPrefs.SetInt("highestRoom" + saveSlot, roomNumber);
 
-        if (roomNumber >= 10 && PlayerPrefs.GetInt("ThorAlive") == 0)
+        if (roomNumber >= 8 && PlayerPrefs.GetInt("ThorAlive" + saveSlot) == 0)
         {
+            PlayerPrefs.SetInt("ThorReached" + saveSlot, 1);
             SceneManager.LoadScene("ThorBossFight");
             return;
         }
