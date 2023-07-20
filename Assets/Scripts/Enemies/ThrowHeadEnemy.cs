@@ -114,6 +114,7 @@ namespace Enemies
 
             yield return new WaitWhile(()=>currentEnemyState != Structs.EnemyState.Recharging);
             spriteRenderer.enabled = true;
+            col.enabled = true;
             head.gameObject.SetActive(false);
             yield return new WaitWhile(()=>currentEnemyState == Structs.EnemyState.Recharging);
             respawning = false;
