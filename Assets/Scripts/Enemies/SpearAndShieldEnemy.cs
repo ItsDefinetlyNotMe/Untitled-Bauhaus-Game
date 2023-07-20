@@ -17,7 +17,7 @@ public class SpearAndShieldEnemy : MeleeEnemy
     private static readonly int BlockDirection = Animator.StringToHash("BlockDirection");
     private static readonly int OnSmallAttackEnd = Animator.StringToHash("onSmallAttackEnd");
     //private static readonly int OnAttackEnd = Animator.StringToHash("onAttackEnd");
-    private bool isDefenseBroken;
+    public bool isDefenseBroken;
 
     private Direction playerDirection;
     private void Start()
@@ -41,13 +41,20 @@ public class SpearAndShieldEnemy : MeleeEnemy
 
     protected override IEnumerator Attack(Direction direction,Action<bool> callback)
     {
-        StopTargeting();
-        rb.velocity = Vector2.zero;
         ChangeState(EnemyState.ChargingAttack);
         int[] attackdirection = new int[3];
         for (int i = 0; i < 3; ++i)
             attackdirection[i] = UnityEngine.Random.Range(0, 3);
+        StopTargeting();
+        rb.velocity = Vector2.zero;
         yield return new WaitForSeconds(chargeAttackTime);
+        if (isDefenseBroken)
+        {
+            readyToAttack = true;
+            yield break;
+        }
+        StopTargeting();
+        rb.velocity = Vector2.zero;
         animator.SetTrigger(OnAttack);
         animator.SetInteger(AttackDirection,(int)direction);
         // animation will change state to attacking

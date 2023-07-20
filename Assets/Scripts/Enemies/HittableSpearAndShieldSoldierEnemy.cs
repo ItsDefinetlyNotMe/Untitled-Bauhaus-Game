@@ -44,6 +44,7 @@ public class HittableSpearAndShieldSoldierEnemy : HittableEnemy
         isBroken = false;
         spearAndShieldEnemy.ChangeState(Structs.EnemyState.Moving);
         spearAndShieldEnemy.readyToAttack = true;
+        spearAndShieldEnemy.isDefenseBroken = false;
     }
 
     

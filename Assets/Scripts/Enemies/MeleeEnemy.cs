@@ -78,6 +78,8 @@ abstract public class MeleeEnemy : EnemyMovement
 
         public virtual void ChangeState(EnemyState nextState)
         {
+            if(nextState == EnemyState.Moving)
+                StartTargeting();
             currentEnemyState = nextState;
         }
         /// <summary> Needs to be overriden, implements The Attack  </summary>
