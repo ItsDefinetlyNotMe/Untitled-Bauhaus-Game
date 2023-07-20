@@ -346,6 +346,12 @@ public class UpgradeWindow : MonoBehaviour
         maxHealthBasePrice = int.Parse(transform.GetChild(0).GetChild(1).GetChild(2).GetChild(0).GetComponent<TMP_Text>().text);
         damageMultiplierBasePrice = int.Parse(transform.GetChild(0).GetChild(2).GetChild(2).GetChild(0).GetComponent<TMP_Text>().text);
         critChanceBasePrice = int.Parse(transform.GetChild(0).GetChild(5).GetChild(2).GetChild(0).GetComponent<TMP_Text>().text);
+
+        if (PlayerPrefs.GetInt("damageMultiplier" + gameManager.saveSlot) == 0)
+            PlayerPrefs.SetInt("damageMultiplier" + gameManager.saveSlot, 100);
+
+        if (PlayerPrefs.GetInt("critDamage" + gameManager.saveSlot) == 0)
+            PlayerPrefs.SetInt("critDamage" + gameManager.saveSlot, 150);
     }
 
     private void Start()
