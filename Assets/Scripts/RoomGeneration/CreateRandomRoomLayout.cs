@@ -95,7 +95,7 @@ namespace TestRandomWorldGeneration
 
             int saveSlot = FindObjectOfType<GameManager>().saveSlot;
 
-            if (FindObjectOfType<GameManager>().roomNumber == 7 && PlayerPrefs.GetInt("ThorAlive" + saveSlot) == 0)
+            if (FindObjectOfType<GameManager>().roomNumber == 9 && PlayerPrefs.GetInt("ThorAlive" + saveSlot) == 0)
             {
                 SetLootForBoss();
             }

@@ -8,6 +8,8 @@ public class ThorPortal : MonoBehaviour
 {
     private void Start()
     {
+        return;
+
         if (PlayerPrefs.GetInt("ThorReached" + FindObjectOfType<GameManager>().saveSlot) == 1)
         {
             transform.GetChild(0).gameObject.SetActive(true);

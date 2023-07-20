@@ -92,7 +92,7 @@ public class GameManager : MonoBehaviour
         if (roomNumber > PlayerPrefs.GetInt("highestRoom" + saveSlot))
             PlayerPrefs.SetInt("highestRoom" + saveSlot, roomNumber);
 
-        if (roomNumber >= 8 && PlayerPrefs.GetInt("ThorAlive" + saveSlot) == 0)
+        if (roomNumber >= 10 && PlayerPrefs.GetInt("ThorAlive" + saveSlot) == 0)
         {
             PlayerPrefs.SetInt("ThorReached" + saveSlot, 1);
             SceneManager.LoadScene("ThorBossFight");
