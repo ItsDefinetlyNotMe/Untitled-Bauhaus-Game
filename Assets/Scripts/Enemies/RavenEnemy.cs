@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 using static Structs;
 
@@ -15,12 +16,19 @@ namespace Enemies
         [Header("DashVisual")]
         RavenDrawPath ravenDrawPath; 
         private float dashRange;
+        private float currentDashRange;
         private static readonly int IsDashing = Animator.StringToHash("isDashing");
 
         //Sounds
         public GameObject wingSound;
         public GameObject RavenSings;
         public GameObject RavenAttackSound;
+
+        private Vector3 DEBUGTRANSFORM;
+        Vector3 DEBUGR;
+        Vector3 DEBUGL;
+        private Vector3 DEBUGDIR;
+        
 
         protected void Start(){
             base.StartUp();
@@ -69,6 +77,53 @@ namespace Enemies
                 }
             }
         }
+
+        protected override void StartAttack()
+        {
+            int arraysize = 10;
+            ContactFilter2D rayCastFilter = new ContactFilter2D
+            {
+                layerMask = projectileLayer
+            };
+            RaycastHit2D[]  results = new RaycastHit2D[arraysize];
+            
+            Vector2 direction = target.position - Vector3.down * target.GetComponentInParent<Collider2D>().offset.x - transform.position;//TODO
+            Vector2 rightOffset = Vector2.Perpendicular(direction).normalized * 0.21f;
+            Vector2 leftOffset = Vector2.Perpendicular(-direction).normalized * 0.21f;
+
+            DEBUGR = rightOffset;
+            DEBUGL = leftOffset;
+            DEBUGDIR = direction;
+            DEBUGTRANSFORM = transform.position + rayOffset;
+            
+            RaycastHit2D hit2DRight = Physics2D.Raycast((Vector2)transform.position + rightOffset, direction,20f,projectileLayer);
+            RaycastHit2D hit2DLeft = Physics2D.Raycast((Vector2)transform.position + leftOffset, direction,20f,projectileLayer);
+            currentDashRange = dashRange;
+            //float hitDistance = Mathf.Infinity; 
+            //Set Distance
+            if (hit2DRight && hit2DLeft)
+                 currentDashRange = Mathf.Min(hit2DRight.distance, hit2DLeft.distance);
+            
+            arraysize = Physics2D.Raycast(transform.position + rayOffset, direction.normalized, rayCastFilter, results, maximumRange);//Raycast to check wether player is behind an Object
+            for(int i = 0; i < arraysize; ++i)
+            {
+                int layer = results[i].collider.gameObject.layer;
+                if(projectileObstacleLayer == (projectileObstacleLayer | (1 << layer))){//if the player is not hittable in a straight line, reposition
+                    break;
+                }
+                if(results[i].transform.CompareTag("Player")||results[i].transform.CompareTag("Clone"))
+                {
+                    if(results[i].distance > currentDashRange)
+                        return;
+                    attackReady = false;
+                    StartCoroutine(Attack((attackReady)=>
+                    {
+                        this.attackReady = true;
+                        ChangeState(EnemyState.Moving);
+                    }));
+                }
+            }
+        }
         /// <summary> Raven Attacks Dashing into the enemy, Pattern: charging attack, dashing as attack, Recovering from attack</summary>
         protected override IEnumerator Attack(Action<bool> callback)
         {//channeling Dash & Dashing & recovering 
@@ -80,7 +135,7 @@ namespace Enemies
             Vector3 chargePoint = target.position;
             //Draw Path where he flies
             var position = transform.position;
-            ravenDrawPath.DrawPath(position,chargePoint,dashRange,projectileObstacleLayer);
+            ravenDrawPath.DrawPath(position,chargePoint,currentDashRange,projectileObstacleLayer);
             yield return new WaitForSeconds(chargeAttackTime);
         
             //Dash
@@ -135,6 +190,13 @@ namespace Enemies
                 rb.isKinematic = false;
             }*/
             currentEnemyState = nextState;
+        }
+
+        private void OnDrawGizmos()
+        {
+            Gizmos.DrawRay(DEBUGTRANSFORM + DEBUGR,DEBUGDIR*20f);
+            Gizmos.DrawRay(DEBUGTRANSFORM + DEBUGL,DEBUGDIR*20f);
+
         }
     }
 }

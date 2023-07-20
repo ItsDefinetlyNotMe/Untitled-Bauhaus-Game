@@ -37,7 +37,7 @@ namespace Enemies
         [SerializeField] protected float chargeAttackTime = .6f;
         [SerializeField] protected float rechargingTime = 1f;
         [SerializeField] protected float projectileSpeed = 1f;
-        private bool attackReady = true;
+        protected bool attackReady = true;
         protected Vector3 rayOffset;
     
         [Header("Debug",order = 2)]
@@ -88,7 +88,7 @@ namespace Enemies
             }
         }
         /// <summary> Raycasting to check wether PLayer is in LOS, if true attacks </summary>
-        private void StartAttack()
+        protected virtual void StartAttack()
         {
             int arraysize = 10;
             ContactFilter2D rayCastFilter = new ContactFilter2D
@@ -96,7 +96,10 @@ namespace Enemies
                 layerMask = projectileLayer
             };
             RaycastHit2D[]  results = new RaycastHit2D[arraysize];
-            Vector2 direction = target.position - 0*new Vector3(0f,0.2f,0) - transform.position;//TODO
+            
+            Vector2 direction = target.position - Vector3.down * target.GetComponentInParent<Collider2D>().offset.x - transform.position;
+            
+            
             arraysize = Physics2D.Raycast(transform.position + rayOffset, direction.normalized, rayCastFilter, results, maximumRange);//Raycast to check wether player is behind an Object
             debugDirection = direction.normalized;
             for(int i = 0; i < arraysize; ++i)
