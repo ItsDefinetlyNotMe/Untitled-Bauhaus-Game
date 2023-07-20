@@ -212,7 +212,7 @@ public class UpgradeWindow : MonoBehaviour
 
         // round it to 2 decimal places
         int critDamage = PlayerPrefs.GetInt("critDamage" + gameManager.saveSlot);
-        float critDamageFloat = (float)critDamage / 100;
+        float critDamageFloat = critDamage / 100f;
         float roundedCritDamage = (float)Math.Round(critDamageFloat, 2);
         critDamageDisplay.GetChild(1).GetComponent<TMP_Text>().text = "x" + roundedCritDamage.ToString();
         TMP_Text text = critDamageDisplay.GetChild(2).GetChild(0).GetComponent<TMP_Text>();
