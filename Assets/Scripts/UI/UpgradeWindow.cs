@@ -347,6 +347,14 @@ public class UpgradeWindow : MonoBehaviour
         damageMultiplierBasePrice = int.Parse(transform.GetChild(0).GetChild(2).GetChild(2).GetChild(0).GetComponent<TMP_Text>().text);
         critChanceBasePrice = int.Parse(transform.GetChild(0).GetChild(5).GetChild(2).GetChild(0).GetComponent<TMP_Text>().text);
 
+        if (FindObjectsByType<GameManager>(FindObjectsSortMode.InstanceID).Length > 1)
+        {
+            print("ERROR: Too many gameManagers");
+            return;
+        }
+
+        gameManager = FindObjectsByType<GameManager>(FindObjectsSortMode.InstanceID)[0];
+
         if (PlayerPrefs.GetInt("damageMultiplier" + gameManager.saveSlot) == 0)
             PlayerPrefs.SetInt("damageMultiplier" + gameManager.saveSlot, 100);
 
